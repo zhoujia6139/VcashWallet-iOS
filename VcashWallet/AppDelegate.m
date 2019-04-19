@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #include "secp256k1.h"
 #include "blake2.h"
+#include "greetings.h"
 
 @interface AppDelegate ()
 
@@ -19,6 +20,24 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self initLoger];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    
+    if ([[UserCenter sharedInstance] checkUserHaveWallet])
+    {
+        [NavigationCenter showPasswordVerifyPage];
+    }
+    else
+    {
+        [NavigationCenter showWelcomePage];
+    }
+    
+    char* temp = "zhoujia";
+    const char* ret = rust_greeting(temp);
+    NSLog(@"%@", [NSString stringWithUTF8String:ret]);
+    
     secp256k1_context* context = secp256k1_context_create(SECP256K1_CONTEXT_NONE);
     
     uint8_t key[BLAKE2B_KEYBYTES];
@@ -45,6 +64,16 @@
     return YES;
 }
 
+-(void)initLoger
+{
+    [DDLog addLogger:[DDTTYLogger sharedInstance]]; // TTY = Xcode console
+    
+    DDFileLogger *fileLogger = [[DDFileLogger alloc] init]; // File Logger
+    fileLogger.maximumFileSize = 10 * 1024 * 1024;
+    //fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+    fileLogger.logFileManager.maximumNumberOfLogFiles = 3;
+    [DDLog addLogger:fileLogger];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

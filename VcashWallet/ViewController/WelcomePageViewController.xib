@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WelcomePageViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hSq-FS-u8t">
+                    <rect key="frame" x="0.0" y="20" width="375" height="200"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vcash钱包" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nBO-Kv-1kv">
+                            <rect key="frame" x="147" y="53" width="81.5" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.69220367504372504" green="0.69083467858900116" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="nBO-Kv-1kv" firstAttribute="centerX" secondItem="hSq-FS-u8t" secondAttribute="centerX" id="JQb-70-GaC"/>
+                        <constraint firstAttribute="height" constant="200" id="hEe-y8-ZC4"/>
+                        <constraint firstItem="nBO-Kv-1kv" firstAttribute="top" secondItem="hSq-FS-u8t" secondAttribute="top" constant="53" id="z2O-mx-55M"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPW-Go-dQH">
+                    <rect key="frame" x="137.5" y="280" width="100" height="40"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="1Am-JQ-pEg"/>
+                        <constraint firstAttribute="height" constant="40" id="maW-46-j3o"/>
+                    </constraints>
+                    <state key="normal" title="创建钱包">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="clickCreate:" destination="-1" eventType="touchUpInside" id="Ikg-JM-kZl"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ude-ua-YR5">
+                    <rect key="frame" x="137.5" y="350" width="100" height="40"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="gXF-mr-j9Z"/>
+                        <constraint firstAttribute="width" constant="100" id="ivf-3F-Ztu"/>
+                    </constraints>
+                    <state key="normal" title="恢复钱包">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="clickRestore:" destination="-1" eventType="touchUpInside" id="bPM-Vg-Duw"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="uPW-Go-dQH" firstAttribute="top" secondItem="hSq-FS-u8t" secondAttribute="bottom" constant="60" id="0KM-j6-X95"/>
+                <constraint firstItem="uPW-Go-dQH" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="MDO-dS-ORa"/>
+                <constraint firstItem="hSq-FS-u8t" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="S3V-eN-TWx"/>
+                <constraint firstItem="ude-ua-YR5" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="X58-oG-wAo"/>
+                <constraint firstItem="hSq-FS-u8t" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="acX-Ue-geo"/>
+                <constraint firstItem="ude-ua-YR5" firstAttribute="top" secondItem="uPW-Go-dQH" secondAttribute="bottom" constant="30" id="gKn-21-Btd"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="hSq-FS-u8t" secondAttribute="trailing" id="ke3-es-oop"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+        </view>
+    </objects>
+</document>
