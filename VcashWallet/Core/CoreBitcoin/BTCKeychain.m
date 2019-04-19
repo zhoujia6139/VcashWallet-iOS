@@ -11,11 +11,12 @@
 
 #define CHECK_IF_CLEARED if (_cleared) { [[NSException exceptionWithName:@"BTCKeychain: instance was already cleared." reason:@"" userInfo:nil] raise]; }
 
-#define BTCKeychainMainnetPrivateVersion 0x0488ADE4
-#define BTCKeychainMainnetPublicVersion  0x0488B21E
 
-#define BTCKeychainTestnetPrivateVersion 0x04358394
-#define BTCKeychainTestnetPublicVersion  0x043587CF
+#define BTCKeychainTestnetPrivateVersion 0x03273A10
+#define BTCKeychainMainnetPrivateVersion 0x033c04A4
+
+#define BTCKeychainTestnetPublicVersion  0x03273e4B
+#define BTCKeychainMainnetPublicVersion  0x033C08DF
 
 @interface BTCKeychain ()
 @property(nonatomic, readwrite) NSMutableData* chainCode;
@@ -58,7 +59,7 @@
     if (self = [super init]) {
         if (!seed) return nil;
 
-        NSMutableData* hmac = BTCHMACSHA512([@"Bitcoin seed" dataUsingEncoding:NSASCIIStringEncoding], seed);
+        NSMutableData* hmac = BTCHMACSHA512([@"IamVoldemort" dataUsingEncoding:NSASCIIStringEncoding], seed);
         _privateKey = BTCDataRange(hmac, NSMakeRange(0, 32));
         _chainCode  = BTCDataRange(hmac, NSMakeRange(32, 32));
         BTCDataClear(hmac);
