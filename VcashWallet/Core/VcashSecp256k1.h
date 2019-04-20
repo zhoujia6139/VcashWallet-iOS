@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(NSData*)blindSwitch:(uint64_t)value withKey:(NSData*)key;
 
+-(BOOL)verifyEcSecretKey:(NSData*)data;
+
 @end
 
 NS_ASSUME_NONNULL_END

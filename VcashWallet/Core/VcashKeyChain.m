@@ -11,6 +11,8 @@
 #import "VcashSecp256k1.h"
 #import "VcashKeychainPath.h"
 #include "blake2.h"
+#include "VcashConstant.h"
+#import "VcashSecretKey.h"
 
 @implementation VcashKeyChain
 {
@@ -32,14 +34,19 @@
     return data;
 }
 
--(NSData*)createNonce:(NSData*)commitment {
+-(VcashSecretKey*)createNonce:(NSData*)commitment {
     NSData* rootKey = [self deriveKey:0 andKeypath:nil];
     uint8_t ret[32];
-    if( blake2b( ret, rootKey.bytes, commitment.bytes, 32, 32, 32 ) < 0)
+    if( blake2b( ret, rootKey.bytes, commitment.bytes, 32, SECRET_KEY_SIZE, PEDERSEN_COMMITMENT_SIZE ) < 0)
     {
         return nil;
     }
-    return [NSData dataWithBytes:ret length:32];
+    NSData* keydata = [NSData dataWithBytes:ret length:32];
+    if ([_secp verifyEcSecretKey:keydata]){
+        return [[VcashSecretKey alloc] initWithDate:keydata];
+    }
+    
+    return nil;
 }
 
 @end
