@@ -95,6 +95,9 @@
 		ED44BFE722697EC60042928E /* PhraseWordShowViewCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFE622697EC60042928E /* PhraseWordShowViewCreator.m */; };
 		ED44BFEA226984EB0042928E /* PinPasswordSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFE8226984EB0042928E /* PinPasswordSetViewController.m */; };
 		ED44BFF02269C87E0042928E /* VcashKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFEF2269C87E0042928E /* VcashKeyChain.m */; };
+		ED44BFF62269D0540042928E /* VcashSecp256k1.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFF52269D0540042928E /* VcashSecp256k1.m */; };
+		ED44BFF9226AC8320042928E /* VcashKeychainPath.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFF8226AC8320042928E /* VcashKeychainPath.m */; };
+		ED44BFFC226AFE160042928E /* VcashWallet.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFFB226AFE160042928E /* VcashWallet.m */; };
 		EDA5148F22686DEC0011138F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA5148E22686DEC0011138F /* AppDelegate.m */; };
 		EDA5149222686DEC0011138F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA5149122686DEC0011138F /* ViewController.m */; };
 		EDA5149522686DEC0011138F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDA5149322686DEC0011138F /* Main.storyboard */; };
@@ -289,6 +292,12 @@
 		ED44BFE9226984EB0042928E /* PinPasswordSetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinPasswordSetViewController.h; sourceTree = "<group>"; };
 		ED44BFEE2269C87E0042928E /* VcashKeyChain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashKeyChain.h; sourceTree = "<group>"; };
 		ED44BFEF2269C87E0042928E /* VcashKeyChain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashKeyChain.m; sourceTree = "<group>"; };
+		ED44BFF42269D0540042928E /* VcashSecp256k1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashSecp256k1.h; sourceTree = "<group>"; };
+		ED44BFF52269D0540042928E /* VcashSecp256k1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashSecp256k1.m; sourceTree = "<group>"; };
+		ED44BFF7226AC8320042928E /* VcashKeychainPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashKeychainPath.h; sourceTree = "<group>"; };
+		ED44BFF8226AC8320042928E /* VcashKeychainPath.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashKeychainPath.m; sourceTree = "<group>"; };
+		ED44BFFA226AFE160042928E /* VcashWallet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashWallet.h; sourceTree = "<group>"; };
+		ED44BFFB226AFE160042928E /* VcashWallet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashWallet.m; sourceTree = "<group>"; };
 		EDA5148A22686DEC0011138F /* VcashWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VcashWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDA5148D22686DEC0011138F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EDA5148E22686DEC0011138F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -620,6 +629,12 @@
 				ED44BFE022697CBA0042928E /* WalletWrapper.m */,
 				ED44BFEE2269C87E0042928E /* VcashKeyChain.h */,
 				ED44BFEF2269C87E0042928E /* VcashKeyChain.m */,
+				ED44BFF42269D0540042928E /* VcashSecp256k1.h */,
+				ED44BFF52269D0540042928E /* VcashSecp256k1.m */,
+				ED44BFF7226AC8320042928E /* VcashKeychainPath.h */,
+				ED44BFF8226AC8320042928E /* VcashKeychainPath.m */,
+				ED44BFFA226AFE160042928E /* VcashWallet.h */,
+				ED44BFFB226AFE160042928E /* VcashWallet.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -786,6 +801,7 @@
 				ED44BF9322696CF50042928E /* BTCAssetAddress.m in Sources */,
 				ED44BF9022696CF50042928E /* BTCPriceSource+Tests.m in Sources */,
 				ED44BF7D22696CF50042928E /* NSData+BTCData.m in Sources */,
+				ED44BFF9226AC8320042928E /* VcashKeychainPath.m in Sources */,
 				ED44BFE422697E6A0042928E /* PinPasswordInputView.m in Sources */,
 				ED44BFF02269C87E0042928E /* VcashKeyChain.m in Sources */,
 				ED44BF9422696CF50042928E /* BTCBitcoinURL.m in Sources */,
@@ -803,6 +819,7 @@
 				ED44BF7722696CF50042928E /* BTCMnemonic+Tests.m in Sources */,
 				ED44BFB322696CF50042928E /* BTCData+Tests.m in Sources */,
 				ED44BFB522696CF50042928E /* BTCErrors.m in Sources */,
+				ED44BFFC226AFE160042928E /* VcashWallet.m in Sources */,
 				ED44BF8822696CF50042928E /* BTCNetwork.m in Sources */,
 				ED44BFBF226978C50042928E /* NavigationCenter.m in Sources */,
 				ED44BFA322696CF50042928E /* BTCMerkleTree+Tests.m in Sources */,
@@ -844,6 +861,7 @@
 				ED44BF9222696CF50042928E /* BTCChainCom.m in Sources */,
 				ED44BFA922696CF50042928E /* BTCHashID.m in Sources */,
 				ED44BFB422696CF50042928E /* BTCFancyEncryptedMessage+Tests.m in Sources */,
+				ED44BFF62269D0540042928E /* VcashSecp256k1.m in Sources */,
 				ED44BFE722697EC60042928E /* PhraseWordShowViewCreator.m in Sources */,
 				ED44BF9622696CF50042928E /* BTCTransactionInput.m in Sources */,
 				ED44BFDB22697BAF0042928E /* CreateMnemonicViewController.m in Sources */,

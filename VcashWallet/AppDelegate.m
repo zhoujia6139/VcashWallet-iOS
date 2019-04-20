@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #include "secp256k1.h"
 #include "blake2.h"
-#include "greetings.h"
 
 @interface AppDelegate ()
 
@@ -33,10 +32,6 @@
     {
         [NavigationCenter showWelcomePage];
     }
-    
-    char* temp = "zhoujia";
-    const char* ret = rust_greeting(temp);
-    NSLog(@"%@", [NSString stringWithUTF8String:ret]);
     
     secp256k1_context* context = secp256k1_context_create(SECP256K1_CONTEXT_NONE);
     
