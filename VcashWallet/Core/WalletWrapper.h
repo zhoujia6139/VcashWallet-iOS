@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-typedef void (^RequestCompleteBlock) (BOOL, NSString*);
+#import "NodeApi.h"
 
 @interface WalletWrapper : NSObject
 
@@ -23,5 +22,7 @@ typedef void (^RequestCompleteBlock) (BOOL, NSString*);
 
 //重置退出钱包
 +(void)clearWallet;
+
++(void)checkWalletUtxoWithComplete:(RequestCompleteBlock)block;
 
 @end

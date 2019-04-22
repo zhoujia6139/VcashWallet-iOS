@@ -99,6 +99,10 @@
 		ED44BFF9226AC8320042928E /* VcashKeychainPath.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFF8226AC8320042928E /* VcashKeychainPath.m */; };
 		ED44BFFC226AFE160042928E /* VcashWallet.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFFB226AFE160042928E /* VcashWallet.m */; };
 		ED44C000226B1F0C0042928E /* VcashSecretKey.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFFF226B1F0B0042928E /* VcashSecretKey.m */; };
+		ED44C009226D9D8D0042928E /* NodeApi.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C008226D9D8D0042928E /* NodeApi.m */; };
+		ED44C00C226D9FF50042928E /* NodeType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C00B226D9FF50042928E /* NodeType.m */; };
+		ED44C00F226DAFB30042928E /* VcashTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C00E226DAFB30042928E /* VcashTypes.m */; };
+		ED44C012226DC5730042928E /* PinVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C010226DC5730042928E /* PinVerifyViewController.m */; };
 		EDA5148F22686DEC0011138F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA5148E22686DEC0011138F /* AppDelegate.m */; };
 		EDA5149222686DEC0011138F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA5149122686DEC0011138F /* ViewController.m */; };
 		EDA5149522686DEC0011138F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDA5149322686DEC0011138F /* Main.storyboard */; };
@@ -302,6 +306,14 @@
 		ED44BFFD226B1D330042928E /* VcashConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashConstant.h; sourceTree = "<group>"; };
 		ED44BFFE226B1F0B0042928E /* VcashSecretKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashSecretKey.h; sourceTree = "<group>"; };
 		ED44BFFF226B1F0B0042928E /* VcashSecretKey.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashSecretKey.m; sourceTree = "<group>"; };
+		ED44C007226D9D8D0042928E /* NodeApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeApi.h; sourceTree = "<group>"; };
+		ED44C008226D9D8D0042928E /* NodeApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeApi.m; sourceTree = "<group>"; };
+		ED44C00A226D9FF50042928E /* NodeType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeType.h; sourceTree = "<group>"; };
+		ED44C00B226D9FF50042928E /* NodeType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeType.m; sourceTree = "<group>"; };
+		ED44C00D226DAFB30042928E /* VcashTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashTypes.h; sourceTree = "<group>"; };
+		ED44C00E226DAFB30042928E /* VcashTypes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashTypes.m; sourceTree = "<group>"; };
+		ED44C010226DC5730042928E /* PinVerifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinVerifyViewController.m; sourceTree = "<group>"; };
+		ED44C011226DC5730042928E /* PinVerifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinVerifyViewController.h; sourceTree = "<group>"; };
 		EDA5148A22686DEC0011138F /* VcashWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VcashWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDA5148D22686DEC0011138F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EDA5148E22686DEC0011138F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -530,6 +542,8 @@
 				ED44BFD922697BAF0042928E /* RecoverMnemonicViewController.xib */,
 				ED44BFE9226984EB0042928E /* PinPasswordSetViewController.h */,
 				ED44BFE8226984EB0042928E /* PinPasswordSetViewController.m */,
+				ED44C011226DC5730042928E /* PinVerifyViewController.h */,
+				ED44C010226DC5730042928E /* PinVerifyViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -642,6 +656,12 @@
 				ED44BFFB226AFE160042928E /* VcashWallet.m */,
 				ED44BFFE226B1F0B0042928E /* VcashSecretKey.h */,
 				ED44BFFF226B1F0B0042928E /* VcashSecretKey.m */,
+				ED44C007226D9D8D0042928E /* NodeApi.h */,
+				ED44C008226D9D8D0042928E /* NodeApi.m */,
+				ED44C00A226D9FF50042928E /* NodeType.h */,
+				ED44C00B226D9FF50042928E /* NodeType.m */,
+				ED44C00D226DAFB30042928E /* VcashTypes.h */,
+				ED44C00E226DAFB30042928E /* VcashTypes.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -855,7 +875,10 @@
 				ED44BFA522696CF50042928E /* BTCPaymentRequest.m in Sources */,
 				ED44BF9922696CF50042928E /* BTCAddress.m in Sources */,
 				EDA5148F22686DEC0011138F /* AppDelegate.m in Sources */,
+				ED44C012226DC5730042928E /* PinVerifyViewController.m in Sources */,
+				ED44C00F226DAFB30042928E /* VcashTypes.m in Sources */,
 				ED44BF8122696CF50042928E /* BTCBigNumber.m in Sources */,
+				ED44C00C226D9FF50042928E /* NodeType.m in Sources */,
 				ED44BF8222696CF50042928E /* BTCScript+Tests.m in Sources */,
 				ED44BFAE22696CF50042928E /* BTCPaymentMethodRequest.m in Sources */,
 				ED44BF8D22696CF50042928E /* BTCOpcode.m in Sources */,
@@ -871,6 +894,7 @@
 				ED44BFB422696CF50042928E /* BTCFancyEncryptedMessage+Tests.m in Sources */,
 				ED44BFF62269D0540042928E /* VcashSecp256k1.m in Sources */,
 				ED44BFE722697EC60042928E /* PhraseWordShowViewCreator.m in Sources */,
+				ED44C009226D9D8D0042928E /* NodeApi.m in Sources */,
 				ED44BF9622696CF50042928E /* BTCTransactionInput.m in Sources */,
 				ED44BFDB22697BAF0042928E /* CreateMnemonicViewController.m in Sources */,
 				ED44BFEA226984EB0042928E /* PinPasswordSetViewController.m in Sources */,

@@ -15,10 +15,13 @@
     NSData* _data;
 }
 
-- (id) initWithDate:(NSData*)data{
+- (id) initWithData:(NSData*)data andSecp:(VcashSecp256k1*)secp{
     if (self = [super init]) {
         if (data.length != SECRET_KEY_SIZE)
         {
+            return nil;
+        }
+        if (![secp verifyEcSecretKey:data]){
             return nil;
         }
         _data = data;

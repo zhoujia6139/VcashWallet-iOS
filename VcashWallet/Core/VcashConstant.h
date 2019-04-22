@@ -13,5 +13,8 @@
 
 #define PEDERSEN_COMMITMENT_SIZE 33
 
+#define PEDERSEN_COMMITMENT_SIZE_INTERNAL 64
+
+
 
 #endif /* VcashConstant_h */

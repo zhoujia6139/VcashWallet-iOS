@@ -7,46 +7,73 @@
 //
 
 #import "VcashKeyChain.h"
-#import "CoreBitcoin.h"
 #import "VcashSecp256k1.h"
-#import "VcashKeychainPath.h"
 #include "blake2.h"
 #include "VcashConstant.h"
-#import "VcashSecretKey.h"
 
 @implementation VcashKeyChain
 {
     VcashSecp256k1* _secp;
     BTCKeychain* _keyChain;
+    BTCMnemonic* _mnemonic;
 }
 
-- (id) initWithRootKeychain:(BTCKeychain*)keychain {
+- (id) initWithMnemonic:(BTCMnemonic*)mnemonic {
     if (self = [super init]) {
-        _keyChain = keychain;
-        _secp = [[VcashSecp256k1 alloc] initWithFlag:(SECP256K1_CONTEXT_VERIFY|SECP256K1_CONTEXT_SIGN)];
+        _keyChain = mnemonic.keychain;
+        _mnemonic = mnemonic;
+        _secp = [[VcashSecp256k1 alloc] initWithFlag:ContextCommit];
     }
     return self;
 }
 
--(NSData*)deriveKey:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath{
-    BTCKey* key = [_keyChain derivedKeychainWithPath:keypath.pathStr].key;
-    NSData* data = [_secp blindSwitch:amount withKey:key.privateKey];
-    return data;
+-(NSData*)createCommitment:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath{
+    VcashSecretKey* secretKey = [self deriveKey:amount andKeypath:keypath];
+    NSData* commit = [_secp commitment:amount withKey:secretKey];
+    return commit;
+}
+
+-(VcashSecretKey*)deriveKey:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath{
+    BTCKeychain* keychain = [_keyChain derivedKeychainWithPath:keypath.pathStr];
+    BTCKey* key = keychain.key;
+    NSData* data = [_secp blindSwitch:amount withKey:[[VcashSecretKey alloc] initWithData:key.privateKey andSecp:_secp]];
+    return [[VcashSecretKey alloc] initWithData:data andSecp:_secp];
 }
 
 -(VcashSecretKey*)createNonce:(NSData*)commitment {
-    NSData* rootKey = [self deriveKey:0 andKeypath:nil];
-    uint8_t ret[32];
-    if( blake2b( ret, rootKey.bytes, commitment.bytes, 32, SECRET_KEY_SIZE, PEDERSEN_COMMITMENT_SIZE ) < 0)
+    VcashSecretKey* rootKey = [self deriveKey:0 andKeypath:[self rootKeyPath]];
+    uint8_t ret[SECRET_KEY_SIZE];
+    if( blake2b( ret, rootKey.data.bytes, commitment.bytes, SECRET_KEY_SIZE, SECRET_KEY_SIZE, PEDERSEN_COMMITMENT_SIZE ) < 0)
     {
         return nil;
     }
-    NSData* keydata = [NSData dataWithBytes:ret length:32];
-    if ([_secp verifyEcSecretKey:keydata]){
-        return [[VcashSecretKey alloc] initWithDate:keydata];
-    }
-    
-    return nil;
+    NSData* keydata = [NSData dataWithBytes:ret length:SECRET_KEY_SIZE];
+    return [[VcashSecretKey alloc] initWithData:keydata andSecp:_secp];
+}
+
+#pragma proof
+
+-(NSData*)createRangeProof:(uint64_t)amount withKeyPath:(VcashKeychainPath*)path{
+    NSData* commit = [self createCommitment:amount andKeypath:path];
+    VcashSecretKey* secretKey = [self deriveKey:amount andKeypath:path];
+    VcashSecretKey* nounce = [self createNonce:commit];
+    NSData* rangeProof = [_secp createBulletProof:amount key:secretKey nounce:nounce andMessage:[path.pathStr dataUsingEncoding:NSUTF8StringEncoding]];
+    return rangeProof;
+}
+
+-(BOOL)verifyProof:(NSData*)commitment withProof:(NSData*)proof{
+    return [_secp verifyBulletProof:commitment withProof:proof];
+}
+
+-(VcashProofInfo*)rewindProof:(NSData*)commitment withProof:(NSData*)proof{
+    VcashSecretKey* nounce = [self createNonce:commitment];
+    VcashProofInfo* proofInfo = [_secp rewindBulletProof:commitment nounce:nounce withProof:proof];
+    return proofInfo;
+}
+
+#pragma private method
+-(VcashKeychainPath*)rootKeyPath{
+    return [[VcashKeychainPath alloc] initWithDepth:0 d0:0 d1:0 d2:0 d3:0];
 }
 
 @end

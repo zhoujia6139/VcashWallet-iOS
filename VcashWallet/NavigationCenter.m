@@ -9,7 +9,7 @@
 #import "NavigationCenter.h"
 #import "WelcomePageViewController.h"
 //#import "WalletViewController.h"
-//#import "PinVerifyViewController.h"
+#import "PinVerifyViewController.h"
 
 static UINavigationController* curNavVC;
 
@@ -37,16 +37,16 @@ static UINavigationController* curNavVC;
 
 +(void)showPasswordVerifyPage
 {
-//    PinVerifyViewController* vc = [PinVerifyViewController new];
-//    if (curNavVC)
-//    {
-//        [curNavVC pushViewController:vc animated:YES];
-//    }
-//    else
-//    {
-//        UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
-//        keyWindow.rootViewController = vc;
-//    }
+    PinVerifyViewController* vc = [PinVerifyViewController new];
+    if (curNavVC)
+    {
+        [curNavVC pushViewController:vc animated:YES];
+    }
+    else
+    {
+        UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
+        keyWindow.rootViewController = vc;
+    }
 }
 
 @end

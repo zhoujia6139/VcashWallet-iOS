@@ -8,12 +8,22 @@
 
 #import <Foundation/Foundation.h>
 #import "VcashKeyChain.h"
+#import "VcashTypes.h"
+#import "NodeType.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface VcashWallet : NSObject
 
-@property (strong, nonatomic)VcashKeyChain* mKeyChain;
+@property (readonly, strong, nonatomic)VcashKeyChain* mKeyChain;
+
++(void)createWalletWithKeyChain:(VcashKeyChain*)keychain;
+
++ (instancetype)shareInstance;
+
+-(NSArray*)collectChainOutputs;
+
+-(VcashOutput*)identifyUtxoOutput:(NodeOutput*)nodeOutput;
 
 @end
 

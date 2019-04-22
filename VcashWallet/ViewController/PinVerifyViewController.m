@@ -1,29 +1,26 @@
 //
-//  PinPasswordSetViewController.m
+//  PinVerifyViewController.m
 //  PoolinWallet
 //
-//  Created by jia zhou on 2018/8/16.
+//  Created by jia zhou on 2018/8/17.
 //  Copyright © 2018年 blockin. All rights reserved.
 //
 
-#import "PinPasswordSetViewController.h"
+#import "PinVerifyViewController.h"
 #import "PinPasswordInputView.h"
 
-@interface PinPasswordSetViewController ()<PasswordViewDelegate>
+@interface PinVerifyViewController ()<PasswordViewDelegate>
 
 @property (nonatomic, strong) PinPasswordInputView *pasView;
 
 @end
 
-@implementation PinPasswordSetViewController
-{
-    NSString* firstPass;
-    NSString* secondPass;
-}
+@implementation PinVerifyViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"密码设置";
+    // Do any additional setup after loading the view.
+    self.title = @"密码验证";
     self.view.backgroundColor = [UIColor colorWithRed:230 / 250.0 green:230 / 250.0 blue:230 / 250.0 alpha:1.0];
     self.navigationController.navigationBar.translucent = NO;
     
@@ -37,6 +34,11 @@
 //    [button addTarget:self action:@selector(btnAction) forControlEvents:UIControlEventTouchUpInside];
 //    [button setTitle:@"确定" forState:UIControlStateNormal];
 //    [self.view addSubview:button];
+    UIButton* btn = [[UIButton alloc] initWithFrame:CGRectMake((ScreenWidth-140)/2, (ScreenHeight/2-50), 140, 40)];
+    [btn setTitle:@"重新恢复钱包" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(resetWallet) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -45,52 +47,37 @@
     [self.pasView openKeyboard];
 }
 
+-(void)checkPassword:(NSString*)password
+{
+    NSString* monenicWords = [[UserCenter sharedInstance] getStoredMnemonicWordsWithKey:password];
+    NSArray* wordsArr = [monenicWords componentsSeparatedByString:@" "];
+    BOOL yesOrNO = [WalletWrapper createWalletWithPhrase:wordsArr nickname:nil password:nil];
+    if (yesOrNO)
+    {
+        [NavigationCenter showWalletPage];
+    }
+    else
+    {
+        DDLogWarn(@"-------mnemonioc words in keychain is not available");
+        [MBHudHelper showTextTips:@"密码不对" onView:nil withDuration:1.5];
+        [self.pasView clearUpPassword];
+    }
+}
+
+-(void)resetWallet
+{
+    [NavigationCenter showWelcomePage];
+}
+
 - (void)btnAction
 {
-    NSString* inputStr = [self.pasView getInput];
-    if (inputStr.length != 6)
-    {
-        [MBHudHelper showTextTips:@"请重新输入6位数字" onView:nil withDuration:1.5];
-        return;
-    }
-
-    
+    NSString* password = [self.pasView getInput];
+    [self checkPassword:password];
 }
 
 -(void)PinPasswordView:(PinPasswordInputView*)inputview didGetPassword:(NSString*)password
 {
-    if (!firstPass)
-    {
-        firstPass = [self.pasView getInput];
-        [self.pasView clearUpPassword];
-        [MBHudHelper showTextTips:@"请再次输入" onView:nil withDuration:1.5];
-        return;
-    }
-    
-    if (!secondPass)
-    {
-        secondPass  = [self.pasView getInput];
-        if ([firstPass isEqualToString:secondPass])
-        {
-            BOOL yesOrNo = [WalletWrapper createWalletWithPhrase:self.mnemonicWordsArr nickname:nil password:nil];
-            if (yesOrNo)
-            {
-                NSString* wordStr = [self.mnemonicWordsArr componentsJoinedByString:@" "];
-                [[UserCenter sharedInstance] storeMnemonicWords:wordStr withKey:firstPass];
-                [NavigationCenter showWalletPage];
-                [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
-                    
-                }];
-            }
-        }
-        else
-        {
-            firstPass = nil;
-            secondPass = nil;
-            [self.pasView clearUpPassword];
-            [MBHudHelper showTextTips:@"两次输入不一致，请重新输入" onView:nil withDuration:1.5];
-        }
-    }
+    [self checkPassword:password];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,7 +8,9 @@
 
 #import "WalletWrapper.h"
 #import "CoreBitcoin.h"
-
+#import "VcashKeyChain.h"
+#import "VcashWallet.h"
+#import "NodeApi.h"
 
 @interface BTCMnemonic (Words)
 +(NSArray*) englishWordList;
@@ -33,6 +35,8 @@
     BTCMnemonic* mnemonic = [[BTCMnemonic alloc] initWithWords:wordsArr password:password wordListType:BTCMnemonicWordListTypeEnglish];
     if (mnemonic)
     {
+        VcashKeyChain* keychain = [[VcashKeyChain alloc] initWithMnemonic:mnemonic];
+        [VcashWallet createWalletWithKeyChain:keychain];
         //[[BTCWallet shareInstance] reSetMnemonic:mnemonic];
         return YES;
     }
@@ -45,7 +49,12 @@
     //[[BTCWallet shareInstance] clearWallet];
 }
 
-
++(void)checkWalletUtxoWithComplete:(RequestCompleteBlock)block{
+    NSMutableArray* arr = [NSMutableArray new];
+    [NodeApi getOutputsByPmmrIndex:0 retArr:arr WithComplete:^(BOOL yesOrNo, id result) {
+        block?block(yesOrNo, result):nil;
+    }];
+}
 
 
 @end
