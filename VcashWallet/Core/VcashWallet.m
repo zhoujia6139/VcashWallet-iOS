@@ -39,8 +39,8 @@ static VcashWallet* walletInstance = nil;
     VcashProofInfo* info = [self.mKeyChain rewindProof:commit withProof:proof];
     if (info.isSuc){
         VcashOutput* output = [VcashOutput new];
-        output.commit = commit;
-        output.keyPath = [[VcashKeychainPath alloc] initWithDepth:3 andPathData:info.message];
+        output.commit = nodeOutput.commit;
+        output.keyPath = [[VcashKeychainPath alloc] initWithDepth:3 andPathData:info.message].pathStr;
         output.mmr_index = nodeOutput.mmr_index;
         output.value = info.value;
         output.height = nodeOutput.block_height;
@@ -51,6 +51,7 @@ static VcashWallet* walletInstance = nil;
         else{
             output.lock_height = nodeOutput.block_height;
         }
+        output.status = Unspent;
         output.blinding = info.secretKey;
         
         return output;

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		111D98D7603A8F1579E12602 /* libPods-VcashWallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38B93DB289A56D999A4C8C7C /* libPods-VcashWallet.a */; };
+		ED3C7551226EC30A00B42555 /* VcashDataManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7550226EC30A00B42555 /* VcashDataManager.mm */; };
+		ED3C7557226EC78B00B42555 /* VcashOutput.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7556226EC78B00B42555 /* VcashOutput.mm */; };
+		ED3C755C226EE9ED00B42555 /* VcashTxLog.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C755B226EE9ED00B42555 /* VcashTxLog.mm */; };
 		ED44BF7122696CF50042928E /* BTCBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE322696CF50042928E /* BTCBlock.m */; };
 		ED44BF7222696CF50042928E /* BTCBlockHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE422696CF50042928E /* BTCBlockHeader.m */; };
 		ED44BF7322696CF50042928E /* BTCEncryptedBackup.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE722696CF50042928E /* BTCEncryptedBackup.m */; };
@@ -117,6 +120,14 @@
 		2B42695A9EB50E631A668976 /* Pods-VcashWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VcashWallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VcashWallet/Pods-VcashWallet.debug.xcconfig"; sourceTree = "<group>"; };
 		32DD39C5EA5AAED2839B1728 /* Pods-VcashWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VcashWallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-VcashWallet/Pods-VcashWallet.release.xcconfig"; sourceTree = "<group>"; };
 		38B93DB289A56D999A4C8C7C /* libPods-VcashWallet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VcashWallet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED3C754F226EC30A00B42555 /* VcashDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashDataManager.h; sourceTree = "<group>"; };
+		ED3C7550226EC30A00B42555 /* VcashDataManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VcashDataManager.mm; sourceTree = "<group>"; };
+		ED3C7555226EC78B00B42555 /* VcashOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashOutput.h; sourceTree = "<group>"; };
+		ED3C7556226EC78B00B42555 /* VcashOutput.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VcashOutput.mm; sourceTree = "<group>"; };
+		ED3C7559226EC8B500B42555 /* VcashOutput+WCTTableCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VcashOutput+WCTTableCoding.h"; sourceTree = "<group>"; };
+		ED3C755A226EE9ED00B42555 /* VcashTxLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashTxLog.h; sourceTree = "<group>"; };
+		ED3C755B226EE9ED00B42555 /* VcashTxLog.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VcashTxLog.mm; sourceTree = "<group>"; };
+		ED3C755D226EEA3100B42555 /* VcashTxLog+WCTTableCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VcashTxLog+WCTTableCoding.h"; sourceTree = "<group>"; };
 		ED44BEE022696CF50042928E /* BTCMerkleTree+Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BTCMerkleTree+Tests.h"; sourceTree = "<group>"; };
 		ED44BEE122696CF50042928E /* BTCPaymentMethodDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCPaymentMethodDetails.h; sourceTree = "<group>"; };
 		ED44BEE222696CF50042928E /* BTCProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCProcessor.h; sourceTree = "<group>"; };
@@ -360,6 +371,21 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		ED3C754E226EC2CA00B42555 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				ED3C754F226EC30A00B42555 /* VcashDataManager.h */,
+				ED3C7550226EC30A00B42555 /* VcashDataManager.mm */,
+				ED3C7555226EC78B00B42555 /* VcashOutput.h */,
+				ED3C7556226EC78B00B42555 /* VcashOutput.mm */,
+				ED3C7559226EC8B500B42555 /* VcashOutput+WCTTableCoding.h */,
+				ED3C755A226EE9ED00B42555 /* VcashTxLog.h */,
+				ED3C755B226EE9ED00B42555 /* VcashTxLog.mm */,
+				ED3C755D226EEA3100B42555 /* VcashTxLog+WCTTableCoding.h */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		ED44BEDF22696CF50042928E /* CoreBitcoin */ = {
 			isa = PBXGroup;
 			children = (
@@ -581,6 +607,7 @@
 		EDA5148C22686DEC0011138F /* VcashWallet */ = {
 			isa = PBXGroup;
 			children = (
+				ED3C754E226EC2CA00B42555 /* Database */,
 				ED44BFCE22697ACA0042928E /* ViewController */,
 				EDA514B4226891050011138F /* Core */,
 				ED44BFC1226979DA0042928E /* Utils */,
@@ -890,6 +917,7 @@
 				ED44BFBE226978C50042928E /* UserCenter.m in Sources */,
 				ED44BF8B22696CF50042928E /* BTCPriceSource.m in Sources */,
 				ED44BF9222696CF50042928E /* BTCChainCom.m in Sources */,
+				ED3C7557226EC78B00B42555 /* VcashOutput.mm in Sources */,
 				ED44BFA922696CF50042928E /* BTCHashID.m in Sources */,
 				ED44BFB422696CF50042928E /* BTCFancyEncryptedMessage+Tests.m in Sources */,
 				ED44BFF62269D0540042928E /* VcashSecp256k1.m in Sources */,
@@ -897,7 +925,9 @@
 				ED44C009226D9D8D0042928E /* NodeApi.m in Sources */,
 				ED44BF9622696CF50042928E /* BTCTransactionInput.m in Sources */,
 				ED44BFDB22697BAF0042928E /* CreateMnemonicViewController.m in Sources */,
+				ED3C7551226EC30A00B42555 /* VcashDataManager.mm in Sources */,
 				ED44BFEA226984EB0042928E /* PinPasswordSetViewController.m in Sources */,
+				ED3C755C226EE9ED00B42555 /* VcashTxLog.mm in Sources */,
 				ED44BFAF22696CF50042928E /* BTCBlockchainInfo+Tests.m in Sources */,
 				ED44BF9D22696CF50042928E /* BTCAddress+Tests.m in Sources */,
 				ED44BF8622696CF50042928E /* BTCMnemonic.m in Sources */,

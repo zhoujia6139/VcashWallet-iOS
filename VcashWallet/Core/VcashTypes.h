@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "VcashOutput.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
 
 @class VcashKeychainPath,VcashSecretKey;
 
@@ -24,24 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface VcashOutput : NSObject
 
-@property(strong, nonatomic)NSData* commit;
-
-@property(strong, nonatomic)VcashKeychainPath* keyPath;
-
-@property(assign, nonatomic)uint64_t mmr_index;
-
-@property(assign, nonatomic)uint64_t value;
-
-@property(assign, nonatomic)uint64_t height;
-
-@property(assign, nonatomic)uint64_t lock_height;
-
-@property(assign, nonatomic)BOOL is_coinbase;
-
-@property(strong, nonatomic)VcashSecretKey* blinding;
-
-@end
 
 NS_ASSUME_NONNULL_END

@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Core/NodeApi.m"
-            timestampString = "577621256.5130531"
+            timestampString = "577682394.314976"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "43"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Core/CoreBitcoin/BTCKeychain.m"
-            timestampString = "577681417.828388"
+            timestampString = "577682394.31536"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "112"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Core/CoreBitcoin/BTCKeychain.m"
-            timestampString = "577681417.8284481"
+            timestampString = "577682394.315419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "135"
@@ -90,23 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Core/NodeApi.m"
-            timestampString = "577681145.4350311"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "+getOutputsByPmmrIndex:retArr:WithComplete:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VcashWallet/Core/NodeApi.m"
-            timestampString = "577681147.2347831"
+            timestampString = "577682394.315853"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "34"
