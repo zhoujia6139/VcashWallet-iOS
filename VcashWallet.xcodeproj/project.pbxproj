@@ -11,6 +11,9 @@
 		ED3C7551226EC30A00B42555 /* VcashDataManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7550226EC30A00B42555 /* VcashDataManager.mm */; };
 		ED3C7557226EC78B00B42555 /* VcashOutput.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7556226EC78B00B42555 /* VcashOutput.mm */; };
 		ED3C755C226EE9ED00B42555 /* VcashTxLog.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C755B226EE9ED00B42555 /* VcashTxLog.mm */; };
+		ED3C7560226EF68600B42555 /* VcashSlate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C755F226EF68600B42555 /* VcashSlate.m */; };
+		ED3C7563226F112500B42555 /* VcashContext.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7562226F112500B42555 /* VcashContext.m */; };
+		ED3C7566226F126E00B42555 /* VcashTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7565226F126E00B42555 /* VcashTransaction.m */; };
 		ED44BF7122696CF50042928E /* BTCBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE322696CF50042928E /* BTCBlock.m */; };
 		ED44BF7222696CF50042928E /* BTCBlockHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE422696CF50042928E /* BTCBlockHeader.m */; };
 		ED44BF7322696CF50042928E /* BTCEncryptedBackup.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE722696CF50042928E /* BTCEncryptedBackup.m */; };
@@ -128,6 +131,12 @@
 		ED3C755A226EE9ED00B42555 /* VcashTxLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashTxLog.h; sourceTree = "<group>"; };
 		ED3C755B226EE9ED00B42555 /* VcashTxLog.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VcashTxLog.mm; sourceTree = "<group>"; };
 		ED3C755D226EEA3100B42555 /* VcashTxLog+WCTTableCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VcashTxLog+WCTTableCoding.h"; sourceTree = "<group>"; };
+		ED3C755E226EF68600B42555 /* VcashSlate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashSlate.h; sourceTree = "<group>"; };
+		ED3C755F226EF68600B42555 /* VcashSlate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashSlate.m; sourceTree = "<group>"; };
+		ED3C7561226F112500B42555 /* VcashContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashContext.h; sourceTree = "<group>"; };
+		ED3C7562226F112500B42555 /* VcashContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashContext.m; sourceTree = "<group>"; };
+		ED3C7564226F126E00B42555 /* VcashTransaction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashTransaction.h; sourceTree = "<group>"; };
+		ED3C7565226F126E00B42555 /* VcashTransaction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashTransaction.m; sourceTree = "<group>"; };
 		ED44BEE022696CF50042928E /* BTCMerkleTree+Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BTCMerkleTree+Tests.h"; sourceTree = "<group>"; };
 		ED44BEE122696CF50042928E /* BTCPaymentMethodDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCPaymentMethodDetails.h; sourceTree = "<group>"; };
 		ED44BEE222696CF50042928E /* BTCProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCProcessor.h; sourceTree = "<group>"; };
@@ -382,6 +391,12 @@
 				ED3C755A226EE9ED00B42555 /* VcashTxLog.h */,
 				ED3C755B226EE9ED00B42555 /* VcashTxLog.mm */,
 				ED3C755D226EEA3100B42555 /* VcashTxLog+WCTTableCoding.h */,
+				ED3C755E226EF68600B42555 /* VcashSlate.h */,
+				ED3C755F226EF68600B42555 /* VcashSlate.m */,
+				ED3C7561226F112500B42555 /* VcashContext.h */,
+				ED3C7562226F112500B42555 /* VcashContext.m */,
+				ED3C7564226F126E00B42555 /* VcashTransaction.h */,
+				ED3C7565226F126E00B42555 /* VcashTransaction.m */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -910,6 +925,7 @@
 				ED44BFAE22696CF50042928E /* BTCPaymentMethodRequest.m in Sources */,
 				ED44BF8D22696CF50042928E /* BTCOpcode.m in Sources */,
 				ED44BFCA226979DA0042928E /* NSData+AES256.m in Sources */,
+				ED3C7566226F126E00B42555 /* VcashTransaction.m in Sources */,
 				ED44BF8922696CF50042928E /* BTCBase58+Tests.m in Sources */,
 				ED44BF7E22696CF50042928E /* BTCTransaction.m in Sources */,
 				ED44BFB022696CF50042928E /* BTCEncryptedMessage.m in Sources */,
@@ -927,6 +943,7 @@
 				ED44BFDB22697BAF0042928E /* CreateMnemonicViewController.m in Sources */,
 				ED3C7551226EC30A00B42555 /* VcashDataManager.mm in Sources */,
 				ED44BFEA226984EB0042928E /* PinPasswordSetViewController.m in Sources */,
+				ED3C7560226EF68600B42555 /* VcashSlate.m in Sources */,
 				ED3C755C226EE9ED00B42555 /* VcashTxLog.mm in Sources */,
 				ED44BFAF22696CF50042928E /* BTCBlockchainInfo+Tests.m in Sources */,
 				ED44BF9D22696CF50042928E /* BTCAddress+Tests.m in Sources */,
@@ -935,6 +952,7 @@
 				ED44BF7B22696CF50042928E /* BTCQRCode.m in Sources */,
 				ED44BF8F22696CF50042928E /* BTCCurvePoint+Tests.m in Sources */,
 				ED44BF8322696CF50042928E /* BTCBlockchainInfo.m in Sources */,
+				ED3C7563226F112500B42555 /* VcashContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

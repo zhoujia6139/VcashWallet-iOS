@@ -21,9 +21,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)shareInstance;
 
+@property(strong, nonatomic)NSArray<VcashOutput*>* outputs;
+
 -(NSArray*)collectChainOutputs;
 
 -(VcashOutput*)identifyUtxoOutput:(NodeOutput*)nodeOutput;
+
+-(void)sendTransaction:(VcashSlate*)slate amount:(uint64_t)amount andFee:(uint64_t)fee withComplete:(RequestCompleteBlock)block;
+
+
 
 @end
 

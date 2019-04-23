@@ -79,6 +79,30 @@
     return nil;
 }
 
+-(NSData*)blindSumWithPositiveArr:(NSArray*)positive andNegative:(NSArray*)negative{
+    uint8_t retData[32];
+    NSUInteger totalCount = positive.count + negative.count;
+    const uint8_t * point[totalCount];
+    NSMutableArray* all = [[NSMutableArray alloc] initWithArray:positive];
+    [all appendObjects:negative];
+    for (NSUInteger i=0; i<all.count; i++){
+        NSData* item = [all objectAtIndex:i];
+        point[i] = item.bytes;
+    }
+    int ret = secp256k1_pedersen_blind_sum(_context,
+                                           retData,
+                                           point,
+                                           totalCount,
+                                           positive.count);
+    if (ret == 1){
+        return [NSData dataWithBytes:retData length:32];
+    }
+    else{
+        return nil;
+    }
+}
+
+#pragma proof
 -(NSData*)createBulletProof:(uint64_t)value key:(VcashSecretKey*)key nounce:(VcashSecretKey*)nounce andMessage:(NSData*)message{
     uint8_t proof[MAX_PROOF_SIZE];
     size_t proofSize = 0;

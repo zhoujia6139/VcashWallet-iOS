@@ -52,9 +52,34 @@
 +(void)checkWalletUtxoWithComplete:(RequestCompleteBlock)block{
     NSMutableArray* arr = [NSMutableArray new];
     [NodeApi getOutputsByPmmrIndex:0 retArr:arr WithComplete:^(BOOL yesOrNo, id result) {
+        if (yesOrNo){
+            [VcashWallet shareInstance].outputs = (NSArray*)result;
+        }
         block?block(yesOrNo, result):nil;
     }];
 }
 
++(VcashSlate*)createSendTransaction:(NSString*)targetUserId amount:(uint64_t)amount fee:(uint64_t)fee withComplete:(RequestCompleteBlock)block{
+    VcashSlate* slate = [VcashSlate new];
+    slate.num_participants = 2;
+    slate.amount = amount;
+    slate.height = 176;
+    slate.lock_height = 176;
+    
+    [[VcashWallet shareInstance] sendTransaction:slate amount:amount andFee:fee withComplete:^(BOOL yesOrNO, id data) {
+        block?block(yesOrNO, data):nil;
+    }];
+
+    return nil;
+}
+
++(void)sendTransaction:(VcashSlate*)slate{
+    
+}
+
+#pragma private
++(BOOL)checkWalletState{
+    return [VcashWallet shareInstance]?YES:NO;
+}
 
 @end
