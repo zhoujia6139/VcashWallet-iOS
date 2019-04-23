@@ -52,7 +52,11 @@
 
 
 - (id) initWithSeed:(NSData*)seed {
-    return [self initWithSeed:seed network:nil];
+#ifdef isInTestNet
+    return [self initWithSeed:seed network:[BTCNetwork testnet]];
+#else
+    return [self initWithSeed:seed network:[BTCNetwork mainnet]];
+#endif
 }
 
 - (id) initWithSeed:(NSData*)seed network:(BTCNetwork*)network {

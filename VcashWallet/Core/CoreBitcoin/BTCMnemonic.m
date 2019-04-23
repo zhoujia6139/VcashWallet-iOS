@@ -182,7 +182,8 @@ static inline NSUInteger BTCMnemonicIntegerFrom11Bits(uint8_t* buf, int bitIndex
 // Lazily-computed seed for BIP32
 - (NSData*) seed {
     if (!_seed) {
-        _seed = [self seedForWords:self.words password:self.password];
+        //_seed = [self seedForWords:self.words password:self.password];
+        _seed = _entropy;
     }
     return _seed;
 }
@@ -360,7 +361,6 @@ static inline NSUInteger BTCMnemonicIntegerFrom11Bits(uint8_t* buf, int bitIndex
     if (lastByte != checksumByte) {
         return nil;
     }
-
     return entropy;
 }
 
