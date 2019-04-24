@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VcashTransaction.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class VcashContext, ParticipantData;
+@class VcashContext, ParticipantData, VcashTransaction;
 
 @interface VcashSlate : NSObject
 

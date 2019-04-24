@@ -13,7 +13,7 @@
 		ED3C755C226EE9ED00B42555 /* VcashTxLog.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C755B226EE9ED00B42555 /* VcashTxLog.mm */; };
 		ED3C7560226EF68600B42555 /* VcashSlate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C755F226EF68600B42555 /* VcashSlate.m */; };
 		ED3C7563226F112500B42555 /* VcashContext.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7562226F112500B42555 /* VcashContext.m */; };
-		ED3C7566226F126E00B42555 /* VcashTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7565226F126E00B42555 /* VcashTransaction.m */; };
+		ED3C756A2270744400B42555 /* PublicTool.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C75692270744400B42555 /* PublicTool.m */; };
 		ED44BF7122696CF50042928E /* BTCBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE322696CF50042928E /* BTCBlock.m */; };
 		ED44BF7222696CF50042928E /* BTCBlockHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE422696CF50042928E /* BTCBlockHeader.m */; };
 		ED44BF7322696CF50042928E /* BTCEncryptedBackup.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE722696CF50042928E /* BTCEncryptedBackup.m */; };
@@ -135,8 +135,8 @@
 		ED3C755F226EF68600B42555 /* VcashSlate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashSlate.m; sourceTree = "<group>"; };
 		ED3C7561226F112500B42555 /* VcashContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashContext.h; sourceTree = "<group>"; };
 		ED3C7562226F112500B42555 /* VcashContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashContext.m; sourceTree = "<group>"; };
-		ED3C7564226F126E00B42555 /* VcashTransaction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashTransaction.h; sourceTree = "<group>"; };
-		ED3C7565226F126E00B42555 /* VcashTransaction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashTransaction.m; sourceTree = "<group>"; };
+		ED3C75682270744400B42555 /* PublicTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublicTool.h; sourceTree = "<group>"; };
+		ED3C75692270744400B42555 /* PublicTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublicTool.m; sourceTree = "<group>"; };
 		ED44BEE022696CF50042928E /* BTCMerkleTree+Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BTCMerkleTree+Tests.h"; sourceTree = "<group>"; };
 		ED44BEE122696CF50042928E /* BTCPaymentMethodDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCPaymentMethodDetails.h; sourceTree = "<group>"; };
 		ED44BEE222696CF50042928E /* BTCProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCProcessor.h; sourceTree = "<group>"; };
@@ -391,14 +391,19 @@
 				ED3C755A226EE9ED00B42555 /* VcashTxLog.h */,
 				ED3C755B226EE9ED00B42555 /* VcashTxLog.mm */,
 				ED3C755D226EEA3100B42555 /* VcashTxLog+WCTTableCoding.h */,
-				ED3C755E226EF68600B42555 /* VcashSlate.h */,
-				ED3C755F226EF68600B42555 /* VcashSlate.m */,
-				ED3C7561226F112500B42555 /* VcashContext.h */,
-				ED3C7562226F112500B42555 /* VcashContext.m */,
-				ED3C7564226F126E00B42555 /* VcashTransaction.h */,
-				ED3C7565226F126E00B42555 /* VcashTransaction.m */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		ED3C75672270603B00B42555 /* Node */ = {
+			isa = PBXGroup;
+			children = (
+				ED44C007226D9D8D0042928E /* NodeApi.h */,
+				ED44C008226D9D8D0042928E /* NodeApi.m */,
+				ED44C00A226D9FF50042928E /* NodeType.h */,
+				ED44C00B226D9FF50042928E /* NodeType.m */,
+			);
+			path = Node;
 			sourceTree = "<group>";
 		};
 		ED44BEDF22696CF50042928E /* CoreBitcoin */ = {
@@ -564,6 +569,8 @@
 				ED44BFC7226979DA0042928E /* UIViewController+POPHUD.m */,
 				ED44BFC8226979DA0042928E /* NSNumber+Utils.h */,
 				ED44BFC5226979DA0042928E /* NSNumber+Utils.m */,
+				ED3C75682270744400B42555 /* PublicTool.h */,
+				ED3C75692270744400B42555 /* PublicTool.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -684,6 +691,7 @@
 		EDA514B4226891050011138F /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				ED3C75672270603B00B42555 /* Node */,
 				ED44BEDF22696CF50042928E /* CoreBitcoin */,
 				ED44BFFD226B1D330042928E /* VcashConstant.h */,
 				ED44BFDF22697CBA0042928E /* WalletWrapper.h */,
@@ -698,12 +706,12 @@
 				ED44BFFB226AFE160042928E /* VcashWallet.m */,
 				ED44BFFE226B1F0B0042928E /* VcashSecretKey.h */,
 				ED44BFFF226B1F0B0042928E /* VcashSecretKey.m */,
-				ED44C007226D9D8D0042928E /* NodeApi.h */,
-				ED44C008226D9D8D0042928E /* NodeApi.m */,
-				ED44C00A226D9FF50042928E /* NodeType.h */,
-				ED44C00B226D9FF50042928E /* NodeType.m */,
 				ED44C00D226DAFB30042928E /* VcashTypes.h */,
 				ED44C00E226DAFB30042928E /* VcashTypes.m */,
+				ED3C755E226EF68600B42555 /* VcashSlate.h */,
+				ED3C755F226EF68600B42555 /* VcashSlate.m */,
+				ED3C7561226F112500B42555 /* VcashContext.h */,
+				ED3C7562226F112500B42555 /* VcashContext.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -925,7 +933,6 @@
 				ED44BFAE22696CF50042928E /* BTCPaymentMethodRequest.m in Sources */,
 				ED44BF8D22696CF50042928E /* BTCOpcode.m in Sources */,
 				ED44BFCA226979DA0042928E /* NSData+AES256.m in Sources */,
-				ED3C7566226F126E00B42555 /* VcashTransaction.m in Sources */,
 				ED44BF8922696CF50042928E /* BTCBase58+Tests.m in Sources */,
 				ED44BF7E22696CF50042928E /* BTCTransaction.m in Sources */,
 				ED44BFB022696CF50042928E /* BTCEncryptedMessage.m in Sources */,
@@ -949,6 +956,7 @@
 				ED44BF9D22696CF50042928E /* BTCAddress+Tests.m in Sources */,
 				ED44BF8622696CF50042928E /* BTCMnemonic.m in Sources */,
 				ED44BF9C22696CF50042928E /* BTCMerkleTree.m in Sources */,
+				ED3C756A2270744400B42555 /* PublicTool.m in Sources */,
 				ED44BF7B22696CF50042928E /* BTCQRCode.m in Sources */,
 				ED44BF8F22696CF50042928E /* BTCCurvePoint+Tests.m in Sources */,
 				ED44BF8322696CF50042928E /* BTCBlockchainInfo.m in Sources */,

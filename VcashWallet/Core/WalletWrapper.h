@@ -12,25 +12,22 @@
 
 @interface WalletWrapper : NSObject
 
-//得到所有合法的助记词
 +(NSArray*)getAllPhraseWords;
 
-//获取助记词
 +(NSArray*)generateMnemonicPassphrase;
 
-//根据助记词和子账户密码生成Wallet
 +(BOOL)createWalletWithPhrase:(NSArray*)wordsArr nickname:(NSString*)nickname password:(NSString*)password;
 
-//退出钱包
+//clear wallet
 +(void)clearWallet;
 
-//重置钱包
+//check wallet utxo
 +(void)checkWalletUtxoWithComplete:(RequestCompleteBlock)block;
 
-//创建发币交易 TODO 支持给多人发送
+//TODO support multi receiver
 +(VcashSlate*)createSendTransaction:(NSString*)targetUserId amount:(uint64_t)amount fee:(uint64_t)fee withComplete:(RequestCompleteBlock)block;
 
-//发送发币交易
+//send Transaction
 +(void)sendTransaction:(VcashSlate*)slate;
 
 //收币

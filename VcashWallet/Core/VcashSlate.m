@@ -7,11 +7,11 @@
 //
 
 #import "VcashSlate.h"
-#import "VcashTransaction.h"
 #import "VcashWallet.h"
 #import "VcashKeychainPath.h"
 #import "VcashContext.h"
 #import "VcashSecp256k1.h"
+#import "VcashTypes.h"
 
 @implementation VcashSlate
 
@@ -24,6 +24,16 @@
         _participant_data = [NSMutableArray new];
     }
     return self;
+}
+
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{
+             @"uuid":@"id",
+             };
+}
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"participant_data" : [ParticipantData class]};
 }
 
 -(VcashSecretKey*)addTxElement:(NSArray*)outputs change:(uint64_t)change{
@@ -109,5 +119,38 @@
 @end
 
 @implementation ParticipantData
+
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{
+             @"pId":@"id",
+             };
+}
+
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    
+    self.public_blind_excess = [PublicTool getDataFromArray:dic[@"public_blind_excess"]];
+    self.public_nonce = [PublicTool getDataFromArray:dic[@"public_nonce"]];
+    self.part_sig = [PublicTool getDataFromArray:dic[@"part_sig"]];
+    self.message_sig = [PublicTool getDataFromArray:dic[@"message_sig"]];
+    
+    return YES;
+}
+
+- (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
+    if (self.public_blind_excess){
+        dic[@"public_blind_excess"] = [PublicTool getArrFromData:self.public_blind_excess];
+    }
+    if (self.public_nonce){
+        dic[@"public_nonce"] = [PublicTool getArrFromData:self.public_nonce];
+    }
+    if (self.part_sig){
+        dic[@"part_sig"] = [PublicTool getArrFromData:self.part_sig];
+    }
+    if (self.public_blind_excess){
+        dic[@"message_sig"] = [PublicTool getArrFromData:self.message_sig];
+    }
+    
+    return YES;
+}
 
 @end

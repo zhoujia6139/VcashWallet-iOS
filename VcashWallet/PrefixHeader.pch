@@ -19,6 +19,7 @@
 #import "NavigationCenter.h"
 #import "MBHudHelper.h"
 #import "UtilsMacros.h"
+#import "PublicTool.h"
 
 #import "WalletWrapper.h"
 
