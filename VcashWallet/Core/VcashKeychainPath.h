@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, nonatomic, strong)NSData* pathData;
 
+-(instancetype)nextPath;
+
 @end
 
 NS_ASSUME_NONNULL_END

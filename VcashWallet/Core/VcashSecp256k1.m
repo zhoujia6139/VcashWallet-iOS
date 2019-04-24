@@ -8,8 +8,10 @@
 
 #import "VcashSecp256k1.h"
 #include "secp256k1_bulletproofs.h"
+#include "secp256k1_aggsig.h"
 #include "VcashConstant.h"
 #import "CoreBitcoin.h"
+#import "VcashSecretKey.h"
 
 #define MAX_PROOF_SIZE 5134
 
@@ -79,7 +81,7 @@
     return nil;
 }
 
--(NSData*)blindSumWithPositiveArr:(NSArray*)positive andNegative:(NSArray*)negative{
+-(VcashSecretKey*)blindSumWithPositiveArr:(NSArray<NSData*>*)positive andNegative:(NSArray<NSData*>*)negative{
     uint8_t retData[32];
     NSUInteger totalCount = positive.count + negative.count;
     const uint8_t * point[totalCount];
@@ -95,11 +97,40 @@
                                            totalCount,
                                            positive.count);
     if (ret == 1){
-        return [NSData dataWithBytes:retData length:32];
+        return [[VcashSecretKey alloc] initWithData:[NSData dataWithBytes:retData length:32]];
     }
     else{
         return nil;
     }
+}
+
+//secret nonce
+-(VcashSecretKey*)exportSecnonceSingle{
+    NSData* seed = BTCRandomDataWithLength(32);
+    uint8_t retData[32];
+    int ret = secp256k1_aggsig_export_secnonce_single(_context,
+                                                      retData,
+                                                      seed.bytes);
+    if (ret == 1){
+        return [[VcashSecretKey alloc] initWithData:[NSData dataWithBytes:retData length:32]];
+    }
+    else{
+        return nil;
+    }
+}
+
+-(NSData*)getPubkeyFormSecretKey:(VcashSecretKey*)key{
+    secp256k1_pubkey pubkey;
+    int ret = secp256k1_ec_pubkey_create(_context,
+                               &pubkey,
+                               key.data.bytes);
+    if (ret == 1){
+        return [NSData dataWithBytes:pubkey.data length:64];
+    }
+    else{
+        return nil;
+    }
+                               
 }
 
 #pragma proof
@@ -185,7 +216,7 @@
         VcashProofInfo* info = [VcashProofInfo new];
         info.isSuc = YES;
         info.value = value;
-        info.secretKey = [[VcashSecretKey alloc] initWithData:[NSData dataWithBytes:blindOut length:SECRET_KEY_SIZE] andSecp:self];
+        info.secretKey = [[VcashSecretKey alloc] initWithData:[NSData dataWithBytes:blindOut length:SECRET_KEY_SIZE]];
         info.message = [NSData dataWithBytes:messageOut length:BULLET_PROOF_MSG_SIZE];
         return info;
     }

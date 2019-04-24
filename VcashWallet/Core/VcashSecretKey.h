@@ -10,11 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class VcashSecp256k1;
-
 @interface VcashSecretKey : NSObject
 
-- (id) initWithData:(NSData*)data andSecp:(VcashSecp256k1*)secp;
+- (id) initWithData:(NSData*)data;
+
++(instancetype)nounceKey;
 
 @property(readonly, strong, nonatomic)NSData* data;
 

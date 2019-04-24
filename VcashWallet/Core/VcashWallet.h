@@ -10,12 +10,15 @@
 #import "VcashKeyChain.h"
 #import "VcashTypes.h"
 #import "NodeType.h"
+#import "VcashKeychainPath.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface VcashWallet : NSObject
 
 @property (readonly, strong, nonatomic)VcashKeyChain* mKeyChain;
+
+@property (strong, nonatomic)VcashKeychainPath* curKeyPath;
 
 +(void)createWalletWithKeyChain:(VcashKeyChain*)keychain;
 
@@ -27,9 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(VcashOutput*)identifyUtxoOutput:(NodeOutput*)nodeOutput;
 
--(void)sendTransaction:(VcashSlate*)slate amount:(uint64_t)amount andFee:(uint64_t)fee withComplete:(RequestCompleteBlock)block;
+-(void)sendTransaction:(uint64_t)amount andFee:(uint64_t)fee withComplete:(RequestCompleteBlock)block;
 
-
+-(VcashKeychainPath*)nextChild;
 
 @end
 

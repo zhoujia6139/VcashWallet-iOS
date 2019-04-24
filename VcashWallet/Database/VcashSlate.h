@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class VcashContext, ParticipantData;
+
 @interface VcashSlate : NSObject
 
 @property(strong, nonatomic)NSString* uuid;
@@ -29,7 +31,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(strong, nonatomic)VcashTransaction* tx;
 
--(void)addTxElement:(NSArray*)outputs change:(uint64_t)change;
+@property(strong, nonatomic)NSMutableArray<ParticipantData*>* participant_data;
+
+-(VcashSecretKey*)addTxElement:(NSArray*)outputs change:(uint64_t)change;
+
+-(BOOL)fillRound1:(VcashContext*)context participantId:(NSUInteger)participant_id andMessage:(NSString*)message;
+
+@end
+
+@interface ParticipantData : NSObject
+
+@property(assign, nonatomic)uint16_t pId;
+
+@property(strong, nonatomic)NSData* public_blind_excess;
+
+@property(strong, nonatomic)NSData* public_nonce;
+
+@property(strong, nonatomic)NSData* part_sig;
+
+@property(strong, nonatomic)NSString* message;
+
+@property(strong, nonatomic)NSData* message_sig;
 
 @end
 

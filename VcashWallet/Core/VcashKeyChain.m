@@ -13,7 +13,6 @@
 
 @implementation VcashKeyChain
 {
-    VcashSecp256k1* _secp;
     BTCKeychain* _keyChain;
     BTCMnemonic* _mnemonic;
 }
@@ -27,17 +26,17 @@
     return self;
 }
 
+-(VcashSecretKey*)deriveKey:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath{
+    BTCKeychain* keychain = [_keyChain derivedKeychainWithPath:keypath.pathStr];
+    BTCKey* key = keychain.key;
+    NSData* data = [_secp blindSwitch:amount withKey:[[VcashSecretKey alloc] initWithData:key.privateKey]];
+    return [[VcashSecretKey alloc] initWithData:data];
+}
+
 -(NSData*)createCommitment:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath{
     VcashSecretKey* secretKey = [self deriveKey:amount andKeypath:keypath];
     NSData* commit = [_secp commitment:amount withKey:secretKey];
     return commit;
-}
-
--(VcashSecretKey*)deriveKey:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath{
-    BTCKeychain* keychain = [_keyChain derivedKeychainWithPath:keypath.pathStr];
-    BTCKey* key = keychain.key;
-    NSData* data = [_secp blindSwitch:amount withKey:[[VcashSecretKey alloc] initWithData:key.privateKey andSecp:_secp]];
-    return [[VcashSecretKey alloc] initWithData:data andSecp:_secp];
 }
 
 -(VcashSecretKey*)createNonce:(NSData*)commitment {
@@ -48,7 +47,7 @@
         return nil;
     }
     NSData* keydata = [NSData dataWithBytes:ret length:SECRET_KEY_SIZE];
-    return [[VcashSecretKey alloc] initWithData:keydata andSecp:_secp];
+    return [[VcashSecretKey alloc] initWithData:keydata];
 }
 
 #pragma proof
@@ -57,7 +56,7 @@
     NSData* commit = [self createCommitment:amount andKeypath:path];
     VcashSecretKey* secretKey = [self deriveKey:amount andKeypath:path];
     VcashSecretKey* nounce = [self createNonce:commit];
-    NSData* rangeProof = [_secp createBulletProof:amount key:secretKey nounce:nounce andMessage:[path.pathStr dataUsingEncoding:NSUTF8StringEncoding]];
+    NSData* rangeProof = [_secp createBulletProof:amount key:secretKey nounce:nounce andMessage:path.pathData];
     return rangeProof;
 }
 

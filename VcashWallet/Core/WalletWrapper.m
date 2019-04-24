@@ -60,13 +60,7 @@
 }
 
 +(VcashSlate*)createSendTransaction:(NSString*)targetUserId amount:(uint64_t)amount fee:(uint64_t)fee withComplete:(RequestCompleteBlock)block{
-    VcashSlate* slate = [VcashSlate new];
-    slate.num_participants = 2;
-    slate.amount = amount;
-    slate.height = 176;
-    slate.lock_height = 176;
-    
-    [[VcashWallet shareInstance] sendTransaction:slate amount:amount andFee:fee withComplete:^(BOOL yesOrNO, id data) {
+    [[VcashWallet shareInstance] sendTransaction:amount andFee:fee withComplete:^(BOOL yesOrNO, id data) {
         block?block(yesOrNO, data):nil;
     }];
 

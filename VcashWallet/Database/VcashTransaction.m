@@ -18,6 +18,11 @@
 
 @implementation TxKernel
 
+-(void)setLock_height:(uint64_t)lock_height{
+    _lock_height = lock_height;
+    _features = lock_height>0?KernelFeatureHeightLocked:KernelFeaturePlain;
+}
+
 @end
 
 @implementation TransactionBody

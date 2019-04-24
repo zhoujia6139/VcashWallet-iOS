@@ -11,21 +11,23 @@
 #import "CoreBitcoin.h"
 #import "VcashKeychainPath.h"
 #import "VcashTypes.h"
+#import "VcashSecp256k1.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface VcashKeyChain : NSObject
 
-- (id) initWithMnemonic:(BTCMnemonic*)mnemonic;
+@property(readonly, strong, nonatomic)VcashSecp256k1* secp;
 
--(NSData*)createCommitment:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath;
+- (id) initWithMnemonic:(BTCMnemonic*)mnemonic;
 
 -(VcashSecretKey*)deriveKey:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath;
 
+-(NSData*)createCommitment:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath;
+
 -(VcashSecretKey*)createNonce:(NSData*)commitment;
 
-#pragma proof
-
+//proof
 -(NSData*)createRangeProof:(uint64_t)amount withKeyPath:(VcashKeychainPath*)path;
 
 -(BOOL)verifyProof:(NSData*)commitment withProof:(NSData*)proof;

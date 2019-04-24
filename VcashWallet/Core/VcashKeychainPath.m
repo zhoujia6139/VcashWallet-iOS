@@ -81,4 +81,10 @@
     return YES;
 }
 
+-(instancetype)nextPath{
+    VcashKeychainPath* path = [[VcashKeychainPath alloc] initWithPathstr:self.pathStr];
+    path->_path[path->_depth-1] += 1;
+    return path;
+}
+
 @end

@@ -30,7 +30,12 @@ enum ContextFlag {
 
 -(NSData*)commitment:(uint64_t)value withKey:(VcashSecretKey*)key;
 
--(NSData*)blindSumWithPositiveArr:(NSArray*)positive andNegative:(NSArray*)negative;
+-(VcashSecretKey*)blindSumWithPositiveArr:(NSArray<NSData*>*)positive andNegative:(NSArray<NSData*>*)negative;
+
+//secret nonce
+-(VcashSecretKey*)exportSecnonceSingle;
+
+-(NSData*)getPubkeyFormSecretKey:(VcashSecretKey*)key;
 
 #pragma proof
 -(NSData*)createBulletProof:(uint64_t)value key:(VcashSecretKey*)key nounce:(VcashSecretKey*)nounce andMessage:(NSData*)message;

@@ -7,6 +7,7 @@
 //
 
 #import "VcashWallet.h"
+#import "VcashContext.h"
 
 #define DEFAULT_BASE_FEE 1000000
 
@@ -62,13 +63,13 @@ static VcashWallet* walletInstance = nil;
     return nil;
 }
 
--(void)sendTransaction:(VcashSlate*)slate amount:(uint64_t)amount andFee:(uint64_t)fee withComplete:(RequestCompleteBlock)block{
+-(void)sendTransaction:(uint64_t)amount andFee:(uint64_t)fee withComplete:(RequestCompleteBlock)block{
     uint64_t total = 0;
     for (VcashOutput* item in self.outputs){
         total += item.value;
     }
     
-    //1 计算费率和输出
+    //1 Compute Fee and output
     // 1.1First attempt to spend without change
     uint64_t actualFee = fee;
     if (fee == 0){
@@ -86,10 +87,28 @@ static VcashWallet* walletInstance = nil;
         actualFee = [self calcuteFee:self.outputs.count withOutputCount:2];
     }
     
-    slate.fee = actualFee;
     uint64_t change = total - amount_with_fee;
-    [slate addTxElement:self.outputs change:change];
-    //
+    
+    //2 fill slate
+    VcashSlate* slate = [VcashSlate new];
+    slate.num_participants = 2;
+    slate.amount = amount;
+    slate.height = 176;
+    slate.lock_height = 176;
+    slate.fee = actualFee;
+    VcashSecretKey* blind = [slate addTxElement:self.outputs change:change];
+    
+    //3 construct Context
+    VcashContext* context = [[VcashContext alloc] init];
+    context.sec_key = blind;
+    
+    //4 fill round 1
+    [slate fillRound1:context participantId:0 andMessage:@""];
+}
+
+-(VcashKeychainPath*)nextChild{
+    self.curKeyPath = [self.curKeyPath nextPath];
+    return self.curKeyPath;
 }
 
 #pragma private
