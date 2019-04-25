@@ -69,14 +69,16 @@
     return [NSData dataWithBytes:pathinfo length:16];
 }
 
+//standard path should be '/0/0/2'
 -(BOOL)parsePathStr:(NSString*)pathStr{
     NSArray<NSString*>* arr = [pathStr componentsSeparatedByString:@"/"];
-    _depth = [arr count];
-    if (_depth > 4){
+    //first element is @""
+    _depth = [arr count] - 1;
+    if (_depth > 4 || _depth < 1){
         return NO;
     }
     for (NSUInteger i=0; i<_depth; i++){
-        _path[i] = [[arr objectAtIndex:i] unsignedIntValue];
+        _path[i] = [[arr objectAtIndex:i+1] unsignedIntValue];
     }
     return YES;
 }

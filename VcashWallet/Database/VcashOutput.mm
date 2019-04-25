@@ -12,7 +12,7 @@
 @implementation VcashOutput
 
 WCDB_IMPLEMENTATION(VcashOutput)
-WCDB_SYNTHESIZE(VcashOutput, commit)
+WCDB_SYNTHESIZE(VcashOutput, commitment)
 WCDB_SYNTHESIZE(VcashOutput, keyPath)
 WCDB_SYNTHESIZE(VcashOutput, mmr_index)
 WCDB_SYNTHESIZE(VcashOutput, value)
@@ -21,6 +21,6 @@ WCDB_SYNTHESIZE(VcashOutput, lock_height)
 WCDB_SYNTHESIZE(VcashOutput, is_coinbase)
 WCDB_SYNTHESIZE(VcashOutput, status)
 
-WCDB_PRIMARY(VcashOutput, commit)
+WCDB_PRIMARY(VcashOutput, commitment)
 
 @end

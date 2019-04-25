@@ -104,6 +104,14 @@
     }
 }
 
+-(BOOL)verifySingleSignature{
+    return YES;
+}
+
+-(NSData*)calculateSingleSignature:(NSData*)sec_key secNonce:(NSData*)sec_nonce nonceSum:(NSData*)nonce_sum pubkeySum:(NSData*)pubkey_sum andMsgData:(NSData*)msg{
+    return nil;
+}
+
 //secret nonce
 -(VcashSecretKey*)exportSecnonceSingle{
     NSData* seed = BTCRandomDataWithLength(32);
@@ -136,7 +144,7 @@
 #pragma proof
 -(NSData*)createBulletProof:(uint64_t)value key:(VcashSecretKey*)key nounce:(VcashSecretKey*)nounce andMessage:(NSData*)message{
     uint8_t proof[MAX_PROOF_SIZE];
-    size_t proofSize = 0;
+    size_t proofSize = MAX_PROOF_SIZE;
     
     const unsigned char* key_point = key.data.bytes;
     const unsigned char* const* key_points = &key_point;
@@ -196,7 +204,6 @@
     uint64_t value = 0;
     uint8_t messageOut[BULLET_PROOF_MSG_SIZE];
     
-    DDLogWarn(@"commitment=%@, commitment=%@, nounce=%@, proof=%@", BTCHexFromData(commitment), BTCHexFromData([self parseCommit:commitment]), BTCHexFromData(nounce.data), BTCHexFromData(proof));
     //secp256k1_scratch_space* scratch = secp256k1_scratch_space_create(_context, SCRATCH_SPACE_SIZE);
     int ret = secp256k1_bulletproof_rangeproof_rewind(_context,
                                             [self sharedGenerators],

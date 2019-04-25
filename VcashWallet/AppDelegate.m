@@ -7,8 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#include "secp256k1.h"
-#include "blake2.h"
+#import "NodeApi.h"
 
 @interface AppDelegate ()
 
@@ -33,28 +32,7 @@
         [NavigationCenter showWelcomePage];
     }
     
-    secp256k1_context* context = secp256k1_context_create(SECP256K1_CONTEXT_NONE);
-    
-    uint8_t key[BLAKE2B_KEYBYTES];
-    uint8_t buf[10];
-    
-    for( size_t i = 0; i < BLAKE2B_KEYBYTES; ++i )
-        key[i] = ( uint8_t )i;
-    
-    for( size_t i = 0; i < 10; ++i )
-        buf[i] = ( uint8_t )i;
-    
-    for( size_t i = 0; i < 10; ++i )
-    {
-        uint8_t hash[64];
-        
-        if( blake2b( hash, buf, key, 64, i, BLAKE2B_KEYBYTES ) < 0)
-        {
-            puts( "error" );
-        }
-    }
-    
-    puts( "ok" );
+    [[NodeApi shareInstance] getChainHeight];
     
     return YES;
 }

@@ -8,6 +8,8 @@
 
 #import "VcashWallet.h"
 #import "VcashContext.h"
+#import "NodeApi.h"
+#import "VcashDataManager.h"
 
 #define DEFAULT_BASE_FEE 1000000
 
@@ -20,11 +22,18 @@ static VcashWallet* walletInstance = nil;
 @end
 
 @implementation VcashWallet
+{
+    uint64_t _curChainHeight;
+}
 
 +(void)createWalletWithKeyChain:(VcashKeyChain*)keychain{
     if (keychain && !walletInstance){
         walletInstance = [[self alloc] init];
         walletInstance.mKeyChain = keychain;
+        walletInstance->_outputs = [[VcashDataManager shareInstance] getActiveOutputData];
+        VcashWalletInfo* baseInfo = [[VcashDataManager shareInstance] loadWalletInfo];
+        walletInstance->_curKeyPath = [[VcashKeychainPath alloc] initWithPathstr:baseInfo.curKeyPath];
+        walletInstance->_curChainHeight = baseInfo.curHeight;
     }
 }
 
@@ -32,8 +41,26 @@ static VcashWallet* walletInstance = nil;
     return walletInstance;
 }
 
--(NSArray*)collectChainOutputs{
-    return nil;
+-(void)setChainOutputs:(NSArray*)arr{
+    self->_outputs = arr;
+    NSString* maxKeypath = @"";
+    for (VcashOutput* item in arr){
+        if ([item.keyPath compare:maxKeypath options:NSNumericSearch] == NSOrderedDescending){
+            maxKeypath = item.keyPath;
+        }
+    }
+    self->_curKeyPath = [[VcashKeychainPath alloc] initWithPathstr:maxKeypath];
+    [self saveBaseInfo];
+    [[VcashDataManager shareInstance] saveOutputData:arr];
+}
+
+-(uint64_t)curChainHeight{
+    uint64_t height = [[NodeApi shareInstance] getChainHeight];
+    if (height > self->_curChainHeight){
+        self->_curChainHeight = height;
+        [self saveBaseInfo];
+    }
+    return self->_curChainHeight;
 }
 
 -(VcashOutput*)identifyUtxoOutput:(NodeOutput*)nodeOutput{
@@ -42,7 +69,7 @@ static VcashWallet* walletInstance = nil;
     VcashProofInfo* info = [self.mKeyChain rewindProof:commit withProof:proof];
     if (info.isSuc){
         VcashOutput* output = [VcashOutput new];
-        output.commit = nodeOutput.commit;
+        output.commitment = nodeOutput.commit;
         output.keyPath = [[VcashKeychainPath alloc] initWithDepth:3 andPathData:info.message].pathStr;
         output.mmr_index = nodeOutput.mmr_index;
         output.value = info.value;
@@ -63,7 +90,7 @@ static VcashWallet* walletInstance = nil;
     return nil;
 }
 
--(void)sendTransaction:(uint64_t)amount andFee:(uint64_t)fee withComplete:(RequestCompleteBlock)block{
+-(VcashSlate*)sendTransaction:(uint64_t)amount andFee:(uint64_t)fee withComplete:(RequestCompleteBlock)block{
     uint64_t total = 0;
     for (VcashOutput* item in self.outputs){
         total += item.value;
@@ -86,28 +113,47 @@ static VcashWallet* walletInstance = nil;
     if (total != amount_with_fee) {
         actualFee = [self calcuteFee:self.outputs.count withOutputCount:2];
     }
-    
+    amount_with_fee = amount + actualFee;
     uint64_t change = total - amount_with_fee;
     
     //2 fill slate
     VcashSlate* slate = [VcashSlate new];
     slate.num_participants = 2;
     slate.amount = amount;
-    slate.height = 176;
-    slate.lock_height = 176;
+    slate.height = self.curChainHeight;
+    slate.lock_height = self.curChainHeight;
     slate.fee = actualFee;
     VcashSecretKey* blind = [slate addTxElement:self.outputs change:change];
     
-    //3 construct Context
+    //3 construct sender Context
     VcashContext* context = [[VcashContext alloc] init];
     context.sec_key = blind;
     
-    //4 fill round 1
+    //4 sender fill round 1
     [slate fillRound1:context participantId:0 andMessage:@""];
+    NSString* result = [slate modelToJSONString];
+    NSLog(@"---------:%@", result);
+    return slate;
+}
+
+-(void)receiveTransaction:(VcashSlate*)slate{
+    //5, fill slate with receiver output
+    VcashSecretKey* blind = [slate addReceiverTxOutput];
+    
+    //6, construct receiver Context
+    VcashContext* context = [[VcashContext alloc] init];
+    context.sec_key = blind;
+    
+    //7, receiver fill round 1
+    [slate fillRound1:context participantId:1 andMessage:@""];
+    
+    //8, receiver fill round 2
+    
 }
 
 -(VcashKeychainPath*)nextChild{
-    self.curKeyPath = [self.curKeyPath nextPath];
+    self->_curKeyPath = [self.curKeyPath nextPath];
+    [self saveBaseInfo];
     return self.curKeyPath;
 }
 
@@ -117,6 +163,14 @@ static VcashWallet* walletInstance = nil;
     tx_weight = (tx_weight>1?tx_weight:1);
     
     return DEFAULT_BASE_FEE*tx_weight;
+}
+
+-(void)saveBaseInfo{
+    VcashWalletInfo* info = [VcashWalletInfo new];
+    info.curKeyPath = self.curKeyPath.pathStr;
+    info.curHeight = self.curChainHeight;
+    
+    [[VcashDataManager shareInstance] saveWalletInfo:info];
 }
 
 @end

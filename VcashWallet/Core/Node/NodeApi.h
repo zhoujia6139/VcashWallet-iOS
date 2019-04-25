@@ -15,7 +15,11 @@ typedef void (^RequestCompleteBlock) (BOOL, _Nullable id);
 
 @interface NodeApi : NSObject
 
-+(void)getOutputsByPmmrIndex:(uint64_t)startheight retArr:(NSMutableArray*)retArr WithComplete:(RequestCompleteBlock)block;
++ (instancetype)shareInstance;
+
+-(void)getOutputsByPmmrIndex:(uint64_t)startheight retArr:(NSMutableArray*)retArr WithComplete:(RequestCompleteBlock)block;
+
+-(uint64_t)getChainHeight;
 
 @end
 

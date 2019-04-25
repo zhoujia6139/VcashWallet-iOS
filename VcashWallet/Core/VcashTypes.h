@@ -56,6 +56,7 @@ typedef enum{
 
 @property (strong, nonatomic)NSData* excess_sig;
 
+
 @end
 
 @interface TransactionBody : NSObject
@@ -74,6 +75,10 @@ typedef enum{
 @property (strong, nonatomic)NSData* offset;
 
 @property (strong, nonatomic)TransactionBody* body;
+
++(KernelFeatures)featureWithLockHeight:(uint64_t)lock_height;
+
++(NSData*)featureToData:(KernelFeatures)feature;
 
 @end
 

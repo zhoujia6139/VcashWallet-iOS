@@ -118,8 +118,9 @@
 
 -(void)setLock_height:(uint64_t)lock_height{
     _lock_height = lock_height;
-    _features = lock_height>0?KernelFeatureHeightLocked:KernelFeaturePlain;
+    _features = [VcashTransaction featureWithLockHeight:lock_height];
 }
+
 
 @end
 
@@ -146,6 +147,37 @@
 @end
 
 @implementation VcashTransaction
+-(id)init{
+    self = [super init];
+    if (self){
+        _body = [TransactionBody new];
+    }
+    return self;
+}
+
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    self.offset = [PublicTool getDataFromArray:dic[@"offset"]];
+    
+    return YES;
+}
+
+- (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
+    if (self.offset){
+        dic[@"offset"] = [PublicTool getArrFromData:self.offset];
+    }
+    
+    return YES;
+}
+
+
++(KernelFeatures)featureWithLockHeight:(uint64_t)lock_height{
+    return lock_height>0?KernelFeatureHeightLocked:KernelFeaturePlain;
+}
+
++(NSData*)featureToData:(KernelFeatures)feature{
+    uint8_t temp = feature;
+    return [NSData dataWithBytes:&temp length:1];
+}
 
 @end
 

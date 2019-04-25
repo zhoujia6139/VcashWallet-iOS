@@ -54,6 +54,11 @@
     BOOL yesOrNO = [WalletWrapper createWalletWithPhrase:wordsArr nickname:nil password:nil];
     if (yesOrNO)
     {
+        
+        VcashSlate*slate = [WalletWrapper createSendTransaction:@"" amount:1000000000 fee:0 withComplete:^(BOOL yesOrNO, id data) {
+            
+        }];
+        
         [NavigationCenter showWalletPage];
     }
     else

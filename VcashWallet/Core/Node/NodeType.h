@@ -40,4 +40,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface NodeChainInfo : NSObject
+
+@property(assign, nonatomic) uint64_t height;
+
+@property(strong, nonatomic) NSString* last_block_pushed;
+
+@property(strong, nonatomic) NSString* prev_block_to_last;
+
+@property(assign, nonatomic) uint64_t total_difficulty;
+
+
+@end
+
 NS_ASSUME_NONNULL_END

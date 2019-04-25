@@ -12,6 +12,7 @@
 #import "VcashContext.h"
 #import "VcashSecp256k1.h"
 #import "VcashTypes.h"
+#include "blake2.h"
 
 @implementation VcashSlate
 
@@ -56,6 +57,7 @@
         [temptx.body.inputs addObject:input];
         VcashSecretKey* secKey = [[VcashWallet shareInstance].mKeyChain deriveKey:item.value andKeypath:keypath];
         [negativeArr addObject:secKey.data];
+        NSLog(@"------input=%@, secKey=%@", BTCHexFromData(input.commit), BTCHexFromData(secKey.data));
     }
     
     //output
@@ -71,6 +73,8 @@
         [temptx.body.outputs addObject:output];
         VcashSecretKey* secKey = [[VcashWallet shareInstance].mKeyChain deriveKey:change andKeypath:keypath];
         [positiveArr addObject:secKey.data];
+        
+        NSLog(@"------output.commit=%@,output.proof=%@, secKey=%@", BTCHexFromData(output.commit), BTCHexFromData(output.proof), BTCHexFromData(secKey.data));
     }
     
     //lockheight
@@ -79,7 +83,25 @@
     [temptx.body.kernels addObject:txKernel];
     VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
     VcashSecretKey* blind = [secp blindSumWithPositiveArr:positiveArr andNegative:negativeArr];
+    NSLog(@"------blind=%@", BTCHexFromData(blind.data));
     return blind;
+}
+
+-(VcashSecretKey*)addReceiverTxOutput{
+    VcashTransaction* temptx = self.tx;
+    VcashKeychainPath* keypath = [[VcashWallet shareInstance] nextChild];
+    NSData*commitment = [[VcashWallet shareInstance].mKeyChain createCommitment:self.amount andKeypath:keypath];
+    NSData*proof = [[VcashWallet shareInstance].mKeyChain createRangeProof:self.amount withKeyPath:keypath];
+    Output* output = [Output new];
+    output.features = OutputFeaturePlain;
+    output.commit = commitment;
+    output.proof = proof;
+    
+    [temptx.body.outputs addObject:output];
+    VcashSecretKey* secKey = [[VcashWallet shareInstance].mKeyChain deriveKey:self.amount andKeypath:keypath];
+    
+    NSLog(@"------output.commit=%@,output.proof=%@, secKey=%@", BTCHexFromData(output.commit), BTCHexFromData(output.proof), BTCHexFromData(secKey.data));
+    return secKey;
 }
 
 -(BOOL)fillRound1:(VcashContext*)context participantId:(NSUInteger)participant_id andMessage:(NSString*)message{
@@ -87,6 +109,28 @@
         [self generateOffset:context];
     }
     [self addParticipantInfo:context participantId:participant_id andMessage:message];
+    return YES;
+}
+
+-(BOOL)fillRound2:(VcashContext*)context participantId:(NSUInteger)participant_id{
+    //TODO check fee?
+    
+    if (![self verifyPartSignature]){
+        return NO;
+    }
+    
+    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+    NSData* msgData = [self createMsgToSign];
+    NSData* sig = [secp calculateSingleSignature:context.sec_key.data secNonce:context.sec_nounce.data nonceSum:nil pubkeySum:nil andMsgData:msgData];
+    
+    ParticipantData* participantData = nil;
+    for (ParticipantData* item in self.participant_data){
+        if (item.pId == participant_id){
+            participantData = item;
+        }
+    }
+    participantData.part_sig = sig;
+    
     return YES;
 }
 
@@ -114,6 +158,76 @@
     partiData.message = message;
     
     [self.participant_data addObject:partiData];
+}
+
+-(BOOL)verifyPartSignature{
+    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+    for (ParticipantData* item in self.participant_data){
+        if (item.part_sig){
+            if (![secp verifySingleSignature]){
+                return NO;
+            }
+        }
+    }
+    
+    return YES;
+}
+
+-(NSData*)createMsgToSign{
+    KernelFeatures feature = [VcashTransaction featureWithLockHeight:self.lock_height];
+    NSData* sourceData = [self kernelMsgToSign:feature];
+
+    return sourceData;
+}
+
+-(NSData*)kernelMsgToSign:(KernelFeatures)feature{
+    NSData* data = nil;
+    NSData* featureData = [VcashTransaction featureToData:feature];
+    switch (feature) {
+        case KernelFeaturePlain:
+        {
+            if (self.lock_height == 0){
+                NSMutableData* acData = [[NSMutableData alloc] initWithData:featureData];
+                uint8_t buf[8];
+                OSWriteBigInt64(buf, 0, self.fee);
+                [acData appendBytes:buf length:8];
+                data = acData;
+            }
+            break;
+        }
+            
+        case KernelFeatureCoinbase:
+        {
+            if (self.fee == 0 && self.lock_height == 0){
+                data = featureData;
+            }
+            break;
+        }
+            
+        case KernelFeatureHeightLocked:
+        {
+            NSMutableData* acData = [[NSMutableData alloc] initWithData:featureData];
+            uint8_t feeBuf[8];
+            OSWriteBigInt64(feeBuf, 0, self.fee);
+            [acData appendBytes:feeBuf length:8];
+            uint8_t heightBuf[8];
+            OSWriteBigInt64(heightBuf, 0, self.lock_height);
+            [acData appendBytes:heightBuf length:8];
+            data = acData;
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+    uint8_t ret[32];
+    if( blake2b( ret, data.bytes, nil, 32, data.length, 0 ) < 0)
+    {
+        return nil;
+    }
+    
+    return [[NSData alloc] initWithBytes:ret length:32];
 }
 
 @end

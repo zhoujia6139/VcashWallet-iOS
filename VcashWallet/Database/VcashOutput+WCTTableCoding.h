@@ -14,7 +14,7 @@
 
 @interface VcashOutput(WCTTableCoding) <WCTTableCoding>
 
-WCDB_PROPERTY(commit)
+WCDB_PROPERTY(commitment)
 WCDB_PROPERTY(keyPath)
 WCDB_PROPERTY(mmr_index)
 WCDB_PROPERTY(value)

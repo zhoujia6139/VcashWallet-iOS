@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "VcashOutput.h"
+#import "VcashWalletInfo.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,11 +16,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)shareInstance;
 
-//关闭数据库
 -(void)closeDatabase;
+
+//wallet info
+-(BOOL)saveWalletInfo:(VcashWalletInfo*)info;
+
+-(VcashWalletInfo*)loadWalletInfo;
 
 //utxo
 -(BOOL)saveOutputData:(NSArray*)arr;
+
+-(NSArray*)getActiveOutputData;
 
 //transaction
 

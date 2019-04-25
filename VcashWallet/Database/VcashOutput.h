@@ -25,7 +25,7 @@ typedef enum  {
 
 @interface VcashOutput : NSObject
 
-@property(strong, nonatomic)NSString* commit;
+@property(strong, nonatomic)NSString* commitment;
 
 @property(strong, nonatomic)NSString* keyPath;
 

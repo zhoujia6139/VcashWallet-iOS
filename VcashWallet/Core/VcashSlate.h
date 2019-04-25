@@ -32,9 +32,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(strong, nonatomic)NSMutableArray<ParticipantData*>* participant_data;
 
+//for sender
 -(VcashSecretKey*)addTxElement:(NSArray*)outputs change:(uint64_t)change;
 
+//for receiver
+-(VcashSecretKey*)addReceiverTxOutput;
+
 -(BOOL)fillRound1:(VcashContext*)context participantId:(NSUInteger)participant_id andMessage:(NSString*)message;
+
+-(BOOL)fillRound2:(VcashContext*)context participantId:(NSUInteger)participant_id;
 
 @end
 

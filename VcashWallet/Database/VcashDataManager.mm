@@ -9,6 +9,7 @@
 #import "VcashDataManager.h"
 #import <WCDB/WCDB.h>
 #import "VcashOutput+WCTTableCoding.h"
+#import "VcashWalletInfo+WCTTableCoding.h"
 
 @interface VcashDataManager()
 
@@ -39,6 +40,27 @@
     self.database = nil;
 }
 
+-(BOOL)saveWalletInfo:(VcashWalletInfo*)info{
+    NSString *className = NSStringFromClass(VcashWalletInfo.class);
+    NSString *tableName = className;
+    BOOL ret = [self.database insertOrReplaceObject:info into:tableName];
+    if (!ret)
+    {
+        DDLogError(@"----------db error, saveWalletInfo fail");
+        return NO;
+    }
+    return YES;
+}
+
+-(VcashWalletInfo*)loadWalletInfo{
+    NSString *className = NSStringFromClass(VcashWalletInfo.class);
+    NSString *tableName = className;
+    VcashWalletInfo *object = [self.database getOneObjectOfClass:VcashWalletInfo.class
+                                                         fromTable:tableName];
+    
+    return object;
+}
+
 -(BOOL)saveOutputData:(NSArray*)array{
     if (array.count == 0){
         return YES;
@@ -46,6 +68,7 @@
     
     NSString *className = NSStringFromClass(VcashOutput.class);
     NSString *tableName = className;
+    [self.database deleteAllObjectsFromTable:tableName];
     BOOL ret = [self.database insertOrReplaceObjects:array
                                                 into:tableName];
     if (!ret)
@@ -54,6 +77,13 @@
         return NO;
     }
     return YES;
+}
+
+-(NSArray*)getActiveOutputData{
+    NSString *className = NSStringFromClass(VcashOutput.class);
+    NSString *tableName = className;
+    NSArray<VcashOutput *> *objects = [self.database getObjectsOfClass:VcashOutput.class fromTable:tableName where:(VcashOutput.status != Spent)];
+    return objects;
 }
 
 
@@ -85,6 +115,14 @@
             assert(ret);
         }
         
+        NSString *className1 = NSStringFromClass(VcashWalletInfo.class);
+        NSString *tableName1 = className1;
+        isExist = [_database isTableExists:tableName1];
+        if (!isExist)
+        {
+            BOOL ret = [_database createTableAndIndexesOfName:tableName1 withClass:VcashWalletInfo.class];
+            assert(ret);
+        }
     }
     
     return _database;

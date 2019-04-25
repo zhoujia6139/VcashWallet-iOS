@@ -19,3 +19,8 @@
 }
 
 @end
+
+@implementation NodeChainInfo
+
+@end
+

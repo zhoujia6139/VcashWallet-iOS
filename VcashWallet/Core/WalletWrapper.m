@@ -11,6 +11,7 @@
 #import "VcashKeyChain.h"
 #import "VcashWallet.h"
 #import "NodeApi.h"
+#import "VcashDataManager.h"
 
 @interface BTCMnemonic (Words)
 +(NSArray*) englishWordList;
@@ -51,20 +52,19 @@
 
 +(void)checkWalletUtxoWithComplete:(RequestCompleteBlock)block{
     NSMutableArray* arr = [NSMutableArray new];
-    [NodeApi getOutputsByPmmrIndex:0 retArr:arr WithComplete:^(BOOL yesOrNo, id result) {
+    [[NodeApi shareInstance] getOutputsByPmmrIndex:0 retArr:arr WithComplete:^(BOOL yesOrNo, id result) {
         if (yesOrNo){
-            [VcashWallet shareInstance].outputs = (NSArray*)result;
+            [[VcashWallet shareInstance] setChainOutputs:(NSArray*)result];
         }
         block?block(yesOrNo, result):nil;
     }];
 }
 
 +(VcashSlate*)createSendTransaction:(NSString*)targetUserId amount:(uint64_t)amount fee:(uint64_t)fee withComplete:(RequestCompleteBlock)block{
-    [[VcashWallet shareInstance] sendTransaction:amount andFee:fee withComplete:^(BOOL yesOrNO, id data) {
+    return [[VcashWallet shareInstance] sendTransaction:amount andFee:fee withComplete:^(BOOL yesOrNO, id data) {
         block?block(yesOrNO, data):nil;
     }];
 
-    return nil;
 }
 
 +(void)sendTransaction:(VcashSlate*)slate{
