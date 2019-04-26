@@ -78,8 +78,6 @@ typedef enum{
 
 +(KernelFeatures)featureWithLockHeight:(uint64_t)lock_height;
 
-+(NSData*)featureToData:(KernelFeatures)feature;
-
 @end
 
 @interface VcashProofInfo : NSObject

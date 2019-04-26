@@ -104,12 +104,77 @@
     }
 }
 
--(BOOL)verifySingleSignature{
-    return YES;
+-(BOOL)verifySingleSignature:(NSData*)signature pubkey:(NSData*)pubkey nonceSum:(nullable NSData*)nonce_sum pubkeySum:(NSData*)pubkey_sum andMsgData:(NSData*)msg{
+    int ret = secp256k1_aggsig_verify_single(_context,
+                                             signature.bytes,
+                                             msg.bytes,
+                                             nonce_sum.bytes,
+                                             pubkey.bytes,
+                                             pubkey_sum.bytes,
+                                             nil,
+                                             true);
+    
+    return (ret == 1);
 }
 
 -(NSData*)calculateSingleSignature:(NSData*)sec_key secNonce:(NSData*)sec_nonce nonceSum:(NSData*)nonce_sum pubkeySum:(NSData*)pubkey_sum andMsgData:(NSData*)msg{
-    return nil;
+    NSData* seed = BTCRandomDataWithLength(32);
+    uint8_t retSig[64];
+    int ret = secp256k1_aggsig_sign_single(_context,
+                                 retSig,
+                                 msg.bytes,
+                                 sec_key.bytes,
+                                 sec_nonce.bytes,
+                                 nil,
+                                 nonce_sum.bytes,
+                                 nonce_sum.bytes,
+                                 pubkey_sum.bytes,
+                                 seed.bytes);
+    if (ret == 1){
+        return [[NSData alloc] initWithBytes:retSig length:64];
+    }
+    else{
+        return nil;
+    }
+}
+
+-(NSData*)combinationPubkey:(NSArray*)arr{
+    secp256k1_pubkey* inkeyArr[arr.count];
+    for (NSUInteger i=0; i<arr.count; i++){
+        NSData* item = [arr objectAtIndex:i];
+        inkeyArr[i] = (secp256k1_pubkey*)item.bytes;
+    }
+    secp256k1_pubkey outKey;
+    int ret = secp256k1_ec_pubkey_combine(_context,
+                                &outKey,
+                                (void*)inkeyArr,
+                                arr.count);
+    if (ret == 1){
+        return [[NSData alloc] initWithBytes:outKey.data length:64];
+    }
+    else{
+        return nil;
+    }
+}
+
+-(NSData*)combinationSignature:(NSArray*)sigArr nonceSum:(NSData*)nonceSum{
+    uint8_t* sigs[sigArr.count];
+    for (NSUInteger i=0; i<sigArr.count; i++){
+        NSData* item = [sigArr objectAtIndex:i];
+        sigs[i] = (uint8_t*)item.bytes;
+    }
+    uint8_t retSig[64];
+    int ret = secp256k1_aggsig_add_signatures_single(_context,
+                                                     retSig,
+                                                     (void*)sigs,
+                                                     sigArr.count,
+                                                     nonceSum.bytes);
+    if (ret == 1){
+        return [[NSData alloc] initWithBytes:retSig length:64];
+    }
+    else{
+        return nil;
+    }
 }
 
 //secret nonce

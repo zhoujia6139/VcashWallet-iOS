@@ -42,6 +42,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(BOOL)fillRound2:(VcashContext*)context participantId:(NSUInteger)participant_id;
 
+-(NSData*)finalizeSignature;
+
+-(void)finalizeTx:(NSData*)finalSig;
+
 @end
 
 @interface ParticipantData : NSObject

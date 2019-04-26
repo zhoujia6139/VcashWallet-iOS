@@ -115,13 +115,35 @@
 -(BOOL)fillRound2:(VcashContext*)context participantId:(NSUInteger)participant_id{
     //TODO check fee?
     
-    if (![self verifyPartSignature]){
+    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+    
+    NSMutableArray* pubNonceArr = [NSMutableArray new];
+    NSMutableArray* pubBlindArr = [NSMutableArray new];
+    for (ParticipantData* item in self.participant_data) {
+        [pubNonceArr addObject:item.public_nonce];
+        [pubBlindArr addObject:item.public_blind_excess];
+    }
+    NSData* nonceSum = [secp combinationPubkey:pubNonceArr];
+    NSData* keySum = [secp combinationPubkey:pubBlindArr];
+    NSData* msgData = [self createMsgToSign];
+    if (!nonceSum || !keySum || !msgData){
         return NO;
     }
     
-    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
-    NSData* msgData = [self createMsgToSign];
-    NSData* sig = [secp calculateSingleSignature:context.sec_key.data secNonce:context.sec_nounce.data nonceSum:nil pubkeySum:nil andMsgData:msgData];
+    //1, verify part sig
+    for (ParticipantData* item in self.participant_data){
+        if (item.part_sig){
+            if (![secp verifySingleSignature:item.part_sig pubkey:item.public_blind_excess nonceSum:nonceSum pubkeySum:keySum andMsgData:msgData]){
+                return NO;
+            }
+        }
+    }
+    
+    //2, calcluate part sig
+    NSData* sig = [secp calculateSingleSignature:context.sec_key.data secNonce:context.sec_nounce.data nonceSum:nonceSum pubkeySum:keySum andMsgData:msgData];
+    if (!sig){
+        return NO;
+    }
     
     ParticipantData* participantData = nil;
     for (ParticipantData* item in self.participant_data){
@@ -132,6 +154,37 @@
     participantData.part_sig = sig;
     
     return YES;
+}
+
+-(NSData*)finalizeSignature{
+    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+    
+    NSMutableArray* pubNonceArr = [NSMutableArray new];
+    NSMutableArray* pubBlindArr = [NSMutableArray new];
+    NSMutableArray* sigsArr = [NSMutableArray new];
+    for (ParticipantData* item in self.participant_data) {
+        [pubNonceArr addObject:item.public_nonce];
+        [pubBlindArr addObject:item.public_blind_excess];
+        [sigsArr addObject:item.part_sig];
+    }
+    NSData* nonceSum = [secp combinationPubkey:pubNonceArr];
+    NSData* keySum = [secp combinationPubkey:pubBlindArr];
+    
+    //calcluate group signature
+    NSData* finalSig = [secp combinationSignature:sigsArr nonceSum:nonceSum];
+    NSData* msgData = [self createMsgToSign];
+    if (finalSig && msgData){
+        BOOL yesOrNO = [secp verifySingleSignature:finalSig pubkey:keySum nonceSum:nil pubkeySum:keySum andMsgData:msgData];
+        if (yesOrNO){
+            return finalSig;
+        }
+    }
+    
+    return nil;
+}
+
+-(void)finalizeTx:(NSData*)finalSig{
+    
 }
 
 #pragma private
@@ -160,19 +213,6 @@
     [self.participant_data addObject:partiData];
 }
 
--(BOOL)verifyPartSignature{
-    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
-    for (ParticipantData* item in self.participant_data){
-        if (item.part_sig){
-            if (![secp verifySingleSignature]){
-                return NO;
-            }
-        }
-    }
-    
-    return YES;
-}
-
 -(NSData*)createMsgToSign{
     KernelFeatures feature = [VcashTransaction featureWithLockHeight:self.lock_height];
     NSData* sourceData = [self kernelMsgToSign:feature];
@@ -182,16 +222,14 @@
 
 -(NSData*)kernelMsgToSign:(KernelFeatures)feature{
     NSData* data = nil;
-    NSData* featureData = [VcashTransaction featureToData:feature];
     switch (feature) {
         case KernelFeaturePlain:
         {
             if (self.lock_height == 0){
-                NSMutableData* acData = [[NSMutableData alloc] initWithData:featureData];
-                uint8_t buf[8];
-                OSWriteBigInt64(buf, 0, self.fee);
-                [acData appendBytes:buf length:8];
-                data = acData;
+                uint8_t buf[9];
+                buf[0] = feature;
+                OSWriteBigInt64(buf, 1, self.fee);
+                data = [[NSData alloc] initWithBytes:buf length:9];
             }
             break;
         }
@@ -199,21 +237,18 @@
         case KernelFeatureCoinbase:
         {
             if (self.fee == 0 && self.lock_height == 0){
-                data = featureData;
+                data = [NSData dataWithBytes:&feature length:1];
             }
             break;
         }
             
         case KernelFeatureHeightLocked:
         {
-            NSMutableData* acData = [[NSMutableData alloc] initWithData:featureData];
-            uint8_t feeBuf[8];
-            OSWriteBigInt64(feeBuf, 0, self.fee);
-            [acData appendBytes:feeBuf length:8];
-            uint8_t heightBuf[8];
-            OSWriteBigInt64(heightBuf, 0, self.lock_height);
-            [acData appendBytes:heightBuf length:8];
-            data = acData;
+            uint8_t buf[17];
+            buf[0] = feature;
+            OSWriteBigInt64(buf, 1, self.fee);
+            OSWriteBigInt64(buf, 9, self.lock_height);
+            data = [[NSData alloc] initWithBytes:buf length:17];
             break;
         }
             

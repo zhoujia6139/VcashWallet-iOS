@@ -174,11 +174,6 @@
     return lock_height>0?KernelFeatureHeightLocked:KernelFeaturePlain;
 }
 
-+(NSData*)featureToData:(KernelFeatures)feature{
-    uint8_t temp = feature;
-    return [NSData dataWithBytes:&temp length:1];
-}
-
 @end
 
 @implementation VcashProofInfo

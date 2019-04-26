@@ -136,7 +136,7 @@ static VcashWallet* walletInstance = nil;
     return slate;
 }
 
--(void)receiveTransaction:(VcashSlate*)slate{
+-(VcashSlate*)receiveTransaction:(VcashSlate*)slate{
     //5, fill slate with receiver output
     VcashSecretKey* blind = [slate addReceiverTxOutput];
     
@@ -148,7 +148,21 @@ static VcashWallet* walletInstance = nil;
     [slate fillRound1:context participantId:1 andMessage:@""];
     
     //8, receiver fill round 2
+    [slate fillRound2:context participantId:1];
+    NSString* result = [slate modelToJSONString];
+    NSLog(@"---------:%@", result);
     
+    return slate;
+}
+
+-(void)finalizeTransaction:(VcashSlate*)slate{
+    VcashContext* context = nil;
+    
+    //9, sender fill round 2
+    [slate fillRound2:context participantId:0];
+    
+    //10, create group signature
+    NSData* groupSig = [slate finalizeSignature];
 }
 
 -(VcashKeychainPath*)nextChild{
