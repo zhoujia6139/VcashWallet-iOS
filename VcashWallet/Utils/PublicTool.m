@@ -11,7 +11,7 @@
 @implementation PublicTool
 
 +(NSData*)getDataFromArray:(NSArray*)array{
-    if (!array){
+    if (!array || ![array isKindOfClass:[NSArray class]]){
         return nil;
     }
     NSMutableData* retData= [NSMutableData new];
@@ -25,7 +25,7 @@
 
 +(NSArray*)getArrFromData:(NSData*)data{
     if (!data){
-        return [NSNull null];
+        return [NSNull null];//for null in json
     }
     NSMutableArray* arr = [NSMutableArray new];
     unsigned char* bits = (unsigned char*)data.bytes;

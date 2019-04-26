@@ -15,6 +15,8 @@
 		ED3C7563226F112500B42555 /* VcashContext.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7562226F112500B42555 /* VcashContext.m */; };
 		ED3C756A2270744400B42555 /* PublicTool.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C75692270744400B42555 /* PublicTool.m */; };
 		ED3C756D2271611400B42555 /* VcashWalletInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C756C2271611400B42555 /* VcashWalletInfo.mm */; };
+		ED3C757222731C3900B42555 /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C756F22731C3800B42555 /* WalletViewController.m */; };
+		ED3C757322731C3900B42555 /* WalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED3C757022731C3800B42555 /* WalletViewController.xib */; };
 		ED44BF7122696CF50042928E /* BTCBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE322696CF50042928E /* BTCBlock.m */; };
 		ED44BF7222696CF50042928E /* BTCBlockHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE422696CF50042928E /* BTCBlockHeader.m */; };
 		ED44BF7322696CF50042928E /* BTCEncryptedBackup.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE722696CF50042928E /* BTCEncryptedBackup.m */; };
@@ -141,6 +143,9 @@
 		ED3C756B2271611400B42555 /* VcashWalletInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashWalletInfo.h; sourceTree = "<group>"; };
 		ED3C756C2271611400B42555 /* VcashWalletInfo.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VcashWalletInfo.mm; sourceTree = "<group>"; };
 		ED3C756E2271622B00B42555 /* VcashWalletInfo+WCTTableCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VcashWalletInfo+WCTTableCoding.h"; sourceTree = "<group>"; };
+		ED3C756F22731C3800B42555 /* WalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
+		ED3C757022731C3800B42555 /* WalletViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletViewController.xib; sourceTree = "<group>"; };
+		ED3C757122731C3900B42555 /* WalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
 		ED44BEE022696CF50042928E /* BTCMerkleTree+Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BTCMerkleTree+Tests.h"; sourceTree = "<group>"; };
 		ED44BEE122696CF50042928E /* BTCPaymentMethodDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCPaymentMethodDetails.h; sourceTree = "<group>"; };
 		ED44BEE222696CF50042928E /* BTCProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCProcessor.h; sourceTree = "<group>"; };
@@ -598,6 +603,9 @@
 				ED44BFE8226984EB0042928E /* PinPasswordSetViewController.m */,
 				ED44C011226DC5730042928E /* PinVerifyViewController.h */,
 				ED44C010226DC5730042928E /* PinVerifyViewController.m */,
+				ED3C757122731C3900B42555 /* WalletViewController.h */,
+				ED3C756F22731C3800B42555 /* WalletViewController.m */,
+				ED3C757022731C3800B42555 /* WalletViewController.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -782,6 +790,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDA5149A22686DEE0011138F /* LaunchScreen.storyboard in Resources */,
+				ED3C757322731C3900B42555 /* WalletViewController.xib in Resources */,
 				EDA5149722686DEE0011138F /* Assets.xcassets in Resources */,
 				ED44BFDE22697BAF0042928E /* CreateMnemonicViewController.xib in Resources */,
 				ED44BFD322697B570042928E /* WelcomePageViewController.xib in Resources */,
@@ -875,6 +884,7 @@
 				ED44BFB222696CF50042928E /* BTCKey.m in Sources */,
 				ED44BF7522696CF50042928E /* BTCTransactionBuilder.m in Sources */,
 				ED44BFAC22696CF50042928E /* BTCPaymentProtocol.m in Sources */,
+				ED3C757222731C3900B42555 /* WalletViewController.m in Sources */,
 				ED44BFCC226979DA0042928E /* NSNumber+Utils.m in Sources */,
 				ED44BF9122696CF50042928E /* BTCEncryptedMessage+Tests.m in Sources */,
 				ED44BF7322696CF50042928E /* BTCEncryptedBackup.m in Sources */,
