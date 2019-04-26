@@ -56,6 +56,12 @@ typedef enum{
 
 @property (strong, nonatomic)NSData* excess_sig;
 
++(KernelFeatures)featureWithLockHeight:(uint64_t)lock_height;
+
+-(NSData*)kernelMsgToSign;
+
+-(BOOL)verify;
+
 
 @end
 
@@ -76,7 +82,10 @@ typedef enum{
 
 @property (strong, nonatomic)TransactionBody* body;
 
-+(KernelFeatures)featureWithLockHeight:(uint64_t)lock_height;
+-(NSData*)calculateFinalExcess;
+
+-(BOOL)setTxExcess:(NSData*)excess andTxSig:(NSData*)sig;
+
 
 @end
 

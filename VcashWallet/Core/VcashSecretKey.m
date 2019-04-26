@@ -33,11 +33,19 @@
 }
 
 +(instancetype)nounceKey{
-    NSData* data = BTCRandomDataWithLength(32);
+    NSData* data = BTCRandomDataWithLength(SECRET_KEY_SIZE);
     VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
     while (![secp verifyEcSecretKey:data]){
-        data = BTCRandomDataWithLength(32);
+        data = BTCRandomDataWithLength(SECRET_KEY_SIZE);
     }
+    VcashSecretKey* key = [VcashSecretKey new];
+    key->_data = data;
+    return key;
+}
+
++(instancetype)zeroKey{
+    uint8_t buf[SECRET_KEY_SIZE] = {0};
+    NSData* data = [[NSData alloc] initWithBytes:buf length:SECRET_KEY_SIZE];
     VcashSecretKey* key = [VcashSecretKey new];
     key->_data = data;
     return key;

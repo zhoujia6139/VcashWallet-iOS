@@ -30,8 +30,8 @@
 //send Transaction
 +(void)sendTransaction:(VcashSlate*)slate;
 
-//收币
++(VcashSlate*)receiveTransaction:(VcashSlate*)slate;
 
-//确认交易
++(BOOL)finalizeTransaction:(VcashSlate*)slate;
 
 @end

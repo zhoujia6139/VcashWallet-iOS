@@ -106,27 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Core/VcashWallet.m"
-            timestampString = "577877261.05168"
+            timestampString = "577960038.498772"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "101"
             endingLineNumber = "101"
-            landmarkName = "-sendTransaction:andFee:withComplete:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VcashWallet/Core/VcashWallet.m"
-            timestampString = "577877261.051928"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
             landmarkName = "-sendTransaction:andFee:withComplete:"
             landmarkType = "7">
          </BreakpointContent>

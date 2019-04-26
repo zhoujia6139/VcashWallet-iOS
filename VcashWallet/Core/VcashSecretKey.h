@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(instancetype)nounceKey;
 
++(instancetype)zeroKey;
+
 @property(readonly, strong, nonatomic)NSData* data;
 
 @end

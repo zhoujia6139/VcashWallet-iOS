@@ -104,6 +104,46 @@
     }
 }
 
+-(NSData*)commitSumWithPositiveArr:(NSArray<NSData*>*)positive andNegative:(NSArray<NSData*>*)negative{
+    secp256k1_pedersen_commitment innerCommit;
+    secp256k1_pedersen_commitment* positiveVec[positive.count];
+    secp256k1_pedersen_commitment* negativeVec[negative.count];
+    for (NSUInteger i=0; i<positive.count; i++){
+        NSData* item = [positive objectAtIndex:i];
+        positiveVec[i] = (secp256k1_pedersen_commitment*)[self parseCommit:item].bytes;
+    }
+    for (NSUInteger i=0; i<negative.count; i++){
+        NSData* item = [negative objectAtIndex:i];
+        negativeVec[i] = (secp256k1_pedersen_commitment*)[self parseCommit:item].bytes;
+    }
+    int ret = secp256k1_pedersen_commit_sum(_context,
+                                            &innerCommit,
+                                            (void*)positiveVec,
+                                            positive.count,
+                                            (void*)negativeVec,
+                                            negative.count);
+    if (ret == 1){
+        return [self serCommit:&innerCommit];
+    }
+    else{
+        return nil;
+    }
+}
+
+-(NSData*)commitToPubkey:(NSData*)commitment{
+    secp256k1_pubkey pubkey;
+    NSData* internalCommit = [self parseCommit:commitment];
+    if (internalCommit){
+        int ret = secp256k1_pedersen_commitment_to_pubkey(_context,
+                                                          &pubkey,
+                                                         (secp256k1_pedersen_commitment*)internalCommit.bytes);
+        if (ret == 1){
+            return [[NSData alloc] initWithBytes:pubkey.data length:64];
+        }
+    }
+    return nil;
+}
+
 -(BOOL)verifySingleSignature:(NSData*)signature pubkey:(NSData*)pubkey nonceSum:(nullable NSData*)nonce_sum pubkeySum:(NSData*)pubkey_sum andMsgData:(NSData*)msg{
     int ret = secp256k1_aggsig_verify_single(_context,
                                              signature.bytes,

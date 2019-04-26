@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(VcashSlate*)receiveTransaction:(VcashSlate*)slate;
 
--(void)finalizeTransaction:(VcashSlate*)slate;
+-(BOOL)finalizeTransaction:(VcashSlate*)slate;
 
 -(VcashKeychainPath*)nextChild;
 

@@ -12,7 +12,6 @@
 #import "VcashContext.h"
 #import "VcashSecp256k1.h"
 #import "VcashTypes.h"
-#include "blake2.h"
 
 @implementation VcashSlate
 
@@ -183,8 +182,15 @@
     return nil;
 }
 
--(void)finalizeTx:(NSData*)finalSig{
+-(BOOL)finalizeTx:(NSData*)finalSig{
+    //TODO check fee?
     
+    NSData* final_excess = [self.tx calculateFinalExcess];
+    if ([self.tx setTxExcess:final_excess andTxSig:finalSig]){
+        return YES;
+    }
+    
+    return NO;
 }
 
 #pragma private
@@ -214,56 +220,11 @@
 }
 
 -(NSData*)createMsgToSign{
-    KernelFeatures feature = [VcashTransaction featureWithLockHeight:self.lock_height];
-    NSData* sourceData = [self kernelMsgToSign:feature];
-
-    return sourceData;
+    TxKernel* kernel = [self.tx.body.kernels firstObject];
+    return [kernel kernelMsgToSign];
 }
 
--(NSData*)kernelMsgToSign:(KernelFeatures)feature{
-    NSData* data = nil;
-    switch (feature) {
-        case KernelFeaturePlain:
-        {
-            if (self.lock_height == 0){
-                uint8_t buf[9];
-                buf[0] = feature;
-                OSWriteBigInt64(buf, 1, self.fee);
-                data = [[NSData alloc] initWithBytes:buf length:9];
-            }
-            break;
-        }
-            
-        case KernelFeatureCoinbase:
-        {
-            if (self.fee == 0 && self.lock_height == 0){
-                data = [NSData dataWithBytes:&feature length:1];
-            }
-            break;
-        }
-            
-        case KernelFeatureHeightLocked:
-        {
-            uint8_t buf[17];
-            buf[0] = feature;
-            OSWriteBigInt64(buf, 1, self.fee);
-            OSWriteBigInt64(buf, 9, self.lock_height);
-            data = [[NSData alloc] initWithBytes:buf length:17];
-            break;
-        }
-            
-        default:
-            break;
-    }
-    
-    uint8_t ret[32];
-    if( blake2b( ret, data.bytes, nil, 32, data.length, 0 ) < 0)
-    {
-        return nil;
-    }
-    
-    return [[NSData alloc] initWithBytes:ret length:32];
-}
+
 
 @end
 

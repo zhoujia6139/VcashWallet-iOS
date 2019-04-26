@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(NSData*)finalizeSignature;
 
--(void)finalizeTx:(NSData*)finalSig;
+-(BOOL)finalizeTx:(NSData*)finalSig;
 
 @end
 

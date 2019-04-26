@@ -124,13 +124,20 @@ static VcashWallet* walletInstance = nil;
     slate.lock_height = self.curChainHeight;
     slate.fee = actualFee;
     VcashSecretKey* blind = [slate addTxElement:self.outputs change:change];
+    if (!blind){
+        DDLogError(@"--------sender addTxElement failed");
+        return nil;
+    }
     
     //3 construct sender Context
     VcashContext* context = [[VcashContext alloc] init];
     context.sec_key = blind;
     
     //4 sender fill round 1
-    [slate fillRound1:context participantId:0 andMessage:@""];
+    if (![slate fillRound1:context participantId:0 andMessage:@""]){
+        DDLogError(@"--------sender fillRound1 failed");
+        return nil;
+    }
     NSString* result = [slate modelToJSONString];
     NSLog(@"---------:%@", result);
     return slate;
@@ -139,30 +146,56 @@ static VcashWallet* walletInstance = nil;
 -(VcashSlate*)receiveTransaction:(VcashSlate*)slate{
     //5, fill slate with receiver output
     VcashSecretKey* blind = [slate addReceiverTxOutput];
+    if (!blind){
+        DDLogError(@"--------receiver addReceiverTxOutput failed");
+        return nil;
+    }
     
     //6, construct receiver Context
     VcashContext* context = [[VcashContext alloc] init];
     context.sec_key = blind;
     
     //7, receiver fill round 1
-    [slate fillRound1:context participantId:1 andMessage:@""];
+    if (![slate fillRound1:context participantId:1 andMessage:@""]){
+        DDLogError(@"--------receiver fillRound1 failed");
+        return nil;
+    }
     
     //8, receiver fill round 2
-    [slate fillRound2:context participantId:1];
+    if (![slate fillRound2:context participantId:1]){
+        DDLogError(@"--------receiver fillRound2 failed");
+        return nil;
+    }
     NSString* result = [slate modelToJSONString];
     NSLog(@"---------:%@", result);
     
     return slate;
 }
 
--(void)finalizeTransaction:(VcashSlate*)slate{
+-(BOOL)finalizeTransaction:(VcashSlate*)slate{
     VcashContext* context = nil;
     
     //9, sender fill round 2
-    [slate fillRound2:context participantId:0];
+    if (![slate fillRound2:context participantId:0])
+    {
+        DDLogError(@"--------sender fillRound2 failed");
+        return NO;
+    }
     
     //10, create group signature
     NSData* groupSig = [slate finalizeSignature];
+    if (!groupSig){
+        DDLogError(@"--------sender create group signature failed");
+        return NO;
+    }
+    
+    if (![slate finalizeTx:groupSig]){
+        DDLogError(@"--------sender finalize tx failed");
+        return NO;
+    }
+    NSString* result = [slate modelToJSONString];
+    NSLog(@"---------:%@", result);
+    return YES;
 }
 
 -(VcashKeychainPath*)nextChild{

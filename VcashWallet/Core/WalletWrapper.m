@@ -71,6 +71,14 @@
     
 }
 
++(VcashSlate*)receiveTransaction:(VcashSlate*)slate{
+    return [[VcashWallet shareInstance] receiveTransaction:slate];
+}
+
++(BOOL)finalizeTransaction:(VcashSlate*)slate{
+    return [[VcashWallet shareInstance] finalizeTransaction:slate];
+}
+
 #pragma private
 +(BOOL)checkWalletState{
     return [VcashWallet shareInstance]?YES:NO;
