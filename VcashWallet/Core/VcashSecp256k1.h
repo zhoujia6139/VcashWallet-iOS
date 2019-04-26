@@ -36,6 +36,10 @@ enum ContextFlag {
 
 -(NSData*)commitToPubkey:(NSData*)commitment;
 
+-(NSData*)getCompressedPubkey:(NSData*)pubkey;
+
+-(NSData*)pubkeyFromCompressedKey:(NSData*)compressedkey;
+
 //signature
 -(BOOL)verifySingleSignature:(NSData*)signature pubkey:(NSData*)pubkey nonceSum:(nullable NSData*)nonce_sum pubkeySum:(NSData*)pubkey_sum andMsgData:(NSData*)msg;
 

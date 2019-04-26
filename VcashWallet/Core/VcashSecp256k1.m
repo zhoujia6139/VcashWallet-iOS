@@ -9,7 +9,6 @@
 #import "VcashSecp256k1.h"
 #include "secp256k1_bulletproofs.h"
 #include "secp256k1_aggsig.h"
-#include "VcashConstant.h"
 #import "CoreBitcoin.h"
 #import "VcashSecretKey.h"
 
@@ -141,6 +140,38 @@
             return [[NSData alloc] initWithBytes:pubkey.data length:64];
         }
     }
+    return nil;
+}
+
+-(NSData*)getCompressedPubkey:(NSData*)pubkey{
+    if (pubkey.length == 64){
+        uint8_t compressKey[33];
+        NSUInteger length = 33;
+        int ret = secp256k1_ec_pubkey_serialize(_context,
+                                                compressKey,
+                                                &length,
+                                                pubkey.bytes,
+                                                SECP256K1_EC_COMPRESSED);
+        if (ret == 1 && length == 33){
+            return [[NSData alloc] initWithBytes:compressKey length:33];
+        }
+    }
+    
+    return nil;
+}
+
+-(NSData*)pubkeyFromCompressedKey:(NSData*)compressedkey{
+    if (compressedkey.length == 33){
+        secp256k1_pubkey pubkey;
+        int ret = secp256k1_ec_pubkey_parse(_context,
+                                            &pubkey,
+                                            compressedkey.bytes,
+                                            compressedkey.length);
+        if (ret == 1){
+            return [[NSData alloc] initWithBytes:pubkey.data length:64];
+        }
+    }
+
     return nil;
 }
 

@@ -103,7 +103,7 @@
  */
 - (void)textFieldDidChange:(UITextField *)textField
 {
-    NSLog(@"%@", textField.text);
+    //NSLog(@"%@", textField.text);
     for (UIView *dotView in self.dotArray) {
         dotView.hidden = YES;
     }

@@ -7,7 +7,6 @@
 //
 
 #import "VcashSecretKey.h"
-#include "VcashConstant.h"
 #import "VcashSecp256k1.h"
 #import "CoreBitcoin.h"
 #import "VcashWallet.h"

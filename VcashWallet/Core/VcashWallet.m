@@ -15,6 +15,8 @@
 
 static VcashWallet* walletInstance = nil;
 
+static VcashContext* testContext = nil;
+
 @interface VcashWallet()
 
 @property (strong, nonatomic)VcashKeyChain* mKeyChain;
@@ -134,12 +136,13 @@ static VcashWallet* walletInstance = nil;
     context.sec_key = blind;
     
     //4 sender fill round 1
-    if (![slate fillRound1:context participantId:0 andMessage:@""]){
+    if (![slate fillRound1:context participantId:0 andMessage:nil]){
         DDLogError(@"--------sender fillRound1 failed");
         return nil;
     }
     NSString* result = [slate modelToJSONString];
     NSLog(@"---------:%@", result);
+    testContext = context;
     return slate;
 }
 
@@ -156,7 +159,7 @@ static VcashWallet* walletInstance = nil;
     context.sec_key = blind;
     
     //7, receiver fill round 1
-    if (![slate fillRound1:context participantId:1 andMessage:@""]){
+    if (![slate fillRound1:context participantId:1 andMessage:nil]){
         DDLogError(@"--------receiver fillRound1 failed");
         return nil;
     }
@@ -173,7 +176,7 @@ static VcashWallet* walletInstance = nil;
 }
 
 -(BOOL)finalizeTransaction:(VcashSlate*)slate{
-    VcashContext* context = nil;
+    VcashContext* context = testContext;
     
     //9, sender fill round 2
     if (![slate fillRound2:context participantId:0])

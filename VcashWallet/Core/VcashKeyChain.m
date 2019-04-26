@@ -9,7 +9,6 @@
 #import "VcashKeyChain.h"
 #import "VcashSecp256k1.h"
 #include "blake2.h"
-#include "VcashConstant.h"
 
 @implementation VcashKeyChain
 {

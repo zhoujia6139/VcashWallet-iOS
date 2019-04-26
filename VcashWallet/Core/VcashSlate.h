@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 //for receiver
 -(VcashSecretKey*)addReceiverTxOutput;
 
--(BOOL)fillRound1:(VcashContext*)context participantId:(NSUInteger)participant_id andMessage:(NSString*)message;
+-(BOOL)fillRound1:(VcashContext*)context participantId:(NSUInteger)participant_id andMessage:(nullable NSString*)message;
 
 -(BOOL)fillRound2:(VcashContext*)context participantId:(NSUInteger)participant_id;
 

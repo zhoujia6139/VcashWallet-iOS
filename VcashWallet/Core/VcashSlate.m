@@ -237,9 +237,13 @@
 }
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+    NSData* compressBlind_excess = [PublicTool getDataFromArray:dic[@"public_blind_excess"]];
+    self.public_blind_excess = [secp pubkeyFromCompressedKey:compressBlind_excess];
     
-    self.public_blind_excess = [PublicTool getDataFromArray:dic[@"public_blind_excess"]];
-    self.public_nonce = [PublicTool getDataFromArray:dic[@"public_nonce"]];
+    NSData* compressNounce = [PublicTool getDataFromArray:dic[@"public_nonce"]];
+    self.public_nonce = [secp pubkeyFromCompressedKey:compressNounce];
+    
     self.part_sig = [PublicTool getDataFromArray:dic[@"part_sig"]];
     self.message_sig = [PublicTool getDataFromArray:dic[@"message_sig"]];
     
@@ -247,18 +251,17 @@
 }
 
 - (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
-    if (self.public_blind_excess){
-        dic[@"public_blind_excess"] = [PublicTool getArrFromData:self.public_blind_excess];
-    }
-    if (self.public_nonce){
-        dic[@"public_nonce"] = [PublicTool getArrFromData:self.public_nonce];
-    }
-    if (self.part_sig){
-        dic[@"part_sig"] = [PublicTool getArrFromData:self.part_sig];
-    }
-    if (self.public_blind_excess){
-        dic[@"message_sig"] = [PublicTool getArrFromData:self.message_sig];
-    }
+    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+    
+    NSData* compressed = [secp getCompressedPubkey:self.public_blind_excess];
+    dic[@"public_blind_excess"] = [PublicTool getArrFromData:compressed];
+
+    NSData* noncecompressed = [secp getCompressedPubkey:self.public_nonce];
+    dic[@"public_nonce"] = [PublicTool getArrFromData:noncecompressed];
+    
+    dic[@"part_sig"] = [PublicTool getArrFromData:self.part_sig];
+    
+    dic[@"message_sig"] = [PublicTool getArrFromData:self.message_sig];
     
     return YES;
 }

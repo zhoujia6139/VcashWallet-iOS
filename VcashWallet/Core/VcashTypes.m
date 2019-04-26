@@ -27,9 +27,7 @@
 }
 
 - (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
-    if (self.commit){
-        dic[@"commit"] = [PublicTool getArrFromData:self.commit];
-    }
+    dic[@"commit"] = [PublicTool getArrFromData:self.commit];
     
     if (self.features == OutputFeaturePlain){
         dic[@"features"] = @"Plain";
@@ -60,12 +58,9 @@
 }
 
 - (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
-    if (self.commit){
-        dic[@"commit"] = [PublicTool getArrFromData:self.commit];
-    }
-    if (self.proof){
-        dic[@"proof"] = [PublicTool getArrFromData:self.proof];
-    }
+    dic[@"commit"] = [PublicTool getArrFromData:self.commit];
+    
+    dic[@"proof"] = [PublicTool getArrFromData:self.proof];
     
     if (self.features == OutputFeaturePlain){
         dic[@"features"] = @"Plain";
@@ -100,12 +95,9 @@
 }
 
 - (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
-    if (self.excess){
-        dic[@"excess"] = [PublicTool getArrFromData:self.excess];
-    }
-    if (self.excess_sig){
-        dic[@"excess_sig"] = [PublicTool getArrFromData:self.excess_sig];
-    }
+    dic[@"excess"] = [PublicTool getArrFromData:self.excess];
+
+    dic[@"excess_sig"] = [PublicTool getArrFromData:self.excess_sig];
     
     if (self.features == KernelFeaturePlain){
         dic[@"features"] = @"Plain";
@@ -117,6 +109,22 @@
         dic[@"features"] = @"HeightLocked";
     }
     return YES;
+}
+
+-(NSData*)excess{
+    if (!_excess){
+        uint8_t buf[PEDERSEN_COMMITMENT_SIZE] = {0};
+        _excess = [[NSData alloc] initWithBytes:buf length:PEDERSEN_COMMITMENT_SIZE];
+    }
+    return _excess;
+}
+
+-(NSData*)excess_sig{
+    if (!_excess_sig){
+        uint8_t buf[64] = {0};
+        _excess_sig = [[NSData alloc] initWithBytes:buf length:64];
+    }
+    return _excess_sig;
 }
 
 -(void)setLock_height:(uint64_t)lock_height{
@@ -228,9 +236,7 @@
 }
 
 - (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
-    if (self.offset){
-        dic[@"offset"] = [PublicTool getArrFromData:self.offset];
-    }
+    dic[@"offset"] = [PublicTool getArrFromData:self.offset];
     
     return YES;
 }

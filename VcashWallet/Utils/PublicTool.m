@@ -25,7 +25,7 @@
 
 +(NSArray*)getArrFromData:(NSData*)data{
     if (!data){
-        return nil;
+        return [NSNull null];
     }
     NSMutableArray* arr = [NSMutableArray new];
     unsigned char* bits = (unsigned char*)data.bytes;

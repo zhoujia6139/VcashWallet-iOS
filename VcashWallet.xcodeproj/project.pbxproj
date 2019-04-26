@@ -327,7 +327,6 @@
 		ED44BFF8226AC8320042928E /* VcashKeychainPath.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashKeychainPath.m; sourceTree = "<group>"; };
 		ED44BFFA226AFE160042928E /* VcashWallet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashWallet.h; sourceTree = "<group>"; };
 		ED44BFFB226AFE160042928E /* VcashWallet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashWallet.m; sourceTree = "<group>"; };
-		ED44BFFD226B1D330042928E /* VcashConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashConstant.h; sourceTree = "<group>"; };
 		ED44BFFE226B1F0B0042928E /* VcashSecretKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashSecretKey.h; sourceTree = "<group>"; };
 		ED44BFFF226B1F0B0042928E /* VcashSecretKey.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashSecretKey.m; sourceTree = "<group>"; };
 		ED44C007226D9D8D0042928E /* NodeApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeApi.h; sourceTree = "<group>"; };
@@ -700,7 +699,6 @@
 			children = (
 				ED3C75672270603B00B42555 /* Node */,
 				ED44BEDF22696CF50042928E /* CoreBitcoin */,
-				ED44BFFD226B1D330042928E /* VcashConstant.h */,
 				ED44BFDF22697CBA0042928E /* WalletWrapper.h */,
 				ED44BFE022697CBA0042928E /* WalletWrapper.m */,
 				ED44BFEE2269C87E0042928E /* VcashKeyChain.h */,
