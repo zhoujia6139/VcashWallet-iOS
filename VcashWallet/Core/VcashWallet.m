@@ -10,6 +10,7 @@
 #import "VcashContext.h"
 #import "NodeApi.h"
 #import "VcashDataManager.h"
+#import "VcashTxLog.h"
 
 #define DEFAULT_BASE_FEE 1000000
 
@@ -53,7 +54,17 @@ static VcashContext* testContext = nil;
     }
     self->_curKeyPath = [[VcashKeychainPath alloc] initWithPathstr:maxKeypath];
     [self saveBaseInfo];
-    [[VcashDataManager shareInstance] saveOutputData:arr];
+    [self syncOutputInfo];
+}
+
+-(void)addNewTxChangeOutput:(VcashOutput*)output{
+    NSMutableArray* arr = [[NSMutableArray alloc] initWithArray:self->_outputs];
+    [arr addObject:output];
+    self->_outputs = arr;
+}
+
+-(void)syncOutputInfo{
+    [[VcashDataManager shareInstance] saveOutputData:self.outputs];
 }
 
 -(uint64_t)curChainHeight{
@@ -154,13 +165,24 @@ static VcashContext* testContext = nil;
     amount_with_fee = amount + actualFee;
     uint64_t change = total - amount_with_fee;
     
-    //2 fill slate
+    //2 fill txLog and slate
     VcashSlate* slate = [VcashSlate new];
     slate.num_participants = 2;
     slate.amount = amount;
     slate.height = self.curChainHeight;
     slate.lock_height = self.curChainHeight;
     slate.fee = actualFee;
+    
+    VcashTxLog* txLog = [VcashTxLog new];
+    txLog.tx_slate_id = slate.uuid;
+    txLog.tx_type = TxSent;
+    txLog.create_time = [[NSDate date] timeIntervalSince1970];
+    txLog.fee = slate.fee;
+    txLog.amount_credited = change;
+    txLog.amount_debited = total;
+    txLog.is_confirmed = NO;
+    slate.txLog = txLog;
+    
     VcashSecretKey* blind = [slate addTxElement:self.outputs change:change];
     if (!blind){
         DDLogError(@"--------sender addTxElement failed");

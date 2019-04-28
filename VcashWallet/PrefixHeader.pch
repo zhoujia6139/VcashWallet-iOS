@@ -20,6 +20,7 @@
 #import "MBHudHelper.h"
 #import "UtilsMacros.h"
 #import "PublicTool.h"
+#import "NSNumber+Utils.h"
 
 #import "WalletWrapper.h"
 

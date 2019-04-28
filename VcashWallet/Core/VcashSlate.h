@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class VcashContext, ParticipantData, VcashTransaction;
+@class VcashContext, ParticipantData, VcashTransaction, VcashTxLog;
 
 @interface VcashSlate : NSObject
 
@@ -31,6 +31,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property(strong, nonatomic)VcashTransaction* tx;
 
 @property(strong, nonatomic)NSMutableArray<ParticipantData*>* participant_data;
+
+//unselialised
+@property(strong, nonatomic)VcashTxLog* txLog;
+
+@property(strong, nonatomic)dispatch_block_t lockOutputsFn;
+
+@property(strong, nonatomic)dispatch_block_t createNewOutputsFn;
 
 //for sender
 -(VcashSecretKey*)addTxElement:(NSArray*)outputs change:(uint64_t)change;

@@ -10,7 +10,6 @@
 #import "WalletWrapper.h"
 //#import "SendTransactionViewController.h"
 //#import "ReceiveTransactionViewController.h"
-#import "NSNumber+Utils.h"
 #import "WalletCell.h"
 #import "VcashTxLog.h"
 //#import "TransactionDetailViewController.h"
@@ -67,8 +66,10 @@ static NSString *const identifier = @"WalletCell";
 -(void)refreshMainView{
     WalletBalanceInfo* info = [WalletWrapper getWalletBalanceInfo];
     self.balanceTotal.text = @([WalletWrapper nanoToVcash:info.total]).p9fString;
-    self.balanceConfirmed.text = @([WalletWrapper nanoToVcash:info.spendable]).p9fString;
-    self.balanceUnconfirmed.text = @([WalletWrapper nanoToVcash:info.unconfirmed]).p9fString;
+    
+    self.balanceConfirmed.text = [NSString stringWithFormat:@"Available %@", @([WalletWrapper nanoToVcash:info.spendable]).p9fString];
+    
+    self.balanceUnconfirmed.text = [NSString stringWithFormat:@"Uncomfirmed %@", @([WalletWrapper nanoToVcash:info.unconfirmed]).p9fString];;
     
 #ifdef isInTestNet
     self.netName.text = @"Floonet";

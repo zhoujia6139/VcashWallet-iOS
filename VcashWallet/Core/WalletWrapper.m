@@ -84,7 +84,10 @@
 }
 
 +(void)sendTransaction:(VcashSlate*)slate{
-    
+    //[[VcashWallet shareInstance] lockAllUnspendOutput];
+    slate.lockOutputsFn?slate.lockOutputsFn():nil;
+    slate.createNewOutputsFn?slate.createNewOutputsFn():nil;
+    //save txLog
 }
 
 +(VcashSlate*)receiveTransaction:(VcashSlate*)slate{
@@ -102,6 +105,10 @@
 +(double)nanoToVcash:(int64_t)nano
 {
     return (double)nano/VCASH_BASE;
+}
+
++(int64_t)vcashToNano:(double)vcash{
+    return (int64_t)(vcash*VCASH_BASE);
 }
 
 #pragma private

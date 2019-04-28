@@ -43,5 +43,7 @@
 
 +(double)nanoToVcash:(int64_t)nano;
 
++(int64_t)vcashToNano:(double)vcash;
+
 @end
 

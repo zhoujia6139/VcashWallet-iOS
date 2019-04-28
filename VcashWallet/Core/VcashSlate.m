@@ -36,6 +36,10 @@
     return @{@"participant_data" : [ParticipantData class]};
 }
 
++ (NSArray *)modelPropertyBlacklist {
+    return @[@"txLog", @"lockOutputsFn", @"createNewOutputsFn"];
+}
+
 -(VcashSecretKey*)addTxElement:(NSArray*)outputs change:(uint64_t)change{
     VcashTransaction* temptx = self.tx;
     TxKernel* txKernel = [TxKernel new];
@@ -46,7 +50,11 @@
     txKernel.fee = self.fee;
     
     //2,input
+    NSMutableArray* lockOutput = [NSMutableArray new];
     for (VcashOutput* item in outputs){
+        if (item.status != Unspent){
+            continue;
+        }
         VcashKeychainPath* keypath = [[VcashKeychainPath alloc] initWithPathstr:item.keyPath];
         NSData*commitment = [[VcashWallet shareInstance].mKeyChain createCommitment:item.value andKeypath:keypath];
         Input* input = [Input new];
@@ -56,8 +64,14 @@
         [temptx.body.inputs addObject:input];
         VcashSecretKey* secKey = [[VcashWallet shareInstance].mKeyChain deriveKey:item.value andKeypath:keypath];
         [negativeArr addObject:secKey.data];
-        NSLog(@"------input=%@, secKey=%@", BTCHexFromData(input.commit), BTCHexFromData(secKey.data));
+        
+        [lockOutput addObject:item];
     }
+    self.lockOutputsFn = ^{
+        for (VcashOutput* item in lockOutput){
+            item.status = Locked;
+        }
+    };
     
     //output
     if (change > 0){
@@ -73,7 +87,21 @@
         VcashSecretKey* secKey = [[VcashWallet shareInstance].mKeyChain deriveKey:change andKeypath:keypath];
         [positiveArr addObject:secKey.data];
         
-        NSLog(@"------output.commit=%@,output.proof=%@, secKey=%@", BTCHexFromData(output.commit), BTCHexFromData(output.proof), BTCHexFromData(secKey.data));
+        __weak typeof (self) weak_self = self;
+        self.createNewOutputsFn = ^{
+            __strong typeof (weak_self) strong_self = weak_self;
+            VcashOutput* output = [VcashOutput new];
+            output.commitment = BTCHexFromData(commitment);
+            output.keyPath = keypath.pathStr;
+            output.value = change;
+            output.height = strong_self.height;
+            output.lock_height = 0;
+            output.is_coinbase = NO;
+            output.status = Unconfirmed;
+            
+            [[VcashWallet shareInstance] addNewTxChangeOutput:output];
+            [[VcashWallet shareInstance] syncOutputInfo];
+        };
     }
     
     //lockheight

@@ -19,6 +19,10 @@
 		ED3C757322731C3900B42555 /* WalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED3C757022731C3800B42555 /* WalletViewController.xib */; };
 		ED41677E22755D4C000B5DC8 /* WalletCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED41677B22755D4C000B5DC8 /* WalletCell.m */; };
 		ED41677F22755D4C000B5DC8 /* WalletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED41677C22755D4C000B5DC8 /* WalletCell.xib */; };
+		ED4167872275B04A000B5DC8 /* SendTransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4167842275B049000B5DC8 /* SendTransactionViewController.m */; };
+		ED4167882275B04A000B5DC8 /* SendTransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED4167852275B04A000B5DC8 /* SendTransactionViewController.xib */; };
+		ED41678C2275B1D6000B5DC8 /* SendTransactionConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED41678A2275B1D6000B5DC8 /* SendTransactionConfirmView.m */; };
+		ED41678D2275B1D6000B5DC8 /* SendTransactionConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED41678B2275B1D6000B5DC8 /* SendTransactionConfirmView.xib */; };
 		ED44BF7122696CF50042928E /* BTCBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE322696CF50042928E /* BTCBlock.m */; };
 		ED44BF7222696CF50042928E /* BTCBlockHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE422696CF50042928E /* BTCBlockHeader.m */; };
 		ED44BF7322696CF50042928E /* BTCEncryptedBackup.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE722696CF50042928E /* BTCEncryptedBackup.m */; };
@@ -151,6 +155,12 @@
 		ED41677B22755D4C000B5DC8 /* WalletCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletCell.m; sourceTree = "<group>"; };
 		ED41677C22755D4C000B5DC8 /* WalletCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletCell.xib; sourceTree = "<group>"; };
 		ED41677D22755D4C000B5DC8 /* WalletCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletCell.h; sourceTree = "<group>"; };
+		ED4167842275B049000B5DC8 /* SendTransactionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendTransactionViewController.m; sourceTree = "<group>"; };
+		ED4167852275B04A000B5DC8 /* SendTransactionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendTransactionViewController.xib; sourceTree = "<group>"; };
+		ED4167862275B04A000B5DC8 /* SendTransactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendTransactionViewController.h; sourceTree = "<group>"; };
+		ED4167892275B1D6000B5DC8 /* SendTransactionConfirmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendTransactionConfirmView.h; sourceTree = "<group>"; };
+		ED41678A2275B1D6000B5DC8 /* SendTransactionConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendTransactionConfirmView.m; sourceTree = "<group>"; };
+		ED41678B2275B1D6000B5DC8 /* SendTransactionConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendTransactionConfirmView.xib; sourceTree = "<group>"; };
 		ED44BEE022696CF50042928E /* BTCMerkleTree+Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BTCMerkleTree+Tests.h"; sourceTree = "<group>"; };
 		ED44BEE122696CF50042928E /* BTCPaymentMethodDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCPaymentMethodDetails.h; sourceTree = "<group>"; };
 		ED44BEE222696CF50042928E /* BTCProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCProcessor.h; sourceTree = "<group>"; };
@@ -622,6 +632,9 @@
 				ED3C757122731C3900B42555 /* WalletViewController.h */,
 				ED3C756F22731C3800B42555 /* WalletViewController.m */,
 				ED3C757022731C3800B42555 /* WalletViewController.xib */,
+				ED4167862275B04A000B5DC8 /* SendTransactionViewController.h */,
+				ED4167842275B049000B5DC8 /* SendTransactionViewController.m */,
+				ED4167852275B04A000B5DC8 /* SendTransactionViewController.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -631,6 +644,9 @@
 			children = (
 				ED44BFE522697EC60042928E /* PhraseWordShowViewCreator.h */,
 				ED44BFE622697EC60042928E /* PhraseWordShowViewCreator.m */,
+				ED4167892275B1D6000B5DC8 /* SendTransactionConfirmView.h */,
+				ED41678A2275B1D6000B5DC8 /* SendTransactionConfirmView.m */,
+				ED41678B2275B1D6000B5DC8 /* SendTransactionConfirmView.xib */,
 				ED44BFE222697E6A0042928E /* PinPasswordInputView.h */,
 				ED44BFE322697E6A0042928E /* PinPasswordInputView.m */,
 			);
@@ -807,6 +823,8 @@
 			files = (
 				ED41677F22755D4C000B5DC8 /* WalletCell.xib in Resources */,
 				EDA5149A22686DEE0011138F /* LaunchScreen.storyboard in Resources */,
+				ED41678D2275B1D6000B5DC8 /* SendTransactionConfirmView.xib in Resources */,
+				ED4167882275B04A000B5DC8 /* SendTransactionViewController.xib in Resources */,
 				ED3C757322731C3900B42555 /* WalletViewController.xib in Resources */,
 				EDA5149722686DEE0011138F /* Assets.xcassets in Resources */,
 				ED44BFDE22697BAF0042928E /* CreateMnemonicViewController.xib in Resources */,
@@ -991,9 +1009,11 @@
 				ED44BF8622696CF50042928E /* BTCMnemonic.m in Sources */,
 				ED44BF9C22696CF50042928E /* BTCMerkleTree.m in Sources */,
 				ED3C756A2270744400B42555 /* PublicTool.m in Sources */,
+				ED4167872275B04A000B5DC8 /* SendTransactionViewController.m in Sources */,
 				ED44BF7B22696CF50042928E /* BTCQRCode.m in Sources */,
 				ED44BF8F22696CF50042928E /* BTCCurvePoint+Tests.m in Sources */,
 				ED44BF8322696CF50042928E /* BTCBlockchainInfo.m in Sources */,
+				ED41678C2275B1D6000B5DC8 /* SendTransactionConfirmView.m in Sources */,
 				ED3C7563226F112500B42555 /* VcashContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

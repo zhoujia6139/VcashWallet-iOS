@@ -36,6 +36,10 @@ NS_ASSUME_NONNULL_BEGIN
 //only call after recover
 -(void)setChainOutputs:(NSArray*)arr;
 
+-(void)addNewTxChangeOutput:(VcashOutput*)output;
+
+-(void)syncOutputInfo;
+
 -(VcashOutput*)identifyUtxoOutput:(NodeOutput*)nodeOutput;
 
 -(VcashSlate*)sendTransaction:(uint64_t)amount andFee:(uint64_t)fee withComplete:(RequestCompleteBlock)block;
