@@ -9,9 +9,7 @@
 #import "WalletWrapper.h"
 #import "CoreBitcoin.h"
 #import "VcashKeyChain.h"
-#import "VcashWallet.h"
 #import "NodeApi.h"
-#import "VcashDataManager.h"
 
 @interface BTCMnemonic (Words)
 +(NSArray*) englishWordList;
@@ -50,13 +48,31 @@
     //[[BTCWallet shareInstance] clearWallet];
 }
 
++(WalletBalanceInfo*)getWalletBalanceInfo{
+    return [[VcashWallet shareInstance] getWalletBalanceInfo];
+}
+
 +(void)checkWalletUtxoWithComplete:(RequestCompleteBlock)block{
     NSMutableArray* arr = [NSMutableArray new];
     [[NodeApi shareInstance] getOutputsByPmmrIndex:0 retArr:arr WithComplete:^(BOOL yesOrNo, id result) {
         if (yesOrNo){
             [[VcashWallet shareInstance] setChainOutputs:(NSArray*)result];
+            NSMutableArray* txArr = [NSMutableArray new];
+            for (VcashOutput* item in (NSArray*)result){
+                VcashTxLog* tx = [VcashTxLog new];
+                tx.create_time = [[NSDate date] timeIntervalSince1970];
+                tx.is_confirmed = YES;
+                tx.amount_credited = item.value;
+                tx.tx_type = item.is_coinbase?ConfirmedCoinbase:TxReceived;
+                
+                [txArr addObject:tx];
+            }
+            [[VcashDataManager shareInstance] saveTxData:txArr];
+            block?block(YES, txArr):nil;
         }
-        block?block(yesOrNo, result):nil;
+        else{
+            block?block(NO, result):nil;
+        }
     }];
 }
 
@@ -79,9 +95,19 @@
     return [[VcashWallet shareInstance] finalizeTransaction:slate];
 }
 
++(NSArray*)getTransationArr{
+    return [[VcashDataManager shareInstance] getTxData];
+}
+
++(double)nanoToVcash:(int64_t)nano
+{
+    return (double)nano/VCASH_BASE;
+}
+
 #pragma private
 +(BOOL)checkWalletState{
     return [VcashWallet shareInstance]?YES:NO;
 }
 
 @end
+

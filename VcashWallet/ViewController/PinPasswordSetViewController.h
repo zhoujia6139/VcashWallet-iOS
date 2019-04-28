@@ -12,4 +12,6 @@
 
 @property (strong, nonatomic)NSArray* mnemonicWordsArr;
 
+@property (assign, nonatomic)BOOL isRecover;
+
 @end

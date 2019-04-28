@@ -12,7 +12,7 @@
 
 +(void)showWelcomePage;
 
-+(void)showWalletPage;
++(void)showWalletPage:(BOOL)isRecover;
 
 +(void)showPasswordVerifyPage;
 

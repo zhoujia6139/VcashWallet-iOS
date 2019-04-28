@@ -25,10 +25,11 @@ static UINavigationController* curNavVC;
     curNavVC = nav;
 }
 
-+(void)showWalletPage
++(void)showWalletPage:(BOOL)isRecover
 {
     UINavigationController* nav = [[UINavigationController alloc] init];
     WalletViewController* welcomeVc = [[WalletViewController alloc] init];
+    welcomeVc.enterInRecoverMode = isRecover;
     nav.viewControllers = @[welcomeVc];
     UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
     keyWindow.rootViewController = nav;

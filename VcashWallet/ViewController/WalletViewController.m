@@ -11,8 +11,8 @@
 //#import "SendTransactionViewController.h"
 //#import "ReceiveTransactionViewController.h"
 #import "NSNumber+Utils.h"
-//#import "WalletCell.h"
-//#import "TransactionRecordModel.h"
+#import "WalletCell.h"
+#import "VcashTxLog.h"
 //#import "TransactionDetailViewController.h"
 //#import "SettingViewController.h"
 
@@ -20,18 +20,17 @@ static NSString *const identifier = @"WalletCell";
 
 @interface WalletViewController ()<UITableViewDataSource,UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel *labelTotalBtc;
+@property (weak, nonatomic) IBOutlet UILabel *balanceTotal;
 
-@property (weak, nonatomic) IBOutlet UILabel *labelAddress;
+@property (weak, nonatomic) IBOutlet UILabel *balanceConfirmed;
+
+@property (weak, nonatomic) IBOutlet UILabel *balanceUnconfirmed;
+
+@property (weak, nonatomic) IBOutlet UILabel *netName;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableViewContainer;
 
-
-@property (nonatomic, strong) NSString *address;
-
-@property (nonatomic, strong) NSMutableArray *arrTransactionList;
-
-@property (nonatomic, strong) NSMutableArray *arrHashIds;
+@property (nonatomic, strong) NSArray *arrTransactionList;
 
 @end
 
@@ -40,24 +39,45 @@ static NSString *const identifier = @"WalletCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    NSString* json = self.labelAddress.text;
-    VcashSlate* slate = [VcashSlate modelWithJSON:json];
-    BOOL yesOrNo = [WalletWrapper finalizeTransaction:slate];
-    NSLog(@"");
-    // Do any additional setup after loading the view from its nib.
-//    self.automaticallyAdjustsScrollViewInsets = NO;
-    
-//    self.address = [WalletWrapper getCurAccountAddress];
-//    self.labelAddress.text = self.address;
-//    [_tableViewContainer registerNib:[UINib nibWithNibName:NSStringFromClass([WalletCell class]) bundle:nil] forCellReuseIdentifier:identifier];
+
+    self.tableViewContainer.dataSource = self;
+    self.tableViewContainer.delegate = self;
+    [self.tableViewContainer registerNib:[UINib nibWithNibName:NSStringFromClass([WalletCell class]) bundle:nil] forCellReuseIdentifier:identifier];
 //    //[self request];
 //    self.tableViewContainer.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
 //        [self request];
 //    }];
 //    [self.tableViewContainer.mj_header beginRefreshing];
+    if (self.enterInRecoverMode){
+        [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
+            if (yesOrNo){
+                self.arrTransactionList = ret;
+                [self.tableViewContainer reloadData];
+            }
+        }];
+    }
+    else{
+        self.arrTransactionList = [WalletWrapper getTransationArr];
+        [self.tableViewContainer reloadData];
+    }
+    
+    [self refreshMainView];
 }
 
-
+-(void)refreshMainView{
+    WalletBalanceInfo* info = [WalletWrapper getWalletBalanceInfo];
+    self.balanceTotal.text = @([WalletWrapper nanoToVcash:info.total]).p9fString;
+    self.balanceConfirmed.text = @([WalletWrapper nanoToVcash:info.spendable]).p9fString;
+    self.balanceUnconfirmed.text = @([WalletWrapper nanoToVcash:info.unconfirmed]).p9fString;
+    
+#ifdef isInTestNet
+    self.netName.text = @"Floonet";
+    self.netName.textColor = [UIColor redColor];
+#else
+    self.netName.text = @"MainNet";
+    self.netName.textColor = [UIColor redColor];
+#endif
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -75,12 +95,12 @@ static NSString *const identifier = @"WalletCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    WalletCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
-//    if (indexPath.row < self.arrTransactionList.count) {
-//        TransactionRecordModel *model = self.arrTransactionList[indexPath.row];
-//        cell.transactionrecordModel = model;
-//    }
-    return nil;
+    WalletCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    if (indexPath.row < self.arrTransactionList.count) {
+        VcashTxLog *model = self.arrTransactionList[indexPath.row];
+        cell.txLog = model;
+    }
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -96,20 +116,6 @@ static NSString *const identifier = @"WalletCell";
 //        [self.navigationController pushViewController:vc animated:YES];
 //    }
 //}
-
-- (NSMutableArray *)arrTransactionList{
-    if (!_arrTransactionList) {
-        _arrTransactionList = [NSMutableArray array];
-    }
-    return _arrTransactionList;
-}
-
-- (NSMutableArray *)arrHashIds{
-    if (!_arrHashIds) {
-        _arrHashIds = [NSMutableArray array];
-    }
-    return _arrHashIds;
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

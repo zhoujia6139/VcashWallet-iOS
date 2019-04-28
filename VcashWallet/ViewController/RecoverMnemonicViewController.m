@@ -53,6 +53,7 @@
     {
         PinPasswordSetViewController*vc = [PinPasswordSetViewController new];
         vc.mnemonicWordsArr = wordsArr;
+        vc.isRecover = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
 

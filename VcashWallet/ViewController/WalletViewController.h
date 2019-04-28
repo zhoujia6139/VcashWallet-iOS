@@ -10,4 +10,6 @@
 
 @interface WalletViewController : UIViewController
 
+@property(assign, nonatomic)BOOL enterInRecoverMode;
+
 @end

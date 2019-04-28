@@ -65,6 +65,42 @@ static VcashContext* testContext = nil;
     return self->_curChainHeight;
 }
 
+-(WalletBalanceInfo*)getWalletBalanceInfo{
+    uint64_t total = 0;
+    uint64_t locked = 0;
+    uint64_t unconfirmed = 0;
+    uint64_t spendable = 0;
+    for (VcashOutput* output in self.outputs){
+        switch (output.status) {
+            case Unconfirmed:{
+                total += output.value;
+                unconfirmed += output.value;
+                break;
+            }
+            case Unspent:{
+                total += output.value;
+                spendable += output.value;
+                break;
+            }
+                
+            case Locked:{
+                locked += output.value;
+                break;
+            }
+                
+            default:
+                break;
+        }
+    }
+    
+    WalletBalanceInfo* info = [WalletBalanceInfo new];
+    info.total = total;
+    info.spendable = spendable;
+    info.locked = locked;
+    info.unconfirmed = unconfirmed;
+    return info;
+}
+
 -(VcashOutput*)identifyUtxoOutput:(NodeOutput*)nodeOutput{
     NSData* commit = BTCDataFromHex(nodeOutput.commit);
     NSData* proof = BTCDataFromHex(nodeOutput.proof);
@@ -222,5 +258,11 @@ static VcashContext* testContext = nil;
     
     [[VcashDataManager shareInstance] saveWalletInfo:info];
 }
+
+@end
+
+
+@implementation WalletBalanceInfo
+
 
 @end

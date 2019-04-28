@@ -77,10 +77,7 @@
             {
                 NSString* wordStr = [self.mnemonicWordsArr componentsJoinedByString:@" "];
                 [[UserCenter sharedInstance] storeMnemonicWords:wordStr withKey:firstPass];
-                [NavigationCenter showWalletPage];
-                [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
-                    
-                }];
+                [NavigationCenter showWalletPage:self.isRecover];
             }
         }
         else

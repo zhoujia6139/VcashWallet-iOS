@@ -14,8 +14,8 @@
     return [self formatP12f];
 }
 
-- (NSString *)p8fString{
-    return [self formatP8f];
+- (NSString *)p9fString{
+    return [self formatP9f];
 }
 
 - (NSString *)p3fString{
@@ -50,8 +50,8 @@
     return [self roundCeilingStringWithScale:6];
 }
 
-- (NSString *)formatP8f{
-    return [self roundCeilingStringWithScale:8];
+- (NSString *)formatP9f{
+    return [self roundCeilingStringWithScale:9];
 }
 
 - (NSString *)formatP3f{

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "VcashOutput.h"
 #import "VcashWalletInfo.h"
+#import "VcashTxLog.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSArray*)getActiveOutputData;
 
 //transaction
+-(BOOL)saveTxData:(NSArray*)arr;
+
+-(NSArray*)getTxData;
 
 @end
 

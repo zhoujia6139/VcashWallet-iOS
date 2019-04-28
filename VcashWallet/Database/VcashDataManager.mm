@@ -10,6 +10,7 @@
 #import <WCDB/WCDB.h>
 #import "VcashOutput+WCTTableCoding.h"
 #import "VcashWalletInfo+WCTTableCoding.h"
+#import "VcashTxLog+WCTTableCoding.h"
 
 @interface VcashDataManager()
 
@@ -86,6 +87,33 @@
     return objects;
 }
 
+-(BOOL)saveTxData:(NSArray*)arr{
+    if (arr.count == 0){
+        return YES;
+    }
+    
+    NSString *className = NSStringFromClass(VcashTxLog.class);
+    NSString *tableName = className;
+    for (VcashTxLog* tx in arr){
+        tx.isAutoIncrement = YES;
+    }
+    [self.database deleteAllObjectsFromTable:tableName];
+    BOOL ret = [self.database insertObjects:arr into:tableName];
+    if (!ret)
+    {
+        DDLogError(@"----------db error, saveTxData fail");
+        return NO;
+    }
+    return YES;
+}
+
+-(NSArray*)getTxData{
+    NSString *className = NSStringFromClass(VcashTxLog.class);
+    NSString *tableName = className;
+    NSArray<VcashTxLog *> *objects = [self.database getObjectsOfClass:VcashTxLog.class fromTable:tableName orderBy:VcashTxLog.tx_id.order(WCTOrderedAscending)];
+    return objects;
+}
+
 
 #pragma mark private method
 - (NSString *)baseDic{
@@ -121,6 +149,15 @@
         if (!isExist)
         {
             BOOL ret = [_database createTableAndIndexesOfName:tableName1 withClass:VcashWalletInfo.class];
+            assert(ret);
+        }
+        
+        NSString *className2 = NSStringFromClass(VcashTxLog.class);
+        NSString *tableName2 = className2;
+        isExist = [_database isTableExists:tableName2];
+        if (!isExist)
+        {
+            BOOL ret = [_database createTableAndIndexesOfName:tableName2 withClass:VcashTxLog.class];
             assert(ret);
         }
     }

@@ -15,6 +15,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class WalletBalanceInfo,VcashOutput;
+
 @interface VcashWallet : NSObject
 
 +(void)createWalletWithKeyChain:(VcashKeyChain*)keychain;
@@ -29,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(strong, nonatomic, readonly)NSArray<VcashOutput*>* outputs;
 
+-(WalletBalanceInfo*)getWalletBalanceInfo;
+
 //only call after recover
 -(void)setChainOutputs:(NSArray*)arr;
 
@@ -41,6 +45,19 @@ NS_ASSUME_NONNULL_BEGIN
 -(BOOL)finalizeTransaction:(VcashSlate*)slate;
 
 -(VcashKeychainPath*)nextChild;
+
+@end
+
+
+@interface WalletBalanceInfo : NSObject
+
+@property(assign, nonatomic)uint64_t total;
+
+@property(assign, nonatomic)uint64_t locked;
+
+@property(assign, nonatomic)uint64_t unconfirmed;
+
+@property(assign, nonatomic)uint64_t spendable;
 
 @end
 

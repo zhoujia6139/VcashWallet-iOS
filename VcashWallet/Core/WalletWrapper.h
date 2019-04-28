@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "NodeApi.h"
 #import "VcashTypes.h"
+#import "VcashDataManager.h"
+#import "VcashWallet.h"
 
 @interface WalletWrapper : NSObject
 
@@ -20,6 +22,8 @@
 
 //clear wallet
 +(void)clearWallet;
+
++(WalletBalanceInfo*)getWalletBalanceInfo;
 
 //check wallet utxo
 +(void)checkWalletUtxoWithComplete:(RequestCompleteBlock)block;
@@ -34,4 +38,10 @@
 
 +(BOOL)finalizeTransaction:(VcashSlate*)slate;
 
+//refresh Transaction
++(NSArray*)getTransationArr;
+
++(double)nanoToVcash:(int64_t)nano;
+
 @end
+
