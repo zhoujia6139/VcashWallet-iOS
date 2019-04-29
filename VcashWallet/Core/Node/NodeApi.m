@@ -77,6 +77,21 @@
     return curHeight;
 }
 
+-(void)postTx:(NSString*)txHex{
+    if (!txHex){
+        return;
+    }
+    
+    NSString* url = [NSString stringWithFormat:@"%@/v1/pool/push", NODE_URL];
+    [[self sessionManager] POST:url parameters:txHex progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        DDLogWarn(@"postTx suc!");
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        DDLogError(@"postTx failed:%@", error);
+    }];
+}
+
 - (AFHTTPSessionManager *)sessionManager
 {
     if (_sessionManager == nil) {

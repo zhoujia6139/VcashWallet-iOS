@@ -245,7 +245,7 @@ static VcashWallet* walletInstance = nil;
     }
     
     //10, create group signature
-    NSData* groupSig = [slate finalizeSignature];
+    VcashSignature* groupSig = [slate finalizeSignature];
     if (!groupSig){
         DDLogError(@"--------sender create group signature failed");
         return NO;

@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class VcashContext, ParticipantData, VcashTransaction, VcashTxLog;
+@class VcashContext, ParticipantData, VcashTransaction, VcashTxLog, VcashSignature;
 
 @interface VcashSlate : NSObject
 
@@ -51,9 +51,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(BOOL)fillRound2:(VcashContext*)context participantId:(NSUInteger)participant_id;
 
--(NSData*)finalizeSignature;
+-(VcashSignature*)finalizeSignature;
 
--(BOOL)finalizeTx:(NSData*)finalSig;
+-(BOOL)finalizeTx:(VcashSignature*)finalSig;
 
 @end
 
@@ -65,11 +65,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(strong, nonatomic)NSData* public_nonce;
 
-@property(strong, nonatomic)NSData* part_sig;
+@property(strong, nonatomic)VcashSignature* part_sig;
 
 @property(strong, nonatomic)NSString* message;
 
-@property(strong, nonatomic)NSData* message_sig;
+@property(strong, nonatomic)VcashSignature* message_sig;
 
 @end
 

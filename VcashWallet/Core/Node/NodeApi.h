@@ -21,6 +21,8 @@ typedef void (^RequestCompleteBlock) (BOOL, _Nullable id);
 
 -(uint64_t)getChainHeight;
 
+-(void)postTx:(NSString*)txHex;
+
 @end
 
 NS_ASSUME_NONNULL_END

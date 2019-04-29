@@ -175,9 +175,9 @@
     return nil;
 }
 
--(BOOL)verifySingleSignature:(NSData*)signature pubkey:(NSData*)pubkey nonceSum:(nullable NSData*)nonce_sum pubkeySum:(NSData*)pubkey_sum andMsgData:(NSData*)msg{
+-(BOOL)verifySingleSignature:(VcashSignature*)signature pubkey:(NSData*)pubkey nonceSum:(nullable NSData*)nonce_sum pubkeySum:(NSData*)pubkey_sum andMsgData:(NSData*)msg{
     int ret = secp256k1_aggsig_verify_single(_context,
-                                             signature.bytes,
+                                             signature.sig_data.bytes,
                                              msg.bytes,
                                              nonce_sum.bytes,
                                              pubkey.bytes,
@@ -188,7 +188,7 @@
     return (ret == 1);
 }
 
--(NSData*)calculateSingleSignature:(NSData*)sec_key secNonce:(NSData*)sec_nonce nonceSum:(NSData*)nonce_sum pubkeySum:(NSData*)pubkey_sum andMsgData:(NSData*)msg{
+-(VcashSignature*)calculateSingleSignature:(NSData*)sec_key secNonce:(NSData*)sec_nonce nonceSum:(NSData*)nonce_sum pubkeySum:(NSData*)pubkey_sum andMsgData:(NSData*)msg{
     NSData* seed = BTCRandomDataWithLength(32);
     uint8_t retSig[64];
     int ret = secp256k1_aggsig_sign_single(_context,
@@ -202,7 +202,8 @@
                                  pubkey_sum.bytes,
                                  seed.bytes);
     if (ret == 1){
-        return [[NSData alloc] initWithBytes:retSig length:64];
+        NSData* sigData = [[NSData alloc] initWithBytes:retSig length:64];
+        return [[VcashSignature alloc] initWithData:sigData];
     }
     else{
         return nil;
@@ -228,11 +229,11 @@
     }
 }
 
--(NSData*)combinationSignature:(NSArray*)sigArr nonceSum:(NSData*)nonceSum{
+-(VcashSignature*)combinationSignature:(NSArray<VcashSignature*>*)sigArr nonceSum:(NSData*)nonceSum{
     uint8_t* sigs[sigArr.count];
     for (NSUInteger i=0; i<sigArr.count; i++){
-        NSData* item = [sigArr objectAtIndex:i];
-        sigs[i] = (uint8_t*)item.bytes;
+        VcashSignature* item = [sigArr objectAtIndex:i];
+        sigs[i] = (uint8_t*)item.sig_data.bytes;
     }
     uint8_t retSig[64];
     int ret = secp256k1_aggsig_add_signatures_single(_context,
@@ -241,11 +242,40 @@
                                                      sigArr.count,
                                                      nonceSum.bytes);
     if (ret == 1){
-        return [[NSData alloc] initWithBytes:retSig length:64];
+        NSData* sigData = [[NSData alloc] initWithBytes:retSig length:64];
+        return [[VcashSignature alloc] initWithData:sigData];
     }
     else{
         return nil;
     }
+}
+
+-(NSData*)signatureToCompactData:(NSData*)signature{
+    if (signature && signature.length == 64){
+        uint8_t compactData[64];
+        int ret = secp256k1_ecdsa_signature_serialize_compact(_context,
+                                                              compactData,
+                                                              signature.bytes);
+        if (ret == 1){
+            return [[NSData alloc] initWithBytes:compactData length:64];
+        }
+    }
+
+    return nil;
+}
+
+-(NSData*)compactDataToSignature:(NSData*)compactData{
+    if (compactData && compactData.length == 64){
+        secp256k1_ecdsa_signature retSig;
+        int ret = secp256k1_ecdsa_signature_parse_compact(_context,
+                                                          &retSig,
+                                                          compactData.bytes);
+        if (ret == 1){
+            return [[NSData alloc] initWithBytes:retSig.data length:64];
+        }
+    }
+
+    return nil;
 }
 
 //secret nonce

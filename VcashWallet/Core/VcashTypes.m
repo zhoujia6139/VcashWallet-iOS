@@ -12,6 +12,15 @@
 #include "blake2.h"
 
 @implementation Input
+
+-(NSData*)computePayload{
+    NSMutableData* data = [NSMutableData new];
+    uint8_t feature = self.features;
+    [data appendBytes:&feature length:1];
+    [data appendData:self.commit];
+    return data;
+}
+
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     self.commit = [PublicTool getDataFromArray:dic[@"commit"]];
     
@@ -42,6 +51,16 @@
 @end
 
 @implementation Output
+
+-(NSData*)computePayload{
+    NSMutableData* data = [NSMutableData new];
+    uint8_t feature = self.features;
+    [data appendBytes:&feature length:1];
+    [data appendData:self.commit];
+    [data appendData:self.proof];
+    return data;
+}
+
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     self.commit = [PublicTool getDataFromArray:dic[@"commit"]];
     self.proof = [PublicTool getDataFromArray:dic[@"proof"]];
@@ -76,9 +95,24 @@
 
 @implementation TxKernel
 
+-(NSData*)computePayload{
+    NSMutableData* data = [NSMutableData new];
+    uint8_t feature = self.features;
+    [data appendBytes:&feature length:1];
+    uint8_t buf[16];
+    OSWriteBigInt64(buf, 0, self.fee);
+    OSWriteBigInt64(buf, 8, self.lock_height);
+    [data appendBytes:buf length:16];
+    [data appendData:self.excess];
+    [data appendData:[self.excess_sig getCompactData]];
+    return data;
+}
+
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     self.excess = [PublicTool getDataFromArray:dic[@"excess"]];
-    self.excess_sig = [PublicTool getDataFromArray:dic[@"excess_sig"]];
+    
+    NSData* compactExessSig = [PublicTool getDataFromArray:dic[@"excess_sig"]];
+    self.excess_sig = [[VcashSignature alloc] initWithCompactData:compactExessSig];
     
     NSString* fea = dic[@"features"];
     if ([fea isEqualToString:@"Plain"]){
@@ -97,7 +131,7 @@
 - (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
     dic[@"excess"] = [PublicTool getArrFromData:self.excess];
 
-    dic[@"excess_sig"] = [PublicTool getArrFromData:self.excess_sig];
+    dic[@"excess_sig"] = [PublicTool getArrFromData:[self.excess_sig getCompactData]];
     
     if (self.features == KernelFeaturePlain){
         dic[@"features"] = @"Plain";
@@ -119,10 +153,9 @@
     return _excess;
 }
 
--(NSData*)excess_sig{
+-(VcashSignature*)excess_sig{
     if (!_excess_sig){
-        uint8_t buf[64] = {0};
-        _excess_sig = [[NSData alloc] initWithBytes:buf length:64];
+        _excess_sig = [VcashSignature zeroSignature];
     }
     return _excess_sig;
 }
@@ -218,6 +251,29 @@
              };
 }
 
+-(NSData*)computePayload{
+    NSMutableData* data = [NSMutableData new];
+    uint8_t buf[24];
+    OSWriteBigInt64(buf, 0, self.inputs.count);
+    OSWriteBigInt64(buf, 8, self.outputs.count);
+    OSWriteBigInt64(buf, 16, self.kernels.count);
+    [data appendBytes:buf length:24];
+    
+    for (Input* item in self.inputs){
+        [data appendData:[item computePayload]];
+    }
+    
+    for (Output* item in self.outputs){
+        [data appendData:[item computePayload]];
+    }
+    
+    for (TxKernel* item in self.kernels){
+        [data appendData:[item computePayload]];
+    }
+    
+    return data;
+}
+
 @end
 
 @implementation VcashTransaction
@@ -265,7 +321,7 @@
     return commit;
 }
 
--(BOOL)setTxExcess:(NSData*)excess andTxSig:(NSData*)sig{
+-(BOOL)setTxExcess:(NSData*)excess andTxSig:(VcashSignature*)sig{
     if (self.body.kernels.count == 1){
         TxKernel* kernel = [self.body.kernels objectAtIndex:0];
         kernel.excess = excess;
@@ -278,10 +334,54 @@
     return NO;
 }
 
+-(NSData*)computePayload{
+    NSMutableData* data = [NSMutableData new];
+    [data appendData:self.offset];
+    [data appendData:[self.body computePayload]];
+    return data;
+}
 
 @end
 
 @implementation VcashProofInfo
+
+@end
+
+@implementation VcashSignature
+
++(instancetype)zeroSignature{
+    VcashSignature* sig = [VcashSignature new];
+    uint8_t buf[64] = {0};
+    sig.sig_data = [[NSData alloc] initWithBytes:buf length:64];
+    return sig;
+}
+
+-(instancetype)initWithCompactData:(NSData*)compactData{
+    self = [super init];
+    if (self) {
+        VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+        self.sig_data = [secp compactDataToSignature:compactData];
+        if (self.sig_data){
+            return self;
+        }
+    }
+    
+    return nil;
+}
+
+-(instancetype)initWithData:(NSData*)sigData{
+    self = [super init];
+    if (self){
+        self.sig_data = sigData;
+    }
+    
+    return self;
+}
+
+-(NSData*)getCompactData{
+    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+    return [secp signatureToCompactData:self.sig_data];
+}
 
 @end
 

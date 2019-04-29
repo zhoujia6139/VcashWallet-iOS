@@ -167,14 +167,16 @@
     //1, verify part sig
     for (ParticipantData* item in self.participant_data){
         if (item.part_sig){
+            DDLogWarn(@"keySum=%@, nonceSum=%@, msgData=%@, item.part_sig=%@, pubkey=%@", BTCHexFromData(keySum), BTCHexFromData(nonceSum), BTCHexFromData(msgData), BTCHexFromData(item.part_sig.sig_data), BTCHexFromData(item.public_blind_excess));
             if (![secp verifySingleSignature:item.part_sig pubkey:item.public_blind_excess nonceSum:nonceSum pubkeySum:keySum andMsgData:msgData]){
+                DDLogError(@"----verifySingleSignature failed! pId = %d", item.pId);
                 return NO;
             }
         }
     }
     
     //2, calcluate part sig
-    NSData* sig = [secp calculateSingleSignature:context.sec_key.data secNonce:context.sec_nounce.data nonceSum:nonceSum pubkeySum:keySum andMsgData:msgData];
+    VcashSignature* sig = [secp calculateSingleSignature:context.sec_key.data secNonce:context.sec_nounce.data nonceSum:nonceSum pubkeySum:keySum andMsgData:msgData];
     if (!sig){
         return NO;
     }
@@ -190,7 +192,7 @@
     return YES;
 }
 
--(NSData*)finalizeSignature{
+-(VcashSignature*)finalizeSignature{
     VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
     
     NSMutableArray* pubNonceArr = [NSMutableArray new];
@@ -205,7 +207,7 @@
     NSData* keySum = [secp combinationPubkey:pubBlindArr];
     
     //calcluate group signature
-    NSData* finalSig = [secp combinationSignature:sigsArr nonceSum:nonceSum];
+    VcashSignature* finalSig = [secp combinationSignature:sigsArr nonceSum:nonceSum];
     NSData* msgData = [self createMsgToSign];
     if (finalSig && msgData){
         BOOL yesOrNO = [secp verifySingleSignature:finalSig pubkey:keySum nonceSum:nil pubkeySum:keySum andMsgData:msgData];
@@ -217,7 +219,7 @@
     return nil;
 }
 
--(BOOL)finalizeTx:(NSData*)finalSig{
+-(BOOL)finalizeTx:(VcashSignature*)finalSig{
     //TODO check fee?
     
     NSData* final_excess = [self.tx calculateFinalExcess];
@@ -279,8 +281,11 @@
     NSData* compressNounce = [PublicTool getDataFromArray:dic[@"public_nonce"]];
     self.public_nonce = [secp pubkeyFromCompressedKey:compressNounce];
     
-    self.part_sig = [PublicTool getDataFromArray:dic[@"part_sig"]];
-    self.message_sig = [PublicTool getDataFromArray:dic[@"message_sig"]];
+    NSData* compactPartSig = [PublicTool getDataFromArray:dic[@"part_sig"]];
+    self.part_sig = [[VcashSignature alloc] initWithCompactData:compactPartSig];
+    
+    NSData* compactMsgSig = [PublicTool getDataFromArray:dic[@"message_sig"]];
+    self.message_sig = [[VcashSignature alloc] initWithCompactData:compactMsgSig];
     
     return YES;
 }
@@ -294,9 +299,11 @@
     NSData* noncecompressed = [secp getCompressedPubkey:self.public_nonce];
     dic[@"public_nonce"] = [PublicTool getArrFromData:noncecompressed];
     
-    dic[@"part_sig"] = [PublicTool getArrFromData:self.part_sig];
+    NSData* compactPartSig = [self.part_sig getCompactData];
+    dic[@"part_sig"] = [PublicTool getArrFromData:compactPartSig];
     
-    dic[@"message_sig"] = [PublicTool getArrFromData:self.message_sig];
+    NSData* messageSig = [self.message_sig getCompactData];
+    dic[@"message_sig"] = [PublicTool getArrFromData:messageSig];
     
     return YES;
 }

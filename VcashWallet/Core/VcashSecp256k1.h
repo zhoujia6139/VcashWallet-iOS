@@ -41,13 +41,17 @@ enum ContextFlag {
 -(NSData*)pubkeyFromCompressedKey:(NSData*)compressedkey;
 
 //signature
--(BOOL)verifySingleSignature:(NSData*)signature pubkey:(NSData*)pubkey nonceSum:(nullable NSData*)nonce_sum pubkeySum:(NSData*)pubkey_sum andMsgData:(NSData*)msg;
+-(BOOL)verifySingleSignature:(VcashSignature*)signature pubkey:(NSData*)pubkey nonceSum:(nullable NSData*)nonce_sum pubkeySum:(NSData*)pubkey_sum andMsgData:(NSData*)msg;
 
--(NSData*)calculateSingleSignature:(NSData*)sec_key secNonce:(NSData*)sec_nonce nonceSum:(NSData*)nonce_sum pubkeySum:(NSData*)pubkey_sum andMsgData:(NSData*)msg;
+-(VcashSignature*)calculateSingleSignature:(NSData*)sec_key secNonce:(NSData*)sec_nonce nonceSum:(NSData*)nonce_sum pubkeySum:(NSData*)pubkey_sum andMsgData:(NSData*)msg;
 
 -(NSData*)combinationPubkey:(NSArray*)arr;
 
--(NSData*)combinationSignature:(NSArray*)sigArr nonceSum:(NSData*)nonceSum;
+-(VcashSignature*)combinationSignature:(NSArray<VcashSignature*>*)sigArr nonceSum:(NSData*)nonceSum;
+
+-(NSData*)signatureToCompactData:(NSData*)signature;
+
+-(NSData*)compactDataToSignature:(NSData*)compactData;
 
 //secret nonce
 -(VcashSecretKey*)exportSecnonceSingle;

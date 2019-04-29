@@ -107,7 +107,14 @@
 +(BOOL)finalizeTransaction:(VcashSlate*)slate{
     VcashContext* context = [[VcashDataManager shareInstance] getContextBySlateId:slate.uuid];
     slate.context = context;
-    return [[VcashWallet shareInstance] finalizeTransaction:slate];
+    if (![[VcashWallet shareInstance] finalizeTransaction:slate]){
+        DDLogError(@"--------finalizeTransaction failed");
+        return NO;
+    }
+    
+    NSData* txPayload = [slate.tx computePayload];
+    [[NodeApi shareInstance] postTx:BTCHexFromData(txPayload)];
+    return YES;
 }
 
 +(NSArray*)getTransationArr{

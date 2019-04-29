@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define PEDERSEN_COMMITMENT_SIZE_INTERNAL 64
 
 
-@class VcashSecretKey;
+@class VcashSecretKey, VcashSignature;
 
 typedef enum{
     OutputFeaturePlain = 0,
@@ -40,6 +40,8 @@ typedef enum{
 
 @property (strong, nonatomic)NSData* commit;
 
+-(NSData*)computePayload;
+
 @end
 
 @interface Output : NSObject
@@ -49,6 +51,8 @@ typedef enum{
 @property (strong, nonatomic)NSData* commit;
 
 @property (strong, nonatomic)NSData* proof;
+
+-(NSData*)computePayload;
 
 @end
 
@@ -62,7 +66,7 @@ typedef enum{
 
 @property (strong, nonatomic)NSData* excess;
 
-@property (strong, nonatomic)NSData* excess_sig;
+@property (strong, nonatomic)VcashSignature* excess_sig;
 
 +(KernelFeatures)featureWithLockHeight:(uint64_t)lock_height;
 
@@ -70,6 +74,7 @@ typedef enum{
 
 -(BOOL)verify;
 
+-(NSData*)computePayload;
 
 @end
 
@@ -80,6 +85,8 @@ typedef enum{
 @property (strong, nonatomic)NSMutableArray<Output*>* outputs;
 
 @property (strong, nonatomic)NSMutableArray<TxKernel*>* kernels;
+
+-(NSData*)computePayload;
 
 @end
 
@@ -92,7 +99,9 @@ typedef enum{
 
 -(NSData*)calculateFinalExcess;
 
--(BOOL)setTxExcess:(NSData*)excess andTxSig:(NSData*)sig;
+-(BOOL)setTxExcess:(NSData*)excess andTxSig:(VcashSignature*)sig;
+
+-(NSData*)computePayload;
 
 
 @end
@@ -106,6 +115,20 @@ typedef enum{
 @property(strong, nonatomic)VcashSecretKey* secretKey;
 
 @property(strong, nonatomic)NSData* message;
+
+@end
+
+@interface VcashSignature : NSObject
+
++(instancetype)zeroSignature;
+
+@property(strong, nonatomic)NSData* sig_data;
+
+-(instancetype)initWithCompactData:(NSData*)compactData;
+
+-(instancetype)initWithData:(NSData*)sigData;
+
+-(NSData*)getCompactData;
 
 @end
 

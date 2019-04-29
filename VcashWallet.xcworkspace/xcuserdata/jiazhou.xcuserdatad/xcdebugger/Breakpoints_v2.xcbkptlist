@@ -102,16 +102,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VcashWallet/Core/VcashTypes.m"
-            timestampString = "577970045.901659"
+            filePath = "VcashWallet/Core/VcashWallet.m"
+            timestampString = "578220975.657047"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "-modelCustomTransformToDictionary:"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "-finalizeTransaction:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
