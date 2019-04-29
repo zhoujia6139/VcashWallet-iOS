@@ -12,7 +12,7 @@
 //#import "UnspentTransaction.h"
 //#import "AddressTransactionDataService.h"
 #import "PhraseWordShowViewCreator.h"
-//#import "PinPasswordSetViewController.h"
+#import "PinPasswordSetViewController.h"
 //#import "MnemonicVerifyViewController.h"
 
 @interface CreateMnemonicViewController ()
@@ -57,10 +57,10 @@
 }
 
 - (IBAction)clickedWalletBtn:(id)sender {
-//    NSArray* wordsArr = [creator getAllInputWords];
-//    MnemonicVerifyViewController*vc = [MnemonicVerifyViewController new];
-//    vc.wordsArr = wordsArr;
-//    [self.navigationController pushViewController:vc animated:YES];
+    NSArray* wordsArr = [creator getAllInputWords];
+    PinPasswordSetViewController*vc = [PinPasswordSetViewController new];
+    vc.mnemonicWordsArr = wordsArr;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

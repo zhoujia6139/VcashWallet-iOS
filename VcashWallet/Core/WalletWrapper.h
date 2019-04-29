@@ -34,7 +34,7 @@
 //send Transaction
 +(BOOL)sendTransaction:(VcashSlate*)slate;
 
-+(VcashSlate*)receiveTransaction:(VcashSlate*)slate;
++(BOOL)receiveTransaction:(VcashSlate*)slate;
 
 +(BOOL)finalizeTransaction:(VcashSlate*)slate;
 

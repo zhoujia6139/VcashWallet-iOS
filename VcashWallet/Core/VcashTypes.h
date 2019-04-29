@@ -34,7 +34,15 @@ typedef enum{
     KernelFeatureHeightLocked = 2,
 }KernelFeatures;
 
-@interface Input : NSObject
+@interface TxBaseObject:NSObject
+
+-(NSData*)computePayload;
+
+-(NSData*)blake2bHash;
+
+@end
+
+@interface Input : TxBaseObject
 
 @property (assign, nonatomic)OutputFeatures features;
 
@@ -44,7 +52,7 @@ typedef enum{
 
 @end
 
-@interface Output : NSObject
+@interface Output : TxBaseObject
 
 @property (assign, nonatomic)OutputFeatures features;
 
@@ -56,7 +64,7 @@ typedef enum{
 
 @end
 
-@interface TxKernel : NSObject
+@interface TxKernel : TxBaseObject
 
 @property (assign, nonatomic)KernelFeatures features;
 
@@ -78,7 +86,7 @@ typedef enum{
 
 @end
 
-@interface TransactionBody : NSObject
+@interface TransactionBody : TxBaseObject
 
 @property (strong, nonatomic)NSMutableArray<Input*>* inputs;
 
@@ -91,7 +99,7 @@ typedef enum{
 @end
 
 
-@interface VcashTransaction : NSObject
+@interface VcashTransaction : TxBaseObject
 
 @property (strong, nonatomic)NSData* offset;
 

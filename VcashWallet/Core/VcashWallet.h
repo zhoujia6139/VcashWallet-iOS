@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(VcashSlate*)sendTransaction:(uint64_t)amount andFee:(uint64_t)fee withComplete:(RequestCompleteBlock)block;
 
--(VcashSlate*)receiveTransaction:(VcashSlate*)slate;
+-(BOOL)receiveTransaction:(VcashSlate*)slate;
 
 -(BOOL)finalizeTransaction:(VcashSlate*)slate;
 

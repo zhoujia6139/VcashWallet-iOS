@@ -100,8 +100,20 @@
     return YES;
 }
 
-+(VcashSlate*)receiveTransaction:(VcashSlate*)slate{
-    return [[VcashWallet shareInstance] receiveTransaction:slate];
++(BOOL)receiveTransaction:(VcashSlate*)slate{
+    BOOL ret = [[VcashWallet shareInstance] receiveTransaction:slate];
+    if (!ret){
+        DDLogError(@"VcashWallet receiveTransaction failed");
+        return NO;
+    }
+    slate.createNewOutputsFn?slate.createNewOutputsFn():nil;
+    //save txLog
+    ret = [[VcashDataManager shareInstance] saveAppendTx:slate.txLog];
+    if (!ret){
+        DDLogError(@"VcashDataManager saveAppendTx failed");
+        return NO;
+    }
+    return YES;
 }
 
 +(BOOL)finalizeTransaction:(VcashSlate*)slate{

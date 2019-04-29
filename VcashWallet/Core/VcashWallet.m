@@ -33,8 +33,10 @@ static VcashWallet* walletInstance = nil;
         walletInstance.mKeyChain = keychain;
         walletInstance->_outputs = [[VcashDataManager shareInstance] getActiveOutputData];
         VcashWalletInfo* baseInfo = [[VcashDataManager shareInstance] loadWalletInfo];
-        walletInstance->_curKeyPath = [[VcashKeychainPath alloc] initWithPathstr:baseInfo.curKeyPath];
-        walletInstance->_curChainHeight = baseInfo.curHeight;
+        if (baseInfo){
+            walletInstance->_curKeyPath = [[VcashKeychainPath alloc] initWithPathstr:baseInfo.curKeyPath];
+            walletInstance->_curChainHeight = baseInfo.curHeight;
+        }
     }
 }
 
@@ -203,12 +205,22 @@ static VcashWallet* walletInstance = nil;
     return slate;
 }
 
--(VcashSlate*)receiveTransaction:(VcashSlate*)slate{
+-(BOOL)receiveTransaction:(VcashSlate*)slate{
     //5, fill slate with receiver output
+    VcashTxLog* txLog = [VcashTxLog new];
+    txLog.tx_slate_id = slate.uuid;
+    txLog.tx_type = TxReceived;
+    txLog.create_time = [[NSDate date] timeIntervalSince1970];
+    //txLog.fee = slate.fee;
+    txLog.amount_credited = slate.amount;
+    txLog.amount_debited = 0;
+    txLog.is_confirmed = NO;
+    slate.txLog = txLog;
+    
     VcashSecretKey* blind = [slate addReceiverTxOutput];
     if (!blind){
         DDLogError(@"--------receiver addReceiverTxOutput failed");
-        return nil;
+        return NO;
     }
     
     //6, construct receiver Context
@@ -220,18 +232,18 @@ static VcashWallet* walletInstance = nil;
     //7, receiver fill round 1
     if (![slate fillRound1:context participantId:1 andMessage:nil]){
         DDLogError(@"--------receiver fillRound1 failed");
-        return nil;
+        return NO;
     }
     
     //8, receiver fill round 2
     if (![slate fillRound2:context participantId:1]){
         DDLogError(@"--------receiver fillRound2 failed");
-        return nil;
+        return NO;
     }
     NSString* result = [slate modelToJSONString];
     NSLog(@"---------:%@", result);
     
-    return slate;
+    return YES;
 }
 
 -(BOOL)finalizeTransaction:(VcashSlate*)slate{
@@ -261,8 +273,14 @@ static VcashWallet* walletInstance = nil;
 }
 
 -(VcashKeychainPath*)nextChild{
-    self->_curKeyPath = [self.curKeyPath nextPath];
-    [self saveBaseInfo];
+    if (self.curKeyPath){
+        self->_curKeyPath = [self.curKeyPath nextPath];
+        [self saveBaseInfo];
+    }
+    else{
+        self->_curKeyPath = [[VcashKeychainPath alloc] initWithDepth:3 d0:0 d1:0 d2:0 d3:0];
+    }
+
     return self.curKeyPath;
 }
 

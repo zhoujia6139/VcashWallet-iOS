@@ -42,7 +42,8 @@
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     NSString* text = dic[@"id"];
-    self.uuid = [text stringByReplacingOccurrencesOfString:@"-" withString:@""];;
+//    self.uuid = [text stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    self.uuid = text;
     
     return YES;
 }
@@ -82,33 +83,8 @@
     
     //output
     if (change > 0){
-        VcashKeychainPath* keypath = [[VcashWallet shareInstance] nextChild];
-        NSData*commitment = [[VcashWallet shareInstance].mKeyChain createCommitment:change andKeypath:keypath];
-        NSData*proof = [[VcashWallet shareInstance].mKeyChain createRangeProof:change withKeyPath:keypath];
-        Output* output = [Output new];
-        output.features = OutputFeaturePlain;
-        output.commit = commitment;
-        output.proof = proof;
-        
-        [temptx.body.outputs addObject:output];
-        VcashSecretKey* secKey = [[VcashWallet shareInstance].mKeyChain deriveKey:change andKeypath:keypath];
+        VcashSecretKey* secKey = [self createTxOutputWithAmount:change];
         [positiveArr addObject:secKey.data];
-        
-        __weak typeof (self) weak_self = self;
-        self.createNewOutputsFn = ^{
-            __strong typeof (weak_self) strong_self = weak_self;
-            VcashOutput* output = [VcashOutput new];
-            output.commitment = BTCHexFromData(commitment);
-            output.keyPath = keypath.pathStr;
-            output.value = change;
-            output.height = strong_self.height;
-            output.lock_height = 0;
-            output.is_coinbase = NO;
-            output.status = Unconfirmed;
-            
-            [[VcashWallet shareInstance] addNewTxChangeOutput:output];
-            [[VcashWallet shareInstance] syncOutputInfo];
-        };
     }
     
     //lockheight
@@ -122,19 +98,7 @@
 }
 
 -(VcashSecretKey*)addReceiverTxOutput{
-    VcashTransaction* temptx = self.tx;
-    VcashKeychainPath* keypath = [[VcashWallet shareInstance] nextChild];
-    NSData*commitment = [[VcashWallet shareInstance].mKeyChain createCommitment:self.amount andKeypath:keypath];
-    NSData*proof = [[VcashWallet shareInstance].mKeyChain createRangeProof:self.amount withKeyPath:keypath];
-    Output* output = [Output new];
-    output.features = OutputFeaturePlain;
-    output.commit = commitment;
-    output.proof = proof;
-    
-    [temptx.body.outputs addObject:output];
-    VcashSecretKey* secKey = [[VcashWallet shareInstance].mKeyChain deriveKey:self.amount andKeypath:keypath];
-    
-    NSLog(@"------output.commit=%@,output.proof=%@, secKey=%@", BTCHexFromData(output.commit), BTCHexFromData(output.proof), BTCHexFromData(secKey.data));
+    VcashSecretKey* secKey = [self createTxOutputWithAmount:self.amount];
     return secKey;
 }
 
@@ -231,6 +195,38 @@
 }
 
 #pragma private
+-(VcashSecretKey*)createTxOutputWithAmount:(uint64_t)amount{
+    VcashTransaction* temptx = self.tx;
+    VcashKeychainPath* keypath = [[VcashWallet shareInstance] nextChild];
+    NSData*commitment = [[VcashWallet shareInstance].mKeyChain createCommitment:amount andKeypath:keypath];
+    NSData*proof = [[VcashWallet shareInstance].mKeyChain createRangeProof:amount withKeyPath:keypath];
+    Output* output = [Output new];
+    output.features = OutputFeaturePlain;
+    output.commit = commitment;
+    output.proof = proof;
+    
+    [temptx.body.outputs addObject:output];
+    VcashSecretKey* secKey = [[VcashWallet shareInstance].mKeyChain deriveKey:amount andKeypath:keypath];
+    
+    __weak typeof (self) weak_self = self;
+    self.createNewOutputsFn = ^{
+        __strong typeof (weak_self) strong_self = weak_self;
+        VcashOutput* output = [VcashOutput new];
+        output.commitment = BTCHexFromData(commitment);
+        output.keyPath = keypath.pathStr;
+        output.value = amount;
+        output.height = strong_self.height;
+        output.lock_height = 0;
+        output.is_coinbase = NO;
+        output.status = Unconfirmed;
+        
+        [[VcashWallet shareInstance] addNewTxChangeOutput:output];
+        [[VcashWallet shareInstance] syncOutputInfo];
+    };
+    
+    return secKey;
+}
+
 -(void)generateOffset:(VcashContext*)context{
     self.tx.offset = [VcashSecretKey nounceKey].data;
     VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;

@@ -11,6 +11,25 @@
 #import "VcashWallet.h"
 #include "blake2.h"
 
+@implementation TxBaseObject
+
+-(NSData*)computePayload{
+    return nil;
+}
+
+-(NSData*)blake2bHash{
+    NSData* payload = [self computePayload];
+    uint8_t ret[32];
+    if( blake2b( ret, payload.bytes, nil, 32, payload.length, 0 ) < 0)
+    {
+        return nil;
+    }
+    
+    return [[NSData alloc] initWithBytes:ret length:32];
+}
+
+@end
+
 @implementation Input
 
 -(NSData*)computePayload{
