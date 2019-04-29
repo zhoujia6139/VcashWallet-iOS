@@ -67,7 +67,7 @@
                 
                 [txArr addObject:tx];
             }
-            [[VcashDataManager shareInstance] saveTxData:txArr];
+            [[VcashDataManager shareInstance] saveTxDataArr:txArr];
             block?block(YES, txArr):nil;
         }
         else{
@@ -83,11 +83,21 @@
 
 }
 
-+(void)sendTransaction:(VcashSlate*)slate{
++(BOOL)sendTransaction:(VcashSlate*)slate{
     //[[VcashWallet shareInstance] lockAllUnspendOutput];
     slate.lockOutputsFn?slate.lockOutputsFn():nil;
     slate.createNewOutputsFn?slate.createNewOutputsFn():nil;
     //save txLog
+    BOOL ret = [[VcashDataManager shareInstance] saveAppendTx:slate.txLog];
+    if (!ret){
+        return NO;
+    }
+    //save context
+    ret = [[VcashDataManager shareInstance] saveContext:slate.context];
+    if (!ret){
+        return NO;
+    }
+    return YES;
 }
 
 +(VcashSlate*)receiveTransaction:(VcashSlate*)slate{
@@ -95,6 +105,8 @@
 }
 
 +(BOOL)finalizeTransaction:(VcashSlate*)slate{
+    VcashContext* context = [[VcashDataManager shareInstance] getContextBySlateId:slate.uuid];
+    slate.context = context;
     return [[VcashWallet shareInstance] finalizeTransaction:slate];
 }
 

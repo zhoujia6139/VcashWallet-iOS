@@ -35,32 +35,28 @@
 
 -(void)setTxLog:(VcashTxLog *)txLog{
     _txLog = txLog;
-    uint64_t amount = 0;
     switch (txLog.tx_type) {
         case ConfirmedCoinbase:
             [self.btnInputOrOutPut setTitle:@"ConfirmedCoinbase" forState:UIControlStateNormal];
-            amount = txLog.amount_credited;
             break;
         case TxReceived:
             [self.btnInputOrOutPut setTitle:@"TxReceived" forState:UIControlStateNormal];
-            amount = txLog.amount_credited;
             break;
         case TxSent:
             [self.btnInputOrOutPut setTitle:@"TxSent" forState:UIControlStateNormal];
-            amount = txLog.amount_debited;
             break;
         case TxReceivedCancelled:
             [self.btnInputOrOutPut setTitle:@"TxReceivedCancelled" forState:UIControlStateNormal];
-            amount = txLog.amount_credited;
             break;
         case TxSentCancelled:
             [self.btnInputOrOutPut setTitle:@"TxSentCancelled" forState:UIControlStateNormal];
-            amount = txLog.amount_debited;
             break;
         default:
             break;
     }
     
+    
+    int64_t amount = (int64_t)txLog.amount_credited - (int64_t)txLog.amount_debited;
     self.labelAmount.text = [NSString stringWithFormat:@"%@ Vcash",@([WalletWrapper nanoToVcash:amount]).p9fString];
     self.labelTime.text = [[NSDate dateWithTimeIntervalSince1970:txLog.create_time] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
 }

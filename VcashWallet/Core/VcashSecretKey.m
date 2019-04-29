@@ -31,6 +31,17 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)coder{
+    if (self = [super init]){
+        self->_data = [coder decodeObjectForKey:@"data"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder{
+    [coder encodeObject:self.data forKey:@"data"];
+}
+
 +(instancetype)nounceKey{
     NSData* data = BTCRandomDataWithLength(SECRET_KEY_SIZE);
     VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;

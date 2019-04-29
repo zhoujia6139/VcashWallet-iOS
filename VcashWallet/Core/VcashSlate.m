@@ -37,7 +37,14 @@
 }
 
 + (NSArray *)modelPropertyBlacklist {
-    return @[@"txLog", @"lockOutputsFn", @"createNewOutputsFn"];
+    return @[@"txLog", @"lockOutputsFn", @"createNewOutputsFn", @"context"];
+}
+
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    NSString* text = dic[@"id"];
+    self.uuid = [text stringByReplacingOccurrencesOfString:@"-" withString:@""];;
+    
+    return YES;
 }
 
 -(VcashSecretKey*)addTxElement:(NSArray*)outputs change:(uint64_t)change{

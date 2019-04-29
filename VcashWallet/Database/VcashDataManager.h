@@ -10,6 +10,7 @@
 #import "VcashOutput.h"
 #import "VcashWalletInfo.h"
 #import "VcashTxLog.h"
+#import "VcashContext.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,9 +31,16 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSArray*)getActiveOutputData;
 
 //transaction
--(BOOL)saveTxData:(NSArray*)arr;
+-(BOOL)saveTxDataArr:(NSArray*)arr;
+
+-(BOOL)saveAppendTx:(VcashTxLog*)txLog;
 
 -(NSArray*)getTxData;
+
+//context
+-(BOOL)saveContext:(VcashContext*)context;
+
+-(VcashContext*)getContextBySlateId:(NSString*)slateid;
 
 @end
 

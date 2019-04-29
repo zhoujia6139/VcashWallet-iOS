@@ -12,7 +12,7 @@
 		ED3C7557226EC78B00B42555 /* VcashOutput.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7556226EC78B00B42555 /* VcashOutput.mm */; };
 		ED3C755C226EE9ED00B42555 /* VcashTxLog.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C755B226EE9ED00B42555 /* VcashTxLog.mm */; };
 		ED3C7560226EF68600B42555 /* VcashSlate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C755F226EF68600B42555 /* VcashSlate.m */; };
-		ED3C7563226F112500B42555 /* VcashContext.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7562226F112500B42555 /* VcashContext.m */; };
+		ED3C7563226F112500B42555 /* VcashContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7562226F112500B42555 /* VcashContext.mm */; };
 		ED3C756A2270744400B42555 /* PublicTool.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C75692270744400B42555 /* PublicTool.m */; };
 		ED3C756D2271611400B42555 /* VcashWalletInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C756C2271611400B42555 /* VcashWalletInfo.mm */; };
 		ED3C757222731C3900B42555 /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C756F22731C3800B42555 /* WalletViewController.m */; };
@@ -23,6 +23,8 @@
 		ED4167882275B04A000B5DC8 /* SendTransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED4167852275B04A000B5DC8 /* SendTransactionViewController.xib */; };
 		ED41678C2275B1D6000B5DC8 /* SendTransactionConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED41678A2275B1D6000B5DC8 /* SendTransactionConfirmView.m */; };
 		ED41678D2275B1D6000B5DC8 /* SendTransactionConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED41678B2275B1D6000B5DC8 /* SendTransactionConfirmView.xib */; };
+		ED4167952276A9A0000B5DC8 /* HandleSlateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4167932276A9A0000B5DC8 /* HandleSlateViewController.m */; };
+		ED4167962276A9A0000B5DC8 /* HandleSlateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED4167942276A9A0000B5DC8 /* HandleSlateViewController.xib */; };
 		ED44BF7122696CF50042928E /* BTCBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE322696CF50042928E /* BTCBlock.m */; };
 		ED44BF7222696CF50042928E /* BTCBlockHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE422696CF50042928E /* BTCBlockHeader.m */; };
 		ED44BF7322696CF50042928E /* BTCEncryptedBackup.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE722696CF50042928E /* BTCEncryptedBackup.m */; };
@@ -143,7 +145,7 @@
 		ED3C755E226EF68600B42555 /* VcashSlate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashSlate.h; sourceTree = "<group>"; };
 		ED3C755F226EF68600B42555 /* VcashSlate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashSlate.m; sourceTree = "<group>"; };
 		ED3C7561226F112500B42555 /* VcashContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashContext.h; sourceTree = "<group>"; };
-		ED3C7562226F112500B42555 /* VcashContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashContext.m; sourceTree = "<group>"; };
+		ED3C7562226F112500B42555 /* VcashContext.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VcashContext.mm; sourceTree = "<group>"; };
 		ED3C75682270744400B42555 /* PublicTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublicTool.h; sourceTree = "<group>"; };
 		ED3C75692270744400B42555 /* PublicTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublicTool.m; sourceTree = "<group>"; };
 		ED3C756B2271611400B42555 /* VcashWalletInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashWalletInfo.h; sourceTree = "<group>"; };
@@ -161,6 +163,10 @@
 		ED4167892275B1D6000B5DC8 /* SendTransactionConfirmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendTransactionConfirmView.h; sourceTree = "<group>"; };
 		ED41678A2275B1D6000B5DC8 /* SendTransactionConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendTransactionConfirmView.m; sourceTree = "<group>"; };
 		ED41678B2275B1D6000B5DC8 /* SendTransactionConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendTransactionConfirmView.xib; sourceTree = "<group>"; };
+		ED41678E22769E78000B5DC8 /* VcashContext+WCTTableCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VcashContext+WCTTableCoding.h"; sourceTree = "<group>"; };
+		ED4167922276A9A0000B5DC8 /* HandleSlateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HandleSlateViewController.h; sourceTree = "<group>"; };
+		ED4167932276A9A0000B5DC8 /* HandleSlateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HandleSlateViewController.m; sourceTree = "<group>"; };
+		ED4167942276A9A0000B5DC8 /* HandleSlateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HandleSlateViewController.xib; sourceTree = "<group>"; };
 		ED44BEE022696CF50042928E /* BTCMerkleTree+Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BTCMerkleTree+Tests.h"; sourceTree = "<group>"; };
 		ED44BEE122696CF50042928E /* BTCPaymentMethodDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCPaymentMethodDetails.h; sourceTree = "<group>"; };
 		ED44BEE222696CF50042928E /* BTCProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCProcessor.h; sourceTree = "<group>"; };
@@ -417,6 +423,9 @@
 				ED3C756B2271611400B42555 /* VcashWalletInfo.h */,
 				ED3C756C2271611400B42555 /* VcashWalletInfo.mm */,
 				ED3C756E2271622B00B42555 /* VcashWalletInfo+WCTTableCoding.h */,
+				ED3C7561226F112500B42555 /* VcashContext.h */,
+				ED3C7562226F112500B42555 /* VcashContext.mm */,
+				ED41678E22769E78000B5DC8 /* VcashContext+WCTTableCoding.h */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -635,6 +644,9 @@
 				ED4167862275B04A000B5DC8 /* SendTransactionViewController.h */,
 				ED4167842275B049000B5DC8 /* SendTransactionViewController.m */,
 				ED4167852275B04A000B5DC8 /* SendTransactionViewController.xib */,
+				ED4167922276A9A0000B5DC8 /* HandleSlateViewController.h */,
+				ED4167932276A9A0000B5DC8 /* HandleSlateViewController.m */,
+				ED4167942276A9A0000B5DC8 /* HandleSlateViewController.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -755,8 +767,6 @@
 				ED44C00E226DAFB30042928E /* VcashTypes.m */,
 				ED3C755E226EF68600B42555 /* VcashSlate.h */,
 				ED3C755F226EF68600B42555 /* VcashSlate.m */,
-				ED3C7561226F112500B42555 /* VcashContext.h */,
-				ED3C7562226F112500B42555 /* VcashContext.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -821,6 +831,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED4167962276A9A0000B5DC8 /* HandleSlateViewController.xib in Resources */,
 				ED41677F22755D4C000B5DC8 /* WalletCell.xib in Resources */,
 				EDA5149A22686DEE0011138F /* LaunchScreen.storyboard in Resources */,
 				ED41678D2275B1D6000B5DC8 /* SendTransactionConfirmView.xib in Resources */,
@@ -925,6 +936,7 @@
 				ED44BF7322696CF50042928E /* BTCEncryptedBackup.m in Sources */,
 				ED44BF7C22696CF50042928E /* BTCBitcoinURL+Tests.m in Sources */,
 				ED44BFD422697B570042928E /* WelcomePageViewController.m in Sources */,
+				ED4167952276A9A0000B5DC8 /* HandleSlateViewController.m in Sources */,
 				ED44C000226B1F0C0042928E /* VcashSecretKey.m in Sources */,
 				ED44BF9322696CF50042928E /* BTCAssetAddress.m in Sources */,
 				ED44BF9022696CF50042928E /* BTCPriceSource+Tests.m in Sources */,
@@ -1014,7 +1026,7 @@
 				ED44BF8F22696CF50042928E /* BTCCurvePoint+Tests.m in Sources */,
 				ED44BF8322696CF50042928E /* BTCBlockchainInfo.m in Sources */,
 				ED41678C2275B1D6000B5DC8 /* SendTransactionConfirmView.m in Sources */,
-				ED3C7563226F112500B42555 /* VcashContext.m in Sources */,
+				ED3C7563226F112500B42555 /* VcashContext.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,7 @@
 #import "VcashOutput+WCTTableCoding.h"
 #import "VcashWalletInfo+WCTTableCoding.h"
 #import "VcashTxLog+WCTTableCoding.h"
+#import "VcashContext+WCTTableCoding.h"
 
 @interface VcashDataManager()
 
@@ -87,7 +88,7 @@
     return objects;
 }
 
--(BOOL)saveTxData:(NSArray*)arr{
+-(BOOL)saveTxDataArr:(NSArray*)arr{
     if (arr.count == 0){
         return YES;
     }
@@ -107,11 +108,53 @@
     return YES;
 }
 
+-(BOOL)saveAppendTx:(VcashTxLog*)txLog{
+    if (!txLog){
+        return YES;
+    }
+    
+    NSString *className = NSStringFromClass(VcashTxLog.class);
+    NSString *tableName = className;
+    txLog.isAutoIncrement = YES;
+    BOOL ret = [self.database insertObject:txLog into:tableName];
+    if (!ret)
+    {
+        DDLogError(@"----------db error, saveAppendTx fail");
+        return NO;
+    }
+    return YES;
+}
+
 -(NSArray*)getTxData{
     NSString *className = NSStringFromClass(VcashTxLog.class);
     NSString *tableName = className;
     NSArray<VcashTxLog *> *objects = [self.database getObjectsOfClass:VcashTxLog.class fromTable:tableName orderBy:VcashTxLog.tx_id.order(WCTOrderedAscending)];
     return objects;
+}
+
+-(BOOL)saveContext:(VcashContext*)context{
+    if (!context){
+        return YES;
+    }
+    
+    NSString *className = NSStringFromClass(VcashContext.class);
+    NSString *tableName = className;
+    BOOL ret = [self.database insertObject:context into:tableName];
+    if (!ret)
+    {
+        DDLogError(@"----------db error, saveContext fail");
+        return NO;
+    }
+    return YES;
+}
+
+-(VcashContext*)getContextBySlateId:(NSString*)slateid{
+    NSString *className = NSStringFromClass(VcashContext.class);
+    NSString *tableName = className;
+    VcashContext *object = [self.database getOneObjectOfClass:VcashContext.class
+                                                       fromTable:tableName where:VcashContext.slate_id == slateid];
+    
+    return object;
 }
 
 
@@ -158,6 +201,15 @@
         if (!isExist)
         {
             BOOL ret = [_database createTableAndIndexesOfName:tableName2 withClass:VcashTxLog.class];
+            assert(ret);
+        }
+        
+        NSString *className3 = NSStringFromClass(VcashContext.class);
+        NSString *tableName3 = className3;
+        isExist = [_database isTableExists:tableName3];
+        if (!isExist)
+        {
+            BOOL ret = [_database createTableAndIndexesOfName:tableName3 withClass:VcashContext.class];
             assert(ret);
         }
     }

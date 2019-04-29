@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(strong, nonatomic)VcashSecretKey* sec_nounce;
 
+@property(strong, nonatomic)NSString* slate_id;
+
 @property(strong, nonatomic)NSDictionary* output_ids;
 
 @property(strong, nonatomic)NSArray* input_ids;

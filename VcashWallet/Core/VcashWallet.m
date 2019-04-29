@@ -16,8 +16,6 @@
 
 static VcashWallet* walletInstance = nil;
 
-static VcashContext* testContext = nil;
-
 @interface VcashWallet()
 
 @property (strong, nonatomic)VcashKeyChain* mKeyChain;
@@ -192,6 +190,8 @@ static VcashContext* testContext = nil;
     //3 construct sender Context
     VcashContext* context = [[VcashContext alloc] init];
     context.sec_key = blind;
+    context.slate_id = slate.uuid;
+    slate.context = context;
     
     //4 sender fill round 1
     if (![slate fillRound1:context participantId:0 andMessage:nil]){
@@ -200,7 +200,6 @@ static VcashContext* testContext = nil;
     }
     NSString* result = [slate modelToJSONString];
     NSLog(@"---------:%@", result);
-    testContext = context;
     return slate;
 }
 
@@ -215,6 +214,8 @@ static VcashContext* testContext = nil;
     //6, construct receiver Context
     VcashContext* context = [[VcashContext alloc] init];
     context.sec_key = blind;
+    context.slate_id = slate.uuid;
+    slate.context = context;
     
     //7, receiver fill round 1
     if (![slate fillRound1:context participantId:1 andMessage:nil]){
@@ -234,7 +235,7 @@ static VcashContext* testContext = nil;
 }
 
 -(BOOL)finalizeTransaction:(VcashSlate*)slate{
-    VcashContext* context = testContext;
+    VcashContext* context = slate.context;
     
     //9, sender fill round 2
     if (![slate fillRound2:context participantId:0])

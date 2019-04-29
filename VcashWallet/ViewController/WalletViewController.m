@@ -8,12 +8,13 @@
 
 #import "WalletViewController.h"
 #import "WalletWrapper.h"
-//#import "SendTransactionViewController.h"
+#import "SendTransactionViewController.h"
 //#import "ReceiveTransactionViewController.h"
 #import "WalletCell.h"
 #import "VcashTxLog.h"
 //#import "TransactionDetailViewController.h"
 //#import "SettingViewController.h"
+#import "HandleSlateViewController.h"
 
 static NSString *const identifier = @"WalletCell";
 
@@ -50,14 +51,9 @@ static NSString *const identifier = @"WalletCell";
     if (self.enterInRecoverMode){
         [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
             if (yesOrNo){
-                self.arrTransactionList = ret;
-                [self.tableViewContainer reloadData];
+                [self refreshMainView];
             }
         }];
-    }
-    else{
-        self.arrTransactionList = [WalletWrapper getTransationArr];
-        [self.tableViewContainer reloadData];
     }
     
     [self refreshMainView];
@@ -78,6 +74,9 @@ static NSString *const identifier = @"WalletCell";
     self.netName.text = @"MainNet";
     self.netName.textColor = [UIColor redColor];
 #endif
+    
+    self.arrTransactionList = [WalletWrapper getTransationArr];
+    [self.tableViewContainer reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -122,14 +121,14 @@ static NSString *const identifier = @"WalletCell";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-//- (IBAction)clickSend:(id)sender {
-//    [self.navigationController pushViewController:[SendTransactionViewController new]  animated:YES];
-//}
-//
-//- (IBAction)clickReceive:(id)sender {
-//    [self.navigationController pushViewController:[ReceiveTransactionViewController new]  animated:YES];
-//}
-//
+- (IBAction)clickSend:(id)sender {
+    [self.navigationController pushViewController:[SendTransactionViewController new]  animated:YES];
+}
+
+- (IBAction)clickReceive:(id)sender {
+    [self.navigationController pushViewController:[HandleSlateViewController new]  animated:YES];
+}
+
 //- (IBAction)clickSet:(id)sender {
 //    [self.navigationController pushViewController:[SettingViewController new]  animated:YES];
 //}

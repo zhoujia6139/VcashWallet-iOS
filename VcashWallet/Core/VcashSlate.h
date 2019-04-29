@@ -39,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(strong, nonatomic)dispatch_block_t createNewOutputsFn;
 
+@property(strong, nonatomic)VcashContext* context;
+
 //for sender
 -(VcashSecretKey*)addTxElement:(NSArray*)outputs change:(uint64_t)change;
 

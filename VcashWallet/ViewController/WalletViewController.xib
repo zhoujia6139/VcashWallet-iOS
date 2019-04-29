@@ -105,7 +105,7 @@
                                 <constraint firstAttribute="height" constant="40" id="2Rs-Lu-gTU"/>
                                 <constraint firstAttribute="width" constant="100" id="wUu-dA-OOP"/>
                             </constraints>
-                            <state key="normal" title="收币">
+                            <state key="normal" title="Slate">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
