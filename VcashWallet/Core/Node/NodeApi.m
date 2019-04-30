@@ -97,6 +97,7 @@
 {
     if (_sessionManager == nil) {
         _sessionManager = [AFHTTPSessionManager manager];
+        _sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
         _sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
         _sessionManager.securityPolicy.allowInvalidCertificates = YES;
         _sessionManager.securityPolicy.validatesDomainName = NO;
