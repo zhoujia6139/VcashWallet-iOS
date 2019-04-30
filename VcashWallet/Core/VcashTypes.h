@@ -36,7 +36,7 @@ typedef enum{
 
 @interface TxBaseObject:NSObject
 
--(NSData*)computePayload;
+-(NSData*)computePayloadForHash:(BOOL)yesOrNo;
 
 -(NSData*)blake2bHash;
 
@@ -48,8 +48,6 @@ typedef enum{
 
 @property (strong, nonatomic)NSData* commit;
 
--(NSData*)computePayload;
-
 @end
 
 @interface Output : TxBaseObject
@@ -59,8 +57,6 @@ typedef enum{
 @property (strong, nonatomic)NSData* commit;
 
 @property (strong, nonatomic)NSData* proof;
-
--(NSData*)computePayload;
 
 @end
 
@@ -82,8 +78,6 @@ typedef enum{
 
 -(BOOL)verify;
 
--(NSData*)computePayload;
-
 @end
 
 @interface TransactionBody : TxBaseObject
@@ -93,8 +87,6 @@ typedef enum{
 @property (strong, nonatomic)NSMutableArray<Output*>* outputs;
 
 @property (strong, nonatomic)NSMutableArray<TxKernel*>* kernels;
-
--(NSData*)computePayload;
 
 @end
 
@@ -108,8 +100,6 @@ typedef enum{
 -(NSData*)calculateFinalExcess;
 
 -(BOOL)setTxExcess:(NSData*)excess andTxSig:(VcashSignature*)sig;
-
--(NSData*)computePayload;
 
 -(void)sortTx;
 

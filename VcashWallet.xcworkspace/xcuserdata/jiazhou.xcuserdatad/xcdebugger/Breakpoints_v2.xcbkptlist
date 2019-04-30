@@ -105,13 +105,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VcashWallet/Core/VcashWallet.m"
-            timestampString = "578288190.294372"
+            filePath = "VcashWallet/Core/Node/NodeApi.m"
+            timestampString = "578291354.261053"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "253"
-            endingLineNumber = "253"
-            landmarkName = "-finalizeTransaction:"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "-postTx:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

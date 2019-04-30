@@ -13,12 +13,12 @@
 
 @implementation TxBaseObject
 
--(NSData*)computePayload{
+-(NSData*)computePayloadForHash:(BOOL)yesOrNo{
     return nil;
 }
 
 -(NSData*)blake2bHash{
-    NSData* payload = [self computePayload];
+    NSData* payload = [self computePayloadForHash:YES];
     uint8_t ret[32];
     if( blake2b( ret, payload.bytes, nil, 32, payload.length, 0 ) < 0)
     {
@@ -32,7 +32,7 @@
 
 @implementation Input
 
--(NSData*)computePayload{
+-(NSData*)computePayloadForHash:(BOOL)yesOrNo{
     NSMutableData* data = [NSMutableData new];
     uint8_t feature = self.features;
     [data appendBytes:&feature length:1];
@@ -71,12 +71,18 @@
 
 @implementation Output
 
--(NSData*)computePayload{
+-(NSData*)computePayloadForHash:(BOOL)yesOrNo{
     NSMutableData* data = [NSMutableData new];
     uint8_t feature = self.features;
     [data appendBytes:&feature length:1];
     [data appendData:self.commit];
-    [data appendData:self.proof];
+    if (!yesOrNo){
+        uint8_t buf[8];
+        OSWriteBigInt64(buf, 0, self.proof.length);
+        [data appendBytes:buf length:8];
+        [data appendData:self.proof];
+    }
+    
     return data;
 }
 
@@ -114,7 +120,7 @@
 
 @implementation TxKernel
 
--(NSData*)computePayload{
+-(NSData*)computePayloadForHash:(BOOL)yesOrNo{
     NSMutableData* data = [NSMutableData new];
     uint8_t feature = self.features;
     [data appendBytes:&feature length:1];
@@ -270,7 +276,7 @@
              };
 }
 
--(NSData*)computePayload{
+-(NSData*)computePayloadForHash:(BOOL)yesOrNo{
     NSMutableData* data = [NSMutableData new];
     uint8_t buf[24];
     OSWriteBigInt64(buf, 0, self.inputs.count);
@@ -279,15 +285,15 @@
     [data appendBytes:buf length:24];
     
     for (Input* item in self.inputs){
-        [data appendData:[item computePayload]];
+        [data appendData:[item computePayloadForHash:yesOrNo]];
     }
     
     for (Output* item in self.outputs){
-        [data appendData:[item computePayload]];
+        [data appendData:[item computePayloadForHash:yesOrNo]];
     }
     
     for (TxKernel* item in self.kernels){
-        [data appendData:[item computePayload]];
+        [data appendData:[item computePayloadForHash:yesOrNo]];
     }
     
     return data;
@@ -353,10 +359,10 @@
     return NO;
 }
 
--(NSData*)computePayload{
+-(NSData*)computePayloadForHash:(BOOL)yesOrNo{
     NSMutableData* data = [NSMutableData new];
     [data appendData:self.offset];
-    [data appendData:[self.body computePayload]];
+    [data appendData:[self.body computePayloadForHash:yesOrNo]];
     return data;
 }
 

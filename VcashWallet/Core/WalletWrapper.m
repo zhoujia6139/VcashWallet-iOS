@@ -124,7 +124,7 @@
         return NO;
     }
     
-    NSData* txPayload = [slate.tx computePayload];
+    NSData* txPayload = [slate.tx computePayloadForHash:NO];
     [[NodeApi shareInstance] postTx:BTCHexFromData(txPayload)];
     return YES;
 }

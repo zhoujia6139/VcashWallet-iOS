@@ -42,8 +42,8 @@
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     NSString* text = dic[@"id"];
-//    self.uuid = [text stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    self.uuid = text;
+    self.uuid = [text stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    //self.uuid = text;
     
     return YES;
 }
