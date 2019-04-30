@@ -20,6 +20,7 @@ WCDB_SYNTHESIZE(VcashOutput, height)
 WCDB_SYNTHESIZE(VcashOutput, lock_height)
 WCDB_SYNTHESIZE(VcashOutput, is_coinbase)
 WCDB_SYNTHESIZE(VcashOutput, status)
+WCDB_SYNTHESIZE(VcashOutput, tx_log_id)
 
 WCDB_PRIMARY(VcashOutput, commitment)
 

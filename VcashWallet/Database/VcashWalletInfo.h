@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(assign, nonatomic)uint64_t curHeight;
 
+@property(assign, nonatomic)uint32_t curTxLogId;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -41,6 +41,8 @@ typedef enum  {
 
 @property(assign, nonatomic)OutputStatus status;
 
+@property(assign, nonatomic)uint32_t tx_log_id;
+
 @property(strong, nonatomic)VcashSecretKey* blinding;
 
 @end

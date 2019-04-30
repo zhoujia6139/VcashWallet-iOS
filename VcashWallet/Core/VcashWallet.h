@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (assign, nonatomic, readonly)uint64_t curChainHeight;
 
+@property (assign, nonatomic, readonly)uint32_t curTxLogId;
+
 @property(strong, nonatomic, readonly)NSArray<VcashOutput*>* outputs;
 
 -(WalletBalanceInfo*)getWalletBalanceInfo;
@@ -49,6 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(BOOL)finalizeTransaction:(VcashSlate*)slate;
 
 -(VcashKeychainPath*)nextChild;
+
+-(uint32_t)getNextLogId;
 
 @end
 

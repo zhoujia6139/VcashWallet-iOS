@@ -95,9 +95,6 @@
     
     NSString *className = NSStringFromClass(VcashTxLog.class);
     NSString *tableName = className;
-    for (VcashTxLog* tx in arr){
-        tx.isAutoIncrement = YES;
-    }
     [self.database deleteAllObjectsFromTable:tableName];
     BOOL ret = [self.database insertObjects:arr into:tableName];
     if (!ret)
@@ -115,7 +112,6 @@
     
     NSString *className = NSStringFromClass(VcashTxLog.class);
     NSString *tableName = className;
-    txLog.isAutoIncrement = YES;
     BOOL ret = [self.database insertObject:txLog into:tableName];
     if (!ret)
     {

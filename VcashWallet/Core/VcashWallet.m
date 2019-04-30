@@ -36,6 +36,7 @@ static VcashWallet* walletInstance = nil;
         if (baseInfo){
             walletInstance->_curKeyPath = [[VcashKeychainPath alloc] initWithPathstr:baseInfo.curKeyPath];
             walletInstance->_curChainHeight = baseInfo.curHeight;
+            walletInstance->_curTxLogId = baseInfo.curTxLogId;
         }
     }
 }
@@ -174,6 +175,7 @@ static VcashWallet* walletInstance = nil;
     slate.fee = actualFee;
     
     VcashTxLog* txLog = [VcashTxLog new];
+    txLog.tx_id = [[VcashWallet shareInstance] getNextLogId];
     txLog.tx_slate_id = slate.uuid;
     txLog.tx_type = TxSent;
     txLog.create_time = [[NSDate date] timeIntervalSince1970];
@@ -208,6 +210,7 @@ static VcashWallet* walletInstance = nil;
 -(BOOL)receiveTransaction:(VcashSlate*)slate{
     //5, fill slate with receiver output
     VcashTxLog* txLog = [VcashTxLog new];
+    txLog.tx_id = [[VcashWallet shareInstance] getNextLogId];
     txLog.tx_slate_id = slate.uuid;
     txLog.tx_type = TxReceived;
     txLog.create_time = [[NSDate date] timeIntervalSince1970];
@@ -284,6 +287,12 @@ static VcashWallet* walletInstance = nil;
     return self.curKeyPath;
 }
 
+-(uint32_t)getNextLogId{
+    self->_curTxLogId += 1;
+    [self saveBaseInfo];
+    return self.curTxLogId;
+}
+
 #pragma private
 -(uint64_t)calcuteFee:(NSInteger)inputCount withOutputCount:(NSInteger)outputCount{
     NSInteger tx_weight = outputCount * 4 + 1 - inputCount;
@@ -296,6 +305,7 @@ static VcashWallet* walletInstance = nil;
     VcashWalletInfo* info = [VcashWalletInfo new];
     info.curKeyPath = self.curKeyPath.pathStr;
     info.curHeight = self.curChainHeight;
+    info.curTxLogId = self.curTxLogId;
     
     [[VcashDataManager shareInstance] saveWalletInfo:info];
 }

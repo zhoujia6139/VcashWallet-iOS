@@ -14,5 +14,6 @@
 WCDB_IMPLEMENTATION(VcashWalletInfo)
 WCDB_SYNTHESIZE(VcashWalletInfo, curKeyPath)
 WCDB_SYNTHESIZE(VcashWalletInfo, curHeight)
+WCDB_SYNTHESIZE(VcashWalletInfo, curTxLogId)
 
 @end

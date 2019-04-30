@@ -13,6 +13,7 @@
 
 WCDB_PROPERTY(curKeyPath)
 WCDB_PROPERTY(curHeight)
+WCDB_PROPERTY(curTxLogId)
 
 @end
 

@@ -22,6 +22,7 @@ WCDB_PROPERTY(height)
 WCDB_PROPERTY(lock_height)
 WCDB_PROPERTY(is_coinbase)
 WCDB_PROPERTY(status)
+WCDB_PROPERTY(tx_log_id)
 
 @end
 

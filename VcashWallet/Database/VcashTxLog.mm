@@ -23,6 +23,6 @@ WCDB_SYNTHESIZE(VcashTxLog, amount_credited)
 WCDB_SYNTHESIZE(VcashTxLog, amount_debited)
 WCDB_SYNTHESIZE(VcashTxLog, fee)
 
-WCDB_PRIMARY_ASC_AUTO_INCREMENT(VcashTxLog, tx_id)
+WCDB_PRIMARY(VcashTxLog, tx_id)
 
 @end

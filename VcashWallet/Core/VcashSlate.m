@@ -220,6 +220,7 @@
         output.lock_height = 0;
         output.is_coinbase = NO;
         output.status = Unconfirmed;
+        output.tx_log_id = strong_self.txLog.tx_id;
         
         [[VcashWallet shareInstance] addNewTxChangeOutput:output];
         [[VcashWallet shareInstance] syncOutputInfo];

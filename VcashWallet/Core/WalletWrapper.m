@@ -60,10 +60,12 @@
             NSMutableArray* txArr = [NSMutableArray new];
             for (VcashOutput* item in (NSArray*)result){
                 VcashTxLog* tx = [VcashTxLog new];
+                tx.tx_id = [[VcashWallet shareInstance] getNextLogId];
                 tx.create_time = [[NSDate date] timeIntervalSince1970];
                 tx.is_confirmed = YES;
                 tx.amount_credited = item.value;
                 tx.tx_type = item.is_coinbase?ConfirmedCoinbase:TxReceived;
+                item.tx_log_id = tx.tx_id;
                 
                 [txArr addObject:tx];
             }
