@@ -99,6 +99,7 @@
 
 -(VcashSecretKey*)addReceiverTxOutput{
     VcashSecretKey* secKey = [self createTxOutputWithAmount:self.amount];
+    [self.tx sortTx];
     return secKey;
 }
 

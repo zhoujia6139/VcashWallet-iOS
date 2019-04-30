@@ -83,7 +83,8 @@
     }
     
     NSString* url = [NSString stringWithFormat:@"%@/v1/pool/push", NODE_URL];
-    [[self sessionManager] POST:url parameters:txHex progress:^(NSProgress * _Nonnull uploadProgress) {
+    NSDictionary* param = [NSDictionary dictionaryWithObject:txHex forKey:@"tx_hex"];
+    [[self sessionManager] POST:url parameters:param progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DDLogWarn(@"postTx suc!");

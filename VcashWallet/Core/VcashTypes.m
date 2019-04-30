@@ -360,6 +360,32 @@
     return data;
 }
 
+-(void)sortTx{
+    NSComparisonResult (^sortBlock)(TxBaseObject*  _Nonnull obj1, TxBaseObject*  _Nonnull obj2) = ^NSComparisonResult(TxBaseObject*  _Nonnull obj1, TxBaseObject*  _Nonnull obj2) {
+        NSData* hash1 = [obj1 blake2bHash];
+        NSData* hash2 = [obj2 blake2bHash];
+        for (NSUInteger i=0; i<32; i++){
+            uint8_t byte1 = ((uint8_t*)hash1.bytes)[i];
+            uint8_t byte2 = ((uint8_t*)hash2.bytes)[i];
+            if (byte1 > byte2){
+                return NSOrderedDescending;
+            }
+            else if(byte1 < byte2){
+                return NSOrderedAscending;
+            }
+            else{
+                continue;
+            }
+        }
+        DDLogError(@"-----hash value can not be equal, obj1=%@, obj2=%@", obj1, obj2);
+        assert(false);
+        return NSOrderedSame;
+    };
+    [self.body.inputs sortUsingComparator:sortBlock];
+    [self.body.outputs sortUsingComparator:sortBlock];
+    [self.body.kernels sortUsingComparator:sortBlock];
+}
+
 @end
 
 @implementation VcashProofInfo

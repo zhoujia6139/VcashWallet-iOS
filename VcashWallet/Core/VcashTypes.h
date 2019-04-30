@@ -111,6 +111,8 @@ typedef enum{
 
 -(NSData*)computePayload;
 
+-(void)sortTx;
+
 
 @end
 
