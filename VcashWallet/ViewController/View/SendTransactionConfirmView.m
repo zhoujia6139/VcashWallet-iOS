@@ -36,7 +36,12 @@
 }
 
 - (IBAction)clickConfirm:(id)sender {
-    [WalletWrapper sendTransaction:self.slate];
+    if ([WalletWrapper sendTransaction:self.slate forUser:self.receiverId]){
+        [MBHudHelper showTextTips:@"发送成功" onView:nil withDuration:1];
+    }
+    else{
+        [MBHudHelper showTextTips:@"发送失败" onView:nil withDuration:1];
+    }
     [self removeFromSuperview];
 
 }

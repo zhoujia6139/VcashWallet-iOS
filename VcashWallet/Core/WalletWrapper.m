@@ -10,6 +10,7 @@
 #import "CoreBitcoin.h"
 #import "VcashKeyChain.h"
 #import "NodeApi.h"
+#import "ServerApi.h"
 
 @interface BTCMnemonic (Words)
 +(NSArray*) englishWordList;
@@ -85,12 +86,15 @@
 
 }
 
-+(BOOL)sendTransaction:(VcashSlate*)slate{
-    //[[VcashWallet shareInstance] lockAllUnspendOutput];
++(BOOL)sendTransaction:(VcashSlate*)slate forUser:(NSString*)user{
+    BOOL ret = [[VcashDataManager shareInstance] beginDatabaseTransaction];
+    if (!ret){
+        return NO;
+    }
     slate.lockOutputsFn?slate.lockOutputsFn():nil;
     slate.createNewOutputsFn?slate.createNewOutputsFn():nil;
     //save txLog
-    BOOL ret = [[VcashDataManager shareInstance] saveAppendTx:slate.txLog];
+    ret = [[VcashDataManager shareInstance] saveAppendTx:slate.txLog];
     if (!ret){
         return NO;
     }
@@ -99,6 +103,23 @@
     if (!ret){
         return NO;
     }
+    
+    ServerTransaction* server_tx = [ServerTransaction new];
+    server_tx.sender_id = [VcashWallet shareInstance].userId;
+    server_tx.receiver_id = user;
+    server_tx.slate = [slate modelToJSONString];
+    [[ServerApi shareInstance] sendTransaction:server_tx WithComplete:^(BOOL yesOrNO, id _Nullable data) {
+        if (yesOrNO){
+            DDLogInfo(@"-----send suc");
+            [[VcashDataManager shareInstance] commitDatabaseTransaction];
+        }
+        else{
+            DDLogError(@"-----send to server failed! roll back database");
+            [[VcashDataManager shareInstance] rollbackDataTransaction];
+            [[VcashWallet shareInstance] reloadOutputInfo];
+        }
+    }];
+    
     return YES;
 }
 
@@ -133,6 +154,52 @@
 
 +(NSArray*)getTransationArr{
     return [[VcashDataManager shareInstance] getTxData];
+}
+
++(void)updateOutputStatus{
+    NSMutableArray* strArr = [NSMutableArray new];
+    for (VcashOutput* item in [VcashWallet shareInstance].outputs){
+        [strArr addObject:item.commitment];
+    }
+    [[NodeApi shareInstance] getOutputsByCommitArr:strArr WithComplete:^(BOOL yesOrNO, id data) {
+        if (yesOrNO){
+            NSArray* apiOutputs = data;
+            for (VcashOutput* item in [VcashWallet shareInstance].outputs){
+                NodeOutput* nodeOutput = nil;
+                for (NodeOutput* output in apiOutputs){
+                    if ([item.commitment isEqualToString:output.commit]){
+                        nodeOutput = output;
+                    }
+                }
+                
+                if (nodeOutput){
+                    //should not be coinbase
+                    if (item.is_coinbase && item.status == Unconfirmed){
+                        
+                    }
+                    else if(!item.is_coinbase && item.status == Unconfirmed) {
+                        NSArray* txs = [self getTransationArr];
+                        VcashTxLog* tx = nil;
+                        for (VcashTxLog* txlog in txs){
+                            if (txlog.tx_id == item.tx_log_id){
+                                tx = txlog;
+                            }
+                        }
+                        if (tx){
+                            tx.is_confirmed = YES;
+                            tx.confirm_time = [[NSDate date] timeIntervalSince1970];
+                        }
+                        item.height = nodeOutput.block_height;
+                        item.status = Unspent;
+                    }
+                }
+                else{
+                    item.status = Spent;
+                }
+            }
+
+        }
+    }];
 }
 
 +(double)nanoToVcash:(int64_t)nano

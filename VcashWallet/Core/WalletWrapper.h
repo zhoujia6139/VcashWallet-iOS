@@ -32,7 +32,7 @@
 +(VcashSlate*)createSendTransaction:(NSString*)targetUserId amount:(uint64_t)amount fee:(uint64_t)fee withComplete:(RequestCompleteBlock)block;
 
 //send Transaction
-+(BOOL)sendTransaction:(VcashSlate*)slate;
++(BOOL)sendTransaction:(VcashSlate*)slate forUser:(NSString*)user;
 
 +(BOOL)receiveTransaction:(VcashSlate*)slate;
 
@@ -40,6 +40,8 @@
 
 //refresh Transaction
 +(NSArray*)getTransationArr;
+
++(void)updateOutputStatus;
 
 +(double)nanoToVcash:(int64_t)nano;
 

@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(strong, nonatomic, readonly)NSArray<VcashOutput*>* outputs;
 
+@property(strong, nonatomic, readonly)NSString* userId;
+
 -(WalletBalanceInfo*)getWalletBalanceInfo;
 
 //only call after recover
@@ -41,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)addNewTxChangeOutput:(VcashOutput*)output;
 
 -(void)syncOutputInfo;
+
+-(void)reloadOutputInfo;
 
 -(VcashOutput*)identifyUtxoOutput:(NodeOutput*)nodeOutput;
 

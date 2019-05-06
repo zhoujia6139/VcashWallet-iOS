@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		111D98D7603A8F1579E12602 /* libPods-VcashWallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38B93DB289A56D999A4C8C7C /* libPods-VcashWallet.a */; };
+		ED24988F2280298D00D94EBE /* ServerApi.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24988E2280298D00D94EBE /* ServerApi.m */; };
+		ED24989222802B9E00D94EBE /* ServerType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24989122802B9E00D94EBE /* ServerType.m */; };
 		ED3C7551226EC30A00B42555 /* VcashDataManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7550226EC30A00B42555 /* VcashDataManager.mm */; };
 		ED3C7557226EC78B00B42555 /* VcashOutput.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7556226EC78B00B42555 /* VcashOutput.mm */; };
 		ED3C755C226EE9ED00B42555 /* VcashTxLog.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C755B226EE9ED00B42555 /* VcashTxLog.mm */; };
@@ -134,6 +136,10 @@
 		2B42695A9EB50E631A668976 /* Pods-VcashWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VcashWallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VcashWallet/Pods-VcashWallet.debug.xcconfig"; sourceTree = "<group>"; };
 		32DD39C5EA5AAED2839B1728 /* Pods-VcashWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VcashWallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-VcashWallet/Pods-VcashWallet.release.xcconfig"; sourceTree = "<group>"; };
 		38B93DB289A56D999A4C8C7C /* libPods-VcashWallet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VcashWallet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED24988D2280298D00D94EBE /* ServerApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerApi.h; sourceTree = "<group>"; };
+		ED24988E2280298D00D94EBE /* ServerApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerApi.m; sourceTree = "<group>"; };
+		ED24989022802B9E00D94EBE /* ServerType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerType.h; sourceTree = "<group>"; };
+		ED24989122802B9E00D94EBE /* ServerType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerType.m; sourceTree = "<group>"; };
 		ED3C754F226EC30A00B42555 /* VcashDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashDataManager.h; sourceTree = "<group>"; };
 		ED3C7550226EC30A00B42555 /* VcashDataManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VcashDataManager.mm; sourceTree = "<group>"; };
 		ED3C7555226EC78B00B42555 /* VcashOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashOutput.h; sourceTree = "<group>"; };
@@ -407,6 +413,17 @@
 				32DD39C5EA5AAED2839B1728 /* Pods-VcashWallet.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		ED24988C2280297100D94EBE /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				ED24988D2280298D00D94EBE /* ServerApi.h */,
+				ED24988E2280298D00D94EBE /* ServerApi.m */,
+				ED24989022802B9E00D94EBE /* ServerType.h */,
+				ED24989122802B9E00D94EBE /* ServerType.m */,
+			);
+			path = Server;
 			sourceTree = "<group>";
 		};
 		ED3C754E226EC2CA00B42555 /* Database */ = {
@@ -749,6 +766,7 @@
 		EDA514B4226891050011138F /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				ED24988C2280297100D94EBE /* Server */,
 				ED3C75672270603B00B42555 /* Node */,
 				ED44BEDF22696CF50042928E /* CoreBitcoin */,
 				ED44BFDF22697CBA0042928E /* WalletWrapper.h */,
@@ -951,6 +969,7 @@
 				ED44BF8422696CF50042928E /* BTCNumberFormatter.m in Sources */,
 				ED44BF8522696CF50042928E /* BTCScriptMachine.m in Sources */,
 				ED44BF9B22696CF50042928E /* BTCOutpoint.m in Sources */,
+				ED24988F2280298D00D94EBE /* ServerApi.m in Sources */,
 				ED44BF9522696CF50042928E /* NS+BTCBase58.m in Sources */,
 				ED44BF7422696CF50042928E /* BTCKeychain.m in Sources */,
 				ED44BF7222696CF50042928E /* BTCBlockHeader.m in Sources */,
@@ -980,6 +999,7 @@
 				ED44BFDC22697BAF0042928E /* RecoverMnemonicViewController.m in Sources */,
 				ED44BF7122696CF50042928E /* BTCBlock.m in Sources */,
 				ED44BFB122696CF50042928E /* BTC256+Tests.m in Sources */,
+				ED24989222802B9E00D94EBE /* ServerType.m in Sources */,
 				ED44BFC0226978C50042928E /* MBHudHelper.m in Sources */,
 				ED44BFCB226979DA0042928E /* NSString +AES256.m in Sources */,
 				ED44BF8A22696CF50042928E /* BTCBlindSignature+Tests.m in Sources */,

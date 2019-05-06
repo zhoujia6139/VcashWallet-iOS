@@ -25,24 +25,33 @@ static VcashWallet* walletInstance = nil;
 @implementation VcashWallet
 {
     uint64_t _curChainHeight;
+    NSString* _userId;
 }
 
 +(void)createWalletWithKeyChain:(VcashKeyChain*)keychain{
     if (keychain && !walletInstance){
         walletInstance = [[self alloc] init];
         walletInstance.mKeyChain = keychain;
-        walletInstance->_outputs = [[VcashDataManager shareInstance] getActiveOutputData];
         VcashWalletInfo* baseInfo = [[VcashDataManager shareInstance] loadWalletInfo];
         if (baseInfo){
             walletInstance->_curKeyPath = [[VcashKeychainPath alloc] initWithPathstr:baseInfo.curKeyPath];
             walletInstance->_curChainHeight = baseInfo.curHeight;
             walletInstance->_curTxLogId = baseInfo.curTxLogId;
         }
+        [walletInstance reloadOutputInfo];
     }
 }
 
 + (instancetype)shareInstance{
     return walletInstance;
+}
+
+-(NSString*)userId{
+    if (!_userId){
+        VcashSecretKey* key = [self.mKeyChain deriveKey:0 andKeypath:[[VcashKeychainPath alloc] initWithDepth:4 d0:0 d1:0 d2:0 d3:0]];
+        _userId = BTCHexFromData(key.data);
+    }
+    return _userId;
 }
 
 -(void)setChainOutputs:(NSArray*)arr{
@@ -66,6 +75,10 @@ static VcashWallet* walletInstance = nil;
 
 -(void)syncOutputInfo{
     [[VcashDataManager shareInstance] saveOutputData:self.outputs];
+}
+
+-(void)reloadOutputInfo{
+    walletInstance->_outputs = [[VcashDataManager shareInstance] getActiveOutputData];
 }
 
 -(uint64_t)curChainHeight{
@@ -202,8 +215,7 @@ static VcashWallet* walletInstance = nil;
         DDLogError(@"--------sender fillRound1 failed");
         return nil;
     }
-    NSString* result = [slate modelToJSONString];
-    NSLog(@"---------:%@", result);
+
     return slate;
 }
 

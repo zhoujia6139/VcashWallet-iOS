@@ -42,6 +42,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(VcashContext*)getContextBySlateId:(NSString*)slateid;
 
+//database transaction
+-(BOOL)beginDatabaseTransaction;
+
+-(BOOL)commitDatabaseTransaction;
+
+-(BOOL)rollbackDataTransaction;
+
 @end
 
 NS_ASSUME_NONNULL_END

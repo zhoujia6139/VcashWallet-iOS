@@ -55,8 +55,6 @@ static NSString *const identifier = @"WalletCell";
             }
         }];
     }
-    
-    [self refreshMainView];
 }
 
 -(void)refreshMainView{
@@ -82,6 +80,8 @@ static NSString *const identifier = @"WalletCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+    [self refreshMainView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

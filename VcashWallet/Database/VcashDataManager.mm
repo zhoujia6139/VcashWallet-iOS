@@ -153,6 +153,17 @@
     return object;
 }
 
+-(BOOL)beginDatabaseTransaction{
+    return [self.database beginTransaction];
+}
+
+-(BOOL)commitDatabaseTransaction{
+    return [self.database commitTransaction];
+}
+
+-(BOOL)rollbackDataTransaction{
+    return [self.database rollbackTransaction];
+}
 
 #pragma mark private method
 - (NSString *)baseDic{

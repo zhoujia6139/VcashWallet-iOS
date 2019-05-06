@@ -19,6 +19,8 @@ typedef void (^RequestCompleteBlock) (BOOL, _Nullable id);
 
 -(void)getOutputsByPmmrIndex:(uint64_t)startheight retArr:(NSMutableArray*)retArr WithComplete:(RequestCompleteBlock)block;
 
+-(void)getOutputsByCommitArr:(NSArray<NSString*>*)commitArr WithComplete:(RequestCompleteBlock)completeblock;
+
 -(uint64_t)getChainHeight;
 
 -(void)postTx:(NSString*)txHex;
