@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(assign, nonatomic)uint32_t curTxLogId;
 
+@property(assign, nonatomic)uint32_t infoid;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -23,6 +23,8 @@
 //clear wallet
 +(void)clearWallet;
 
++(NSString*)getWalletUserId;
+
 +(WalletBalanceInfo*)getWalletBalanceInfo;
 
 //check wallet utxo

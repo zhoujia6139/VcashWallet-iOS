@@ -45,6 +45,7 @@
 -(BOOL)saveWalletInfo:(VcashWalletInfo*)info{
     NSString *className = NSStringFromClass(VcashWalletInfo.class);
     NSString *tableName = className;
+    info.infoid = 0;
     BOOL ret = [self.database insertOrReplaceObject:info into:tableName];
     if (!ret)
     {

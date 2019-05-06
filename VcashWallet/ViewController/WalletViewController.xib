@@ -17,6 +17,7 @@
                 <outlet property="balanceUnconfirmed" destination="0ad-b9-zPB" id="f8L-ar-aO9"/>
                 <outlet property="netName" destination="eKN-CY-rWQ" id="m1i-VO-7sR"/>
                 <outlet property="tableViewContainer" destination="ggw-su-c8X" id="NOm-wl-gq1"/>
+                <outlet property="userIdView" destination="9sb-4B-8KD" id="b0w-p6-pcf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -136,6 +137,13 @@
                         <constraint firstItem="9oW-aY-TEn" firstAttribute="centerY" secondItem="cDH-cM-Bhr" secondAttribute="centerY" id="g45-oQ-u9u"/>
                     </constraints>
                 </view>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9sb-4B-8KD">
+                    <rect key="frame" x="82" y="498" width="223" height="70"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -153,6 +161,7 @@
                 <constraint firstItem="cDH-cM-Bhr" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="zWd-QD-mzy"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="140" y="154.27286356821591"/>
         </view>
     </objects>
 </document>

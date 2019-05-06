@@ -49,6 +49,10 @@
     //[[BTCWallet shareInstance] clearWallet];
 }
 
++(NSString*)getWalletUserId{
+    return [VcashWallet shareInstance].userId;
+}
+
 +(WalletBalanceInfo*)getWalletBalanceInfo{
     return [[VcashWallet shareInstance] getWalletBalanceInfo];
 }
@@ -91,16 +95,22 @@
     if (!ret){
         return NO;
     }
+    dispatch_block_t rollbackBlock = ^{
+        [[VcashDataManager shareInstance] rollbackDataTransaction];
+        [[VcashWallet shareInstance] reloadOutputInfo];
+    };
     slate.lockOutputsFn?slate.lockOutputsFn():nil;
     slate.createNewOutputsFn?slate.createNewOutputsFn():nil;
     //save txLog
     ret = [[VcashDataManager shareInstance] saveAppendTx:slate.txLog];
     if (!ret){
+        rollbackBlock();
         return NO;
     }
     //save context
     ret = [[VcashDataManager shareInstance] saveContext:slate.context];
     if (!ret){
+        rollbackBlock();
         return NO;
     }
     
@@ -115,8 +125,7 @@
         }
         else{
             DDLogError(@"-----send to server failed! roll back database");
-            [[VcashDataManager shareInstance] rollbackDataTransaction];
-            [[VcashWallet shareInstance] reloadOutputInfo];
+            rollbackBlock();
         }
     }];
     

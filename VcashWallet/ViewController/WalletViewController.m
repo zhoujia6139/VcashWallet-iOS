@@ -29,6 +29,7 @@ static NSString *const identifier = @"WalletCell";
 @property (weak, nonatomic) IBOutlet UILabel *netName;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableViewContainer;
+@property (weak, nonatomic) IBOutlet UITextView *userIdView;
 
 @property (nonatomic, strong) NSArray *arrTransactionList;
 
@@ -58,6 +59,7 @@ static NSString *const identifier = @"WalletCell";
 }
 
 -(void)refreshMainView{
+    self.userIdView.text = [WalletWrapper getWalletUserId];
     WalletBalanceInfo* info = [WalletWrapper getWalletBalanceInfo];
     self.balanceTotal.text = @([WalletWrapper nanoToVcash:info.total]).p9fString;
     
