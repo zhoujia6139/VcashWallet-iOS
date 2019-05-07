@@ -23,7 +23,7 @@ typedef void (^RequestCompleteBlock) (BOOL, _Nullable id);
 
 -(uint64_t)getChainHeight;
 
--(void)postTx:(NSString*)txHex;
+-(void)postTx:(NSString*)txHex WithComplete:(RequestCompleteBlock)completeblock;
 
 @end
 

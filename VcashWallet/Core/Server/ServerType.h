@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class VcashSlate;
+
 @interface ServerTransaction : NSObject
+
+@property(strong, nonatomic) NSString* tx_id;
 
 @property(strong, nonatomic) NSString* sender_id;
 
@@ -19,6 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(strong, nonatomic) NSString* slate;
 
 @property(assign, nonatomic) uint8_t send_type;
+
+//unselialised
+@property(strong, nonatomic) VcashSlate* slateObj;
+
+@property(assign, nonatomic) BOOL isSend;
 
 
 @end

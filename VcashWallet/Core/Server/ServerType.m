@@ -10,4 +10,16 @@
 
 @implementation ServerTransaction
 
+-(id)init{
+    self = [super init];
+    if (self){
+        _tx_id = BTCHexFromData(BTCRandomDataWithLength(16));
+    }
+    return self;
+}
+
++ (NSArray *)modelPropertyBlacklist {
+    return @[@"slateObj", @"isSend"];
+}
+
 @end

@@ -282,8 +282,7 @@ static VcashWallet* walletInstance = nil;
         DDLogError(@"--------sender finalize tx failed");
         return NO;
     }
-    NSString* result = [slate modelToJSONString];
-    NSLog(@"---------:%@", result);
+
     return YES;
 }
 

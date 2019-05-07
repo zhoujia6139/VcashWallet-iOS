@@ -10,6 +10,9 @@
 		111D98D7603A8F1579E12602 /* libPods-VcashWallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38B93DB289A56D999A4C8C7C /* libPods-VcashWallet.a */; };
 		ED24988F2280298D00D94EBE /* ServerApi.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24988E2280298D00D94EBE /* ServerApi.m */; };
 		ED24989222802B9E00D94EBE /* ServerType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24989122802B9E00D94EBE /* ServerType.m */; };
+		ED2498992281279600D94EBE /* ServerTxManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2498982281279600D94EBE /* ServerTxManager.m */; };
+		ED24989C22812F2D00D94EBE /* ServerTxPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24989B22812F2D00D94EBE /* ServerTxPopView.m */; };
+		ED2498A022816E7000D94EBE /* ServerTxPopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED24989F22816E7000D94EBE /* ServerTxPopView.xib */; };
 		ED3C7551226EC30A00B42555 /* VcashDataManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7550226EC30A00B42555 /* VcashDataManager.mm */; };
 		ED3C7557226EC78B00B42555 /* VcashOutput.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7556226EC78B00B42555 /* VcashOutput.mm */; };
 		ED3C755C226EE9ED00B42555 /* VcashTxLog.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C755B226EE9ED00B42555 /* VcashTxLog.mm */; };
@@ -140,6 +143,11 @@
 		ED24988E2280298D00D94EBE /* ServerApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerApi.m; sourceTree = "<group>"; };
 		ED24989022802B9E00D94EBE /* ServerType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerType.h; sourceTree = "<group>"; };
 		ED24989122802B9E00D94EBE /* ServerType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerType.m; sourceTree = "<group>"; };
+		ED2498972281279600D94EBE /* ServerTxManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerTxManager.h; sourceTree = "<group>"; };
+		ED2498982281279600D94EBE /* ServerTxManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerTxManager.m; sourceTree = "<group>"; };
+		ED24989A22812F2D00D94EBE /* ServerTxPopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerTxPopView.h; sourceTree = "<group>"; };
+		ED24989B22812F2D00D94EBE /* ServerTxPopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerTxPopView.m; sourceTree = "<group>"; };
+		ED24989F22816E7000D94EBE /* ServerTxPopView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerTxPopView.xib; sourceTree = "<group>"; };
 		ED3C754F226EC30A00B42555 /* VcashDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashDataManager.h; sourceTree = "<group>"; };
 		ED3C7550226EC30A00B42555 /* VcashDataManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VcashDataManager.mm; sourceTree = "<group>"; };
 		ED3C7555226EC78B00B42555 /* VcashOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashOutput.h; sourceTree = "<group>"; };
@@ -422,6 +430,8 @@
 				ED24988E2280298D00D94EBE /* ServerApi.m */,
 				ED24989022802B9E00D94EBE /* ServerType.h */,
 				ED24989122802B9E00D94EBE /* ServerType.m */,
+				ED2498972281279600D94EBE /* ServerTxManager.h */,
+				ED2498982281279600D94EBE /* ServerTxManager.m */,
 			);
 			path = Server;
 			sourceTree = "<group>";
@@ -678,6 +688,9 @@
 				ED41678B2275B1D6000B5DC8 /* SendTransactionConfirmView.xib */,
 				ED44BFE222697E6A0042928E /* PinPasswordInputView.h */,
 				ED44BFE322697E6A0042928E /* PinPasswordInputView.m */,
+				ED24989A22812F2D00D94EBE /* ServerTxPopView.h */,
+				ED24989B22812F2D00D94EBE /* ServerTxPopView.m */,
+				ED24989F22816E7000D94EBE /* ServerTxPopView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -859,6 +872,7 @@
 				ED44BFDE22697BAF0042928E /* CreateMnemonicViewController.xib in Resources */,
 				ED44BFD322697B570042928E /* WelcomePageViewController.xib in Resources */,
 				ED44BFDD22697BAF0042928E /* RecoverMnemonicViewController.xib in Resources */,
+				ED2498A022816E7000D94EBE /* ServerTxPopView.xib in Resources */,
 				EDA5149522686DEC0011138F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -968,6 +982,7 @@
 				ED44BFAB22696CF50042928E /* BTCPaymentMethod.m in Sources */,
 				ED44BF8422696CF50042928E /* BTCNumberFormatter.m in Sources */,
 				ED44BF8522696CF50042928E /* BTCScriptMachine.m in Sources */,
+				ED24989C22812F2D00D94EBE /* ServerTxPopView.m in Sources */,
 				ED44BF9B22696CF50042928E /* BTCOutpoint.m in Sources */,
 				ED24988F2280298D00D94EBE /* ServerApi.m in Sources */,
 				ED44BF9522696CF50042928E /* NS+BTCBase58.m in Sources */,
@@ -996,6 +1011,7 @@
 				ED44BF8722696CF50042928E /* BTCProtocolSerialization.m in Sources */,
 				ED3C756D2271611400B42555 /* VcashWalletInfo.mm in Sources */,
 				ED44BFAD22696CF50042928E /* BTCBase58.m in Sources */,
+				ED2498992281279600D94EBE /* ServerTxManager.m in Sources */,
 				ED44BFDC22697BAF0042928E /* RecoverMnemonicViewController.m in Sources */,
 				ED44BF7122696CF50042928E /* BTCBlock.m in Sources */,
 				ED44BFB122696CF50042928E /* BTC256+Tests.m in Sources */,
@@ -1216,7 +1232,7 @@
 					"\"$(SRCROOT)/include\"/**",
 				);
 				INFOPLIST_FILE = VcashWallet/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1267,7 +1283,7 @@
 					"\"$(SRCROOT)/include\"/**",
 				);
 				INFOPLIST_FILE = VcashWallet/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

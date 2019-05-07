@@ -8,7 +8,7 @@
 
 #import "ServerApi.h"
 
-#define SERVER_URL @"http://192.168.199.208:13500"
+#define SERVER_URL @"http://10.0.0.187:13500"
 
 @implementation ServerApi
 {
@@ -48,6 +48,7 @@
     [[self sessionManager] POST:url parameters:[tx modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        DDLogInfo(@"---sendTransaction suc");
         block?block(YES, nil):nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DDLogError(@"---sendTransaction failed:%@", error);
@@ -60,6 +61,7 @@
     [[self sessionManager] POST:url parameters:[tx modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        DDLogInfo(@"---receiveTransaction suc");
         block?block(YES, nil):nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DDLogError(@"---receiveTransaction failed:%@", error);
@@ -67,15 +69,14 @@
     }];
 }
 
--(void)filanizeTransaction:(ServerTransaction*)tx WithComplete:(RequestCompleteBlock)block{
+-(void)filanizeTransaction:(ServerTransaction*)tx{
     NSString* url = [NSString stringWithFormat:@"%@/finalizevcash", SERVER_URL];
     [[self sessionManager] POST:url parameters:[tx modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        block?block(YES, nil):nil;
+        DDLogInfo(@"---filanizeTransaction suc");
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DDLogError(@"---filanizeTransaction failed:%@", error);
-        block?block(NO, nil):nil;
     }];
 }
 

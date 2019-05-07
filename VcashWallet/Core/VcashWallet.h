@@ -12,6 +12,7 @@
 #import "NodeType.h"
 #import "VcashKeychainPath.h"
 #import "VcashDataManager.h"
+#import "ServerType.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

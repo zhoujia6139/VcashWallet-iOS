@@ -110,7 +110,7 @@
     return curHeight;
 }
 
--(void)postTx:(NSString*)txHex{
+-(void)postTx:(NSString*)txHex WithComplete:(RequestCompleteBlock)completeblock{
     if (!txHex){
         return;
     }
@@ -121,8 +121,10 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DDLogWarn(@"postTx suc!");
+        completeblock?completeblock(YES, nil):nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DDLogError(@"postTx failed:%@", error);
+        completeblock?completeblock(NO, nil):nil;
     }];
 }
 

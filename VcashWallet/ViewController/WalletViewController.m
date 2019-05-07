@@ -15,6 +15,7 @@
 //#import "TransactionDetailViewController.h"
 //#import "SettingViewController.h"
 #import "HandleSlateViewController.h"
+#import "ServerTxManager.h"
 
 static NSString *const identifier = @"WalletCell";
 
@@ -46,7 +47,7 @@ static NSString *const identifier = @"WalletCell";
     [self.tableViewContainer registerNib:[UINib nibWithNibName:NSStringFromClass([WalletCell class]) bundle:nil] forCellReuseIdentifier:identifier];
 //    //[self request];
 //    self.tableViewContainer.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
-//        [self request];
+//        [[ServerTxManager shareInstance] fetchTxStatus:YES];
 //    }];
 //    [self.tableViewContainer.mj_header beginRefreshing];
     if (self.enterInRecoverMode){
@@ -56,6 +57,8 @@ static NSString *const identifier = @"WalletCell";
             }
         }];
     }
+    
+    [[ServerTxManager shareInstance] startWork];
 }
 
 -(void)refreshMainView{

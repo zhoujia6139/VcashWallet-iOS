@@ -23,7 +23,7 @@ typedef void (^RequestCompleteBlock) (BOOL, _Nullable id);
 
 -(void)receiveTransaction:(ServerTransaction*)tx WithComplete:(RequestCompleteBlock)block;
 
--(void)filanizeTransaction:(ServerTransaction*)tx WithComplete:(RequestCompleteBlock)block;
+-(void)filanizeTransaction:(ServerTransaction*)tx;
 
 @end
 

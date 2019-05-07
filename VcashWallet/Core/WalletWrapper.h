@@ -36,9 +36,9 @@
 //send Transaction
 +(BOOL)sendTransaction:(VcashSlate*)slate forUser:(NSString*)user;
 
-+(BOOL)receiveTransaction:(VcashSlate*)slate;
++(BOOL)receiveTransaction:(ServerTransaction*)tx;
 
-+(BOOL)finalizeTransaction:(VcashSlate*)slate;
++(BOOL)finalizeTransaction:(ServerTransaction*)tx;
 
 //refresh Transaction
 +(NSArray*)getTransationArr;
