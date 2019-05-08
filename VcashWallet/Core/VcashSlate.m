@@ -93,7 +93,6 @@
     [temptx.body.kernels addObject:txKernel];
     VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
     VcashSecretKey* blind = [secp blindSumWithPositiveArr:positiveArr andNegative:negativeArr];
-    NSLog(@"------blind=%@", BTCHexFromData(blind.data));
     return blind;
 }
 
@@ -132,7 +131,6 @@
     //1, verify part sig
     for (ParticipantData* item in self.participant_data){
         if (item.part_sig){
-            DDLogWarn(@"keySum=%@, nonceSum=%@, msgData=%@, item.part_sig=%@, pubkey=%@", BTCHexFromData(keySum), BTCHexFromData(nonceSum), BTCHexFromData(msgData), BTCHexFromData(item.part_sig.sig_data), BTCHexFromData(item.public_blind_excess));
             if (![secp verifySingleSignature:item.part_sig pubkey:item.public_blind_excess nonceSum:nonceSum pubkeySum:keySum andMsgData:msgData]){
                 DDLogError(@"----verifySingleSignature failed! pId = %d", item.pId);
                 return NO;

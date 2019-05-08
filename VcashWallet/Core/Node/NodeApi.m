@@ -9,7 +9,7 @@
 #import "NodeApi.h"
 #import "VcashWallet.h"
 
-#define NODE_URL @"http://47.75.163.56:13513"
+#define NODE_URL @"http://192.168.199.208:13513"
 
 @implementation NodeApi
 {
@@ -45,15 +45,11 @@
             [self getOutputsByPmmrIndex:outputs.last_retrieved_index retArr:retArr WithComplete:completeblock];
         }
         else if(outputs.highest_index == outputs.last_retrieved_index){
-            if (completeblock){
-                completeblock(YES, retArr);
-            }
+            completeblock?completeblock(YES, retArr):nil;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DDLogError(@"getutxo failed:%@", error);
-        if (completeblock){
-            completeblock(NO, nil);
-        }
+        completeblock?completeblock(NO, nil):nil;
     }];
 }
 
@@ -62,31 +58,16 @@
         return;
     }
     NSString* param = [commitArr componentsJoinedByString:@","];
-    NSString* url = [NSString stringWithFormat:@"%@/v1/txhashset/outputs/byids?id=%@", NODE_URL, param];
+    NSString* url = [NSString stringWithFormat:@"%@/v1/chain/outputs/byids?id=%@", NODE_URL, param];
     
     [[self sessionManager] GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSArray* outputs = [NSArray modelWithJSON:responseObject];
-        for (NodeOutput* item in outputs){
-//            VcashOutput* vcashOutput = [[VcashWallet shareInstance] identifyUtxoOutput:item];
-//            if (vcashOutput){
-//                [retArr addObject:vcashOutput];
-//            }
-        }
-//        if (outputs.highest_index > outputs.last_retrieved_index){
-//            [self getOutputsByPmmrIndex:outputs.last_retrieved_index retArr:retArr WithComplete:completeblock];
-//        }
-//        else if(outputs.highest_index == outputs.last_retrieved_index){
-//            if (completeblock){
-//                completeblock(YES, retArr);
-//            }
-//        }
+        NSArray* outputs = [NSArray modelArrayWithClass:[NodeRefreshOutput class] json:responseObject];
+        completeblock?completeblock(YES, outputs):nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DDLogError(@"getOutputsByCommitArr failed:%@", error);
-        if (completeblock){
-            completeblock(NO, nil);
-        }
+        completeblock?completeblock(NO, nil):nil;
     }];
 }
 

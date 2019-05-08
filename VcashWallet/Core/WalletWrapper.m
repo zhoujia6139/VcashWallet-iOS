@@ -185,11 +185,11 @@
     
     NSData* txPayload = [tx.slateObj.tx computePayloadForHash:NO];
     [[NodeApi shareInstance] postTx:BTCHexFromData(txPayload) WithComplete:^(BOOL yesOrNo, id _Nullable data) {
-        //if (yesOrNo){
+        if (yesOrNo){
             tx.slate  = [tx.slateObj modelToJSONString];
             tx.send_type = 2;
             [[ServerApi shareInstance] filanizeTransaction:tx];
-        //}
+        }
     }];
     
     return YES;
@@ -199,17 +199,25 @@
     return [[VcashDataManager shareInstance] getTxData];
 }
 
-+(void)updateOutputStatus{
++(void)updateOutputStatusWithComplete:(RequestCompleteBlock)block{
     NSMutableArray* strArr = [NSMutableArray new];
     for (VcashOutput* item in [VcashWallet shareInstance].outputs){
         [strArr addObject:item.commitment];
     }
+    
+    if (strArr.count == 0){
+        block?block(YES, nil):nil;
+        return;
+    }
+    
     [[NodeApi shareInstance] getOutputsByCommitArr:strArr WithComplete:^(BOOL yesOrNO, id data) {
         if (yesOrNO){
             NSArray* apiOutputs = data;
+            NSArray* txs = [self getTransationArr];
+            BOOL hasChange = NO;
             for (VcashOutput* item in [VcashWallet shareInstance].outputs){
-                NodeOutput* nodeOutput = nil;
-                for (NodeOutput* output in apiOutputs){
+                NodeRefreshOutput* nodeOutput = nil;
+                for (NodeRefreshOutput* output in apiOutputs){
                     if ([item.commitment isEqualToString:output.commit]){
                         nodeOutput = output;
                     }
@@ -221,7 +229,6 @@
                         
                     }
                     else if(!item.is_coinbase && item.status == Unconfirmed) {
-                        NSArray* txs = [self getTransationArr];
                         VcashTxLog* tx = nil;
                         for (VcashTxLog* txlog in txs){
                             if (txlog.tx_id == item.tx_log_id){
@@ -232,16 +239,24 @@
                             tx.is_confirmed = YES;
                             tx.confirm_time = [[NSDate date] timeIntervalSince1970];
                         }
-                        item.height = nodeOutput.block_height;
+                        item.height = nodeOutput.height;
                         item.status = Unspent;
+                        
+                        hasChange = YES;
                     }
                 }
                 else{
-                    item.status = Spent;
+                    if (item.status == Locked || item.status == Unspent){
+                        item.status = Spent;
+                    }
                 }
             }
-
+            if (hasChange){
+                [[VcashDataManager shareInstance] saveTxDataArr:txs];
+                [[VcashWallet shareInstance] syncOutputInfo];
+            }
         }
+        block?block(yesOrNO, nil):nil;
     }];
 }
 

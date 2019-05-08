@@ -53,4 +53,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface NodeRefreshOutput : NSObject
+
+@property(assign, nonatomic) uint64_t height;
+
+@property(strong, nonatomic) NSString* commit;
+
+@property(assign, nonatomic) uint64_t mmr_index;
+
+
+@end
+
 NS_ASSUME_NONNULL_END

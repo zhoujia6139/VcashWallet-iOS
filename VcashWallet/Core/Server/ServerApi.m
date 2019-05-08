@@ -8,7 +8,7 @@
 
 #import "ServerApi.h"
 
-#define SERVER_URL @"http://10.0.0.187:13500"
+#define SERVER_URL @"http://192.168.199.208:13500"
 
 @implementation ServerApi
 {

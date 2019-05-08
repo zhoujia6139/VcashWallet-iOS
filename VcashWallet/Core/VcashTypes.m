@@ -129,7 +129,7 @@
     OSWriteBigInt64(buf, 8, self.lock_height);
     [data appendBytes:buf length:16];
     [data appendData:self.excess];
-    [data appendData:[self.excess_sig getCompactData]];
+    [data appendData:self.excess_sig.sig_data];
     return data;
 }
 

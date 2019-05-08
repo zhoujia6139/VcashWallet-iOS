@@ -43,7 +43,7 @@
 //refresh Transaction
 +(NSArray*)getTransationArr;
 
-+(void)updateOutputStatus;
++(void)updateOutputStatusWithComplete:(RequestCompleteBlock)block;
 
 +(double)nanoToVcash:(int64_t)nano;
 

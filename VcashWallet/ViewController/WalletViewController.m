@@ -45,11 +45,11 @@ static NSString *const identifier = @"WalletCell";
     self.tableViewContainer.dataSource = self;
     self.tableViewContainer.delegate = self;
     [self.tableViewContainer registerNib:[UINib nibWithNibName:NSStringFromClass([WalletCell class]) bundle:nil] forCellReuseIdentifier:identifier];
-//    //[self request];
-//    self.tableViewContainer.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
-//        [[ServerTxManager shareInstance] fetchTxStatus:YES];
-//    }];
-//    [self.tableViewContainer.mj_header beginRefreshing];
+
+    self.tableViewContainer.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        [self refreshWalletStatus];
+    }];
+    [self.tableViewContainer.mj_header beginRefreshing];
     if (self.enterInRecoverMode){
         [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
             if (yesOrNo){
@@ -59,6 +59,14 @@ static NSString *const identifier = @"WalletCell";
     }
     
     [[ServerTxManager shareInstance] startWork];
+}
+
+-(void)refreshWalletStatus{
+    [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
+        [self.tableViewContainer.mj_header endRefreshing];
+        [self refreshMainView];
+    }];
+    [[ServerTxManager shareInstance] fetchTxStatus:YES];
 }
 
 -(void)refreshMainView{
