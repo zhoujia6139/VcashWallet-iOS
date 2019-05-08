@@ -46,7 +46,7 @@
 
 +(void)clearWallet
 {
-    //[[BTCWallet shareInstance] clearWallet];
+    [[VcashDataManager shareInstance] clearAllData];
 }
 
 +(NSString*)getWalletUserId{

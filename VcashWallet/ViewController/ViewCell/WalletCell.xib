@@ -41,6 +41,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYC-iH-d78">
+                                <rect key="frame" x="263" y="46.5" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.34838296749999997" blue="0.23425901569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -50,6 +56,8 @@
                             <constraint firstAttribute="bottom" secondItem="zRi-4d-k4G" secondAttribute="bottom" constant="5" id="T1h-yM-Oa3"/>
                             <constraint firstAttribute="trailing" secondItem="kcL-bI-Wci" secondAttribute="trailing" constant="15" id="W5Q-Yd-Ht5"/>
                             <constraint firstItem="9cv-Es-0dY" firstAttribute="leading" secondItem="Puw-3k-QiQ" secondAttribute="leading" constant="15" id="Z8F-tr-Uac"/>
+                            <constraint firstItem="DYC-iH-d78" firstAttribute="trailing" secondItem="kcL-bI-Wci" secondAttribute="trailing" id="fQt-mG-gKu"/>
+                            <constraint firstItem="DYC-iH-d78" firstAttribute="bottom" secondItem="zRi-4d-k4G" secondAttribute="bottom" id="nJG-Hw-2Cr"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -65,6 +73,7 @@
                 <outlet property="btnInputOrOutPut" destination="9cv-Es-0dY" id="6UN-TC-Olq"/>
                 <outlet property="labelAmount" destination="zRi-4d-k4G" id="4Lp-R7-RGx"/>
                 <outlet property="labelTime" destination="kcL-bI-Wci" id="o9E-3a-a2K"/>
+                <outlet property="stateLabel" destination="DYC-iH-d78" id="wxv-mx-a39"/>
             </connections>
             <point key="canvasLocation" x="41" y="68.5"/>
         </tableViewCell>

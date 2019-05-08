@@ -42,6 +42,22 @@
     self.database = nil;
 }
 
+-(void)clearAllData{
+    NSString *className0 = NSStringFromClass(VcashOutput.class);
+    [self.database dropTableOfName:className0];
+    
+    NSString *className1 = NSStringFromClass(VcashWalletInfo.class);
+    [self.database dropTableOfName:className1];
+    
+    NSString *className2 = NSStringFromClass(VcashTxLog.class);
+    [self.database dropTableOfName:className2];
+    
+    NSString *className3 = NSStringFromClass(VcashContext.class);
+    [self.database dropTableOfName:className3];
+    
+    [self closeDatabase];
+}
+
 -(BOOL)saveWalletInfo:(VcashWalletInfo*)info{
     NSString *className = NSStringFromClass(VcashWalletInfo.class);
     NSString *tableName = className;

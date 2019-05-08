@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)shareInstance;
 
--(void)closeDatabase;
+-(void)clearAllData;
 
 //wallet info
 -(BOOL)saveWalletInfo:(VcashWalletInfo*)info;

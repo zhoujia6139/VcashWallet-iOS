@@ -66,6 +66,7 @@
 
 -(void)resetWallet
 {
+    [WalletWrapper clearWallet];
     [NavigationCenter showWelcomePage];
 }
 

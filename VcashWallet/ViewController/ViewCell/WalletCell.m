@@ -18,6 +18,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *labelTime;
 
+@property (weak, nonatomic) IBOutlet UILabel *stateLabel;
+
 @end
 
 @implementation WalletCell
@@ -59,6 +61,7 @@
     int64_t amount = (int64_t)txLog.amount_credited - (int64_t)txLog.amount_debited;
     self.labelAmount.text = [NSString stringWithFormat:@"%@ Vcash",@([WalletWrapper nanoToVcash:amount]).p9fString];
     self.labelTime.text = [[NSDate dateWithTimeIntervalSince1970:txLog.create_time] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+    self.stateLabel.text = txLog.is_confirmed?@"Confirmed":@"UnConfirmed";
 }
 
 @end

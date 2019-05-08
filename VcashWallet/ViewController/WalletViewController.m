@@ -46,16 +46,21 @@ static NSString *const identifier = @"WalletCell";
     self.tableViewContainer.delegate = self;
     [self.tableViewContainer registerNib:[UINib nibWithNibName:NSStringFromClass([WalletCell class]) bundle:nil] forCellReuseIdentifier:identifier];
 
-    self.tableViewContainer.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
-        [self refreshWalletStatus];
-    }];
-    [self.tableViewContainer.mj_header beginRefreshing];
     if (self.enterInRecoverMode){
+        [MBHudHelper startWorkProcessWithTextTips:@"Recovering"];
         [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
             if (yesOrNo){
                 [self refreshMainView];
             }
+            NSString* tips = yesOrNo?@"Recover Suc!":@"Recover failed!";
+            [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:tips];
         }];
+    }
+    else{
+        self.tableViewContainer.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+            [self refreshWalletStatus];
+        }];
+        [self.tableViewContainer.mj_header beginRefreshing];
     }
     
     [[ServerTxManager shareInstance] startWork];
@@ -76,7 +81,7 @@ static NSString *const identifier = @"WalletCell";
     
     self.balanceConfirmed.text = [NSString stringWithFormat:@"Available %@", @([WalletWrapper nanoToVcash:info.spendable]).p9fString];
     
-    self.balanceUnconfirmed.text = [NSString stringWithFormat:@"Uncomfirmed %@", @([WalletWrapper nanoToVcash:info.unconfirmed]).p9fString];;
+    self.balanceUnconfirmed.text = [NSString stringWithFormat:@"Uncomfirmed %@", @([WalletWrapper nanoToVcash:info.unconfirmed]).p9fString];
     
 #ifdef isInTestNet
     self.netName.text = @"Floonet";
