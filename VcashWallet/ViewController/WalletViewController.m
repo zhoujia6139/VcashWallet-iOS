@@ -77,11 +77,11 @@ static NSString *const identifier = @"WalletCell";
 -(void)refreshMainView{
     self.userIdView.text = [WalletWrapper getWalletUserId];
     WalletBalanceInfo* info = [WalletWrapper getWalletBalanceInfo];
-    self.balanceTotal.text = @([WalletWrapper nanoToVcash:info.total]).p9fString;
+    self.balanceTotal.text = [NSString stringWithFormat:@"%@ V", @([WalletWrapper nanoToVcash:info.total]).p9fString];
     
-    self.balanceConfirmed.text = [NSString stringWithFormat:@"Available %@", @([WalletWrapper nanoToVcash:info.spendable]).p9fString];
+    self.balanceConfirmed.text = [NSString stringWithFormat:@"Available %@ V", @([WalletWrapper nanoToVcash:info.spendable]).p9fString];
     
-    self.balanceUnconfirmed.text = [NSString stringWithFormat:@"Uncomfirmed %@", @([WalletWrapper nanoToVcash:info.unconfirmed]).p9fString];
+    self.balanceUnconfirmed.text = [NSString stringWithFormat:@"Uncomfirmed %@ V", @([WalletWrapper nanoToVcash:info.unconfirmed]).p9fString];
     
 #ifdef isInTestNet
     self.netName.text = @"Floonet";
