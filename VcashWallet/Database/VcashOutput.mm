@@ -24,4 +24,12 @@ WCDB_SYNTHESIZE(VcashOutput, tx_log_id)
 
 WCDB_PRIMARY(VcashOutput, commitment)
 
+-(BOOL)isSpendable{
+    if (self.status == Unspent &&
+        self.lock_height < [VcashWallet shareInstance].curChainHeight){
+        return YES;
+    }
+    return NO;
+}
+
 @end

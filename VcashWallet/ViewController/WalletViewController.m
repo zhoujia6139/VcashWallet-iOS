@@ -46,6 +46,10 @@ static NSString *const identifier = @"WalletCell";
     self.tableViewContainer.delegate = self;
     [self.tableViewContainer registerNib:[UINib nibWithNibName:NSStringFromClass([WalletCell class]) bundle:nil] forCellReuseIdentifier:identifier];
 
+    self.tableViewContainer.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        [self refreshWalletStatus];
+    }];
+    
     if (self.enterInRecoverMode){
         [MBHudHelper startWorkProcessWithTextTips:@"Recovering"];
         [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
@@ -57,9 +61,6 @@ static NSString *const identifier = @"WalletCell";
         }];
     }
     else{
-        self.tableViewContainer.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
-            [self refreshWalletStatus];
-        }];
         [self.tableViewContainer.mj_header beginRefreshing];
     }
     

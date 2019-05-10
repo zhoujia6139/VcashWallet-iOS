@@ -45,6 +45,8 @@ typedef enum  {
 
 @property(strong, nonatomic)VcashSecretKey* blinding;
 
+-(BOOL)isSpendable;
+
 @end
 
 NS_ASSUME_NONNULL_END

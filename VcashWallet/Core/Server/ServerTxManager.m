@@ -44,11 +44,11 @@
         }];
     }
     
-    [_timer fire];
+    [_timer setFireDate:[NSDate date]];
 }
 
 -(void)stopWork{
-    [_timer invalidate];
+    [_timer setFireDate:[NSDate distantFuture]];
 }
 
 -(void)fetchTxStatus:(BOOL)force{

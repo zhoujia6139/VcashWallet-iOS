@@ -104,7 +104,9 @@ static VcashWallet* walletInstance = nil;
             }
             case Unspent:{
                 total += output.value;
-                spendable += output.value;
+                if ([output isSpendable]){
+                    spendable += output.value;
+                }
                 break;
             }
                 
@@ -155,15 +157,19 @@ static VcashWallet* walletInstance = nil;
 
 -(VcashSlate*)sendTransaction:(uint64_t)amount andFee:(uint64_t)fee withComplete:(RequestCompleteBlock)block{
     uint64_t total = 0;
+    NSMutableArray* spendable = [NSMutableArray new];
     for (VcashOutput* item in self.outputs){
-        total += item.value;
+        if ([item isSpendable]){
+            [spendable addObject:item];
+            total += item.value;
+        }
     }
     
     //1 Compute Fee and output
     // 1.1First attempt to spend without change
     uint64_t actualFee = fee;
     if (fee == 0){
-        actualFee = [self calcuteFee:self.outputs.count withOutputCount:1];
+        actualFee = [self calcuteFee:spendable.count withOutputCount:1];
     }
     
     uint64_t amount_with_fee = amount + actualFee;
@@ -174,7 +180,7 @@ static VcashWallet* walletInstance = nil;
     
     // 1.2Second attempt to spend with change
     if (total != amount_with_fee) {
-        actualFee = [self calcuteFee:self.outputs.count withOutputCount:2];
+        actualFee = [self calcuteFee:spendable.count withOutputCount:2];
     }
     amount_with_fee = amount + actualFee;
     uint64_t change = total - amount_with_fee;
@@ -198,7 +204,7 @@ static VcashWallet* walletInstance = nil;
     txLog.is_confirmed = NO;
     slate.txLog = txLog;
     
-    VcashSecretKey* blind = [slate addTxElement:self.outputs change:change];
+    VcashSecretKey* blind = [slate addTxElement:spendable change:change];
     if (!blind){
         DDLogError(@"--------sender addTxElement failed");
         return nil;

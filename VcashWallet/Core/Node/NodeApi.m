@@ -9,7 +9,8 @@
 #import "NodeApi.h"
 #import "VcashWallet.h"
 
-#define NODE_URL @"http://192.168.199.208:13513"
+#define NODE_URL @"http://47.75.163.56:13513"
+//#define NODE_URL @"http://127.0.0.1:13513"
 
 @implementation NodeApi
 {
