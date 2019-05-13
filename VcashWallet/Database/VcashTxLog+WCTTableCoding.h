@@ -17,10 +17,12 @@ WCDB_PROPERTY(tx_slate_id)
 WCDB_PROPERTY(tx_type)
 WCDB_PROPERTY(create_time)
 WCDB_PROPERTY(confirm_time)
-WCDB_PROPERTY(is_confirmed)
+WCDB_PROPERTY(confirm_state)
 WCDB_PROPERTY(amount_credited)
 WCDB_PROPERTY(amount_debited)
 WCDB_PROPERTY(fee)
+WCDB_PROPERTY(inputs)
+WCDB_PROPERTY(outputs)
 
 @end
 

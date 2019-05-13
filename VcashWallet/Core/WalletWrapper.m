@@ -67,7 +67,7 @@
                 VcashTxLog* tx = [VcashTxLog new];
                 tx.tx_id = [[VcashWallet shareInstance] getNextLogId];
                 tx.create_time = [[NSDate date] timeIntervalSince1970];
-                tx.is_confirmed = YES;
+                tx.confirm_state = NetConfirmed;
                 tx.amount_credited = item.value;
                 tx.tx_type = item.is_coinbase?ConfirmedCoinbase:TxReceived;
                 item.tx_log_id = tx.tx_id;
@@ -103,7 +103,7 @@
     slate.lockOutputsFn?slate.lockOutputsFn():nil;
     slate.createNewOutputsFn?slate.createNewOutputsFn():nil;
     //save txLog
-    ret = [[VcashDataManager shareInstance] saveAppendTx:slate.txLog];
+    ret = [[VcashDataManager shareInstance] saveTx:slate.txLog];
     if (!ret){
         rollbackBlock();
         return NO;
@@ -152,7 +152,7 @@
     
     tx.slateObj.createNewOutputsFn?tx.slateObj.createNewOutputsFn():nil;
     //save txLog
-    ret = [[VcashDataManager shareInstance] saveAppendTx:tx.slateObj.txLog];
+    ret = [[VcashDataManager shareInstance] saveTx:tx.slateObj.txLog];
     if (!ret){
         rollbackBlock();
         DDLogError(@"VcashDataManager saveAppendTx failed");
@@ -236,7 +236,7 @@
                             }
                         }
                         if (tx){
-                            tx.is_confirmed = YES;
+                            tx.confirm_state = NetConfirmed;
                             tx.confirm_time = [[NSDate date] timeIntervalSince1970];
                         }
                         item.height = nodeOutput.height;

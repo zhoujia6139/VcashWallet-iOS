@@ -74,6 +74,16 @@ static VcashWallet* walletInstance = nil;
 }
 
 -(void)syncOutputInfo{
+    NSMutableArray* outputs = [NSMutableArray new];
+    for (VcashOutput* item in self.outputs){
+        if (item.status == Spent){
+            DDLogWarn(@"Output commit:%@ has been spend, remove from wallet", item.commitment);
+        }
+        else{
+            [outputs addObject:item];
+        }
+    }
+    self->_outputs = outputs;
     [[VcashDataManager shareInstance] saveOutputData:self.outputs];
 }
 
@@ -201,7 +211,7 @@ static VcashWallet* walletInstance = nil;
     txLog.fee = slate.fee;
     txLog.amount_credited = change;
     txLog.amount_debited = total;
-    txLog.is_confirmed = NO;
+    txLog.confirm_state = DefaultState;
     slate.txLog = txLog;
     
     VcashSecretKey* blind = [slate addTxElement:spendable change:change];
@@ -235,7 +245,7 @@ static VcashWallet* walletInstance = nil;
     //txLog.fee = slate.fee;
     txLog.amount_credited = slate.amount;
     txLog.amount_debited = 0;
-    txLog.is_confirmed = NO;
+    txLog.confirm_state = DefaultState;
     slate.txLog = txLog;
     
     VcashSecretKey* blind = [slate addReceiverTxOutput];

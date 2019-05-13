@@ -122,6 +122,25 @@ static NSString *const identifier = @"WalletCell";
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(editingStyle == UITableViewCellEditingStyleDelete){
+        VcashTxLog *model = self.arrTransactionList[indexPath.row];
+        if (model.isCanBeCanneled){
+            if ([model cannelTx]){
+                [MBHudHelper showTextTips:@"Tx cancel suc" onView:nil withDuration:1];
+            }
+            else{
+                [MBHudHelper showTextTips:@"Tx cancel failed" onView:nil withDuration:1];
+            }
+            
+            [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationMiddle];
+        }
+        else{
+            [MBHudHelper showTextTips:@"Tx cannot be cancel!" onView:nil withDuration:1];
+        }
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 73;
 }

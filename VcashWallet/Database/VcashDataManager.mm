@@ -122,14 +122,14 @@
     return YES;
 }
 
--(BOOL)saveAppendTx:(VcashTxLog*)txLog{
+-(BOOL)saveTx:(VcashTxLog*)txLog{
     if (!txLog){
         return YES;
     }
     
     NSString *className = NSStringFromClass(VcashTxLog.class);
     NSString *tableName = className;
-    BOOL ret = [self.database insertObject:txLog into:tableName];
+    BOOL ret = [self.database insertOrReplaceObject:txLog into:tableName];
     if (!ret)
     {
         DDLogError(@"----------db error, saveAppendTx fail");

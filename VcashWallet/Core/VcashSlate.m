@@ -74,6 +74,7 @@
         [negativeArr addObject:secKey.data];
         
         [lockOutput addObject:item];
+        [self.txLog appendInput:item.commitment];
     }
     self.lockOutputsFn = ^{
         for (VcashOutput* item in lockOutput){
@@ -219,6 +220,7 @@
         output.is_coinbase = NO;
         output.status = Unconfirmed;
         output.tx_log_id = strong_self.txLog.tx_id;
+        [strong_self.txLog appendOutput:output.commitment];
         
         [[VcashWallet shareInstance] addNewTxChangeOutput:output];
         [[VcashWallet shareInstance] syncOutputInfo];

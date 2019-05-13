@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 //transaction
 -(BOOL)saveTxDataArr:(NSArray*)arr;
 
--(BOOL)saveAppendTx:(VcashTxLog*)txLog;
+-(BOOL)saveTx:(VcashTxLog*)txLog;
 
 -(NSArray*)getTxData;
 
