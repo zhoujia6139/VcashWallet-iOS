@@ -12,6 +12,8 @@
 #import "VcashTxLog.h"
 #import "VcashContext.h"
 
+#define kTxLogDataChanged @"kTxLogDataChanged"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface VcashDataManager : NSObject
@@ -34,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(BOOL)saveTxDataArr:(NSArray*)arr;
 
 -(BOOL)saveTx:(VcashTxLog*)txLog;
+
+-(VcashTxLog*)getTxBySlateId:(NSString*)slate_id;
 
 -(NSArray*)getTxData;
 

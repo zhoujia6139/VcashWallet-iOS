@@ -54,36 +54,4 @@ WCDB_PRIMARY(VcashTxLog, tx_id)
     return NO;
 }
 
--(BOOL)cannelTx{
-    if ([self isCanBeCanneled]){
-        NSArray* walletOutputs = [VcashWallet shareInstance].outputs;
-        if (self.tx_type == TxSent){
-            for (NSString* commitment in self.inputs){
-                for (VcashOutput* item in walletOutputs){
-                    if ([commitment isEqualToString:item.commitment]){
-                        item.status = Unspent;
-                    }
-                }
-            }
-        }
-        
-        for (NSString* commitment in self.outputs){
-            for (VcashOutput* item in walletOutputs){
-                if ([commitment isEqualToString:item.commitment]){
-                    item.status = Spent;
-                }
-            }
-        }
-        
-        self.tx_type = (self.tx_type == TxSent?TxSentCancelled:TxReceivedCancelled);
-        
-        [[VcashDataManager shareInstance] saveTx:self];
-        [[VcashWallet shareInstance] syncOutputInfo];
-        
-        return YES;
-    }
-    
-    return NO;
-}
-
 @end

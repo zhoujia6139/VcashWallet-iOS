@@ -59,6 +59,22 @@
                 lastFetch = [[NSDate date] timeIntervalSince1970];
                 tx.slateObj = [VcashSlate modelWithJSON:tx.slate];
                 if (tx && tx.slateObj){
+                    VcashTxLog *txLog = [[VcashDataManager shareInstance] getTxBySlateId:tx.slateObj.uuid];
+                    //check is canceled
+                    if (txLog.tx_type == TxReceivedCancelled ||
+                        txLog.tx_type == TxSentCancelled){
+                        [[ServerApi shareInstance] cancelTransaction:txLog.tx_slate_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
+                        }];
+                        return;
+                    }
+                    
+                    //check is finalized
+                    if (txLog.confirm_state >= LoalConfirmed){
+                        [[ServerApi shareInstance] filanizeTransaction:txLog.tx_slate_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
+                        }];
+                        return;
+                    }
+                    
                     BOOL isRepeat = NO;
                     for (ServerTransaction* item in self.txArr){
                         if ([tx.tx_id isEqualToString:item.tx_id]){

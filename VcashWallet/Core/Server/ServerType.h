@@ -10,11 +10,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef enum{
+    TxDefaultStatus = 0,
+    TxReceiverd,
+    TxFinalized,
+    TxCanceled,
+}ServerTxStatus;
+
 @class VcashSlate;
 
 @interface ServerTransaction : NSObject
 
-@property(strong, nonatomic) NSString* tx_id;
+@property(strong, nonatomic, readonly) NSString* tx_id;
 
 @property(strong, nonatomic) NSString* sender_id;
 
@@ -22,12 +29,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(strong, nonatomic) NSString* slate;
 
-@property(assign, nonatomic) uint8_t send_type;
+@property(assign, nonatomic) ServerTxStatus status;
 
 //unselialised
 @property(strong, nonatomic) VcashSlate* slateObj;
 
 @property(assign, nonatomic) BOOL isSend;
+
+-(id)initWithSlate:(VcashSlate*)slate;
 
 
 @end

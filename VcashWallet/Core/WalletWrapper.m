@@ -118,10 +118,10 @@
         return;
     }
     
-    ServerTransaction* server_tx = [ServerTransaction new];
+    ServerTransaction* server_tx = [[ServerTransaction alloc] initWithSlate:slate];
     server_tx.sender_id = [VcashWallet shareInstance].userId;
     server_tx.receiver_id = user;
-    server_tx.slate = [slate modelToJSONString];
+    server_tx.status = TxDefaultStatus;
     [[ServerApi shareInstance] sendTransaction:server_tx WithComplete:^(BOOL yesOrNO, id _Nullable data) {
         if (yesOrNO){
             DDLogInfo(@"-----sendTransaction to server suc");
@@ -168,7 +168,7 @@
     }
     
     tx.slate  = [tx.slateObj modelToJSONString];
-    tx.send_type = 1;
+    tx.status = TxReceiverd;
     [[ServerApi shareInstance] receiveTransaction:tx WithComplete:^(BOOL yesOrNO, id _Nullable data) {
         if (yesOrNO){
             DDLogInfo(@"-----send receiveTransaction suc");
@@ -197,11 +197,23 @@
     NSData* txPayload = [tx.slateObj.tx computePayloadForHash:NO];
     [[NodeApi shareInstance] postTx:BTCHexFromData(txPayload) WithComplete:^(BOOL yesOrNo, id _Nullable data) {
         if (yesOrNo){
+            block?block(YES, nil):nil;
+            VcashTxLog *txLog = [[VcashDataManager shareInstance] getTxBySlateId:tx.slateObj.uuid];
+            if (txLog){
+                txLog.confirm_state = LoalConfirmed;
+                [[VcashDataManager shareInstance] saveTx:txLog];
+            }
+            else{
+                DDLogError(@"impossible things happened!can not find tx:%@", tx.slateObj.uuid);
+            }
+            
             tx.slate  = [tx.slateObj modelToJSONString];
-            tx.send_type = 2;
-            [[ServerApi shareInstance] filanizeTransaction:tx WithComplete:^(BOOL yesOrNo, id _Nullable data) {
-                NSString* errStr = yesOrNo?@"":@"filalize tx to Server failed";
-                block?block(yesOrNo, errStr):nil;
+            tx.status = TxFinalized;
+            [[ServerApi shareInstance] filanizeTransaction:tx.tx_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
+                if (!yesOrNo){
+                    DDLogError(@"filalize tx to Server failed, cache tx state");
+                    
+                }
             }];
         }
         else{
@@ -210,6 +222,42 @@
     }];
     
     return;
+}
+
++(BOOL)cancelTransaction:(VcashTxLog*)txLog{
+    if ([txLog isCanBeCanneled]){
+        NSArray* walletOutputs = [VcashWallet shareInstance].outputs;
+        if (txLog.tx_type == TxSent){
+            for (NSString* commitment in txLog.inputs){
+                for (VcashOutput* item in walletOutputs){
+                    if ([commitment isEqualToString:item.commitment]){
+                        item.status = Unspent;
+                    }
+                }
+            }
+        }
+        
+        for (NSString* commitment in txLog.outputs){
+            for (VcashOutput* item in walletOutputs){
+                if ([commitment isEqualToString:item.commitment]){
+                    item.status = Spent;
+                }
+            }
+        }
+        
+        txLog.tx_type = (txLog.tx_type == TxSent?TxSentCancelled:TxReceivedCancelled);
+        
+        [[VcashDataManager shareInstance] saveTx:txLog];
+        [[VcashWallet shareInstance] syncOutputInfo];
+        
+        [[ServerApi shareInstance] cancelTransaction:txLog.tx_slate_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
+            
+        }];
+        
+        return YES;
+    }
+    
+    return NO;
 }
 
 +(NSArray*)getTransationArr{

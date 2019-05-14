@@ -40,6 +40,8 @@
 
 +(void)finalizeTransaction:(ServerTransaction*)tx withComplete:(RequestCompleteBlock)block;
 
++(BOOL)cancelTransaction:(VcashTxLog*)txLog;
+
 //refresh Transaction
 +(NSArray*)getTransationArr;
 

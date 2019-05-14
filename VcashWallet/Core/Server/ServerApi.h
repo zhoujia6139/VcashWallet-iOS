@@ -23,7 +23,9 @@ typedef void (^RequestCompleteBlock) (BOOL, _Nullable id);
 
 -(void)receiveTransaction:(ServerTransaction*)tx WithComplete:(RequestCompleteBlock)block;
 
--(void)filanizeTransaction:(ServerTransaction*)tx WithComplete:(RequestCompleteBlock)block;
+-(void)filanizeTransaction:(NSString*)tx_id WithComplete:(RequestCompleteBlock)block;
+
+-(void)cancelTransaction:(NSString*)tx_id WithComplete:(RequestCompleteBlock)block;
 
 @end
 

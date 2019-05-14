@@ -65,6 +65,12 @@ static NSString *const identifier = @"WalletCell";
     }
     
     [[ServerTxManager shareInstance] startWork];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kTxLogDataChanged object:nil];
+}
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)refreshWalletStatus{
@@ -126,7 +132,7 @@ static NSString *const identifier = @"WalletCell";
     if(editingStyle == UITableViewCellEditingStyleDelete){
         VcashTxLog *model = self.arrTransactionList[indexPath.row];
         if (model.isCanBeCanneled){
-            if ([model cannelTx]){
+            if ([WalletWrapper cancelTransaction:model]){
                 [MBHudHelper showTextTips:@"Tx cancel suc" onView:nil withDuration:1];
             }
             else{

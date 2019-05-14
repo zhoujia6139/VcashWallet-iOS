@@ -119,6 +119,7 @@
         DDLogError(@"----------db error, saveTxData fail");
         return NO;
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTxLogDataChanged object:nil];
     return YES;
 }
 
@@ -135,7 +136,16 @@
         DDLogError(@"----------db error, saveAppendTx fail");
         return NO;
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTxLogDataChanged object:nil];
     return YES;
+}
+
+-(VcashTxLog*)getTxBySlateId:(NSString*)slate_id{
+    NSString *className = NSStringFromClass(VcashTxLog.class);
+    NSString *tableName = className;
+    NSArray<VcashTxLog *> *objects = [self.database getObjectsOfClass:VcashTxLog.class fromTable:tableName where:VcashTxLog.tx_slate_id == slate_id];
+
+    return objects.firstObject;
 }
 
 -(NSArray*)getTxData{

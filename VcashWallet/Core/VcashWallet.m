@@ -25,6 +25,8 @@ static VcashWallet* walletInstance = nil;
 @implementation VcashWallet
 {
     uint64_t _curChainHeight;
+    VcashKeychainPath* _curKeyPath;
+    uint32_t _curTxLogId;
     NSString* _userId;
 }
 
@@ -306,21 +308,21 @@ static VcashWallet* walletInstance = nil;
 }
 
 -(VcashKeychainPath*)nextChild{
-    if (self.curKeyPath){
-        self->_curKeyPath = [self.curKeyPath nextPath];
+    if (_curKeyPath){
+        _curKeyPath = [_curKeyPath nextPath];
         [self saveBaseInfo];
     }
     else{
-        self->_curKeyPath = [[VcashKeychainPath alloc] initWithDepth:3 d0:0 d1:0 d2:0 d3:0];
+        _curKeyPath = [[VcashKeychainPath alloc] initWithDepth:3 d0:0 d1:0 d2:0 d3:0];
     }
 
-    return self.curKeyPath;
+    return _curKeyPath;
 }
 
 -(uint32_t)getNextLogId{
     self->_curTxLogId += 1;
     [self saveBaseInfo];
-    return self.curTxLogId;
+    return _curTxLogId;
 }
 
 #pragma private
@@ -333,9 +335,9 @@ static VcashWallet* walletInstance = nil;
 
 -(void)saveBaseInfo{
     VcashWalletInfo* info = [VcashWalletInfo new];
-    info.curKeyPath = self.curKeyPath.pathStr;
+    info.curKeyPath = _curKeyPath.pathStr;
     info.curHeight = self.curChainHeight;
-    info.curTxLogId = self.curTxLogId;
+    info.curTxLogId = _curTxLogId;
     
     [[VcashDataManager shareInstance] saveWalletInfo:info];
 }

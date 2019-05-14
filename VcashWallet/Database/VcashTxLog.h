@@ -62,8 +62,6 @@ typedef enum {
 
 -(BOOL)isCanBeCanneled;
 
--(BOOL)cannelTx;
-
 @end
 
 NS_ASSUME_NONNULL_END

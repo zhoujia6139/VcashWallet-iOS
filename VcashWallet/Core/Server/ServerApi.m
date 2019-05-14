@@ -69,15 +69,30 @@
     }];
 }
 
--(void)filanizeTransaction:(ServerTransaction*)tx WithComplete:(RequestCompleteBlock)block{
+-(void)filanizeTransaction:(NSString*)tx_id WithComplete:(RequestCompleteBlock)block{
     NSString* url = [NSString stringWithFormat:@"%@/finalizevcash", SERVER_URL];
-    [[self sessionManager] POST:url parameters:[tx modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
+    NSDictionary* dic = [NSDictionary dictionaryWithObject:tx_id forKey:@"tx_id"];
+    [[self sessionManager] POST:url parameters:[dic modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DDLogInfo(@"---filanizeTransaction suc");
         block?block(YES, nil):nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DDLogError(@"---filanizeTransaction failed:%@", error);
+        block?block(NO, nil):nil;
+    }];
+}
+
+-(void)cancelTransaction:(NSString*)tx_id WithComplete:(RequestCompleteBlock)block{
+    NSString* url = [NSString stringWithFormat:@"%@/cancelvcash", SERVER_URL];
+    NSDictionary* dic = [NSDictionary dictionaryWithObject:tx_id forKey:@"tx_id"];
+    [[self sessionManager] POST:url parameters:[dic modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        DDLogInfo(@"---cancelTransaction suc");
+        block?block(YES, nil):nil;
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        DDLogError(@"---cancelTransaction failed:%@", error);
         block?block(NO, nil):nil;
     }];
 }
