@@ -21,7 +21,7 @@ typedef enum{
 
 @interface ServerTransaction : NSObject
 
-@property(strong, nonatomic, readonly) NSString* tx_id;
+@property(strong, nonatomic) NSString* tx_id;
 
 @property(strong, nonatomic) NSString* sender_id;
 
@@ -38,6 +38,14 @@ typedef enum{
 
 -(id)initWithSlate:(VcashSlate*)slate;
 
+
+@end
+
+@interface FinalizeTxInfo : NSObject
+
+@property(strong, nonatomic) NSString* tx_id;
+
+@property(assign, nonatomic) ServerTxStatus code;
 
 @end
 

@@ -71,8 +71,10 @@
 
 -(void)filanizeTransaction:(NSString*)tx_id WithComplete:(RequestCompleteBlock)block{
     NSString* url = [NSString stringWithFormat:@"%@/finalizevcash", SERVER_URL];
-    NSDictionary* dic = [NSDictionary dictionaryWithObject:tx_id forKey:@"tx_id"];
-    [[self sessionManager] POST:url parameters:[dic modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
+    FinalizeTxInfo* info = [FinalizeTxInfo new];
+    info.tx_id = tx_id;
+    info.code = TxFinalized;
+    [[self sessionManager] POST:url parameters:[info modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DDLogInfo(@"---filanizeTransaction suc");
@@ -84,9 +86,11 @@
 }
 
 -(void)cancelTransaction:(NSString*)tx_id WithComplete:(RequestCompleteBlock)block{
-    NSString* url = [NSString stringWithFormat:@"%@/cancelvcash", SERVER_URL];
-    NSDictionary* dic = [NSDictionary dictionaryWithObject:tx_id forKey:@"tx_id"];
-    [[self sessionManager] POST:url parameters:[dic modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
+    NSString* url = [NSString stringWithFormat:@"%@/finalizevcash", SERVER_URL];
+    FinalizeTxInfo* info = [FinalizeTxInfo new];
+    info.tx_id = tx_id;
+    info.code = TxFinalized;
+    [[self sessionManager] POST:url parameters:[info modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DDLogInfo(@"---cancelTransaction suc");

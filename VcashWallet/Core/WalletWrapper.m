@@ -126,7 +126,7 @@
         if (yesOrNO){
             DDLogInfo(@"-----sendTransaction to server suc");
             [[VcashDataManager shareInstance] commitDatabaseTransaction];
-            block?block(NO, @"Db error"):nil;
+            block?block(YES, nil):nil;
         }
         else{
             DDLogError(@"-----sendTransaction to server failed! roll back database");
