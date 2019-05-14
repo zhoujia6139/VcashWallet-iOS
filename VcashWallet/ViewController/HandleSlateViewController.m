@@ -25,7 +25,7 @@
     NSString* text = self.textView.text;
     VcashSlate* slate = [VcashSlate modelWithJSON:text];
     if (slate){
-        [WalletWrapper receiveTransaction:slate];
+        //[WalletWrapper receiveTransaction:slate];
     }
 }
 
@@ -33,7 +33,7 @@
     NSString* text = self.textView.text;
     VcashSlate* slate = [VcashSlate modelWithJSON:text];
     if (slate){
-        [WalletWrapper finalizeTransaction:slate];
+        //[WalletWrapper finalizeTransaction:slate];
     }
 }
 

@@ -36,12 +36,15 @@
 }
 
 - (IBAction)clickConfirm:(id)sender {
-    if ([WalletWrapper sendTransaction:self.slate forUser:self.receiverId]){
-        [MBHudHelper showTextTips:@"发送成功" onView:nil withDuration:1];
-    }
-    else{
-        [MBHudHelper showTextTips:@"发送失败" onView:nil withDuration:1];
-    }
+    [WalletWrapper sendTransaction:self.slate forUser:self.receiverId withComplete:^(BOOL yesOrNo, id _Nullable data) {
+        if (yesOrNo){
+            [MBHudHelper showTextTips:@"Send success!" onView:nil withDuration:1];
+        }
+        else{
+            [MBHudHelper showTextTips:[NSString stringWithFormat:@"Send failed:%@", data] onView:nil withDuration:1];
+        }
+    }];
+
     [self removeFromSuperview];
 
 }

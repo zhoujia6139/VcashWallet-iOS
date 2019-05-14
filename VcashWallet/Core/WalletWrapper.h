@@ -31,14 +31,14 @@
 +(void)checkWalletUtxoWithComplete:(RequestCompleteBlock)block;
 
 //TODO support multi receiver
-+(VcashSlate*)createSendTransaction:(NSString*)targetUserId amount:(uint64_t)amount fee:(uint64_t)fee withComplete:(RequestCompleteBlock)block;
++(void)createSendTransaction:(NSString*)targetUserId amount:(uint64_t)amount fee:(uint64_t)fee withComplete:(RequestCompleteBlock)block;
 
 //send Transaction
-+(BOOL)sendTransaction:(VcashSlate*)slate forUser:(NSString*)user;
++(void)sendTransaction:(VcashSlate*)slate forUser:(NSString*)user withComplete:(RequestCompleteBlock)block;
 
-+(BOOL)receiveTransaction:(ServerTransaction*)tx;
++(void)receiveTransaction:(ServerTransaction*)tx withComplete:(RequestCompleteBlock)block;
 
-+(BOOL)finalizeTransaction:(ServerTransaction*)tx;
++(void)finalizeTransaction:(ServerTransaction*)tx withComplete:(RequestCompleteBlock)block;
 
 //refresh Transaction
 +(NSArray*)getTransationArr;

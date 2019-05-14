@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(VcashOutput*)identifyUtxoOutput:(NodeOutput*)nodeOutput;
 
--(VcashSlate*)sendTransaction:(uint64_t)amount andFee:(uint64_t)fee withComplete:(RequestCompleteBlock)block;
+-(void)sendTransaction:(uint64_t)amount andFee:(uint64_t)fee withComplete:(RequestCompleteBlock)block;
 
 -(BOOL)receiveTransaction:(VcashSlate*)slate;
 

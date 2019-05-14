@@ -165,7 +165,7 @@ static VcashWallet* walletInstance = nil;
     return nil;
 }
 
--(VcashSlate*)sendTransaction:(uint64_t)amount andFee:(uint64_t)fee withComplete:(RequestCompleteBlock)block{
+-(void)sendTransaction:(uint64_t)amount andFee:(uint64_t)fee withComplete:(RequestCompleteBlock)block{
     uint64_t total = 0;
     NSMutableArray* spendable = [NSMutableArray new];
     for (VcashOutput* item in self.outputs){
@@ -186,6 +186,7 @@ static VcashWallet* walletInstance = nil;
     if (total < amount_with_fee){
         NSString* errMsg = [NSString stringWithFormat:@"Not enough funds, available:%lld, needed:%lld", total, amount_with_fee];
         block?block(NO, errMsg):nil;
+        return;
     }
     
     // 1.2Second attempt to spend with change
@@ -217,7 +218,8 @@ static VcashWallet* walletInstance = nil;
     VcashSecretKey* blind = [slate addTxElement:spendable change:change];
     if (!blind){
         DDLogError(@"--------sender addTxElement failed");
-        return nil;
+        block?block(NO, nil):nil;
+        return;
     }
     
     //3 construct sender Context
@@ -229,10 +231,11 @@ static VcashWallet* walletInstance = nil;
     //4 sender fill round 1
     if (![slate fillRound1:context participantId:0 andMessage:nil]){
         DDLogError(@"--------sender fillRound1 failed");
-        return nil;
+        block?block(NO, nil):nil;
+        return;
     }
 
-    return slate;
+    block?block(YES, slate):nil;
 }
 
 -(BOOL)receiveTransaction:(VcashSlate*)slate{

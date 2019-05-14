@@ -36,16 +36,23 @@
     double amount = [numberAmount doubleValue];
     if (self.targetAddressField.text && amount > 0)
     {
-        VcashSlate* slate = [WalletWrapper createSendTransaction:self.targetAddressField.text amount:[WalletWrapper vcashToNano:amount] fee:0 withComplete:^(BOOL yesOrNo, id retData) {
+        [WalletWrapper createSendTransaction:self.targetAddressField.text amount:[WalletWrapper vcashToNano:amount] fee:0 withComplete:^(BOOL yesOrNo, id retData) {
+            if (yesOrNo){
+                VcashSlate* slate = (VcashSlate*)retData;
+                SendTransactionConfirmView* confirmView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SendTransactionConfirmView class]) owner:self options:nil][0];
+                [confirmView setReceiverId:self.targetAddressField.text andSlate:slate];
+                UIView* window = [UIApplication sharedApplication].keyWindow;
+                [window addSubview:confirmView];
+                [confirmView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.edges.equalTo(window);
+                }];
+            }
+            else{
+                [MBHudHelper showTextTips:@"SendFailed" onView:nil withDuration:1.5];
+            }
             
         }];
-        SendTransactionConfirmView* confirmView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SendTransactionConfirmView class]) owner:self options:nil][0];
-        [confirmView setReceiverId:self.targetAddressField.text andSlate:slate];
-        UIView* window = [UIApplication sharedApplication].keyWindow;
-        [window addSubview:confirmView];
-        [confirmView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(window);
-        }];
+
     }
 }
 

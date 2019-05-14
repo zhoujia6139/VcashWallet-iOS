@@ -32,17 +32,17 @@
 }
 
 - (IBAction)clickConfirm:(id)sender {
+    [MBHudHelper startWorkProcessWithTextTips:@""];
     if (self.serverTx.isSend){
-        BOOL yesOrNo = [WalletWrapper finalizeTransaction:self.serverTx];
-        if (yesOrNo){
-            [MBHudHelper showTextTips:@"处理成功" onView:nil withDuration:1];
-        }
+        [WalletWrapper finalizeTransaction:self.serverTx withComplete:^(BOOL yesOrNo, id _Nullable data){
+            [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:data];
+        }];
     }
     else{
-        BOOL yesOrNo = [WalletWrapper receiveTransaction:self.serverTx];
-        if (yesOrNo){
-            [MBHudHelper showTextTips:@"处理成功" onView:nil withDuration:1];
-        }
+        [WalletWrapper receiveTransaction:self.serverTx withComplete:^(BOOL yesOrNo, id _Nullable data) {
+            [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:data];
+        }];
+
     }
     
     [self removeFromSuperview];

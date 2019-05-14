@@ -69,14 +69,16 @@
     }];
 }
 
--(void)filanizeTransaction:(ServerTransaction*)tx{
+-(void)filanizeTransaction:(ServerTransaction*)tx WithComplete:(RequestCompleteBlock)block{
     NSString* url = [NSString stringWithFormat:@"%@/finalizevcash", SERVER_URL];
     [[self sessionManager] POST:url parameters:[tx modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DDLogInfo(@"---filanizeTransaction suc");
+        block?block(YES, nil):nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DDLogError(@"---filanizeTransaction failed:%@", error);
+        block?block(NO, nil):nil;
     }];
 }
 
