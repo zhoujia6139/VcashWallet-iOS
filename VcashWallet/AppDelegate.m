@@ -33,7 +33,7 @@
         [NavigationCenter showWelcomePage];
     }
     
-    [[NodeApi shareInstance] getChainHeight];
+    [[NodeApi shareInstance] getChainHeightWithComplete:nil];
     
     return YES;
 }

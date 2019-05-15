@@ -57,6 +57,10 @@
     return [[VcashWallet shareInstance] getWalletBalanceInfo];
 }
 
++(uint64_t)getCurChainHeight{
+    return [VcashWallet shareInstance].curChainHeight;
+}
+
 +(void)checkWalletUtxoWithComplete:(RequestCompleteBlock)block{
     NSMutableArray* arr = [NSMutableArray new];
     [[NodeApi shareInstance] getOutputsByPmmrIndex:0 retArr:arr WithComplete:^(BOOL yesOrNo, id result) {

@@ -21,7 +21,7 @@ typedef void (^RequestCompleteBlock) (BOOL, _Nullable id);
 
 -(void)getOutputsByCommitArr:(NSArray<NSString*>*)commitArr WithComplete:(RequestCompleteBlock)completeblock;
 
--(uint64_t)getChainHeight;
+-(void)getChainHeightWithComplete:(RequestCompleteBlock _Nullable)completeblock;
 
 -(void)postTx:(NSString*)txHex WithComplete:(RequestCompleteBlock)completeblock;
 

@@ -94,11 +94,14 @@ static VcashWallet* walletInstance = nil;
 }
 
 -(uint64_t)curChainHeight{
-    uint64_t height = [[NodeApi shareInstance] getChainHeight];
-    if (height > self->_curChainHeight){
-        self->_curChainHeight = height;
-        [self saveBaseInfo];
-    }
+    [[NodeApi shareInstance] getChainHeightWithComplete:^(BOOL yesOrNo, NodeChainInfo* info) {
+        if (info.height > self->_curChainHeight){
+            self->_curChainHeight = info.height;
+            [self saveBaseInfo];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kWalletChainHeightChange object:nil];
+        }
+    }];
+
     return self->_curChainHeight;
 }
 
@@ -276,8 +279,6 @@ static VcashWallet* walletInstance = nil;
         DDLogError(@"--------receiver fillRound2 failed");
         return NO;
     }
-    NSString* result = [slate modelToJSONString];
-    NSLog(@"---------:%@", result);
     
     return YES;
 }

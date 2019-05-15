@@ -16,6 +16,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#define kWalletChainHeightChange @"kWalletChainHeightChange"
+
 @class WalletBalanceInfo,VcashOutput;
 
 @interface VcashWallet : NSObject

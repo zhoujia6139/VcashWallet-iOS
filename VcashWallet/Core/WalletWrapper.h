@@ -23,9 +23,13 @@
 //clear wallet
 +(void)clearWallet;
 
+
+//base info
 +(NSString*)getWalletUserId;
 
 +(WalletBalanceInfo*)getWalletBalanceInfo;
+
++(uint64_t)getCurChainHeight;
 
 //check wallet utxo
 +(void)checkWalletUtxoWithComplete:(RequestCompleteBlock)block;

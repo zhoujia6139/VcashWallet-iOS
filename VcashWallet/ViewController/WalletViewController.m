@@ -29,6 +29,7 @@ static NSString *const identifier = @"WalletCell";
 
 @property (weak, nonatomic) IBOutlet UILabel *netName;
 
+@property (weak, nonatomic) IBOutlet UILabel *chainHeight;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewContainer;
 @property (weak, nonatomic) IBOutlet UITextView *userIdView;
 
@@ -67,6 +68,7 @@ static NSString *const identifier = @"WalletCell";
     [[ServerTxManager shareInstance] startWork];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kTxLogDataChanged object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kWalletChainHeightChange object:nil];
 }
 
 -(void)dealloc{
@@ -89,6 +91,8 @@ static NSString *const identifier = @"WalletCell";
     self.balanceConfirmed.text = [NSString stringWithFormat:@"Available %@ V", @([WalletWrapper nanoToVcash:info.spendable]).p9fString];
     
     self.balanceUnconfirmed.text = [NSString stringWithFormat:@"Uncomfirmed %@ V", @([WalletWrapper nanoToVcash:info.unconfirmed]).p9fString];
+    
+    self.chainHeight.text = [NSString stringWithFormat:@"Height:%@", @([WalletWrapper getCurChainHeight])];
     
 #ifdef isInTestNet
     self.netName.text = @"Floonet";
@@ -173,9 +177,9 @@ static NSString *const identifier = @"WalletCell";
     [self.navigationController pushViewController:[HandleSlateViewController new]  animated:YES];
 }
 
-//- (IBAction)clickSet:(id)sender {
-//    [self.navigationController pushViewController:[SettingViewController new]  animated:YES];
-//}
+- (IBAction)clickSet:(id)sender {
+    //[self.navigationController pushViewController:[SettingViewController new]  animated:YES];
+}
 
 /*
 #pragma mark - Navigation
