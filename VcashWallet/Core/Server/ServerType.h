@@ -15,6 +15,7 @@ typedef enum{
     TxReceiverd,
     TxFinalized,
     TxCanceled,
+    TxClosed
 }ServerTxStatus;
 
 @class VcashSlate;

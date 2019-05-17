@@ -54,42 +54,71 @@
 -(void)fetchTxStatus:(BOOL)force{
     static NSTimeInterval lastFetch = 0;
     if (force || [[NSDate date] timeIntervalSince1970] - lastFetch  >= (TimerInterval-1)){
-        [[ServerApi shareInstance] checkStatusForUser:[VcashWallet shareInstance].userId WithComplete:^(BOOL yesOrNo, ServerTransaction* tx) {
+        [[ServerApi shareInstance] checkStatusForUser:[VcashWallet shareInstance].userId WithComplete:^(BOOL yesOrNo, NSArray<ServerTransaction*>* txs) {
+            DDLogInfo(@"check status ret %@ tx ", @(txs.count));
             if (yesOrNo){
                 lastFetch = [[NSDate date] timeIntervalSince1970];
-                tx.slateObj = [VcashSlate modelWithJSON:tx.slate];
-                if (tx && tx.slateObj){
-                    VcashTxLog *txLog = [[VcashDataManager shareInstance] getTxBySlateId:tx.slateObj.uuid];
-                    //check is canceled
-                    if (txLog.tx_type == TxReceivedCancelled ||
-                        txLog.tx_type == TxSentCancelled){
-                        [[ServerApi shareInstance] cancelTransaction:txLog.tx_slate_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
-                        }];
-                        return;
-                    }
-                    
-                    //check is finalized
-                    if (txLog.confirm_state >= LoalConfirmed){
-                        [[ServerApi shareInstance] filanizeTransaction:txLog.tx_slate_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
-                        }];
-                        return;
-                    }
-                    
-                    BOOL isRepeat = NO;
-                    for (ServerTransaction* item in self.txArr){
-                        if ([tx.tx_id isEqualToString:item.tx_id]){
-                            isRepeat = YES;
-                            break;
+                for (ServerTransaction* item in txs){
+                    item.slateObj = [VcashSlate modelWithJSON:item.slate];
+                    if (item && item.slateObj){
+                        VcashTxLog *txLog = [[VcashDataManager shareInstance] getTxBySlateId:item.slateObj.uuid];
+                        
+                        //check as receiver
+                        if ([item.receiver_id isEqualToString:[VcashWallet shareInstance].userId]){
+                            if (item.status == TxFinalized ||
+                                item.status == TxCanceled){
+                                if (txLog && txLog.confirm_state == DefaultState){
+                                    switch (item.status) {
+                                        case TxFinalized:
+                                            txLog.confirm_state = LoalConfirmed;
+                                            break;
+                                        case TxCanceled:
+                                            txLog.tx_type = TxReceivedCancelled;
+                                            break;
+                                            
+                                        default:
+                                            break;
+                                    }
+                                    
+                                    [[VcashDataManager shareInstance] saveTx:txLog];
+                                }
+                                [[ServerApi shareInstance] closeTransaction:item.tx_id];
+                                continue;
+                            }
+                        }
+                        //check as sender
+                        else if ([item.sender_id isEqualToString:[VcashWallet shareInstance].userId]){
+                            //check is cancelled
+                            if (txLog.tx_type == TxSentCancelled){
+                                [[ServerApi shareInstance] cancelTransaction:txLog.tx_slate_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
+                                }];
+                                continue;
+                            }
+                            
+                            //check is finalized
+                            if (txLog.confirm_state >= LoalConfirmed){
+                                [[ServerApi shareInstance] filanizeTransaction:txLog.tx_slate_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
+                                }];
+                                continue;
+                            }
+                        }
+
+                        BOOL isRepeat = NO;
+                        for (ServerTransaction* tx in self.txArr){
+                            if ([tx.tx_id isEqualToString:item.tx_id]){
+                                isRepeat = YES;
+                                break;
+                            }
+                        }
+                        if (!isRepeat){
+                            [self.txArr addObject:item];
                         }
                     }
-                    if (!isRepeat){
-                        [self.txArr addObject:tx];
+                    else if (item){
+                        DDLogError(@"receive a illegal tx:%@", [item modelToJSONString]);
                     }
-                    [self handleServerTx];
                 }
-                else if (tx){
-                    DDLogError(@"receive a illegal tx:%@", [tx modelToJSONString]);
-                }
+                [self handleServerTx];
             }
             else{
                 lastFetch = 0;

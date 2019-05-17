@@ -27,6 +27,8 @@ typedef void (^RequestCompleteBlock) (BOOL, _Nullable id);
 
 -(void)cancelTransaction:(NSString*)tx_id WithComplete:(RequestCompleteBlock)block;
 
+-(void)closeTransaction:(NSString*)tx_id;
+
 @end
 
 NS_ASSUME_NONNULL_END

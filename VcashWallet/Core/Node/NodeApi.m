@@ -72,7 +72,8 @@
     }];
 }
 
--(void)getChainHeightWithComplete:(RequestCompleteBlock)completeblock{
+-(uint64_t)getChainHeightWithComplete:(RequestCompleteBlock)completeblock{
+    static uint64_t curHeight = 0;
     static NSTimeInterval lastFetch = 0;
     if ([[NSDate date] timeIntervalSince1970] - lastFetch  > 30){
         NSString* url = [NSString stringWithFormat:@"%@/v1/chain", NODE_URL];
@@ -80,6 +81,7 @@
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NodeChainInfo* info = [NodeChainInfo modelWithJSON:responseObject];
+            curHeight = info.height;
             completeblock?completeblock(YES, info):nil;
             lastFetch = [[NSDate date] timeIntervalSince1970];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -89,7 +91,7 @@
         }];
     }
 
-    return;
+    return curHeight;
 }
 
 -(void)postTx:(NSString*)txHex WithComplete:(RequestCompleteBlock)completeblock{

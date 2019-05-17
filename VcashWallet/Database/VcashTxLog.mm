@@ -46,8 +46,7 @@ WCDB_PRIMARY(VcashTxLog, tx_id)
 }
 
 -(BOOL)isCanBeCanneled{
-    if ((self.tx_type == TxSent || self.tx_type == TxReceived)
-        && self.confirm_state == DefaultState){
+    if (self.tx_type == TxSent && self.confirm_state == DefaultState){
         return YES;
     }
     

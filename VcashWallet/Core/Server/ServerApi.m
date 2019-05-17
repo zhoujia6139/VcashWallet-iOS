@@ -9,6 +9,7 @@
 #import "ServerApi.h"
 
 #define SERVER_URL @"http://47.75.163.56:13515"
+//#define SERVER_URL @"http://127.0.0.1:13500"
 
 @implementation ServerApi
 {
@@ -31,8 +32,8 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (responseObject){
-            ServerTransaction* tx = [ServerTransaction modelWithJSON:responseObject];
-            block?block(YES, tx):nil;
+            NSArray* txs = [NSArray modelArrayWithClass:[ServerTransaction class] json:responseObject];
+            block?block(YES, txs):nil;
         }
         else{
             block?block(YES, nil):nil;
@@ -89,7 +90,7 @@
     NSString* url = [NSString stringWithFormat:@"%@/finalizevcash", SERVER_URL];
     FinalizeTxInfo* info = [FinalizeTxInfo new];
     info.tx_id = tx_id;
-    info.code = TxFinalized;
+    info.code = TxCanceled;
     [[self sessionManager] POST:url parameters:[info modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -98,6 +99,20 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DDLogError(@"---cancelTransaction failed:%@", error);
         block?block(NO, nil):nil;
+    }];
+}
+
+-(void)closeTransaction:(NSString*)tx_id{
+    NSString* url = [NSString stringWithFormat:@"%@/finalizevcash", SERVER_URL];
+    FinalizeTxInfo* info = [FinalizeTxInfo new];
+    info.tx_id = tx_id;
+    info.code = TxClosed;
+    [[self sessionManager] POST:url parameters:[info modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        DDLogInfo(@"---closeTransaction suc");
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        DDLogError(@"---closeTransaction failed:%@", error);
     }];
 }
 

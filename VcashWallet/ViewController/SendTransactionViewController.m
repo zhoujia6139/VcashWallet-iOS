@@ -48,7 +48,7 @@
                 }];
             }
             else{
-                [MBHudHelper showTextTips:@"SendFailed" onView:nil withDuration:1.5];
+                [MBHudHelper showTextTips:[NSString stringWithFormat:@"SendFailed:%@", retData] onView:nil withDuration:1.5];
             }
             
         }];

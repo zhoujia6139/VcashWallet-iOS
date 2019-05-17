@@ -94,13 +94,14 @@ static VcashWallet* walletInstance = nil;
 }
 
 -(uint64_t)curChainHeight{
-    [[NodeApi shareInstance] getChainHeightWithComplete:^(BOOL yesOrNo, NodeChainInfo* info) {
-        if (info.height > self->_curChainHeight){
+    uint64_t height = [[NodeApi shareInstance] getChainHeightWithComplete:^(BOOL yesOrNo, NodeChainInfo* info) {
+        if (yesOrNo && info.height > self->_curChainHeight){
             self->_curChainHeight = info.height;
             [self saveBaseInfo];
             [[NSNotificationCenter defaultCenter] postNotificationName:kWalletChainHeightChange object:nil];
         }
     }];
+    self->_curChainHeight = height>self->_curChainHeight?height:self->_curChainHeight;
 
     return self->_curChainHeight;
 }
@@ -189,7 +190,7 @@ static VcashWallet* walletInstance = nil;
     
     uint64_t amount_with_fee = amount + actualFee;
     if (total < amount_with_fee){
-        NSString* errMsg = [NSString stringWithFormat:@"Not enough funds, available:%lld, needed:%lld", total, amount_with_fee];
+        NSString* errMsg = [NSString stringWithFormat:@"Not enough funds, available:%@, needed:%@", @([WalletWrapper nanoToVcash:total]), @([WalletWrapper nanoToVcash:amount_with_fee])];
         block?block(NO, errMsg):nil;
         return;
     }
