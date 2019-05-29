@@ -108,6 +108,8 @@
     slate.lockOutputsFn?slate.lockOutputsFn():nil;
     slate.createNewOutputsFn?slate.createNewOutputsFn():nil;
     //save txLog
+    slate.txLog.parter_id = user;
+    slate.txLog.status = TxDefaultStatus;
     ret = [[VcashDataManager shareInstance] saveTx:slate.txLog];
     if (!ret){
         rollbackBlock();
@@ -163,6 +165,8 @@
     
     tx.slateObj.createNewOutputsFn?tx.slateObj.createNewOutputsFn():nil;
     //save txLog
+    tx.slateObj.txLog.parter_id = tx.sender_id;
+    tx.slateObj.txLog.status = TxReceiverd;
     ret = [[VcashDataManager shareInstance] saveTx:tx.slateObj.txLog];
     if (!ret){
         rollbackBlock();
@@ -205,6 +209,7 @@
             VcashTxLog *txLog = [[VcashDataManager shareInstance] getTxBySlateId:tx.slateObj.uuid];
             if (txLog){
                 txLog.confirm_state = LoalConfirmed;
+                txLog.status = TxFinalized;
                 [[VcashDataManager shareInstance] saveTx:txLog];
             }
             else{
@@ -250,7 +255,7 @@
         }
         
         txLog.tx_type = (txLog.tx_type == TxSent?TxSentCancelled:TxReceivedCancelled);
-        
+        txLog.status = TxCanceled;
         [[VcashDataManager shareInstance] saveTx:txLog];
         [[VcashWallet shareInstance] syncOutputInfo];
         

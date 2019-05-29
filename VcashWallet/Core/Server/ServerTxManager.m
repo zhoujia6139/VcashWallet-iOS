@@ -79,7 +79,7 @@
                                         default:
                                             break;
                                     }
-                                    
+                                    txLog.status = item.status;
                                     [[VcashDataManager shareInstance] saveTx:txLog];
                                 }
                                 [[ServerApi shareInstance] closeTransaction:item.tx_id];
@@ -89,20 +89,26 @@
                         //check as sender
                         else if ([item.sender_id isEqualToString:[VcashWallet shareInstance].userId]){
                             //check is cancelled
-                            if (txLog.tx_type == TxSentCancelled){
+                            if (txLog.status == TxCanceled){
                                 [[ServerApi shareInstance] cancelTransaction:txLog.tx_slate_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
                                 }];
                                 continue;
                             }
                             
                             //check is finalized
-                            if (txLog.confirm_state >= LoalConfirmed){
+                            if (txLog.status == TxFinalized){
                                 [[ServerApi shareInstance] filanizeTransaction:txLog.tx_slate_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
                                 }];
                                 continue;
                             }
+                            
+                            if (item.status == TxReceiverd){
+                                txLog.status = item.status;
+                                [[VcashDataManager shareInstance] saveTx:txLog];
+                            }
                         }
-
+                        
+                        //if goes here item.status would be TxDefaultStatus or TxReceiverd
                         BOOL isRepeat = NO;
                         for (ServerTransaction* tx in self.txArr){
                             if ([tx.tx_id isEqualToString:item.tx_id]){

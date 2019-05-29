@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ServerType.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -38,6 +39,8 @@ typedef enum {
 
 @property(strong, nonatomic)NSString* tx_slate_id;
 
+@property(strong, nonatomic)NSString* parter_id;
+
 @property(assign, nonatomic)TxLogEntryType tx_type;
 
 @property(assign, nonatomic)uint64_t create_time;
@@ -45,6 +48,8 @@ typedef enum {
 @property(assign, nonatomic)uint64_t confirm_time;
 
 @property(assign, nonatomic)TxLogConfirmType confirm_state;
+
+@property(assign, nonatomic)ServerTxStatus status;
 
 @property(assign, nonatomic)uint64_t amount_credited;
 
