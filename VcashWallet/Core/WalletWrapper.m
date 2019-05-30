@@ -273,6 +273,14 @@
     return [[VcashDataManager shareInstance] getTxData];
 }
 
++(VcashTxLog*)getTxByTxid:(NSString*)txid{
+    return [[VcashDataManager shareInstance] getTxBySlateId:txid];
+}
+
++(Boolean)deleteTxByTxid:(NSString*)txid{
+    return NO;
+}
+
 +(void)updateOutputStatusWithComplete:(RequestCompleteBlock)block{
     NSMutableArray* strArr = [NSMutableArray new];
     for (VcashOutput* item in [VcashWallet shareInstance].outputs){

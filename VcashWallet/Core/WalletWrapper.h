@@ -49,6 +49,10 @@
 //refresh Transaction
 +(NSArray*)getTransationArr;
 
++(VcashTxLog*)getTxByTxid:(NSString*)txid;
+
++(Boolean)deleteTxByTxid:(NSString*)txid;
+
 +(void)updateOutputStatusWithComplete:(RequestCompleteBlock)block;
 
 +(double)nanoToVcash:(int64_t)nano;
