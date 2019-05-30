@@ -48,6 +48,9 @@ static NSString *const identifier = @"WalletCell";
 
 @property (weak, nonatomic) IBOutlet UIView *transactionTitleView;
 
+@property (strong, nonatomic) IBOutlet UIView *footView;
+
+
 @property (nonatomic, strong) LeftMenuView *leftMenuView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintNaviHeight;
@@ -179,6 +182,7 @@ static NSString *const identifier = @"WalletCell";
 #endif
     
     self.arrTransactionList = [WalletWrapper getTransationArr];
+    self.tableViewContainer.tableFooterView = self.arrTransactionList.count > 0 ? nil : self.footView;
     [self.tableViewContainer reloadData];
 }
 

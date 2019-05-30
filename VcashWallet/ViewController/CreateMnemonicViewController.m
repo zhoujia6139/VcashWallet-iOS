@@ -77,11 +77,6 @@
         [strongSelf pushConfirmPhraseVc];
     };
     [alertView show];
-    return;
-    NSArray* wordsArr = [creator getAllInputWords];
-    PinPasswordSetViewController*vc = [PinPasswordSetViewController new];
-    vc.mnemonicWordsArr = wordsArr;
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)pushConfirmPhraseVc{
