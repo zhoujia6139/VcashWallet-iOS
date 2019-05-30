@@ -62,5 +62,7 @@
     "changePasswordSuc":"Change password successfully",
     "twoinputsNotSame":"The two inputs are inconsistent, please re-enter",
     "createNewPass":"Creat  new password to access your wallet",
+    "deleteFailed":"failed to delete",
+    "deleteSuc":"successfully deleted"
     
 }

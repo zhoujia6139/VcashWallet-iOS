@@ -10,6 +10,7 @@
 #import "ServerApi.h"
 #import "VcashSlate.h"
 #import "ServerTxPopView.h"
+#import "MessageNotificationView.h"
 
 #define TimerInterval 60
 
@@ -17,7 +18,7 @@
 
 @property(strong, nonatomic)NSMutableArray* txArr;
 
-@property(strong, nonatomic)ServerTxPopView* handleView;
+@property(strong, nonatomic)MessageNotificationView* msgNotificationView;
 
 @end
 
@@ -135,7 +136,7 @@
 
 -(void)handleServerTx{
     ServerTransaction* item = [self.txArr firstObject];
-    if (item && !self.handleView.superview){
+    if (item && !self.msgNotificationView.superview){
         if ([item.sender_id isEqualToString:[VcashWallet shareInstance].userId]){
             item.isSend = YES;
         }
@@ -147,12 +148,8 @@
             return;
         }
         
-        self.handleView.serverTx = item;
-        UIView* window = [UIApplication sharedApplication].keyWindow;
-        [window addSubview:self.handleView];
-        [self.handleView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(window);
-        }];
+        self.msgNotificationView.serverTx = item;
+        [self.msgNotificationView show];
         
         [self.txArr removeObject:item];
     }
@@ -166,12 +163,13 @@
     return _txArr;
 }
 
--(ServerTxPopView*) handleView{
-    if (!_handleView){
-        _handleView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([ServerTxPopView class]) owner:self options:nil][0];
+- (MessageNotificationView *)msgNotificationView{
+    if (!_msgNotificationView){
+        _msgNotificationView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MessageNotificationView class]) owner:self options:nil][0];
     }
     
-    return _handleView;
+    return _msgNotificationView;
 }
+
 
 @end

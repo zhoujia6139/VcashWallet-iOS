@@ -52,6 +52,21 @@
     [self configView];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    NSMutableArray *arrVcs = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+    NSInteger count = arrVcs.count;
+    for (NSInteger i = count - 1; i >= 0; i--) {
+        UIViewController *vc = arrVcs[i];
+        if ([vc isKindOfClass:NSClassFromString(@"SendTransactionViewController")]) {
+            [arrVcs removeObject:vc];
+            self.navigationController.viewControllers = arrVcs;
+            break;
+        }
+    }
+    
+}
+
 - (void)configView{
     self.title = [LanguageService contentForKey:@"txDetailTitle"];
     ViewRadius(self.btnSignature, 4.0f);
@@ -117,11 +132,18 @@
         switch (self.txLog.confirm_state) {
             case DefaultState:{
                 if (self.txLog.tx_type == TxSent) {
+                    imageTxStatus = [UIImage imageNamed:@"ongoingdetail.png"];
                     txStatus = @"Tx Status: waiting for the recipient to sign";
-                    self.btnSignature.hidden = NO;
+                    if (self.txLog.status == TxDefaultStatus) {
+                         self.btnSignature.hidden = YES;
+                    }else if(self.txLog.status == TxReceiverd){
+                        self.btnSignature.hidden = NO;
+                    }
+                   
                     self.btnCancelTx.hidden = NO;
                 }else if (self.txLog.tx_type == TxReceived){
                     //The recipient has already signed
+                     imageTxStatus = [UIImage imageNamed:@"ongoingdetail.png"];
                     txStatus = @"Tx Status: waiting for the sender to sign";
                    
                 }
@@ -129,7 +151,10 @@
                 break;
             case LoalConfirmed:{
                 //tx has benn post, but not confirm by node
-                
+                txStatus = @"Tx Status: waiting for confirming";
+                imageTxStatus = [UIImage imageNamed:@"ongoingdetail.png"];
+                self.btnSignature.hidden = YES;
+                self.btnCancelTx.hidden = YES;
             }
                 
                 break;
@@ -172,25 +197,37 @@
         }
             break;
         case TxReceived:{
-            sender_id = @"";
+            sender_id = self.txLog.parter_id ? self.txLog.parter_id : @"unreachable";
             receiver_id = [VcashWallet shareInstance].userId;
             
         }
             break;
         case TxSent:{
             sender_id =  [VcashWallet shareInstance].userId;
-            receiver_id = @"";
+            receiver_id = self.txLog.parter_id ? self.txLog.parter_id : @"unreachable";
         }
             break;
             
         case TxReceivedCancelled:{
-            sender_id = @"";
+            imageTxStatus = [UIImage imageNamed:@"canceldetail.png"];
+            txStatus = @"Tx Status: transaction cancelled";
+            self.btnSignature.hidden = YES;
+            self.btnCancelTx.hidden = NO;
+            [self.btnCancelTx setTitle:@"Delete the transaction" forState:UIControlStateNormal];
+            [self.btnCancelTx setImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
+            sender_id =  self.txLog.parter_id ? self.txLog.parter_id : @"unreachable";
             receiver_id = [VcashWallet shareInstance].userId;
         }
             break;
         case TxSentCancelled:{
+            imageTxStatus = [UIImage imageNamed:@"canceldetail.png"];
+            txStatus = @"Tx Status: transaction cancelled";
+            self.btnSignature.hidden = YES;
+            self.btnCancelTx.hidden = NO;
+            [self.btnCancelTx setTitle:@"Delete the transaction" forState:UIControlStateNormal];
+            [self.btnCancelTx setImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
             sender_id =  [VcashWallet shareInstance].userId;
-            receiver_id = @"";
+            receiver_id = self.txLog.parter_id ? self.txLog.parter_id : @"unreachable";
         }
             break;
         default:
@@ -201,19 +238,26 @@
 
 - (IBAction)clickedBtnSignature:(id)sender {
     [MBHudHelper startWorkProcessWithTextTips:@""];
-    
+    BOOL isSend = NO;
     if (self.serverTx) {
-        if (self.serverTx.isSend){
-            [WalletWrapper finalizeTransaction:self.serverTx withComplete:^(BOOL yesOrNo, id _Nullable data){
-                [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:data];
-            }];
-        }
-        else{
-            [WalletWrapper receiveTransaction:self.serverTx withComplete:^(BOOL yesOrNo, id _Nullable data) {
-                [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:data];
-            }];
-        }
+        isSend = self.serverTx.isSend;
     }
+    if (self.txLog) {
+        isSend = (self.txLog.tx_type == TxSent);
+    }
+    
+    if (isSend){
+        [WalletWrapper finalizeTransaction:self.serverTx withComplete:^(BOOL yesOrNo, id _Nullable data){
+            [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:data];
+        }];
+    }
+    else{
+        [WalletWrapper receiveTransaction:self.serverTx withComplete:^(BOOL yesOrNo, id _Nullable data) {
+            [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:@"Successful signature"];
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+    }
+    
     
 }
 
@@ -236,6 +280,11 @@
                     }
                 }
                     break;
+                case TxSentCancelled:
+                case TxReceivedCancelled:{
+                    //delete transaction
+                    [self deleteTransactionWith:self.txLog];
+                }
                     
                     break;
                     
@@ -247,11 +296,10 @@
     }
     
     if(self.serverTx){
-        if (self.serverTx.status == TxCanceled) {
-            //delete the transaction
-            
+        if (self.serverTx.status == TxReceived) {
+            VcashTxLog *txLog =  [WalletWrapper getTxByTxid:self.serverTx.tx_id];
+            [self cancleTxWith:txLog];
         }else{
-            //cancel the transaction
             
         }
     }
@@ -259,9 +307,21 @@
    
 }
 
+- (void)deleteTransactionWith:(VcashTxLog *)txlog{
+    BOOL ret = [[VcashDataManager shareInstance] deleteTxBySlateId:txlog.tx_slate_id];
+    if (!ret) {
+        [MBHudHelper showTextTips:[LanguageService contentForKey:@"deleteFailed"] onView:nil withDuration:1.0];
+        return;
+    }
+    [MBHudHelper showTextTips:[LanguageService contentForKey:@"deleteSuc"] onView:nil withDuration:1.0];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 - (void)cancleTxWith:(VcashTxLog *)txlog{
     if ([WalletWrapper cancelTransaction:txlog]){
         [MBHudHelper showTextTips:@"Tx cancel suc" onView:nil withDuration:1];
+        [self.navigationController popViewControllerAnimated:YES];
     }
     else{
         [MBHudHelper showTextTips:@"Tx cancel failed" onView:nil withDuration:1];

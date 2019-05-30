@@ -88,6 +88,11 @@
         case LoalConfirmed://waiting confirm
             self.stateLabel.text = @"ongoing";
             [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
+            if(txLog.tx_type == TxSentCancelled || txLog.tx_type == TxReceivedCancelled){
+                //sender canceled
+                self.stateLabel.text = @"Canceled";
+                [self.imageViewState setImage:[UIImage imageNamed:@"canceled.png"]];
+            }
             break;
         case NetConfirmed:
             self.stateLabel.text = @"Confirmed";

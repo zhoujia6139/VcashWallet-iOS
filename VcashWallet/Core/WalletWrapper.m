@@ -278,7 +278,7 @@
 }
 
 +(Boolean)deleteTxByTxid:(NSString*)txid{
-    return NO;
+    return  [[VcashDataManager shareInstance] deleteTxBySlateId:txid];
 }
 
 +(void)updateOutputStatusWithComplete:(RequestCompleteBlock)block{

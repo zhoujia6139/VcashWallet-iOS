@@ -196,21 +196,21 @@ static NSString *const identifier = @"WalletCell";
     return cell;
 }
 
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    VcashTxLog *model = self.arrTransactionList[indexPath.row];
+    if (model.tx_type == TxSentCancelled || model.tx_type == TxReceivedCancelled) {
+        return YES;
+    }
+    return NO;
+}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+     VcashTxLog *model = self.arrTransactionList[indexPath.row];
     if(editingStyle == UITableViewCellEditingStyleDelete){
-        VcashTxLog *model = self.arrTransactionList[indexPath.row];
-        if (model.isCanBeCanneled){
-            if ([WalletWrapper cancelTransaction:model]){
-                [MBHudHelper showTextTips:@"Tx cancel suc" onView:nil withDuration:1];
-            }
-            else{
-                [MBHudHelper showTextTips:@"Tx cancel failed" onView:nil withDuration:1];
-            }
-            
-            [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationMiddle];
-        }
-        else{
-            [MBHudHelper showTextTips:@"Tx cannot be cancel!" onView:nil withDuration:1];
+       BOOL result = [WalletWrapper deleteTxByTxid:model.tx_slate_id];
+        if (!result) {
+            DDLogError(@"delete canceled transaction failed");
         }
     }
 }
@@ -224,12 +224,9 @@ static NSString *const identifier = @"WalletCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row < self.arrTransactionList.count) {
         VcashTxLog *txLog = self.arrTransactionList[indexPath.row];
-//        TransactionRecordModel *model = self.arrTransactionList[indexPath.row];
         TransactionDetailViewController* transcationDetailVc = [TransactionDetailViewController new];
         transcationDetailVc.txLog = txLog;
         [self.navigationController pushViewController:transcationDetailVc animated:YES];
-//        vc.transactionData = model;
-//        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

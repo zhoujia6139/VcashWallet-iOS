@@ -37,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(BOOL)saveTx:(VcashTxLog*)txLog;
 
+- (BOOL)deleteTxBySlateId:(NSString *)slate_id;
+
 -(VcashTxLog*)getTxBySlateId:(NSString*)slate_id;
 
 -(NSArray*)getTxData;
@@ -45,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(BOOL)saveContext:(VcashContext*)context;
 
 -(VcashContext*)getContextBySlateId:(NSString*)slateid;
+
+
 
 //database transaction
 -(BOOL)beginDatabaseTransaction;
