@@ -9,7 +9,16 @@
 #import "PinVerifyViewController.h"
 #import "PinPasswordInputView.h"
 
-@interface PinVerifyViewController ()<PasswordViewDelegate>
+
+
+@interface PinVerifyViewController ()<PasswordViewDelegate,UITextFieldDelegate>
+
+@property (weak, nonatomic) IBOutlet VcashButton *btnOpenWallet;
+
+
+@property (weak, nonatomic) IBOutlet VcashTextField *textFieldPassword;
+
+@property (weak, nonatomic) IBOutlet UIView *viewLine;
 
 @property (nonatomic, strong) PinPasswordInputView *pasView;
 
@@ -20,13 +29,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"密码验证";
-    self.view.backgroundColor = [UIColor colorWithRed:230 / 250.0 green:230 / 250.0 blue:230 / 250.0 alpha:1.0];
-    self.navigationController.navigationBar.translucent = NO;
+    [self.textFieldPassword setValue:[UIColor colorWithHexString:@"#666666"] forKeyPath:@"_placeholderLabel.textColor"];
+    self.btnOpenWallet.userInteractionEnabled = NO;
+    self.btnOpenWallet.backgroundColor = CGrayColor;
+    ViewRadius(self.btnOpenWallet, 4.0);
+    self.textFieldPassword.delegate  = self;
+    [self.textFieldPassword addTarget:self action:@selector(enterPassword:) forControlEvents:UIControlEventEditingChanged];
     
-    self.pasView = [[PinPasswordInputView alloc] initWithFrame:CGRectMake(16, 100, self.view.frame.size.width - 32, 45)];
-    self.pasView.delegate = self;
-    [self.view addSubview:_pasView];
+//    self.pasView = [[PinPasswordInputView alloc] initWithFrame:CGRectMake(16, 100, self.view.frame.size.width - 32, 45)];
+//    self.pasView.delegate = self;
+//    [self.view addSubview:_pasView];
+//    
     
 //    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 //    button.backgroundColor = [UIColor brownColor];
@@ -34,18 +47,44 @@
 //    [button addTarget:self action:@selector(btnAction) forControlEvents:UIControlEventTouchUpInside];
 //    [button setTitle:@"确定" forState:UIControlStateNormal];
 //    [self.view addSubview:button];
-    UIButton* btn = [[UIButton alloc] initWithFrame:CGRectMake((ScreenWidth-140)/2, (ScreenHeight/2-50), 140, 40)];
+    UIButton* btn = [[UIButton alloc] initWithFrame:CGRectMake((ScreenWidth-140)/2, (ScreenHeight-50), 140, 40)];
     [btn setTitle:@"重新恢复钱包" forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(resetWallet) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
+
+-(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self.pasView openKeyboard];
 }
+
+- (void)enterPassword:(UITextField *)textField{
+    if (textField.text.length > 0) {
+        self.btnOpenWallet.userInteractionEnabled = YES;
+        self.btnOpenWallet.backgroundColor = COrangeColor;
+    }else{
+        self.btnOpenWallet.userInteractionEnabled = NO;
+        self.btnOpenWallet.backgroundColor = CGrayColor;
+    }
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    self.viewLine.backgroundColor = [UIColor whiteColor];
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    self.viewLine.backgroundColor = CGrayColor;
+}
+
+
+- (IBAction)clickedEnterWallet:(id)sender {
+    [self checkPassword:self.textFieldPassword.text];
+}
+
 
 -(void)checkPassword:(NSString*)password
 {

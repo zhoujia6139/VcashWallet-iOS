@@ -6,8 +6,8 @@
 //  Copyright © 2018年 blockin. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface RecoverMnemonicViewController : UIViewController
+@interface RecoverMnemonicViewController : BaseViewController
 
 @end

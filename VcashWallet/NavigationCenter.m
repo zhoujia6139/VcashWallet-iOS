@@ -10,6 +10,7 @@
 #import "WelcomePageViewController.h"
 #import "WalletViewController.h"
 #import "PinVerifyViewController.h"
+#import "VcashNavigationViewController.h"
 
 static UINavigationController* curNavVC;
 
@@ -17,7 +18,7 @@ static UINavigationController* curNavVC;
 
 +(void)showWelcomePage
 {
-    UINavigationController* nav = [[UINavigationController alloc] init];
+    VcashNavigationViewController* nav = [[VcashNavigationViewController alloc] init];
     WelcomePageViewController* welcomeVc = [[WelcomePageViewController alloc] init];
     nav.viewControllers = @[welcomeVc];
     UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
@@ -27,7 +28,7 @@ static UINavigationController* curNavVC;
 
 +(void)showWalletPage:(BOOL)isRecover
 {
-    UINavigationController* nav = [[UINavigationController alloc] init];
+    VcashNavigationViewController* nav = [[VcashNavigationViewController alloc] init];
     WalletViewController* welcomeVc = [[WalletViewController alloc] init];
     welcomeVc.enterInRecoverMode = isRecover;
     nav.viewControllers = @[welcomeVc];

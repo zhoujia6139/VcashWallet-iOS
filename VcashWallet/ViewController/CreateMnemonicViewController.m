@@ -13,11 +13,19 @@
 //#import "AddressTransactionDataService.h"
 #import "PhraseWordShowViewCreator.h"
 #import "PinPasswordSetViewController.h"
+#import "AlertView.h"
+#import "ConfirmSeedphraseViewController.h"
 //#import "MnemonicVerifyViewController.h"
 
 @interface CreateMnemonicViewController ()
 
+@property (weak, nonatomic) IBOutlet UIView *promptView;
+
 @property (weak, nonatomic) IBOutlet UIView *phraseWordView;
+
+@property (weak, nonatomic) IBOutlet VcashButton *nextBtn;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *copnstraintPromptView;
 
 @end
 
@@ -31,11 +39,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"创建钱包";
+    self.navigationItem.title = [LanguageService contentForKey:@"createNewWalletTitle"];
+    self.copnstraintPromptView.constant = ScreenWidth - 24;
+    ViewRadius(self.promptView, 4.0);
+    ViewRadius(self.nextBtn, 4.0);
     creator = [PhraseWordShowViewCreator new];
     [creator creatPhraseViewWithParentView:self.phraseWordView isCanEdit:NO withCallBack:nil];
 
     [self refreshPharseView];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didTakeScreenshot) name:UIApplicationUserDidTakeScreenshotNotification object:nil];
 }
 
@@ -57,10 +69,26 @@
 }
 
 - (IBAction)clickedWalletBtn:(id)sender {
+    
+    AlertView *alertView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([AlertView class]) owner:nil options:nil] firstObject];
+    __weak typeof(self) weakSelf = self;
+    alertView.doneCallBack = ^{
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf pushConfirmPhraseVc];
+    };
+    [alertView show];
+    return;
     NSArray* wordsArr = [creator getAllInputWords];
     PinPasswordSetViewController*vc = [PinPasswordSetViewController new];
     vc.mnemonicWordsArr = wordsArr;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)pushConfirmPhraseVc{
+    NSArray* wordsArr = [creator getAllInputWords];
+    ConfirmSeedphraseViewController *confirmPhraseVc = [ConfirmSeedphraseViewController new];
+    confirmPhraseVc.mnemonicWordsArr = wordsArr;
+    [self.navigationController pushViewController:confirmPhraseVc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

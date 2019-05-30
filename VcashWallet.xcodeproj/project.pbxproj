@@ -8,11 +8,144 @@
 
 /* Begin PBXBuildFile section */
 		111D98D7603A8F1579E12602 /* libPods-VcashWallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38B93DB289A56D999A4C8C7C /* libPods-VcashWallet.a */; };
+		A26FEBBD229F7DE0003CCD7C /* WalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB70229F7DE0003CCD7C /* WalletViewController.xib */; };
+		A26FEBBE229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB71229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m */; };
+		A26FEBBF229F7DE0003CCD7C /* HandleSlateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB73229F7DE0003CCD7C /* HandleSlateViewController.xib */; };
+		A26FEBC0229F7DE0003CCD7C /* SendTransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB74229F7DE0003CCD7C /* SendTransactionViewController.xib */; };
+		A26FEBC1229F7DE0003CCD7C /* WelcomePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB77229F7DE0003CCD7C /* WelcomePageViewController.xib */; };
+		A26FEBC2229F7DE0003CCD7C /* ConfirmSeedphraseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB78229F7DE0003CCD7C /* ConfirmSeedphraseViewController.xib */; };
+		A26FEBC3229F7DE0003CCD7C /* TransactionDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB7A229F7DE0003CCD7C /* TransactionDetailViewController.xib */; };
+		A26FEBC4229F7DE0003CCD7C /* TransactionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB7C229F7DE0003CCD7C /* TransactionDetailViewController.m */; };
+		A26FEBC5229F7DE0003CCD7C /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB7E229F7DE0003CCD7C /* BaseViewController.m */; };
+		A26FEBC6229F7DE0003CCD7C /* PinVerifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB7F229F7DE0003CCD7C /* PinVerifyViewController.xib */; };
+		A26FEBC7229F7DE0003CCD7C /* CreateMnemonicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB81229F7DE0003CCD7C /* CreateMnemonicViewController.m */; };
+		A26FEBC8229F7DE0003CCD7C /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB82229F7DE0003CCD7C /* ScanViewController.m */; };
+		A26FEBC9229F7DE0003CCD7C /* WelcomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB85229F7DE0003CCD7C /* WelcomePageViewController.m */; };
+		A26FEBCA229F7DE0003CCD7C /* WalletCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB88229F7DE0003CCD7C /* WalletCell.m */; };
+		A26FEBCB229F7DE0003CCD7C /* LeftMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB89229F7DE0003CCD7C /* LeftMenuCell.xib */; };
+		A26FEBCC229F7DE0003CCD7C /* WalletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB8B229F7DE0003CCD7C /* WalletCell.xib */; };
+		A26FEBCD229F7DE0003CCD7C /* LeftMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB8C229F7DE0003CCD7C /* LeftMenuCell.m */; };
+		A26FEBCE229F7DE0003CCD7C /* RecoverMnemonicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB8E229F7DE0003CCD7C /* RecoverMnemonicViewController.m */; };
+		A26FEBCF229F7DE0003CCD7C /* HandleSlateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB8F229F7DE0003CCD7C /* HandleSlateViewController.m */; };
+		A26FEBD0229F7DE0003CCD7C /* CreateWalletNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB90229F7DE0003CCD7C /* CreateWalletNoteViewController.m */; };
+		A26FEBD1229F7DE0003CCD7C /* PinPasswordSetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB92229F7DE0003CCD7C /* PinPasswordSetViewController.xib */; };
+		A26FEBD2229F7DE0003CCD7C /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB96229F7DE0003CCD7C /* ChangePasswordViewController.m */; };
+		A26FEBD3229F7DE0003CCD7C /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB97229F7DE0003CCD7C /* SettingViewController.xib */; };
+		A26FEBD4229F7DE0003CCD7C /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB98229F7DE0003CCD7C /* ChangePasswordViewController.xib */; };
+		A26FEBD5229F7DE0003CCD7C /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB99229F7DE0003CCD7C /* SettingViewController.m */; };
+		A26FEBD6229F7DE0003CCD7C /* VcashNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB9A229F7DE0003CCD7C /* VcashNavigationViewController.m */; };
+		A26FEBD7229F7DE0003CCD7C /* CreateMnemonicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB9B229F7DE0003CCD7C /* CreateMnemonicViewController.xib */; };
+		A26FEBD8229F7DE0003CCD7C /* LeftMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB9D229F7DE0003CCD7C /* LeftMenuModel.m */; };
+		A26FEBD9229F7DE0003CCD7C /* PhraseWordShowViewCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBA1229F7DE0003CCD7C /* PhraseWordShowViewCreator.m */; };
+		A26FEBDA229F7DE0003CCD7C /* ServerTxPopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBA2229F7DE0003CCD7C /* ServerTxPopView.xib */; };
+		A26FEBDB229F7DE0003CCD7C /* ServerTxPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBA3229F7DE0003CCD7C /* ServerTxPopView.m */; };
+		A26FEBDC229F7DE0003CCD7C /* SendTransactionConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBA4229F7DE0003CCD7C /* SendTransactionConfirmView.xib */; };
+		A26FEBDD229F7DE0003CCD7C /* MessageNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBA5229F7DE0003CCD7C /* MessageNotificationView.m */; };
+		A26FEBDE229F7DE0003CCD7C /* PinPasswordInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBA7229F7DE0003CCD7C /* PinPasswordInputView.m */; };
+		A26FEBDF229F7DE0003CCD7C /* MessageNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBA8229F7DE0003CCD7C /* MessageNotificationView.xib */; };
+		A26FEBE0229F7DE0003CCD7C /* LeftMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBA9229F7DE0003CCD7C /* LeftMenuView.xib */; };
+		A26FEBE1229F7DE0003CCD7C /* SendTransactionConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBAA229F7DE0003CCD7C /* SendTransactionConfirmView.m */; };
+		A26FEBE2229F7DE0003CCD7C /* AlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBAC229F7DE0003CCD7C /* AlertView.xib */; };
+		A26FEBE3229F7DE0003CCD7C /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBAE229F7DE0003CCD7C /* AlertView.m */; };
+		A26FEBE4229F7DE0003CCD7C /* LeftMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBB2229F7DE0003CCD7C /* LeftMenuView.m */; };
+		A26FEBE5229F7DE0003CCD7C /* RecoverMnemonicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBB3229F7DE0003CCD7C /* RecoverMnemonicViewController.xib */; };
+		A26FEBE6229F7DE0003CCD7C /* PinVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBB6229F7DE0003CCD7C /* PinVerifyViewController.m */; };
+		A26FEBE7229F7DE0003CCD7C /* SendTransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBB8229F7DE0003CCD7C /* SendTransactionViewController.m */; };
+		A26FEBE8229F7DE0003CCD7C /* CreateWalletNoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBBA229F7DE0003CCD7C /* CreateWalletNoteViewController.xib */; };
+		A26FEBE9229F7DE0003CCD7C /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBBB229F7DE0003CCD7C /* WalletViewController.m */; };
+		A26FEBEA229F7DE0003CCD7C /* PinPasswordSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBBC229F7DE0003CCD7C /* PinPasswordSetViewController.m */; };
+		A26FEBED229F7E1B003CCD7C /* AppHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBEC229F7E1B003CCD7C /* AppHelper.m */; };
+		A26FEBF6229F7E39003CCD7C /* VcashButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBF1229F7E39003CCD7C /* VcashButton.m */; };
+		A26FEBF7229F7E39003CCD7C /* VcashTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBF3229F7E39003CCD7C /* VcashTextField.m */; };
+		A26FEBF8229F7E39003CCD7C /* VcashLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBF5229F7E39003CCD7C /* VcashLabel.m */; };
+		A26FEBFB229F7FBB003CCD7C /* LanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBF9229F7FBB003CCD7C /* LanguageManager.m */; };
+		A26FEC4F229F805A003CCD7C /* circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBFD229F805A003CCD7C /* circle@2x.png */; };
+		A26FEC50229F805A003CCD7C /* lock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBFE229F805A003CCD7C /* lock@2x.png */; };
+		A26FEC51229F805A003CCD7C /* canceldetail@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBFF229F805A003CCD7C /* canceldetail@3x.png */; };
+		A26FEC52229F805A003CCD7C /* walletleftimage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC00229F805A003CCD7C /* walletleftimage@2x.png */; };
+		A26FEC53229F805A003CCD7C /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC01229F805A003CCD7C /* back@2x.png */; };
+		A26FEC54229F805A003CCD7C /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC02229F805A003CCD7C /* add@2x.png */; };
+		A26FEC55229F805A003CCD7C /* confirmed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC03229F805A003CCD7C /* confirmed@2x.png */; };
+		A26FEC56229F805A003CCD7C /* setting_hight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC04229F805A003CCD7C /* setting_hight@2x.png */; };
+		A26FEC57229F805A003CCD7C /* send@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC05229F805A003CCD7C /* send@2x.png */; };
+		A26FEC58229F805A003CCD7C /* send@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC06229F805A003CCD7C /* send@3x.png */; };
+		A26FEC59229F805A003CCD7C /* back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC07229F805A003CCD7C /* back@3x.png */; };
+		A26FEC5A229F805A003CCD7C /* add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC08229F805A003CCD7C /* add@3x.png */; };
+		A26FEC5B229F805A003CCD7C /* confirmed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC09229F805A003CCD7C /* confirmed@3x.png */; };
+		A26FEC5C229F805B003CCD7C /* setting_hight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC0A229F805A003CCD7C /* setting_hight@3x.png */; };
+		A26FEC5D229F805B003CCD7C /* walletleftimage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC0B229F805A003CCD7C /* walletleftimage@3x.png */; };
+		A26FEC5E229F805B003CCD7C /* canceldetail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC0C229F805A003CCD7C /* canceldetail@2x.png */; };
+		A26FEC5F229F805B003CCD7C /* lock@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC0D229F805A003CCD7C /* lock@3x.png */; };
+		A26FEC60229F805B003CCD7C /* circle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC0E229F805A003CCD7C /* circle@3x.png */; };
+		A26FEC61229F805B003CCD7C /* eye@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC0F229F805A003CCD7C /* eye@3x.png */; };
+		A26FEC62229F805B003CCD7C /* finish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC10229F805A003CCD7C /* finish@2x.png */; };
+		A26FEC63229F805B003CCD7C /* dottedline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC11229F805A003CCD7C /* dottedline@2x.png */; };
+		A26FEC64229F805B003CCD7C /* receivechose@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC12229F805A003CCD7C /* receivechose@3x.png */; };
+		A26FEC65229F805B003CCD7C /* cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC13229F805A003CCD7C /* cancel@3x.png */; };
+		A26FEC66229F805B003CCD7C /* canceled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC14229F805A003CCD7C /* canceled@3x.png */; };
+		A26FEC67229F805B003CCD7C /* restore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC15229F805A003CCD7C /* restore@2x.png */; };
+		A26FEC68229F805B003CCD7C /* copy@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC16229F805A003CCD7C /* copy@3x.png */; };
+		A26FEC69229F805B003CCD7C /* setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC17229F805A003CCD7C /* setting@2x.png */; };
+		A26FEC6A229F805B003CCD7C /* setting@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC18229F805A003CCD7C /* setting@3x.png */; };
+		A26FEC6B229F805B003CCD7C /* scanscanBg.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC19229F805A003CCD7C /* scanscanBg.png */; };
+		A26FEC6C229F805B003CCD7C /* copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC1A229F805A003CCD7C /* copy@2x.png */; };
+		A26FEC6D229F805B003CCD7C /* restore@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC1B229F805A003CCD7C /* restore@3x.png */; };
+		A26FEC6E229F805B003CCD7C /* canceled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC1C229F805A003CCD7C /* canceled@2x.png */; };
+		A26FEC6F229F805B003CCD7C /* cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC1D229F805A003CCD7C /* cancel@2x.png */; };
+		A26FEC70229F805B003CCD7C /* receivechose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC1E229F805A003CCD7C /* receivechose@2x.png */; };
+		A26FEC71229F805B003CCD7C /* dottedline@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC1F229F805A003CCD7C /* dottedline@3x.png */; };
+		A26FEC72229F805B003CCD7C /* finish@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC20229F805A003CCD7C /* finish@3x.png */; };
+		A26FEC73229F805B003CCD7C /* eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC21229F805A003CCD7C /* eye@2x.png */; };
+		A26FEC74229F805B003CCD7C /* rightindicator@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC22229F805A003CCD7C /* rightindicator@3x.png */; };
+		A26FEC75229F805B003CCD7C /* receive@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC23229F805A003CCD7C /* receive@3x.png */; };
+		A26FEC76229F805B003CCD7C /* sendchose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC24229F805A003CCD7C /* sendchose@2x.png */; };
+		A26FEC77229F805B003CCD7C /* headbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC25229F805A003CCD7C /* headbg@2x.png */; };
+		A26FEC78229F805B003CCD7C /* topradius.9.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC26229F805A003CCD7C /* topradius.9.png */; };
+		A26FEC79229F805B003CCD7C /* scanLine@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC27229F805A003CCD7C /* scanLine@3x.png */; };
+		A26FEC7A229F805B003CCD7C /* logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC28229F805A003CCD7C /* logo@3x.png */; };
+		A26FEC7B229F805B003CCD7C /* balancelogo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC29229F805A003CCD7C /* balancelogo@3x.png */; };
+		A26FEC7C229F805B003CCD7C /* adressbook@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC2A229F805A003CCD7C /* adressbook@3x.png */; };
+		A26FEC7D229F805B003CCD7C /* copywalletid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC2B229F805A003CCD7C /* copywalletid@2x.png */; };
+		A26FEC7E229F805B003CCD7C /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC2C229F805A003CCD7C /* bg@2x.png */; };
+		A26FEC7F229F805B003CCD7C /* scan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC2D229F805A003CCD7C /* scan@2x.png */; };
+		A26FEC80229F805B003CCD7C /* ongoing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC2E229F805A003CCD7C /* ongoing@2x.png */; };
+		A26FEC81229F805B003CCD7C /* ongoing@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC2F229F805A003CCD7C /* ongoing@3x.png */; };
+		A26FEC82229F805B003CCD7C /* scan@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC30229F805A003CCD7C /* scan@3x.png */; };
+		A26FEC83229F805B003CCD7C /* bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC31229F805A003CCD7C /* bg@3x.png */; };
+		A26FEC84229F805B003CCD7C /* adressbook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC32229F805A003CCD7C /* adressbook@2x.png */; };
+		A26FEC85229F805B003CCD7C /* copywalletid@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC33229F805A003CCD7C /* copywalletid@3x.png */; };
+		A26FEC86229F805B003CCD7C /* balancelogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC34229F805A003CCD7C /* balancelogo@2x.png */; };
+		A26FEC87229F805B003CCD7C /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC35229F805A003CCD7C /* logo@2x.png */; };
+		A26FEC88229F805B003CCD7C /* scanLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC36229F805A003CCD7C /* scanLine@2x.png */; };
+		A26FEC89229F805B003CCD7C /* headbg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC37229F805A003CCD7C /* headbg@3x.png */; };
+		A26FEC8A229F805B003CCD7C /* sendchose@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC38229F805A003CCD7C /* sendchose@3x.png */; };
+		A26FEC8B229F805B003CCD7C /* receive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC39229F805A003CCD7C /* receive@2x.png */; };
+		A26FEC8C229F805B003CCD7C /* rightindicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC3A229F805A003CCD7C /* rightindicator@2x.png */; };
+		A26FEC8D229F805B003CCD7C /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC3B229F805A003CCD7C /* delete@2x.png */; };
+		A26FEC8E229F805B003CCD7C /* wallet_hight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC3C229F805A003CCD7C /* wallet_hight@3x.png */; };
+		A26FEC8F229F805B003CCD7C /* confirmdetail@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC3D229F805A003CCD7C /* confirmdetail@3x.png */; };
+		A26FEC90229F805B003CCD7C /* indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC3E229F805A003CCD7C /* indicator@2x.png */; };
+		A26FEC91229F805B003CCD7C /* wallet@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC3F229F805A003CCD7C /* wallet@3x.png */; };
+		A26FEC92229F805B003CCD7C /* vcash@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC40229F805A003CCD7C /* vcash@3x.png */; };
+		A26FEC93229F805B003CCD7C /* adressbook_hight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC41229F805A003CCD7C /* adressbook_hight@3x.png */; };
+		A26FEC94229F805B003CCD7C /* tip.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC42229F805A003CCD7C /* tip.png */; };
+		A26FEC95229F805B003CCD7C /* ongoingdetail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC43229F805A003CCD7C /* ongoingdetail@2x.png */; };
+		A26FEC96229F805B003CCD7C /* ongoingdetail@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC44229F805A003CCD7C /* ongoingdetail@3x.png */; };
+		A26FEC97229F805B003CCD7C /* vcash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC45229F805A003CCD7C /* vcash@2x.png */; };
+		A26FEC98229F805B003CCD7C /* adressbook_hight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC46229F805A003CCD7C /* adressbook_hight@2x.png */; };
+		A26FEC99229F805B003CCD7C /* wallet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC47229F805A003CCD7C /* wallet@2x.png */; };
+		A26FEC9A229F805B003CCD7C /* tip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC48229F805A003CCD7C /* tip@2x.png */; };
+		A26FEC9B229F805B003CCD7C /* indicator@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC49229F805A003CCD7C /* indicator@3x.png */; };
+		A26FEC9C229F805B003CCD7C /* normal.9.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC4A229F805A003CCD7C /* normal.9.png */; };
+		A26FEC9D229F805B003CCD7C /* confirmdetail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC4B229F805A003CCD7C /* confirmdetail@2x.png */; };
+		A26FEC9E229F805B003CCD7C /* wallet_hight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC4C229F805A003CCD7C /* wallet_hight@2x.png */; };
+		A26FEC9F229F805B003CCD7C /* delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC4D229F805A003CCD7C /* delete@3x.png */; };
+		A26FECA0229F805B003CCD7C /* bottomradius.9.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC4E229F805A003CCD7C /* bottomradius.9.png */; };
+		A26FECA3229F8064003CCD7C /* en.json in Resources */ = {isa = PBXBuildFile; fileRef = A26FECA2229F8063003CCD7C /* en.json */; };
+		A26FECA6229F836D003CCD7C /* NavigationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FECA4229F836C003CCD7C /* NavigationCenter.m */; };
 		ED24988F2280298D00D94EBE /* ServerApi.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24988E2280298D00D94EBE /* ServerApi.m */; };
 		ED24989222802B9E00D94EBE /* ServerType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24989122802B9E00D94EBE /* ServerType.m */; };
 		ED2498992281279600D94EBE /* ServerTxManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2498982281279600D94EBE /* ServerTxManager.m */; };
-		ED24989C22812F2D00D94EBE /* ServerTxPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24989B22812F2D00D94EBE /* ServerTxPopView.m */; };
-		ED2498A022816E7000D94EBE /* ServerTxPopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED24989F22816E7000D94EBE /* ServerTxPopView.xib */; };
 		ED3C7551226EC30A00B42555 /* VcashDataManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7550226EC30A00B42555 /* VcashDataManager.mm */; };
 		ED3C7557226EC78B00B42555 /* VcashOutput.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7556226EC78B00B42555 /* VcashOutput.mm */; };
 		ED3C755C226EE9ED00B42555 /* VcashTxLog.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C755B226EE9ED00B42555 /* VcashTxLog.mm */; };
@@ -20,16 +153,6 @@
 		ED3C7563226F112500B42555 /* VcashContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7562226F112500B42555 /* VcashContext.mm */; };
 		ED3C756A2270744400B42555 /* PublicTool.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C75692270744400B42555 /* PublicTool.m */; };
 		ED3C756D2271611400B42555 /* VcashWalletInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C756C2271611400B42555 /* VcashWalletInfo.mm */; };
-		ED3C757222731C3900B42555 /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C756F22731C3800B42555 /* WalletViewController.m */; };
-		ED3C757322731C3900B42555 /* WalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED3C757022731C3800B42555 /* WalletViewController.xib */; };
-		ED41677E22755D4C000B5DC8 /* WalletCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED41677B22755D4C000B5DC8 /* WalletCell.m */; };
-		ED41677F22755D4C000B5DC8 /* WalletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED41677C22755D4C000B5DC8 /* WalletCell.xib */; };
-		ED4167872275B04A000B5DC8 /* SendTransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4167842275B049000B5DC8 /* SendTransactionViewController.m */; };
-		ED4167882275B04A000B5DC8 /* SendTransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED4167852275B04A000B5DC8 /* SendTransactionViewController.xib */; };
-		ED41678C2275B1D6000B5DC8 /* SendTransactionConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED41678A2275B1D6000B5DC8 /* SendTransactionConfirmView.m */; };
-		ED41678D2275B1D6000B5DC8 /* SendTransactionConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED41678B2275B1D6000B5DC8 /* SendTransactionConfirmView.xib */; };
-		ED4167952276A9A0000B5DC8 /* HandleSlateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4167932276A9A0000B5DC8 /* HandleSlateViewController.m */; };
-		ED4167962276A9A0000B5DC8 /* HandleSlateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED4167942276A9A0000B5DC8 /* HandleSlateViewController.xib */; };
 		ED44BF7122696CF50042928E /* BTCBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE322696CF50042928E /* BTCBlock.m */; };
 		ED44BF7222696CF50042928E /* BTCBlockHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE422696CF50042928E /* BTCBlockHeader.m */; };
 		ED44BF7322696CF50042928E /* BTCEncryptedBackup.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE722696CF50042928E /* BTCEncryptedBackup.m */; };
@@ -100,22 +223,12 @@
 		ED44BFB422696CF50042928E /* BTCFancyEncryptedMessage+Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BF6822696CF50042928E /* BTCFancyEncryptedMessage+Tests.m */; };
 		ED44BFB522696CF50042928E /* BTCErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BF6D22696CF50042928E /* BTCErrors.m */; };
 		ED44BFBE226978C50042928E /* UserCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFB8226978C50042928E /* UserCenter.m */; };
-		ED44BFBF226978C50042928E /* NavigationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFB9226978C50042928E /* NavigationCenter.m */; };
 		ED44BFC0226978C50042928E /* MBHudHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFBC226978C50042928E /* MBHudHelper.m */; };
 		ED44BFCA226979DA0042928E /* NSData+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFC2226979DA0042928E /* NSData+AES256.m */; };
 		ED44BFCB226979DA0042928E /* NSString +AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFC4226979DA0042928E /* NSString +AES256.m */; };
 		ED44BFCC226979DA0042928E /* NSNumber+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFC5226979DA0042928E /* NSNumber+Utils.m */; };
 		ED44BFCD226979DA0042928E /* UIViewController+POPHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFC7226979DA0042928E /* UIViewController+POPHUD.m */; };
-		ED44BFD322697B570042928E /* WelcomePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED44BFD022697B570042928E /* WelcomePageViewController.xib */; };
-		ED44BFD422697B570042928E /* WelcomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFD222697B570042928E /* WelcomePageViewController.m */; };
-		ED44BFDB22697BAF0042928E /* CreateMnemonicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFD522697BAF0042928E /* CreateMnemonicViewController.m */; };
-		ED44BFDC22697BAF0042928E /* RecoverMnemonicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFD822697BAF0042928E /* RecoverMnemonicViewController.m */; };
-		ED44BFDD22697BAF0042928E /* RecoverMnemonicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED44BFD922697BAF0042928E /* RecoverMnemonicViewController.xib */; };
-		ED44BFDE22697BAF0042928E /* CreateMnemonicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED44BFDA22697BAF0042928E /* CreateMnemonicViewController.xib */; };
 		ED44BFE122697CBA0042928E /* WalletWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFE022697CBA0042928E /* WalletWrapper.m */; };
-		ED44BFE422697E6A0042928E /* PinPasswordInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFE322697E6A0042928E /* PinPasswordInputView.m */; };
-		ED44BFE722697EC60042928E /* PhraseWordShowViewCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFE622697EC60042928E /* PhraseWordShowViewCreator.m */; };
-		ED44BFEA226984EB0042928E /* PinPasswordSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFE8226984EB0042928E /* PinPasswordSetViewController.m */; };
 		ED44BFF02269C87E0042928E /* VcashKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFEF2269C87E0042928E /* VcashKeyChain.m */; };
 		ED44BFF62269D0540042928E /* VcashSecp256k1.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFF52269D0540042928E /* VcashSecp256k1.m */; };
 		ED44BFF9226AC8320042928E /* VcashKeychainPath.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BFF8226AC8320042928E /* VcashKeychainPath.m */; };
@@ -124,7 +237,6 @@
 		ED44C009226D9D8D0042928E /* NodeApi.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C008226D9D8D0042928E /* NodeApi.m */; };
 		ED44C00C226D9FF50042928E /* NodeType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C00B226D9FF50042928E /* NodeType.m */; };
 		ED44C00F226DAFB30042928E /* VcashTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C00E226DAFB30042928E /* VcashTypes.m */; };
-		ED44C012226DC5730042928E /* PinVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C010226DC5730042928E /* PinVerifyViewController.m */; };
 		EDA5148F22686DEC0011138F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA5148E22686DEC0011138F /* AppDelegate.m */; };
 		EDA5149222686DEC0011138F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA5149122686DEC0011138F /* ViewController.m */; };
 		EDA5149522686DEC0011138F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDA5149322686DEC0011138F /* Main.storyboard */; };
@@ -139,15 +251,179 @@
 		2B42695A9EB50E631A668976 /* Pods-VcashWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VcashWallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VcashWallet/Pods-VcashWallet.debug.xcconfig"; sourceTree = "<group>"; };
 		32DD39C5EA5AAED2839B1728 /* Pods-VcashWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VcashWallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-VcashWallet/Pods-VcashWallet.release.xcconfig"; sourceTree = "<group>"; };
 		38B93DB289A56D999A4C8C7C /* libPods-VcashWallet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VcashWallet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A26FEB70229F7DE0003CCD7C /* WalletViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletViewController.xib; sourceTree = "<group>"; };
+		A26FEB71229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmSeedphraseViewController.m; sourceTree = "<group>"; };
+		A26FEB72229F7DE0003CCD7C /* CreateWalletNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateWalletNoteViewController.h; sourceTree = "<group>"; };
+		A26FEB73229F7DE0003CCD7C /* HandleSlateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HandleSlateViewController.xib; sourceTree = "<group>"; };
+		A26FEB74229F7DE0003CCD7C /* SendTransactionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendTransactionViewController.xib; sourceTree = "<group>"; };
+		A26FEB75229F7DE0003CCD7C /* HandleSlateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandleSlateViewController.h; sourceTree = "<group>"; };
+		A26FEB76229F7DE0003CCD7C /* RecoverMnemonicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecoverMnemonicViewController.h; sourceTree = "<group>"; };
+		A26FEB77229F7DE0003CCD7C /* WelcomePageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomePageViewController.xib; sourceTree = "<group>"; };
+		A26FEB78229F7DE0003CCD7C /* ConfirmSeedphraseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmSeedphraseViewController.xib; sourceTree = "<group>"; };
+		A26FEB7A229F7DE0003CCD7C /* TransactionDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionDetailViewController.xib; sourceTree = "<group>"; };
+		A26FEB7B229F7DE0003CCD7C /* TransactionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionDetailViewController.h; sourceTree = "<group>"; };
+		A26FEB7C229F7DE0003CCD7C /* TransactionDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionDetailViewController.m; sourceTree = "<group>"; };
+		A26FEB7D229F7DE0003CCD7C /* VcashNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VcashNavigationViewController.h; sourceTree = "<group>"; };
+		A26FEB7E229F7DE0003CCD7C /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		A26FEB7F229F7DE0003CCD7C /* PinVerifyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PinVerifyViewController.xib; sourceTree = "<group>"; };
+		A26FEB80229F7DE0003CCD7C /* PinVerifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinVerifyViewController.h; sourceTree = "<group>"; };
+		A26FEB81229F7DE0003CCD7C /* CreateMnemonicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateMnemonicViewController.m; sourceTree = "<group>"; };
+		A26FEB82229F7DE0003CCD7C /* ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
+		A26FEB83229F7DE0003CCD7C /* WalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
+		A26FEB84229F7DE0003CCD7C /* PinPasswordSetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinPasswordSetViewController.h; sourceTree = "<group>"; };
+		A26FEB85229F7DE0003CCD7C /* WelcomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomePageViewController.m; sourceTree = "<group>"; };
+		A26FEB86229F7DE0003CCD7C /* SendTransactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendTransactionViewController.h; sourceTree = "<group>"; };
+		A26FEB88229F7DE0003CCD7C /* WalletCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletCell.m; sourceTree = "<group>"; };
+		A26FEB89229F7DE0003CCD7C /* LeftMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftMenuCell.xib; sourceTree = "<group>"; };
+		A26FEB8A229F7DE0003CCD7C /* LeftMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuCell.h; sourceTree = "<group>"; };
+		A26FEB8B229F7DE0003CCD7C /* WalletCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletCell.xib; sourceTree = "<group>"; };
+		A26FEB8C229F7DE0003CCD7C /* LeftMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuCell.m; sourceTree = "<group>"; };
+		A26FEB8D229F7DE0003CCD7C /* WalletCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletCell.h; sourceTree = "<group>"; };
+		A26FEB8E229F7DE0003CCD7C /* RecoverMnemonicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecoverMnemonicViewController.m; sourceTree = "<group>"; };
+		A26FEB8F229F7DE0003CCD7C /* HandleSlateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandleSlateViewController.m; sourceTree = "<group>"; };
+		A26FEB90229F7DE0003CCD7C /* CreateWalletNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateWalletNoteViewController.m; sourceTree = "<group>"; };
+		A26FEB91229F7DE0003CCD7C /* ConfirmSeedphraseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmSeedphraseViewController.h; sourceTree = "<group>"; };
+		A26FEB92229F7DE0003CCD7C /* PinPasswordSetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PinPasswordSetViewController.xib; sourceTree = "<group>"; };
+		A26FEB94229F7DE0003CCD7C /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		A26FEB95229F7DE0003CCD7C /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		A26FEB96229F7DE0003CCD7C /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		A26FEB97229F7DE0003CCD7C /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		A26FEB98229F7DE0003CCD7C /* ChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordViewController.xib; sourceTree = "<group>"; };
+		A26FEB99229F7DE0003CCD7C /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		A26FEB9A229F7DE0003CCD7C /* VcashNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VcashNavigationViewController.m; sourceTree = "<group>"; };
+		A26FEB9B229F7DE0003CCD7C /* CreateMnemonicViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateMnemonicViewController.xib; sourceTree = "<group>"; };
+		A26FEB9D229F7DE0003CCD7C /* LeftMenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuModel.m; sourceTree = "<group>"; };
+		A26FEB9E229F7DE0003CCD7C /* LeftMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuModel.h; sourceTree = "<group>"; };
+		A26FEBA0229F7DE0003CCD7C /* AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertView.h; sourceTree = "<group>"; };
+		A26FEBA1229F7DE0003CCD7C /* PhraseWordShowViewCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhraseWordShowViewCreator.m; sourceTree = "<group>"; };
+		A26FEBA2229F7DE0003CCD7C /* ServerTxPopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerTxPopView.xib; sourceTree = "<group>"; };
+		A26FEBA3229F7DE0003CCD7C /* ServerTxPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerTxPopView.m; sourceTree = "<group>"; };
+		A26FEBA4229F7DE0003CCD7C /* SendTransactionConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendTransactionConfirmView.xib; sourceTree = "<group>"; };
+		A26FEBA5229F7DE0003CCD7C /* MessageNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageNotificationView.m; sourceTree = "<group>"; };
+		A26FEBA6229F7DE0003CCD7C /* LeftMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuView.h; sourceTree = "<group>"; };
+		A26FEBA7229F7DE0003CCD7C /* PinPasswordInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinPasswordInputView.m; sourceTree = "<group>"; };
+		A26FEBA8229F7DE0003CCD7C /* MessageNotificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageNotificationView.xib; sourceTree = "<group>"; };
+		A26FEBA9229F7DE0003CCD7C /* LeftMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftMenuView.xib; sourceTree = "<group>"; };
+		A26FEBAA229F7DE0003CCD7C /* SendTransactionConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendTransactionConfirmView.m; sourceTree = "<group>"; };
+		A26FEBAB229F7DE0003CCD7C /* ServerTxPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerTxPopView.h; sourceTree = "<group>"; };
+		A26FEBAC229F7DE0003CCD7C /* AlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertView.xib; sourceTree = "<group>"; };
+		A26FEBAD229F7DE0003CCD7C /* PhraseWordShowViewCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhraseWordShowViewCreator.h; sourceTree = "<group>"; };
+		A26FEBAE229F7DE0003CCD7C /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
+		A26FEBAF229F7DE0003CCD7C /* MessageNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageNotificationView.h; sourceTree = "<group>"; };
+		A26FEBB0229F7DE0003CCD7C /* SendTransactionConfirmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendTransactionConfirmView.h; sourceTree = "<group>"; };
+		A26FEBB1229F7DE0003CCD7C /* PinPasswordInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinPasswordInputView.h; sourceTree = "<group>"; };
+		A26FEBB2229F7DE0003CCD7C /* LeftMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuView.m; sourceTree = "<group>"; };
+		A26FEBB3229F7DE0003CCD7C /* RecoverMnemonicViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecoverMnemonicViewController.xib; sourceTree = "<group>"; };
+		A26FEBB4229F7DE0003CCD7C /* ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
+		A26FEBB5229F7DE0003CCD7C /* CreateMnemonicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateMnemonicViewController.h; sourceTree = "<group>"; };
+		A26FEBB6229F7DE0003CCD7C /* PinVerifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinVerifyViewController.m; sourceTree = "<group>"; };
+		A26FEBB7229F7DE0003CCD7C /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		A26FEBB8229F7DE0003CCD7C /* SendTransactionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendTransactionViewController.m; sourceTree = "<group>"; };
+		A26FEBB9229F7DE0003CCD7C /* WelcomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomePageViewController.h; sourceTree = "<group>"; };
+		A26FEBBA229F7DE0003CCD7C /* CreateWalletNoteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateWalletNoteViewController.xib; sourceTree = "<group>"; };
+		A26FEBBB229F7DE0003CCD7C /* WalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
+		A26FEBBC229F7DE0003CCD7C /* PinPasswordSetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinPasswordSetViewController.m; sourceTree = "<group>"; };
+		A26FEBEB229F7E1A003CCD7C /* AppHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppHelper.h; sourceTree = "<group>"; };
+		A26FEBEC229F7E1B003CCD7C /* AppHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppHelper.m; sourceTree = "<group>"; };
+		A26FEBF0229F7E39003CCD7C /* VcashTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VcashTextField.h; sourceTree = "<group>"; };
+		A26FEBF1229F7E39003CCD7C /* VcashButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VcashButton.m; sourceTree = "<group>"; };
+		A26FEBF2229F7E39003CCD7C /* VcashLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VcashLabel.h; sourceTree = "<group>"; };
+		A26FEBF3229F7E39003CCD7C /* VcashTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VcashTextField.m; sourceTree = "<group>"; };
+		A26FEBF4229F7E39003CCD7C /* VcashButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VcashButton.h; sourceTree = "<group>"; };
+		A26FEBF5229F7E39003CCD7C /* VcashLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VcashLabel.m; sourceTree = "<group>"; };
+		A26FEBF9229F7FBB003CCD7C /* LanguageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageManager.m; sourceTree = "<group>"; };
+		A26FEBFA229F7FBB003CCD7C /* LanguageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageManager.h; sourceTree = "<group>"; };
+		A26FEBFD229F805A003CCD7C /* circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle@2x.png"; sourceTree = "<group>"; };
+		A26FEBFE229F805A003CCD7C /* lock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock@2x.png"; sourceTree = "<group>"; };
+		A26FEBFF229F805A003CCD7C /* canceldetail@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canceldetail@3x.png"; sourceTree = "<group>"; };
+		A26FEC00229F805A003CCD7C /* walletleftimage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "walletleftimage@2x.png"; sourceTree = "<group>"; };
+		A26FEC01229F805A003CCD7C /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
+		A26FEC02229F805A003CCD7C /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
+		A26FEC03229F805A003CCD7C /* confirmed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "confirmed@2x.png"; sourceTree = "<group>"; };
+		A26FEC04229F805A003CCD7C /* setting_hight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_hight@2x.png"; sourceTree = "<group>"; };
+		A26FEC05229F805A003CCD7C /* send@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "send@2x.png"; sourceTree = "<group>"; };
+		A26FEC06229F805A003CCD7C /* send@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "send@3x.png"; sourceTree = "<group>"; };
+		A26FEC07229F805A003CCD7C /* back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@3x.png"; sourceTree = "<group>"; };
+		A26FEC08229F805A003CCD7C /* add@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@3x.png"; sourceTree = "<group>"; };
+		A26FEC09229F805A003CCD7C /* confirmed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "confirmed@3x.png"; sourceTree = "<group>"; };
+		A26FEC0A229F805A003CCD7C /* setting_hight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_hight@3x.png"; sourceTree = "<group>"; };
+		A26FEC0B229F805A003CCD7C /* walletleftimage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "walletleftimage@3x.png"; sourceTree = "<group>"; };
+		A26FEC0C229F805A003CCD7C /* canceldetail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canceldetail@2x.png"; sourceTree = "<group>"; };
+		A26FEC0D229F805A003CCD7C /* lock@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock@3x.png"; sourceTree = "<group>"; };
+		A26FEC0E229F805A003CCD7C /* circle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle@3x.png"; sourceTree = "<group>"; };
+		A26FEC0F229F805A003CCD7C /* eye@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eye@3x.png"; sourceTree = "<group>"; };
+		A26FEC10229F805A003CCD7C /* finish@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "finish@2x.png"; sourceTree = "<group>"; };
+		A26FEC11229F805A003CCD7C /* dottedline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dottedline@2x.png"; sourceTree = "<group>"; };
+		A26FEC12229F805A003CCD7C /* receivechose@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "receivechose@3x.png"; sourceTree = "<group>"; };
+		A26FEC13229F805A003CCD7C /* cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@3x.png"; sourceTree = "<group>"; };
+		A26FEC14229F805A003CCD7C /* canceled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canceled@3x.png"; sourceTree = "<group>"; };
+		A26FEC15229F805A003CCD7C /* restore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "restore@2x.png"; sourceTree = "<group>"; };
+		A26FEC16229F805A003CCD7C /* copy@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "copy@3x.png"; sourceTree = "<group>"; };
+		A26FEC17229F805A003CCD7C /* setting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting@2x.png"; sourceTree = "<group>"; };
+		A26FEC18229F805A003CCD7C /* setting@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting@3x.png"; sourceTree = "<group>"; };
+		A26FEC19229F805A003CCD7C /* scanscanBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scanscanBg.png; sourceTree = "<group>"; };
+		A26FEC1A229F805A003CCD7C /* copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "copy@2x.png"; sourceTree = "<group>"; };
+		A26FEC1B229F805A003CCD7C /* restore@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "restore@3x.png"; sourceTree = "<group>"; };
+		A26FEC1C229F805A003CCD7C /* canceled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canceled@2x.png"; sourceTree = "<group>"; };
+		A26FEC1D229F805A003CCD7C /* cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@2x.png"; sourceTree = "<group>"; };
+		A26FEC1E229F805A003CCD7C /* receivechose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "receivechose@2x.png"; sourceTree = "<group>"; };
+		A26FEC1F229F805A003CCD7C /* dottedline@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dottedline@3x.png"; sourceTree = "<group>"; };
+		A26FEC20229F805A003CCD7C /* finish@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "finish@3x.png"; sourceTree = "<group>"; };
+		A26FEC21229F805A003CCD7C /* eye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eye@2x.png"; sourceTree = "<group>"; };
+		A26FEC22229F805A003CCD7C /* rightindicator@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rightindicator@3x.png"; sourceTree = "<group>"; };
+		A26FEC23229F805A003CCD7C /* receive@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "receive@3x.png"; sourceTree = "<group>"; };
+		A26FEC24229F805A003CCD7C /* sendchose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sendchose@2x.png"; sourceTree = "<group>"; };
+		A26FEC25229F805A003CCD7C /* headbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "headbg@2x.png"; sourceTree = "<group>"; };
+		A26FEC26229F805A003CCD7C /* topradius.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topradius.9.png; sourceTree = "<group>"; };
+		A26FEC27229F805A003CCD7C /* scanLine@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanLine@3x.png"; sourceTree = "<group>"; };
+		A26FEC28229F805A003CCD7C /* logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@3x.png"; sourceTree = "<group>"; };
+		A26FEC29229F805A003CCD7C /* balancelogo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "balancelogo@3x.png"; sourceTree = "<group>"; };
+		A26FEC2A229F805A003CCD7C /* adressbook@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adressbook@3x.png"; sourceTree = "<group>"; };
+		A26FEC2B229F805A003CCD7C /* copywalletid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "copywalletid@2x.png"; sourceTree = "<group>"; };
+		A26FEC2C229F805A003CCD7C /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
+		A26FEC2D229F805A003CCD7C /* scan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan@2x.png"; sourceTree = "<group>"; };
+		A26FEC2E229F805A003CCD7C /* ongoing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ongoing@2x.png"; sourceTree = "<group>"; };
+		A26FEC2F229F805A003CCD7C /* ongoing@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ongoing@3x.png"; sourceTree = "<group>"; };
+		A26FEC30229F805A003CCD7C /* scan@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan@3x.png"; sourceTree = "<group>"; };
+		A26FEC31229F805A003CCD7C /* bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@3x.png"; sourceTree = "<group>"; };
+		A26FEC32229F805A003CCD7C /* adressbook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adressbook@2x.png"; sourceTree = "<group>"; };
+		A26FEC33229F805A003CCD7C /* copywalletid@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "copywalletid@3x.png"; sourceTree = "<group>"; };
+		A26FEC34229F805A003CCD7C /* balancelogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "balancelogo@2x.png"; sourceTree = "<group>"; };
+		A26FEC35229F805A003CCD7C /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
+		A26FEC36229F805A003CCD7C /* scanLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanLine@2x.png"; sourceTree = "<group>"; };
+		A26FEC37229F805A003CCD7C /* headbg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "headbg@3x.png"; sourceTree = "<group>"; };
+		A26FEC38229F805A003CCD7C /* sendchose@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sendchose@3x.png"; sourceTree = "<group>"; };
+		A26FEC39229F805A003CCD7C /* receive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "receive@2x.png"; sourceTree = "<group>"; };
+		A26FEC3A229F805A003CCD7C /* rightindicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rightindicator@2x.png"; sourceTree = "<group>"; };
+		A26FEC3B229F805A003CCD7C /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
+		A26FEC3C229F805A003CCD7C /* wallet_hight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wallet_hight@3x.png"; sourceTree = "<group>"; };
+		A26FEC3D229F805A003CCD7C /* confirmdetail@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "confirmdetail@3x.png"; sourceTree = "<group>"; };
+		A26FEC3E229F805A003CCD7C /* indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator@2x.png"; sourceTree = "<group>"; };
+		A26FEC3F229F805A003CCD7C /* wallet@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wallet@3x.png"; sourceTree = "<group>"; };
+		A26FEC40229F805A003CCD7C /* vcash@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vcash@3x.png"; sourceTree = "<group>"; };
+		A26FEC41229F805A003CCD7C /* adressbook_hight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adressbook_hight@3x.png"; sourceTree = "<group>"; };
+		A26FEC42229F805A003CCD7C /* tip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tip.png; sourceTree = "<group>"; };
+		A26FEC43229F805A003CCD7C /* ongoingdetail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ongoingdetail@2x.png"; sourceTree = "<group>"; };
+		A26FEC44229F805A003CCD7C /* ongoingdetail@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ongoingdetail@3x.png"; sourceTree = "<group>"; };
+		A26FEC45229F805A003CCD7C /* vcash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vcash@2x.png"; sourceTree = "<group>"; };
+		A26FEC46229F805A003CCD7C /* adressbook_hight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adressbook_hight@2x.png"; sourceTree = "<group>"; };
+		A26FEC47229F805A003CCD7C /* wallet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wallet@2x.png"; sourceTree = "<group>"; };
+		A26FEC48229F805A003CCD7C /* tip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tip@2x.png"; sourceTree = "<group>"; };
+		A26FEC49229F805A003CCD7C /* indicator@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator@3x.png"; sourceTree = "<group>"; };
+		A26FEC4A229F805A003CCD7C /* normal.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = normal.9.png; sourceTree = "<group>"; };
+		A26FEC4B229F805A003CCD7C /* confirmdetail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "confirmdetail@2x.png"; sourceTree = "<group>"; };
+		A26FEC4C229F805A003CCD7C /* wallet_hight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wallet_hight@2x.png"; sourceTree = "<group>"; };
+		A26FEC4D229F805A003CCD7C /* delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@3x.png"; sourceTree = "<group>"; };
+		A26FEC4E229F805A003CCD7C /* bottomradius.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottomradius.9.png; sourceTree = "<group>"; };
+		A26FECA2229F8063003CCD7C /* en.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = en.json; sourceTree = "<group>"; };
+		A26FECA4229F836C003CCD7C /* NavigationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationCenter.m; sourceTree = "<group>"; };
+		A26FECA5229F836D003CCD7C /* NavigationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationCenter.h; sourceTree = "<group>"; };
 		ED24988D2280298D00D94EBE /* ServerApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerApi.h; sourceTree = "<group>"; };
 		ED24988E2280298D00D94EBE /* ServerApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerApi.m; sourceTree = "<group>"; };
 		ED24989022802B9E00D94EBE /* ServerType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerType.h; sourceTree = "<group>"; };
 		ED24989122802B9E00D94EBE /* ServerType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerType.m; sourceTree = "<group>"; };
 		ED2498972281279600D94EBE /* ServerTxManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerTxManager.h; sourceTree = "<group>"; };
 		ED2498982281279600D94EBE /* ServerTxManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerTxManager.m; sourceTree = "<group>"; };
-		ED24989A22812F2D00D94EBE /* ServerTxPopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerTxPopView.h; sourceTree = "<group>"; };
-		ED24989B22812F2D00D94EBE /* ServerTxPopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerTxPopView.m; sourceTree = "<group>"; };
-		ED24989F22816E7000D94EBE /* ServerTxPopView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServerTxPopView.xib; sourceTree = "<group>"; };
 		ED3C754F226EC30A00B42555 /* VcashDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashDataManager.h; sourceTree = "<group>"; };
 		ED3C7550226EC30A00B42555 /* VcashDataManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VcashDataManager.mm; sourceTree = "<group>"; };
 		ED3C7555226EC78B00B42555 /* VcashOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashOutput.h; sourceTree = "<group>"; };
@@ -165,22 +441,7 @@
 		ED3C756B2271611400B42555 /* VcashWalletInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashWalletInfo.h; sourceTree = "<group>"; };
 		ED3C756C2271611400B42555 /* VcashWalletInfo.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VcashWalletInfo.mm; sourceTree = "<group>"; };
 		ED3C756E2271622B00B42555 /* VcashWalletInfo+WCTTableCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VcashWalletInfo+WCTTableCoding.h"; sourceTree = "<group>"; };
-		ED3C756F22731C3800B42555 /* WalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
-		ED3C757022731C3800B42555 /* WalletViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletViewController.xib; sourceTree = "<group>"; };
-		ED3C757122731C3900B42555 /* WalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
-		ED41677B22755D4C000B5DC8 /* WalletCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletCell.m; sourceTree = "<group>"; };
-		ED41677C22755D4C000B5DC8 /* WalletCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletCell.xib; sourceTree = "<group>"; };
-		ED41677D22755D4C000B5DC8 /* WalletCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletCell.h; sourceTree = "<group>"; };
-		ED4167842275B049000B5DC8 /* SendTransactionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendTransactionViewController.m; sourceTree = "<group>"; };
-		ED4167852275B04A000B5DC8 /* SendTransactionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendTransactionViewController.xib; sourceTree = "<group>"; };
-		ED4167862275B04A000B5DC8 /* SendTransactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendTransactionViewController.h; sourceTree = "<group>"; };
-		ED4167892275B1D6000B5DC8 /* SendTransactionConfirmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendTransactionConfirmView.h; sourceTree = "<group>"; };
-		ED41678A2275B1D6000B5DC8 /* SendTransactionConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendTransactionConfirmView.m; sourceTree = "<group>"; };
-		ED41678B2275B1D6000B5DC8 /* SendTransactionConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendTransactionConfirmView.xib; sourceTree = "<group>"; };
 		ED41678E22769E78000B5DC8 /* VcashContext+WCTTableCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VcashContext+WCTTableCoding.h"; sourceTree = "<group>"; };
-		ED4167922276A9A0000B5DC8 /* HandleSlateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HandleSlateViewController.h; sourceTree = "<group>"; };
-		ED4167932276A9A0000B5DC8 /* HandleSlateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HandleSlateViewController.m; sourceTree = "<group>"; };
-		ED4167942276A9A0000B5DC8 /* HandleSlateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HandleSlateViewController.xib; sourceTree = "<group>"; };
 		ED44BEE022696CF50042928E /* BTCMerkleTree+Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BTCMerkleTree+Tests.h"; sourceTree = "<group>"; };
 		ED44BEE122696CF50042928E /* BTCPaymentMethodDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCPaymentMethodDetails.h; sourceTree = "<group>"; };
 		ED44BEE222696CF50042928E /* BTCProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCProcessor.h; sourceTree = "<group>"; };
@@ -329,9 +590,7 @@
 		ED44BFB6226976EA0042928E /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		ED44BFB7226978C40042928E /* MBHudHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBHudHelper.h; sourceTree = "<group>"; };
 		ED44BFB8226978C50042928E /* UserCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCenter.m; sourceTree = "<group>"; };
-		ED44BFB9226978C50042928E /* NavigationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationCenter.m; sourceTree = "<group>"; };
 		ED44BFBA226978C50042928E /* UtilsMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilsMacros.h; sourceTree = "<group>"; };
-		ED44BFBB226978C50042928E /* NavigationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationCenter.h; sourceTree = "<group>"; };
 		ED44BFBC226978C50042928E /* MBHudHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBHudHelper.m; sourceTree = "<group>"; };
 		ED44BFBD226978C50042928E /* UserCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCenter.h; sourceTree = "<group>"; };
 		ED44BFC2226979DA0042928E /* NSData+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+AES256.m"; sourceTree = "<group>"; };
@@ -342,23 +601,8 @@
 		ED44BFC7226979DA0042928E /* UIViewController+POPHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+POPHUD.m"; sourceTree = "<group>"; };
 		ED44BFC8226979DA0042928E /* NSNumber+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Utils.h"; sourceTree = "<group>"; };
 		ED44BFC9226979DA0042928E /* NSString +AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString +AES256.h"; sourceTree = "<group>"; };
-		ED44BFD022697B570042928E /* WelcomePageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomePageViewController.xib; sourceTree = "<group>"; };
-		ED44BFD122697B570042928E /* WelcomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomePageViewController.h; sourceTree = "<group>"; };
-		ED44BFD222697B570042928E /* WelcomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomePageViewController.m; sourceTree = "<group>"; };
-		ED44BFD522697BAF0042928E /* CreateMnemonicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateMnemonicViewController.m; sourceTree = "<group>"; };
-		ED44BFD622697BAF0042928E /* CreateMnemonicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateMnemonicViewController.h; sourceTree = "<group>"; };
-		ED44BFD722697BAF0042928E /* RecoverMnemonicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecoverMnemonicViewController.h; sourceTree = "<group>"; };
-		ED44BFD822697BAF0042928E /* RecoverMnemonicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecoverMnemonicViewController.m; sourceTree = "<group>"; };
-		ED44BFD922697BAF0042928E /* RecoverMnemonicViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecoverMnemonicViewController.xib; sourceTree = "<group>"; };
-		ED44BFDA22697BAF0042928E /* CreateMnemonicViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateMnemonicViewController.xib; sourceTree = "<group>"; };
 		ED44BFDF22697CBA0042928E /* WalletWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletWrapper.h; sourceTree = "<group>"; };
 		ED44BFE022697CBA0042928E /* WalletWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletWrapper.m; sourceTree = "<group>"; };
-		ED44BFE222697E6A0042928E /* PinPasswordInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinPasswordInputView.h; sourceTree = "<group>"; };
-		ED44BFE322697E6A0042928E /* PinPasswordInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinPasswordInputView.m; sourceTree = "<group>"; };
-		ED44BFE522697EC60042928E /* PhraseWordShowViewCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhraseWordShowViewCreator.h; sourceTree = "<group>"; };
-		ED44BFE622697EC60042928E /* PhraseWordShowViewCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhraseWordShowViewCreator.m; sourceTree = "<group>"; };
-		ED44BFE8226984EB0042928E /* PinPasswordSetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinPasswordSetViewController.m; sourceTree = "<group>"; };
-		ED44BFE9226984EB0042928E /* PinPasswordSetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinPasswordSetViewController.h; sourceTree = "<group>"; };
 		ED44BFEE2269C87E0042928E /* VcashKeyChain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashKeyChain.h; sourceTree = "<group>"; };
 		ED44BFEF2269C87E0042928E /* VcashKeyChain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashKeyChain.m; sourceTree = "<group>"; };
 		ED44BFF42269D0540042928E /* VcashSecp256k1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashSecp256k1.h; sourceTree = "<group>"; };
@@ -375,8 +619,6 @@
 		ED44C00B226D9FF50042928E /* NodeType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeType.m; sourceTree = "<group>"; };
 		ED44C00D226DAFB30042928E /* VcashTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashTypes.h; sourceTree = "<group>"; };
 		ED44C00E226DAFB30042928E /* VcashTypes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashTypes.m; sourceTree = "<group>"; };
-		ED44C010226DC5730042928E /* PinVerifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinVerifyViewController.m; sourceTree = "<group>"; };
-		ED44C011226DC5730042928E /* PinVerifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinVerifyViewController.h; sourceTree = "<group>"; };
 		EDA5148A22686DEC0011138F /* VcashWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VcashWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDA5148D22686DEC0011138F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EDA5148E22686DEC0011138F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -423,6 +665,243 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A26FEB6F229F7DE0003CCD7C /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A26FEB87229F7DE0003CCD7C /* ViewCell */,
+				A26FEB9F229F7DE0003CCD7C /* View */,
+				A26FEB79229F7DE0003CCD7C /* TransactionDetailViewController */,
+				A26FEB93229F7DE0003CCD7C /* SettingViewController */,
+				A26FEB9C229F7DE0003CCD7C /* Model */,
+				A26FEBB9229F7DE0003CCD7C /* WelcomePageViewController.h */,
+				A26FEB85229F7DE0003CCD7C /* WelcomePageViewController.m */,
+				A26FEB77229F7DE0003CCD7C /* WelcomePageViewController.xib */,
+				A26FEB72229F7DE0003CCD7C /* CreateWalletNoteViewController.h */,
+				A26FEB90229F7DE0003CCD7C /* CreateWalletNoteViewController.m */,
+				A26FEBBA229F7DE0003CCD7C /* CreateWalletNoteViewController.xib */,
+				A26FEBB5229F7DE0003CCD7C /* CreateMnemonicViewController.h */,
+				A26FEB81229F7DE0003CCD7C /* CreateMnemonicViewController.m */,
+				A26FEB9B229F7DE0003CCD7C /* CreateMnemonicViewController.xib */,
+				A26FEB71229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m */,
+				A26FEB91229F7DE0003CCD7C /* ConfirmSeedphraseViewController.h */,
+				A26FEB78229F7DE0003CCD7C /* ConfirmSeedphraseViewController.xib */,
+				A26FEB76229F7DE0003CCD7C /* RecoverMnemonicViewController.h */,
+				A26FEB8E229F7DE0003CCD7C /* RecoverMnemonicViewController.m */,
+				A26FEBB3229F7DE0003CCD7C /* RecoverMnemonicViewController.xib */,
+				A26FEB8F229F7DE0003CCD7C /* HandleSlateViewController.m */,
+				A26FEB75229F7DE0003CCD7C /* HandleSlateViewController.h */,
+				A26FEB73229F7DE0003CCD7C /* HandleSlateViewController.xib */,
+				A26FEB86229F7DE0003CCD7C /* SendTransactionViewController.h */,
+				A26FEBB8229F7DE0003CCD7C /* SendTransactionViewController.m */,
+				A26FEB74229F7DE0003CCD7C /* SendTransactionViewController.xib */,
+				A26FEB84229F7DE0003CCD7C /* PinPasswordSetViewController.h */,
+				A26FEBBC229F7DE0003CCD7C /* PinPasswordSetViewController.m */,
+				A26FEB92229F7DE0003CCD7C /* PinPasswordSetViewController.xib */,
+				A26FEB80229F7DE0003CCD7C /* PinVerifyViewController.h */,
+				A26FEBB6229F7DE0003CCD7C /* PinVerifyViewController.m */,
+				A26FEB7F229F7DE0003CCD7C /* PinVerifyViewController.xib */,
+				A26FEB83229F7DE0003CCD7C /* WalletViewController.h */,
+				A26FEBBB229F7DE0003CCD7C /* WalletViewController.m */,
+				A26FEB70229F7DE0003CCD7C /* WalletViewController.xib */,
+				A26FEBB4229F7DE0003CCD7C /* ScanViewController.h */,
+				A26FEB82229F7DE0003CCD7C /* ScanViewController.m */,
+				A26FEB7D229F7DE0003CCD7C /* VcashNavigationViewController.h */,
+				A26FEB9A229F7DE0003CCD7C /* VcashNavigationViewController.m */,
+				A26FEBB7229F7DE0003CCD7C /* BaseViewController.h */,
+				A26FEB7E229F7DE0003CCD7C /* BaseViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		A26FEB79229F7DE0003CCD7C /* TransactionDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A26FEB7A229F7DE0003CCD7C /* TransactionDetailViewController.xib */,
+				A26FEB7B229F7DE0003CCD7C /* TransactionDetailViewController.h */,
+				A26FEB7C229F7DE0003CCD7C /* TransactionDetailViewController.m */,
+			);
+			path = TransactionDetailViewController;
+			sourceTree = "<group>";
+		};
+		A26FEB87229F7DE0003CCD7C /* ViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				A26FEB88229F7DE0003CCD7C /* WalletCell.m */,
+				A26FEB89229F7DE0003CCD7C /* LeftMenuCell.xib */,
+				A26FEB8A229F7DE0003CCD7C /* LeftMenuCell.h */,
+				A26FEB8B229F7DE0003CCD7C /* WalletCell.xib */,
+				A26FEB8C229F7DE0003CCD7C /* LeftMenuCell.m */,
+				A26FEB8D229F7DE0003CCD7C /* WalletCell.h */,
+			);
+			path = ViewCell;
+			sourceTree = "<group>";
+		};
+		A26FEB93229F7DE0003CCD7C /* SettingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A26FEB94229F7DE0003CCD7C /* ChangePasswordViewController.h */,
+				A26FEB95229F7DE0003CCD7C /* SettingViewController.h */,
+				A26FEB96229F7DE0003CCD7C /* ChangePasswordViewController.m */,
+				A26FEB97229F7DE0003CCD7C /* SettingViewController.xib */,
+				A26FEB98229F7DE0003CCD7C /* ChangePasswordViewController.xib */,
+				A26FEB99229F7DE0003CCD7C /* SettingViewController.m */,
+			);
+			path = SettingViewController;
+			sourceTree = "<group>";
+		};
+		A26FEB9C229F7DE0003CCD7C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A26FEB9D229F7DE0003CCD7C /* LeftMenuModel.m */,
+				A26FEB9E229F7DE0003CCD7C /* LeftMenuModel.h */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A26FEB9F229F7DE0003CCD7C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A26FEBA0229F7DE0003CCD7C /* AlertView.h */,
+				A26FEBA1229F7DE0003CCD7C /* PhraseWordShowViewCreator.m */,
+				A26FEBA2229F7DE0003CCD7C /* ServerTxPopView.xib */,
+				A26FEBA3229F7DE0003CCD7C /* ServerTxPopView.m */,
+				A26FEBA4229F7DE0003CCD7C /* SendTransactionConfirmView.xib */,
+				A26FEBA5229F7DE0003CCD7C /* MessageNotificationView.m */,
+				A26FEBA6229F7DE0003CCD7C /* LeftMenuView.h */,
+				A26FEBA7229F7DE0003CCD7C /* PinPasswordInputView.m */,
+				A26FEBA8229F7DE0003CCD7C /* MessageNotificationView.xib */,
+				A26FEBA9229F7DE0003CCD7C /* LeftMenuView.xib */,
+				A26FEBAA229F7DE0003CCD7C /* SendTransactionConfirmView.m */,
+				A26FEBAB229F7DE0003CCD7C /* ServerTxPopView.h */,
+				A26FEBAC229F7DE0003CCD7C /* AlertView.xib */,
+				A26FEBAD229F7DE0003CCD7C /* PhraseWordShowViewCreator.h */,
+				A26FEBAE229F7DE0003CCD7C /* AlertView.m */,
+				A26FEBAF229F7DE0003CCD7C /* MessageNotificationView.h */,
+				A26FEBB0229F7DE0003CCD7C /* SendTransactionConfirmView.h */,
+				A26FEBB1229F7DE0003CCD7C /* PinPasswordInputView.h */,
+				A26FEBB2229F7DE0003CCD7C /* LeftMenuView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A26FEBEE229F7E39003CCD7C /* VcashLib */ = {
+			isa = PBXGroup;
+			children = (
+				A26FEBEF229F7E39003CCD7C /* VcashUIKit */,
+			);
+			path = VcashLib;
+			sourceTree = "<group>";
+		};
+		A26FEBEF229F7E39003CCD7C /* VcashUIKit */ = {
+			isa = PBXGroup;
+			children = (
+				A26FEBF0229F7E39003CCD7C /* VcashTextField.h */,
+				A26FEBF1229F7E39003CCD7C /* VcashButton.m */,
+				A26FEBF2229F7E39003CCD7C /* VcashLabel.h */,
+				A26FEBF3229F7E39003CCD7C /* VcashTextField.m */,
+				A26FEBF4229F7E39003CCD7C /* VcashButton.h */,
+				A26FEBF5229F7E39003CCD7C /* VcashLabel.m */,
+			);
+			path = VcashUIKit;
+			sourceTree = "<group>";
+		};
+		A26FEBFC229F805A003CCD7C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A26FEBFD229F805A003CCD7C /* circle@2x.png */,
+				A26FEBFE229F805A003CCD7C /* lock@2x.png */,
+				A26FEBFF229F805A003CCD7C /* canceldetail@3x.png */,
+				A26FEC00229F805A003CCD7C /* walletleftimage@2x.png */,
+				A26FEC01229F805A003CCD7C /* back@2x.png */,
+				A26FEC02229F805A003CCD7C /* add@2x.png */,
+				A26FEC03229F805A003CCD7C /* confirmed@2x.png */,
+				A26FEC04229F805A003CCD7C /* setting_hight@2x.png */,
+				A26FEC05229F805A003CCD7C /* send@2x.png */,
+				A26FEC06229F805A003CCD7C /* send@3x.png */,
+				A26FEC07229F805A003CCD7C /* back@3x.png */,
+				A26FEC08229F805A003CCD7C /* add@3x.png */,
+				A26FEC09229F805A003CCD7C /* confirmed@3x.png */,
+				A26FEC0A229F805A003CCD7C /* setting_hight@3x.png */,
+				A26FEC0B229F805A003CCD7C /* walletleftimage@3x.png */,
+				A26FEC0C229F805A003CCD7C /* canceldetail@2x.png */,
+				A26FEC0D229F805A003CCD7C /* lock@3x.png */,
+				A26FEC0E229F805A003CCD7C /* circle@3x.png */,
+				A26FEC0F229F805A003CCD7C /* eye@3x.png */,
+				A26FEC10229F805A003CCD7C /* finish@2x.png */,
+				A26FEC11229F805A003CCD7C /* dottedline@2x.png */,
+				A26FEC12229F805A003CCD7C /* receivechose@3x.png */,
+				A26FEC13229F805A003CCD7C /* cancel@3x.png */,
+				A26FEC14229F805A003CCD7C /* canceled@3x.png */,
+				A26FEC15229F805A003CCD7C /* restore@2x.png */,
+				A26FEC16229F805A003CCD7C /* copy@3x.png */,
+				A26FEC17229F805A003CCD7C /* setting@2x.png */,
+				A26FEC18229F805A003CCD7C /* setting@3x.png */,
+				A26FEC19229F805A003CCD7C /* scanscanBg.png */,
+				A26FEC1A229F805A003CCD7C /* copy@2x.png */,
+				A26FEC1B229F805A003CCD7C /* restore@3x.png */,
+				A26FEC1C229F805A003CCD7C /* canceled@2x.png */,
+				A26FEC1D229F805A003CCD7C /* cancel@2x.png */,
+				A26FEC1E229F805A003CCD7C /* receivechose@2x.png */,
+				A26FEC1F229F805A003CCD7C /* dottedline@3x.png */,
+				A26FEC20229F805A003CCD7C /* finish@3x.png */,
+				A26FEC21229F805A003CCD7C /* eye@2x.png */,
+				A26FEC22229F805A003CCD7C /* rightindicator@3x.png */,
+				A26FEC23229F805A003CCD7C /* receive@3x.png */,
+				A26FEC24229F805A003CCD7C /* sendchose@2x.png */,
+				A26FEC25229F805A003CCD7C /* headbg@2x.png */,
+				A26FEC26229F805A003CCD7C /* topradius.9.png */,
+				A26FEC27229F805A003CCD7C /* scanLine@3x.png */,
+				A26FEC28229F805A003CCD7C /* logo@3x.png */,
+				A26FEC29229F805A003CCD7C /* balancelogo@3x.png */,
+				A26FEC2A229F805A003CCD7C /* adressbook@3x.png */,
+				A26FEC2B229F805A003CCD7C /* copywalletid@2x.png */,
+				A26FEC2C229F805A003CCD7C /* bg@2x.png */,
+				A26FEC2D229F805A003CCD7C /* scan@2x.png */,
+				A26FEC2E229F805A003CCD7C /* ongoing@2x.png */,
+				A26FEC2F229F805A003CCD7C /* ongoing@3x.png */,
+				A26FEC30229F805A003CCD7C /* scan@3x.png */,
+				A26FEC31229F805A003CCD7C /* bg@3x.png */,
+				A26FEC32229F805A003CCD7C /* adressbook@2x.png */,
+				A26FEC33229F805A003CCD7C /* copywalletid@3x.png */,
+				A26FEC34229F805A003CCD7C /* balancelogo@2x.png */,
+				A26FEC35229F805A003CCD7C /* logo@2x.png */,
+				A26FEC36229F805A003CCD7C /* scanLine@2x.png */,
+				A26FEC37229F805A003CCD7C /* headbg@3x.png */,
+				A26FEC38229F805A003CCD7C /* sendchose@3x.png */,
+				A26FEC39229F805A003CCD7C /* receive@2x.png */,
+				A26FEC3A229F805A003CCD7C /* rightindicator@2x.png */,
+				A26FEC3B229F805A003CCD7C /* delete@2x.png */,
+				A26FEC3C229F805A003CCD7C /* wallet_hight@3x.png */,
+				A26FEC3D229F805A003CCD7C /* confirmdetail@3x.png */,
+				A26FEC3E229F805A003CCD7C /* indicator@2x.png */,
+				A26FEC3F229F805A003CCD7C /* wallet@3x.png */,
+				A26FEC40229F805A003CCD7C /* vcash@3x.png */,
+				A26FEC41229F805A003CCD7C /* adressbook_hight@3x.png */,
+				A26FEC42229F805A003CCD7C /* tip.png */,
+				A26FEC43229F805A003CCD7C /* ongoingdetail@2x.png */,
+				A26FEC44229F805A003CCD7C /* ongoingdetail@3x.png */,
+				A26FEC45229F805A003CCD7C /* vcash@2x.png */,
+				A26FEC46229F805A003CCD7C /* adressbook_hight@2x.png */,
+				A26FEC47229F805A003CCD7C /* wallet@2x.png */,
+				A26FEC48229F805A003CCD7C /* tip@2x.png */,
+				A26FEC49229F805A003CCD7C /* indicator@3x.png */,
+				A26FEC4A229F805A003CCD7C /* normal.9.png */,
+				A26FEC4B229F805A003CCD7C /* confirmdetail@2x.png */,
+				A26FEC4C229F805A003CCD7C /* wallet_hight@2x.png */,
+				A26FEC4D229F805A003CCD7C /* delete@3x.png */,
+				A26FEC4E229F805A003CCD7C /* bottomradius.9.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A26FECA1229F8063003CCD7C /* LanguageFile */ = {
+			isa = PBXGroup;
+			children = (
+				A26FECA2229F8063003CCD7C /* en.json */,
+			);
+			path = LanguageFile;
+			sourceTree = "<group>";
+		};
 		ED24988C2280297100D94EBE /* Server */ = {
 			isa = PBXGroup;
 			children = (
@@ -466,16 +945,6 @@
 				ED44C00B226D9FF50042928E /* NodeType.m */,
 			);
 			path = Node;
-			sourceTree = "<group>";
-		};
-		ED41677A22755D2D000B5DC8 /* ViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				ED41677D22755D4C000B5DC8 /* WalletCell.h */,
-				ED41677B22755D4C000B5DC8 /* WalletCell.m */,
-				ED41677C22755D4C000B5DC8 /* WalletCell.xib */,
-			);
-			path = ViewCell;
 			sourceTree = "<group>";
 		};
 		ED44BEDF22696CF50042928E /* CoreBitcoin */ = {
@@ -643,56 +1112,10 @@
 				ED44BFC5226979DA0042928E /* NSNumber+Utils.m */,
 				ED3C75682270744400B42555 /* PublicTool.h */,
 				ED3C75692270744400B42555 /* PublicTool.m */,
+				A26FEBEB229F7E1A003CCD7C /* AppHelper.h */,
+				A26FEBEC229F7E1B003CCD7C /* AppHelper.m */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		ED44BFCE22697ACA0042928E /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				ED41677A22755D2D000B5DC8 /* ViewCell */,
-				ED44BFCF22697AEB0042928E /* View */,
-				ED44BFD122697B570042928E /* WelcomePageViewController.h */,
-				ED44BFD222697B570042928E /* WelcomePageViewController.m */,
-				ED44BFD022697B570042928E /* WelcomePageViewController.xib */,
-				ED44BFD622697BAF0042928E /* CreateMnemonicViewController.h */,
-				ED44BFD522697BAF0042928E /* CreateMnemonicViewController.m */,
-				ED44BFDA22697BAF0042928E /* CreateMnemonicViewController.xib */,
-				ED44BFD722697BAF0042928E /* RecoverMnemonicViewController.h */,
-				ED44BFD822697BAF0042928E /* RecoverMnemonicViewController.m */,
-				ED44BFD922697BAF0042928E /* RecoverMnemonicViewController.xib */,
-				ED44BFE9226984EB0042928E /* PinPasswordSetViewController.h */,
-				ED44BFE8226984EB0042928E /* PinPasswordSetViewController.m */,
-				ED44C011226DC5730042928E /* PinVerifyViewController.h */,
-				ED44C010226DC5730042928E /* PinVerifyViewController.m */,
-				ED3C757122731C3900B42555 /* WalletViewController.h */,
-				ED3C756F22731C3800B42555 /* WalletViewController.m */,
-				ED3C757022731C3800B42555 /* WalletViewController.xib */,
-				ED4167862275B04A000B5DC8 /* SendTransactionViewController.h */,
-				ED4167842275B049000B5DC8 /* SendTransactionViewController.m */,
-				ED4167852275B04A000B5DC8 /* SendTransactionViewController.xib */,
-				ED4167922276A9A0000B5DC8 /* HandleSlateViewController.h */,
-				ED4167932276A9A0000B5DC8 /* HandleSlateViewController.m */,
-				ED4167942276A9A0000B5DC8 /* HandleSlateViewController.xib */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		ED44BFCF22697AEB0042928E /* View */ = {
-			isa = PBXGroup;
-			children = (
-				ED44BFE522697EC60042928E /* PhraseWordShowViewCreator.h */,
-				ED44BFE622697EC60042928E /* PhraseWordShowViewCreator.m */,
-				ED4167892275B1D6000B5DC8 /* SendTransactionConfirmView.h */,
-				ED41678A2275B1D6000B5DC8 /* SendTransactionConfirmView.m */,
-				ED41678B2275B1D6000B5DC8 /* SendTransactionConfirmView.xib */,
-				ED44BFE222697E6A0042928E /* PinPasswordInputView.h */,
-				ED44BFE322697E6A0042928E /* PinPasswordInputView.m */,
-				ED24989A22812F2D00D94EBE /* ServerTxPopView.h */,
-				ED24989B22812F2D00D94EBE /* ServerTxPopView.m */,
-				ED24989F22816E7000D94EBE /* ServerTxPopView.xib */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		EDA5148122686DEC0011138F = {
@@ -717,8 +1140,9 @@
 		EDA5148C22686DEC0011138F /* VcashWallet */ = {
 			isa = PBXGroup;
 			children = (
+				A26FEBEE229F7E39003CCD7C /* VcashLib */,
 				ED3C754E226EC2CA00B42555 /* Database */,
-				ED44BFCE22697ACA0042928E /* ViewController */,
+				A26FEB6F229F7DE0003CCD7C /* ViewController */,
 				EDA514B4226891050011138F /* Core */,
 				ED44BFC1226979DA0042928E /* Utils */,
 				EDA5148D22686DEC0011138F /* AppDelegate.h */,
@@ -727,12 +1151,16 @@
 				EDA5149122686DEC0011138F /* ViewController.m */,
 				ED44BFB7226978C40042928E /* MBHudHelper.h */,
 				ED44BFBC226978C50042928E /* MBHudHelper.m */,
-				ED44BFBB226978C50042928E /* NavigationCenter.h */,
-				ED44BFB9226978C50042928E /* NavigationCenter.m */,
+				A26FECA5229F836D003CCD7C /* NavigationCenter.h */,
+				A26FECA4229F836C003CCD7C /* NavigationCenter.m */,
+				A26FEBFA229F7FBB003CCD7C /* LanguageManager.h */,
+				A26FEBF9229F7FBB003CCD7C /* LanguageManager.m */,
 				ED44BFBD226978C50042928E /* UserCenter.h */,
 				ED44BFB8226978C50042928E /* UserCenter.m */,
 				ED44BFBA226978C50042928E /* UtilsMacros.h */,
 				ED44BFB6226976EA0042928E /* PrefixHeader.pch */,
+				A26FEBFC229F805A003CCD7C /* Resources */,
+				A26FECA1229F8063003CCD7C /* LanguageFile */,
 				EDA5149322686DEC0011138F /* Main.storyboard */,
 				EDA5149622686DEE0011138F /* Assets.xcassets */,
 				EDA5149822686DEE0011138F /* LaunchScreen.storyboard */,
@@ -813,7 +1241,6 @@
 				EDA5148622686DEC0011138F /* Sources */,
 				EDA5148722686DEC0011138F /* Frameworks */,
 				EDA5148822686DEC0011138F /* Resources */,
-				F2AC3E47DADBA9F00A9E41A8 /* [CP] Embed Pods Frameworks */,
 				9983C6080A551387D01B8650 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -862,18 +1289,112 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED4167962276A9A0000B5DC8 /* HandleSlateViewController.xib in Resources */,
-				ED41677F22755D4C000B5DC8 /* WalletCell.xib in Resources */,
+				A26FEC68229F805B003CCD7C /* copy@3x.png in Resources */,
+				A26FEBE2229F7DE0003CCD7C /* AlertView.xib in Resources */,
+				A26FEC9A229F805B003CCD7C /* tip@2x.png in Resources */,
+				A26FEC9B229F805B003CCD7C /* indicator@3x.png in Resources */,
+				A26FECA0229F805B003CCD7C /* bottomradius.9.png in Resources */,
+				A26FEC5A229F805A003CCD7C /* add@3x.png in Resources */,
+				A26FECA3229F8064003CCD7C /* en.json in Resources */,
+				A26FEC5E229F805B003CCD7C /* canceldetail@2x.png in Resources */,
+				A26FEC62229F805B003CCD7C /* finish@2x.png in Resources */,
+				A26FEC77229F805B003CCD7C /* headbg@2x.png in Resources */,
+				A26FEC76229F805B003CCD7C /* sendchose@2x.png in Resources */,
+				A26FEBCB229F7DE0003CCD7C /* LeftMenuCell.xib in Resources */,
+				A26FEC73229F805B003CCD7C /* eye@2x.png in Resources */,
+				A26FEC65229F805B003CCD7C /* cancel@3x.png in Resources */,
+				A26FEC9C229F805B003CCD7C /* normal.9.png in Resources */,
+				A26FEC8C229F805B003CCD7C /* rightindicator@2x.png in Resources */,
+				A26FEC8F229F805B003CCD7C /* confirmdetail@3x.png in Resources */,
+				A26FEC66229F805B003CCD7C /* canceled@3x.png in Resources */,
+				A26FEC7D229F805B003CCD7C /* copywalletid@2x.png in Resources */,
+				A26FEC59229F805A003CCD7C /* back@3x.png in Resources */,
+				A26FEC69229F805B003CCD7C /* setting@2x.png in Resources */,
+				A26FEC63229F805B003CCD7C /* dottedline@2x.png in Resources */,
+				A26FEC79229F805B003CCD7C /* scanLine@3x.png in Resources */,
+				A26FEC50229F805A003CCD7C /* lock@2x.png in Resources */,
+				A26FEC54229F805A003CCD7C /* add@2x.png in Resources */,
+				A26FEC8D229F805B003CCD7C /* delete@2x.png in Resources */,
+				A26FEBDA229F7DE0003CCD7C /* ServerTxPopView.xib in Resources */,
+				A26FEBDC229F7DE0003CCD7C /* SendTransactionConfirmView.xib in Resources */,
+				A26FEC4F229F805A003CCD7C /* circle@2x.png in Resources */,
+				A26FEC5F229F805B003CCD7C /* lock@3x.png in Resources */,
+				A26FEC67229F805B003CCD7C /* restore@2x.png in Resources */,
+				A26FEC6A229F805B003CCD7C /* setting@3x.png in Resources */,
+				A26FEC9F229F805B003CCD7C /* delete@3x.png in Resources */,
+				A26FEBBF229F7DE0003CCD7C /* HandleSlateViewController.xib in Resources */,
+				A26FEC87229F805B003CCD7C /* logo@2x.png in Resources */,
+				A26FEBC3229F7DE0003CCD7C /* TransactionDetailViewController.xib in Resources */,
 				EDA5149A22686DEE0011138F /* LaunchScreen.storyboard in Resources */,
-				ED41678D2275B1D6000B5DC8 /* SendTransactionConfirmView.xib in Resources */,
-				ED4167882275B04A000B5DC8 /* SendTransactionViewController.xib in Resources */,
-				ED3C757322731C3900B42555 /* WalletViewController.xib in Resources */,
+				A26FEC78229F805B003CCD7C /* topradius.9.png in Resources */,
+				A26FEBD7229F7DE0003CCD7C /* CreateMnemonicViewController.xib in Resources */,
+				A26FEC99229F805B003CCD7C /* wallet@2x.png in Resources */,
+				A26FEC64229F805B003CCD7C /* receivechose@3x.png in Resources */,
+				A26FEBCC229F7DE0003CCD7C /* WalletCell.xib in Resources */,
+				A26FEBE0229F7DE0003CCD7C /* LeftMenuView.xib in Resources */,
+				A26FEBC1229F7DE0003CCD7C /* WelcomePageViewController.xib in Resources */,
+				A26FEC71229F805B003CCD7C /* dottedline@3x.png in Resources */,
+				A26FEBBD229F7DE0003CCD7C /* WalletViewController.xib in Resources */,
+				A26FEC6B229F805B003CCD7C /* scanscanBg.png in Resources */,
+				A26FEC5D229F805B003CCD7C /* walletleftimage@3x.png in Resources */,
+				A26FEC89229F805B003CCD7C /* headbg@3x.png in Resources */,
+				A26FEC56229F805A003CCD7C /* setting_hight@2x.png in Resources */,
+				A26FEBD4229F7DE0003CCD7C /* ChangePasswordViewController.xib in Resources */,
+				A26FEC8A229F805B003CCD7C /* sendchose@3x.png in Resources */,
+				A26FEBDF229F7DE0003CCD7C /* MessageNotificationView.xib in Resources */,
+				A26FEC91229F805B003CCD7C /* wallet@3x.png in Resources */,
+				A26FEC7B229F805B003CCD7C /* balancelogo@3x.png in Resources */,
+				A26FEC7E229F805B003CCD7C /* bg@2x.png in Resources */,
+				A26FEC57229F805A003CCD7C /* send@2x.png in Resources */,
+				A26FEC6D229F805B003CCD7C /* restore@3x.png in Resources */,
+				A26FEC75229F805B003CCD7C /* receive@3x.png in Resources */,
+				A26FEC84229F805B003CCD7C /* adressbook@2x.png in Resources */,
+				A26FEC85229F805B003CCD7C /* copywalletid@3x.png in Resources */,
+				A26FEC8B229F805B003CCD7C /* receive@2x.png in Resources */,
+				A26FEBD3229F7DE0003CCD7C /* SettingViewController.xib in Resources */,
+				A26FEC53229F805A003CCD7C /* back@2x.png in Resources */,
+				A26FEC81229F805B003CCD7C /* ongoing@3x.png in Resources */,
+				A26FEBD1229F7DE0003CCD7C /* PinPasswordSetViewController.xib in Resources */,
 				EDA5149722686DEE0011138F /* Assets.xcassets in Resources */,
-				ED44BFDE22697BAF0042928E /* CreateMnemonicViewController.xib in Resources */,
-				ED44BFD322697B570042928E /* WelcomePageViewController.xib in Resources */,
-				ED44BFDD22697BAF0042928E /* RecoverMnemonicViewController.xib in Resources */,
-				ED2498A022816E7000D94EBE /* ServerTxPopView.xib in Resources */,
+				A26FEC7C229F805B003CCD7C /* adressbook@3x.png in Resources */,
+				A26FEC98229F805B003CCD7C /* adressbook_hight@2x.png in Resources */,
+				A26FEC9D229F805B003CCD7C /* confirmdetail@2x.png in Resources */,
+				A26FEC9E229F805B003CCD7C /* wallet_hight@2x.png in Resources */,
+				A26FEC5B229F805A003CCD7C /* confirmed@3x.png in Resources */,
+				A26FEC97229F805B003CCD7C /* vcash@2x.png in Resources */,
+				A26FEC86229F805B003CCD7C /* balancelogo@2x.png in Resources */,
+				A26FEC6F229F805B003CCD7C /* cancel@2x.png in Resources */,
+				A26FEC96229F805B003CCD7C /* ongoingdetail@3x.png in Resources */,
+				A26FEC90229F805B003CCD7C /* indicator@2x.png in Resources */,
+				A26FEBC2229F7DE0003CCD7C /* ConfirmSeedphraseViewController.xib in Resources */,
+				A26FEC7F229F805B003CCD7C /* scan@2x.png in Resources */,
+				A26FEC80229F805B003CCD7C /* ongoing@2x.png in Resources */,
+				A26FEC58229F805A003CCD7C /* send@3x.png in Resources */,
+				A26FEC61229F805B003CCD7C /* eye@3x.png in Resources */,
+				A26FEC6C229F805B003CCD7C /* copy@2x.png in Resources */,
+				A26FEC55229F805A003CCD7C /* confirmed@2x.png in Resources */,
+				A26FEC92229F805B003CCD7C /* vcash@3x.png in Resources */,
+				A26FEC6E229F805B003CCD7C /* canceled@2x.png in Resources */,
+				A26FEC5C229F805B003CCD7C /* setting_hight@3x.png in Resources */,
+				A26FEC72229F805B003CCD7C /* finish@3x.png in Resources */,
+				A26FEC8E229F805B003CCD7C /* wallet_hight@3x.png in Resources */,
+				A26FEBE8229F7DE0003CCD7C /* CreateWalletNoteViewController.xib in Resources */,
 				EDA5149522686DEC0011138F /* Main.storyboard in Resources */,
+				A26FEC52229F805A003CCD7C /* walletleftimage@2x.png in Resources */,
+				A26FEBE5229F7DE0003CCD7C /* RecoverMnemonicViewController.xib in Resources */,
+				A26FEC94229F805B003CCD7C /* tip.png in Resources */,
+				A26FEC88229F805B003CCD7C /* scanLine@2x.png in Resources */,
+				A26FEBC0229F7DE0003CCD7C /* SendTransactionViewController.xib in Resources */,
+				A26FEC83229F805B003CCD7C /* bg@3x.png in Resources */,
+				A26FEC51229F805A003CCD7C /* canceldetail@3x.png in Resources */,
+				A26FEC93229F805B003CCD7C /* adressbook_hight@3x.png in Resources */,
+				A26FEBC6229F7DE0003CCD7C /* PinVerifyViewController.xib in Resources */,
+				A26FEC60229F805B003CCD7C /* circle@3x.png in Resources */,
+				A26FEC70229F805B003CCD7C /* receivechose@2x.png in Resources */,
+				A26FEC7A229F805B003CCD7C /* logo@3x.png in Resources */,
+				A26FEC74229F805B003CCD7C /* rightindicator@3x.png in Resources */,
+				A26FEC82229F805B003CCD7C /* scan@3x.png in Resources */,
+				A26FEC95229F805B003CCD7C /* ongoingdetail@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -926,25 +1447,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VcashWallet/Pods-VcashWallet-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F2AC3E47DADBA9F00A9E41A8 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VcashWallet/Pods-VcashWallet-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -958,23 +1460,21 @@
 				ED44BF9F22696CF50042928E /* BTCData.m in Sources */,
 				ED44BF8C22696CF50042928E /* BTCSecretSharing.m in Sources */,
 				ED44BF9822696CF50042928E /* BTC256.m in Sources */,
+				A26FEBEA229F7DE0003CCD7C /* PinPasswordSetViewController.m in Sources */,
 				ED44BF7F22696CF50042928E /* BTCBigNumber+Tests.m in Sources */,
 				ED44BFB222696CF50042928E /* BTCKey.m in Sources */,
 				ED44BF7522696CF50042928E /* BTCTransactionBuilder.m in Sources */,
 				ED44BFAC22696CF50042928E /* BTCPaymentProtocol.m in Sources */,
-				ED3C757222731C3900B42555 /* WalletViewController.m in Sources */,
 				ED44BFCC226979DA0042928E /* NSNumber+Utils.m in Sources */,
 				ED44BF9122696CF50042928E /* BTCEncryptedMessage+Tests.m in Sources */,
 				ED44BF7322696CF50042928E /* BTCEncryptedBackup.m in Sources */,
 				ED44BF7C22696CF50042928E /* BTCBitcoinURL+Tests.m in Sources */,
-				ED44BFD422697B570042928E /* WelcomePageViewController.m in Sources */,
-				ED4167952276A9A0000B5DC8 /* HandleSlateViewController.m in Sources */,
 				ED44C000226B1F0C0042928E /* VcashSecretKey.m in Sources */,
 				ED44BF9322696CF50042928E /* BTCAssetAddress.m in Sources */,
+				A26FEBF6229F7E39003CCD7C /* VcashButton.m in Sources */,
 				ED44BF9022696CF50042928E /* BTCPriceSource+Tests.m in Sources */,
 				ED44BF7D22696CF50042928E /* NSData+BTCData.m in Sources */,
 				ED44BFF9226AC8320042928E /* VcashKeychainPath.m in Sources */,
-				ED44BFE422697E6A0042928E /* PinPasswordInputView.m in Sources */,
 				ED44BFF02269C87E0042928E /* VcashKeyChain.m in Sources */,
 				ED44BF9422696CF50042928E /* BTCBitcoinURL.m in Sources */,
 				ED44BFE122697CBA0042928E /* WalletWrapper.m in Sources */,
@@ -982,39 +1482,53 @@
 				ED44BFAB22696CF50042928E /* BTCPaymentMethod.m in Sources */,
 				ED44BF8422696CF50042928E /* BTCNumberFormatter.m in Sources */,
 				ED44BF8522696CF50042928E /* BTCScriptMachine.m in Sources */,
-				ED24989C22812F2D00D94EBE /* ServerTxPopView.m in Sources */,
 				ED44BF9B22696CF50042928E /* BTCOutpoint.m in Sources */,
 				ED24988F2280298D00D94EBE /* ServerApi.m in Sources */,
 				ED44BF9522696CF50042928E /* NS+BTCBase58.m in Sources */,
+				A26FEBD9229F7DE0003CCD7C /* PhraseWordShowViewCreator.m in Sources */,
+				A26FEBE1229F7DE0003CCD7C /* SendTransactionConfirmView.m in Sources */,
 				ED44BF7422696CF50042928E /* BTCKeychain.m in Sources */,
+				A26FEBDD229F7DE0003CCD7C /* MessageNotificationView.m in Sources */,
+				A26FEBC5229F7DE0003CCD7C /* BaseViewController.m in Sources */,
 				ED44BF7222696CF50042928E /* BTCBlockHeader.m in Sources */,
 				ED44BF7622696CF50042928E /* BTCAssetType.m in Sources */,
 				ED44BFA122696CF50042928E /* BTCCurvePoint.m in Sources */,
 				ED44BF7722696CF50042928E /* BTCMnemonic+Tests.m in Sources */,
+				A26FEBD5229F7DE0003CCD7C /* SettingViewController.m in Sources */,
 				ED44BFB322696CF50042928E /* BTCData+Tests.m in Sources */,
+				A26FEBC8229F7DE0003CCD7C /* ScanViewController.m in Sources */,
 				ED44BFB522696CF50042928E /* BTCErrors.m in Sources */,
 				ED44BFFC226AFE160042928E /* VcashWallet.m in Sources */,
+				A26FEBE3229F7DE0003CCD7C /* AlertView.m in Sources */,
 				ED44BF8822696CF50042928E /* BTCNetwork.m in Sources */,
-				ED44BFBF226978C50042928E /* NavigationCenter.m in Sources */,
 				ED44BFA322696CF50042928E /* BTCMerkleTree+Tests.m in Sources */,
+				A26FEBCF229F7DE0003CCD7C /* HandleSlateViewController.m in Sources */,
 				ED44BFAA22696CF50042928E /* BTCCurrencyConverter.m in Sources */,
 				ED44BF9A22696CF50042928E /* BTCProtocolBuffers.m in Sources */,
 				ED44BFA822696CF50042928E /* BTCScript.m in Sources */,
 				ED44BF9E22696CF50042928E /* BTCEncryptedBackup+Tests.m in Sources */,
 				EDA5149222686DEC0011138F /* ViewController.m in Sources */,
+				A26FEBBE229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m in Sources */,
 				ED44BF7822696CF50042928E /* BTCAssetID.m in Sources */,
-				ED41677E22755D4C000B5DC8 /* WalletCell.m in Sources */,
+				A26FEBCD229F7DE0003CCD7C /* LeftMenuCell.m in Sources */,
 				ED44BF8E22696CF50042928E /* BTCFancyEncryptedMessage.m in Sources */,
+				A26FEBE9229F7DE0003CCD7C /* WalletViewController.m in Sources */,
 				ED44BFA722696CF50042928E /* BTCKey+Tests.m in Sources */,
 				ED44BFA622696CF50042928E /* BTCKeychain+Tests.m in Sources */,
+				A26FEBFB229F7FBB003CCD7C /* LanguageManager.m in Sources */,
 				ED44BF7A22696CF50042928E /* BTCBlindSignature.m in Sources */,
 				ED44BF8722696CF50042928E /* BTCProtocolSerialization.m in Sources */,
 				ED3C756D2271611400B42555 /* VcashWalletInfo.mm in Sources */,
+				A26FEBE6229F7DE0003CCD7C /* PinVerifyViewController.m in Sources */,
 				ED44BFAD22696CF50042928E /* BTCBase58.m in Sources */,
 				ED2498992281279600D94EBE /* ServerTxManager.m in Sources */,
-				ED44BFDC22697BAF0042928E /* RecoverMnemonicViewController.m in Sources */,
 				ED44BF7122696CF50042928E /* BTCBlock.m in Sources */,
+				A26FEBC4229F7DE0003CCD7C /* TransactionDetailViewController.m in Sources */,
+				A26FEBCE229F7DE0003CCD7C /* RecoverMnemonicViewController.m in Sources */,
+				A26FECA6229F836D003CCD7C /* NavigationCenter.m in Sources */,
 				ED44BFB122696CF50042928E /* BTC256+Tests.m in Sources */,
+				A26FEBD2229F7DE0003CCD7C /* ChangePasswordViewController.m in Sources */,
+				A26FEBD8229F7DE0003CCD7C /* LeftMenuModel.m in Sources */,
 				ED24989222802B9E00D94EBE /* ServerType.m in Sources */,
 				ED44BFC0226978C50042928E /* MBHudHelper.m in Sources */,
 				ED44BFCB226979DA0042928E /* NSString +AES256.m in Sources */,
@@ -1025,12 +1539,13 @@
 				ED44BFA522696CF50042928E /* BTCPaymentRequest.m in Sources */,
 				ED44BF9922696CF50042928E /* BTCAddress.m in Sources */,
 				EDA5148F22686DEC0011138F /* AppDelegate.m in Sources */,
-				ED44C012226DC5730042928E /* PinVerifyViewController.m in Sources */,
 				ED44C00F226DAFB30042928E /* VcashTypes.m in Sources */,
 				ED44BF8122696CF50042928E /* BTCBigNumber.m in Sources */,
 				ED44C00C226D9FF50042928E /* NodeType.m in Sources */,
 				ED44BF8222696CF50042928E /* BTCScript+Tests.m in Sources */,
+				A26FEBE4229F7DE0003CCD7C /* LeftMenuView.m in Sources */,
 				ED44BFAE22696CF50042928E /* BTCPaymentMethodRequest.m in Sources */,
+				A26FEBCA229F7DE0003CCD7C /* WalletCell.m in Sources */,
 				ED44BF8D22696CF50042928E /* BTCOpcode.m in Sources */,
 				ED44BFCA226979DA0042928E /* NSData+AES256.m in Sources */,
 				ED44BF8922696CF50042928E /* BTCBase58+Tests.m in Sources */,
@@ -1042,26 +1557,31 @@
 				ED44BF9222696CF50042928E /* BTCChainCom.m in Sources */,
 				ED3C7557226EC78B00B42555 /* VcashOutput.mm in Sources */,
 				ED44BFA922696CF50042928E /* BTCHashID.m in Sources */,
+				A26FEBD0229F7DE0003CCD7C /* CreateWalletNoteViewController.m in Sources */,
 				ED44BFB422696CF50042928E /* BTCFancyEncryptedMessage+Tests.m in Sources */,
+				A26FEBD6229F7DE0003CCD7C /* VcashNavigationViewController.m in Sources */,
 				ED44BFF62269D0540042928E /* VcashSecp256k1.m in Sources */,
-				ED44BFE722697EC60042928E /* PhraseWordShowViewCreator.m in Sources */,
+				A26FEBE7229F7DE0003CCD7C /* SendTransactionViewController.m in Sources */,
+				A26FEBDB229F7DE0003CCD7C /* ServerTxPopView.m in Sources */,
 				ED44C009226D9D8D0042928E /* NodeApi.m in Sources */,
 				ED44BF9622696CF50042928E /* BTCTransactionInput.m in Sources */,
-				ED44BFDB22697BAF0042928E /* CreateMnemonicViewController.m in Sources */,
 				ED3C7551226EC30A00B42555 /* VcashDataManager.mm in Sources */,
-				ED44BFEA226984EB0042928E /* PinPasswordSetViewController.m in Sources */,
+				A26FEBED229F7E1B003CCD7C /* AppHelper.m in Sources */,
+				A26FEBF7229F7E39003CCD7C /* VcashTextField.m in Sources */,
 				ED3C7560226EF68600B42555 /* VcashSlate.m in Sources */,
 				ED3C755C226EE9ED00B42555 /* VcashTxLog.mm in Sources */,
 				ED44BFAF22696CF50042928E /* BTCBlockchainInfo+Tests.m in Sources */,
 				ED44BF9D22696CF50042928E /* BTCAddress+Tests.m in Sources */,
+				A26FEBC7229F7DE0003CCD7C /* CreateMnemonicViewController.m in Sources */,
+				A26FEBDE229F7DE0003CCD7C /* PinPasswordInputView.m in Sources */,
 				ED44BF8622696CF50042928E /* BTCMnemonic.m in Sources */,
 				ED44BF9C22696CF50042928E /* BTCMerkleTree.m in Sources */,
 				ED3C756A2270744400B42555 /* PublicTool.m in Sources */,
-				ED4167872275B04A000B5DC8 /* SendTransactionViewController.m in Sources */,
 				ED44BF7B22696CF50042928E /* BTCQRCode.m in Sources */,
 				ED44BF8F22696CF50042928E /* BTCCurvePoint+Tests.m in Sources */,
+				A26FEBF8229F7E39003CCD7C /* VcashLabel.m in Sources */,
 				ED44BF8322696CF50042928E /* BTCBlockchainInfo.m in Sources */,
-				ED41678C2275B1D6000B5DC8 /* SendTransactionConfirmView.m in Sources */,
+				A26FEBC9229F7DE0003CCD7C /* WelcomePageViewController.m in Sources */,
 				ED3C7563226F112500B42555 /* VcashContext.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

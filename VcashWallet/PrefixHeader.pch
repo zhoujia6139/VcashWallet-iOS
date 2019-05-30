@@ -15,6 +15,9 @@
 #import <YYKit.h>
 #import <Masonry.h>
 #import <MJRefresh.h>
+#import "VcashLib/VcashUIKit/VcashLabel.h"
+#import "VcashLib/VcashUIKit/VcashButton.h"
+#import "VcashLib/VcashUIKit/VcashTextField.h"
 
 #import "UserCenter.h"
 #import "NavigationCenter.h"
@@ -22,8 +25,11 @@
 #import "UtilsMacros.h"
 #import "PublicTool.h"
 #import "NSNumber+Utils.h"
+#import "AppHelper.h"
+#import <Toast.h>
 
 #import "WalletWrapper.h"
+#import "LanguageManager.h"
 
 #define isInTestNet 1
 

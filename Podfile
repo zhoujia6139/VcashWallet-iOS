@@ -4,7 +4,7 @@
 target 'VcashWallet' do
  pod 'OpenSSL-Universal', '1.0.2.13'
  pod 'ISO8601DateFormatter', '0.8'
- #pod 'WCDB'
+ pod 'WCDB'
  pod 'AFNetworking', '~> 3.0'
  pod 'MBProgressHUD', '~> 1.1.0'
  pod 'Masonry'
@@ -12,4 +12,5 @@ target 'VcashWallet' do
  pod 'IQKeyboardManager', '~> 5.0.8'
  pod 'CocoaLumberjack'
  pod 'YYKit', '~> 1.0.9'
+ pod 'Toast', '~> 4.0.0'
 end

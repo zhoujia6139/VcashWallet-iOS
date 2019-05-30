@@ -7,17 +7,36 @@
 //
 
 #import "WelcomePageViewController.h"
-#import "CreateMnemonicViewController.h"
+#import "CreateWalletNoteViewController.h"
 #import "RecoverMnemonicViewController.h"
 
 @interface WelcomePageViewController ()
 
+
+@property (weak, nonatomic) IBOutlet VcashButton *createNewWalletBtn;
+
+@property (weak, nonatomic) IBOutlet VcashButton *restoreWalletBtn;
+
+
 @end
 
-@implementation WelcomePageViewController
+@implementation WelcomePageViewController{
+    UIButton *seletedBtn;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    ViewRadius(self.createNewWalletBtn, 8.0);
+    ViewBorderRadius(self.restoreWalletBtn, 8.0, 1, [UIColor whiteColor]);
+    self.createNewWalletBtn.backgroundColor = [UIColor colorWithHexString:@"FF9502"];
+    self.restoreWalletBtn.backgroundColor = [UIColor blackColor];
+//    [self.createNewWalletBtn setBackgroundImage:[UIImage imageWithColor:[UIColor blackColor]] forState:UIControlStateNormal];
+//    [self.createNewWalletBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"FF9502"]] forState:UIControlStateSelected];
+//    self.createNewWalletBtn.selected = YES;
+    seletedBtn = self.createNewWalletBtn;
+//    [self.restoreWalletBtn setBackgroundImage:[UIImage imageWithColor:[UIColor blackColor]] forState:UIControlStateNormal];
+//    [self.restoreWalletBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"FF9502"]] forState:UIControlStateSelected];
     
 //    NSString* mnemonicStr = @"glue tilt pair insane enroll scissors galaxy know fringe joke mother zebra";
 //    NSArray* wordsArr = [mnemonicStr componentsSeparatedByString:@" "];
@@ -57,11 +76,32 @@
 }
 
 - (IBAction)clickCreate:(id)sender {
-    [self.navigationController pushViewController:[CreateMnemonicViewController new] animated:YES];
+    [self switchBtnBackGroudColorWith:sender];
+    [self.navigationController pushViewController:[CreateWalletNoteViewController new] animated:YES];
 }
 
 - (IBAction)clickRestore:(id)sender {
+    [self switchBtnBackGroudColorWith:sender];
     [self.navigationController pushViewController:[RecoverMnemonicViewController new] animated:YES];
+}
+
+- (void)switchBtnBackGroudColorWith:(UIButton *)btn{
+    if (seletedBtn == btn) {
+        return;
+    }
+    seletedBtn.backgroundColor = [UIColor blackColor];
+    btn.backgroundColor = [UIColor colorWithHexString:@"FF9502"];
+    seletedBtn = btn;
+    ViewBorderRadius(btn, 8.0,0,[UIColor clearColor]);
+   
+    if (btn != self.createNewWalletBtn) {
+         ViewBorderRadius(self.createNewWalletBtn, 8.0, 1, [UIColor whiteColor]);
+    }
+    
+    if (btn != self.restoreWalletBtn) {
+         ViewBorderRadius(self.restoreWalletBtn, 8.0, 1, [UIColor whiteColor]);
+    }
+   
 }
 
 /*

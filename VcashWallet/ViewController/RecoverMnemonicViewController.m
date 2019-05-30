@@ -12,21 +12,41 @@
 #import "PinPasswordSetViewController.h"
 
 @interface RecoverMnemonicViewController ()
+
+@property (weak, nonatomic) IBOutlet VcashButton *recoverBtn;
+
+
+@property (weak, nonatomic) IBOutlet UIView *promptView;
+
 @property (weak, nonatomic) IBOutlet UIView *phraseView;
+
+@property (nonatomic, strong) PhraseWordShowViewCreator *creator;
 
 @end
 
 @implementation RecoverMnemonicViewController
 {
-    PhraseWordShowViewCreator*creator;
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"恢复钱包";
-    
-    creator = [PhraseWordShowViewCreator new];
-    [creator creatPhraseViewWithParentView:self.phraseView isCanEdit:YES withCallBack:nil];
+    self.navigationItem.title = [LanguageService contentForKey:@"restorePhrase"];
+    ViewRadius(self.recoverBtn, 4.0);
+//    self.recoverBtn.userInteractionEnabled = NO;
+//    self.recoverBtn.backgroundColor = CGrayColor;
+    self.creator = [PhraseWordShowViewCreator new];
+    __weak typeof(self) weakSelf = self;
+    [self.creator creatPhraseViewWithParentView:self.phraseView isCanEdit:YES withCallBack:^(CGFloat height, NSInteger wordsCount) {
+        __strong typeof(weakSelf) strongSlef = weakSelf;
+//        if (wordsCount != 24) {
+//            strongSlef.recoverBtn.userInteractionEnabled = NO;
+//            strongSlef.recoverBtn.backgroundColor = CGrayColor;
+//        }else{
+//            strongSlef.recoverBtn.userInteractionEnabled = YES;
+//            strongSlef.recoverBtn.backgroundColor = COrangeColor;
+//        }
+    }];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -34,8 +54,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (IBAction)clickRecover:(id)sender {
-    NSArray* wordsArr = [creator getAllInputWords];
+    NSArray* wordsArr = [self.creator getAllInputWords];
     if (wordsArr.count == 0)
     {
         //NSString* mnemonicStr = @"glue tilt pair insane enroll scissors galaxy know fringe joke mother zebra";

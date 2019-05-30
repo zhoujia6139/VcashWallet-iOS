@@ -12,7 +12,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateMnemonicViewController">
             <connections>
+                <outlet property="copnstraintPromptView" destination="gsJ-Wb-iil" id="RoT-SK-ztU"/>
+                <outlet property="nextBtn" destination="2Wt-bg-ooa" id="lXa-LC-ma4"/>
                 <outlet property="phraseWordView" destination="BFv-zi-8Rj" id="USN-6u-lv9"/>
+                <outlet property="promptView" destination="IBu-OA-vmb" id="Nt2-Cz-rLh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,55 +24,78 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IBu-OA-vmb">
-                    <rect key="frame" x="0.0" y="20" width="375" height="60"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MZ7-JE-zFs">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="抄好这24个单词密语" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h31-Wg-VUa">
-                            <rect key="frame" x="108" y="19.5" width="159" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="1" green="0.34838296750823106" blue="0.23425901569680196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IBu-OA-vmb">
+                            <rect key="frame" x="12" y="0.0" width="351" height="122"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h31-Wg-VUa" customClass="VcashLabel">
+                                    <rect key="frame" x="20" y="16" width="311" height="90"/>
+                                    <string key="text">Your seed phrase is the access key to all the funds in your wallet. Print or write down the phrase to keep it in a safe or in a locked vault.Without the phrase you will not be able to recover your money.</string>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localText" value="backupPrompt"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="h31-Wg-VUa" firstAttribute="centerY" secondItem="IBu-OA-vmb" secondAttribute="centerY" id="3hq-O1-uHP"/>
+                                <constraint firstItem="h31-Wg-VUa" firstAttribute="top" secondItem="IBu-OA-vmb" secondAttribute="top" constant="16" id="ReU-o6-lcb"/>
+                                <constraint firstItem="h31-Wg-VUa" firstAttribute="leading" secondItem="IBu-OA-vmb" secondAttribute="leading" constant="20" id="W8S-uP-oun"/>
+                                <constraint firstItem="h31-Wg-VUa" firstAttribute="centerX" secondItem="IBu-OA-vmb" secondAttribute="centerX" id="gh0-dz-tMH"/>
+                                <constraint firstAttribute="width" constant="351" id="gsJ-Wb-iil"/>
+                                <constraint firstAttribute="trailing" secondItem="h31-Wg-VUa" secondAttribute="trailing" constant="20" id="muV-hU-ivD"/>
+                                <constraint firstAttribute="bottom" secondItem="h31-Wg-VUa" secondAttribute="bottom" constant="16" id="twx-G4-TGx"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BFv-zi-8Rj">
+                            <rect key="frame" x="12" y="137" width="351" height="360"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="360" id="dhQ-1Y-S3A"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Wt-bg-ooa" customClass="VcashButton">
+                            <rect key="frame" x="92.5" y="513" width="190" height="44"/>
+                            <color key="backgroundColor" red="1" green="0.58431372550000005" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="OOC-d5-GJf"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="190" id="VtA-Yv-3sK"/>
+                            </constraints>
+                            <state key="normal" title="Next">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localTitle" value="next"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="clickedWalletBtn:" destination="-1" eventType="touchUpInside" id="Ugc-3a-Nbc"/>
+                            </connections>
+                        </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="h31-Wg-VUa" firstAttribute="centerY" secondItem="IBu-OA-vmb" secondAttribute="centerY" id="3hq-O1-uHP"/>
-                        <constraint firstItem="h31-Wg-VUa" firstAttribute="centerX" secondItem="IBu-OA-vmb" secondAttribute="centerX" id="gh0-dz-tMH"/>
-                        <constraint firstAttribute="height" constant="60" id="vbK-LI-JYV"/>
+                        <constraint firstAttribute="trailing" secondItem="BFv-zi-8Rj" secondAttribute="trailing" constant="12" id="1z7-V9-bnX"/>
+                        <constraint firstAttribute="bottom" secondItem="BFv-zi-8Rj" secondAttribute="bottom" constant="86" id="9il-JE-w1T"/>
+                        <constraint firstItem="BFv-zi-8Rj" firstAttribute="leading" secondItem="MZ7-JE-zFs" secondAttribute="leading" constant="12" id="MYt-sx-bhe"/>
+                        <constraint firstItem="2Wt-bg-ooa" firstAttribute="centerX" secondItem="MZ7-JE-zFs" secondAttribute="centerX" id="RWU-PY-9WB"/>
+                        <constraint firstAttribute="trailing" secondItem="IBu-OA-vmb" secondAttribute="trailing" constant="12" id="V5Z-pe-pSP"/>
+                        <constraint firstItem="IBu-OA-vmb" firstAttribute="top" secondItem="MZ7-JE-zFs" secondAttribute="top" id="cej-Us-Fgw"/>
+                        <constraint firstItem="BFv-zi-8Rj" firstAttribute="top" secondItem="IBu-OA-vmb" secondAttribute="bottom" constant="15" id="e42-Y1-WA1"/>
+                        <constraint firstItem="IBu-OA-vmb" firstAttribute="leading" secondItem="MZ7-JE-zFs" secondAttribute="leading" constant="12" id="eHQ-To-H4C"/>
+                        <constraint firstItem="2Wt-bg-ooa" firstAttribute="top" secondItem="BFv-zi-8Rj" secondAttribute="bottom" constant="16" id="zWV-EP-EfL"/>
                     </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BFv-zi-8Rj">
-                    <rect key="frame" x="0.0" y="80" width="375" height="400"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="400" id="dhQ-1Y-S3A"/>
-                    </constraints>
-                </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Wt-bg-ooa">
-                    <rect key="frame" x="137.5" y="520" width="100" height="40"/>
-                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="OOC-d5-GJf"/>
-                        <constraint firstAttribute="width" constant="100" id="VtA-Yv-3sK"/>
-                    </constraints>
-                    <state key="normal" title="备份好了">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
-                    <connections>
-                        <action selector="clickedWalletBtn:" destination="-1" eventType="touchUpInside" id="Ugc-3a-Nbc"/>
-                    </connections>
-                </button>
+                </scrollView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="IBu-OA-vmb" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="1gS-I5-DVO"/>
-                <constraint firstItem="IBu-OA-vmb" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="FMG-vd-oPa"/>
-                <constraint firstItem="BFv-zi-8Rj" firstAttribute="top" secondItem="IBu-OA-vmb" secondAttribute="bottom" id="Kjb-FL-L3W"/>
-                <constraint firstItem="BFv-zi-8Rj" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Nhi-UW-lu2"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="IBu-OA-vmb" secondAttribute="trailing" id="QV5-Fs-C01"/>
-                <constraint firstItem="2Wt-bg-ooa" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Ul0-vD-Yz3"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="BFv-zi-8Rj" secondAttribute="trailing" id="Xvi-T7-ErC"/>
-                <constraint firstItem="2Wt-bg-ooa" firstAttribute="top" secondItem="BFv-zi-8Rj" secondAttribute="bottom" constant="40" id="qeX-Se-PGP"/>
+                <constraint firstItem="MZ7-JE-zFs" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="7g7-Wl-CcY"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="MZ7-JE-zFs" secondAttribute="trailing" id="8fv-pT-WjF"/>
+                <constraint firstItem="MZ7-JE-zFs" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="vkN-Xm-pfO"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="MZ7-JE-zFs" secondAttribute="bottom" id="xxF-CT-Id9"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
         </view>

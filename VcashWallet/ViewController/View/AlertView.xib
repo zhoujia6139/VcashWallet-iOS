@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="AlertView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xfi-Fk-b1r">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9oY-Qo-V5S">
+                    <rect key="frame" x="15" y="249.5" width="345" height="188.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save seed phrase" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Yi-m0-LUK" customClass="VcashLabel">
+                            <rect key="frame" x="23" y="20" width="299" height="21.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localText" value="saveSeedphrase"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GIm-F6-7jd" customClass="VcashLabel">
+                            <rect key="frame" x="23" y="54.5" width="299" height="72"/>
+                            <string key="text">Please write the seed phrase down. Do not screenshot it and save it in your photo gallery. It makes the phrase prone to cyber attacks and, less secure.</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localText" value="saveSeedphraseContent"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H8D-mM-AIX" customClass="VcashButton">
+                            <rect key="frame" x="248" y="144.5" width="97" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="sBL-fa-1vZ"/>
+                            </constraints>
+                            <inset key="contentEdgeInsets" minX="30" minY="0.0" maxX="30" maxY="0.0"/>
+                            <state key="normal" title="Done">
+                                <color key="titleColor" red="1" green="0.58431372550000005" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localTitle" value="done"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="clickedBtnDone:" destination="iN0-l3-epB" eventType="touchUpInside" id="Bey-vB-xk3"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pse-gL-4Er" customClass="VcashButton">
+                            <rect key="frame" x="146" y="144.5" width="108" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="fgr-If-mb1"/>
+                            </constraints>
+                            <inset key="contentEdgeInsets" minX="30" minY="0.0" maxX="30" maxY="0.0"/>
+                            <state key="normal" title="Cancel">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localTitle" value="cancel"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="clickedBtnCancel:" destination="iN0-l3-epB" eventType="touchUpInside" id="0Bh-ce-nVK"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rMC-C3-CAv">
+                            <rect key="frame" x="253" y="159" width="1" height="15"/>
+                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="15" id="0Jg-73-Vuy"/>
+                                <constraint firstAttribute="width" constant="1" id="cyd-PF-ynd"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="GIm-F6-7jd" firstAttribute="top" secondItem="5Yi-m0-LUK" secondAttribute="bottom" constant="13" id="5xT-67-WWs"/>
+                        <constraint firstAttribute="trailing" secondItem="H8D-mM-AIX" secondAttribute="trailing" id="GOe-2K-mMd"/>
+                        <constraint firstItem="GIm-F6-7jd" firstAttribute="leading" secondItem="9oY-Qo-V5S" secondAttribute="leading" constant="23" id="IGQ-9F-Z7Z"/>
+                        <constraint firstItem="Pse-gL-4Er" firstAttribute="centerY" secondItem="H8D-mM-AIX" secondAttribute="centerY" id="J8d-L9-Emc"/>
+                        <constraint firstItem="5Yi-m0-LUK" firstAttribute="top" secondItem="9oY-Qo-V5S" secondAttribute="top" constant="20" id="SVq-yT-WaN"/>
+                        <constraint firstItem="rMC-C3-CAv" firstAttribute="trailing" secondItem="Pse-gL-4Er" secondAttribute="trailing" id="UtH-yf-8en"/>
+                        <constraint firstItem="rMC-C3-CAv" firstAttribute="centerY" secondItem="Pse-gL-4Er" secondAttribute="centerY" id="Zje-ty-2Io"/>
+                        <constraint firstItem="H8D-mM-AIX" firstAttribute="leading" secondItem="Pse-gL-4Er" secondAttribute="trailing" constant="-6" id="aEz-J4-6SJ"/>
+                        <constraint firstItem="H8D-mM-AIX" firstAttribute="top" secondItem="GIm-F6-7jd" secondAttribute="bottom" constant="18" id="bEt-nK-jHN"/>
+                        <constraint firstItem="5Yi-m0-LUK" firstAttribute="leading" secondItem="9oY-Qo-V5S" secondAttribute="leading" constant="23" id="cjy-2j-8ii"/>
+                        <constraint firstAttribute="trailing" secondItem="5Yi-m0-LUK" secondAttribute="trailing" constant="23" id="laM-H7-Zed"/>
+                        <constraint firstAttribute="trailing" secondItem="GIm-F6-7jd" secondAttribute="trailing" constant="23" id="poi-5k-CJe"/>
+                        <constraint firstAttribute="bottom" secondItem="H8D-mM-AIX" secondAttribute="bottom" id="usr-vU-Dcb"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="xfi-Fk-b1r" secondAttribute="bottom" id="7UW-AZ-thB"/>
+                <constraint firstItem="xfi-Fk-b1r" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="J2M-Cp-K6w"/>
+                <constraint firstItem="9oY-Qo-V5S" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="LZo-hs-MIm"/>
+                <constraint firstItem="xfi-Fk-b1r" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Pjj-cL-KQ9"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="xfi-Fk-b1r" secondAttribute="trailing" id="af6-xi-D3q"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9oY-Qo-V5S" secondAttribute="trailing" constant="15" id="cSd-pa-B49"/>
+                <constraint firstItem="9oY-Qo-V5S" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="oaC-Za-gyK"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="alphaView" destination="xfi-Fk-b1r" id="kKL-B0-gAP"/>
+                <outlet property="contentView" destination="9oY-Qo-V5S" id="ob5-pF-V7u"/>
+                <outlet property="msgLabel" destination="GIm-F6-7jd" id="FuB-Ey-sFx"/>
+                <outlet property="titleLabel" destination="5Yi-m0-LUK" id="OWg-G6-o6O"/>
+            </connections>
+        </view>
+    </objects>
+</document>

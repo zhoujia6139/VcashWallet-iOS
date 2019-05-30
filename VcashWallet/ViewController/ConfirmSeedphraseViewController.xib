@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConfirmSeedphraseViewController">
+            <connections>
+                <outlet property="chosePhraseView" destination="vbG-Kz-hSY" id="Ck5-Xq-2mf"/>
+                <outlet property="needConfirmPhraseView" destination="IS1-B7-qAT" id="3QY-hk-Ra5"/>
+                <outlet property="promptView" destination="h6K-8B-ovB" id="yc6-4w-FM5"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6K-8B-ovB">
+                    <rect key="frame" x="12" y="20" width="351" height="86"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To ensure the seed phrase is written down correctly. please fill in the specific words below." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocj-W8-dHg" customClass="VcashLabel">
+                            <rect key="frame" x="20" y="16" width="311" height="54"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localText" value="confirmSeedphrasePrompt"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="ocj-W8-dHg" firstAttribute="centerX" secondItem="h6K-8B-ovB" secondAttribute="centerX" id="1e0-9m-MiN"/>
+                        <constraint firstItem="ocj-W8-dHg" firstAttribute="centerY" secondItem="h6K-8B-ovB" secondAttribute="centerY" id="91w-lL-04P"/>
+                        <constraint firstAttribute="bottom" secondItem="ocj-W8-dHg" secondAttribute="bottom" constant="16" id="Pfw-0A-cvC"/>
+                        <constraint firstItem="ocj-W8-dHg" firstAttribute="top" secondItem="h6K-8B-ovB" secondAttribute="top" constant="16" id="RWy-GE-Avt"/>
+                        <constraint firstAttribute="trailing" secondItem="ocj-W8-dHg" secondAttribute="trailing" constant="20" id="VDo-2A-1B8"/>
+                        <constraint firstAttribute="width" constant="351" id="p05-Fu-aaZ"/>
+                        <constraint firstItem="ocj-W8-dHg" firstAttribute="leading" secondItem="h6K-8B-ovB" secondAttribute="leading" constant="20" id="u9d-KB-0ov"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IS1-B7-qAT">
+                    <rect key="frame" x="12" y="122" width="351" height="90"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="90" id="dYh-uP-hFe"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vbG-Kz-hSY">
+                    <rect key="frame" x="0.0" y="577" width="375" height="90"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="90" id="P5C-QG-Y74"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vbG-Kz-hSY" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="2HR-cA-9sh"/>
+                <constraint firstItem="IS1-B7-qAT" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="12" id="Isf-QN-qnS"/>
+                <constraint firstItem="IS1-B7-qAT" firstAttribute="top" secondItem="h6K-8B-ovB" secondAttribute="bottom" constant="16" id="LeS-Xh-6GQ"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="h6K-8B-ovB" secondAttribute="trailing" constant="12" id="Nao-E1-a2Y"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="vbG-Kz-hSY" secondAttribute="bottom" id="RLg-4M-pt2"/>
+                <constraint firstAttribute="trailing" secondItem="vbG-Kz-hSY" secondAttribute="trailing" id="Wfb-cA-WJr"/>
+                <constraint firstItem="h6K-8B-ovB" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="Za8-gc-J6l"/>
+                <constraint firstItem="IS1-B7-qAT" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" constant="-12" id="ijQ-R8-NLq"/>
+                <constraint firstItem="h6K-8B-ovB" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="12" id="zRX-w8-eAL"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+        </view>
+    </objects>
+</document>

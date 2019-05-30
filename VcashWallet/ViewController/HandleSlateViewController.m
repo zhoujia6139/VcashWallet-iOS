@@ -8,33 +8,91 @@
 
 #import "HandleSlateViewController.h"
 #import "VcashSlate.h"
+#import "WalletWrapper.h"
+
 
 @interface HandleSlateViewController ()
-@property (weak, nonatomic) IBOutlet UITextView *textView;
+
+@property (weak, nonatomic) IBOutlet UILabel *walletIdLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *btnCopy;
+
+
+@property (weak, nonatomic) IBOutlet UIImageView *scanQR;
+
 
 @end
 
-@implementation HandleSlateViewController
+@implementation HandleSlateViewController{
+    NSString *walletId;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = [LanguageService contentForKey:@"receiveVcash"];
+    ViewRadius(self.btnCopy, 4.0);
+    walletId = [WalletWrapper getWalletUserId];
+    
+    self.walletIdLabel.text = walletId;
+    
+    CIImage *ciImage = [self createQRCodeWithUrlString:walletId];
+    UIImage *imageQRCode = [self adjustQRImageSize:ciImage QRSize:156];
+    self.scanQR.image = imageQRCode;
 }
 
+- (CIImage*)createQRCodeWithUrlString:(NSString*)url{
+    CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
+    [filter setDefaults];
+    NSData *data = [url dataUsingEncoding:NSUTF8StringEncoding];
+    [filter setValue:data forKey:@"inputMessage"];
+    CIImage *qrCode = [filter outputImage];
+    return qrCode;
+}
+
+- (UIImage*)adjustQRImageSize:(CIImage*)ciImage QRSize:(CGFloat)qrSize{
+    CGRect ciImageRect = CGRectIntegral(ciImage.extent);
+    CGFloat scale = MIN(qrSize / CGRectGetWidth(ciImageRect), qrSize / CGRectGetHeight(ciImageRect));
+    size_t width = CGRectGetWidth(ciImageRect) * scale;
+    size_t height = CGRectGetHeight(ciImageRect) * scale;
+    CGColorSpaceRef cs = CGColorSpaceCreateDeviceGray();
+    CGContextRef bitmapRef = CGBitmapContextCreate(nil, width, height, 8, 0, cs, (CGBitmapInfo)kCGImageAlphaNone);
+    CIContext *context = [CIContext contextWithOptions:@{kCIContextUseSoftwareRenderer : @(YES)}];
+    CGImageRef bitmapImage = [context createCGImage:ciImage fromRect:ciImageRect];
+    CGContextSetInterpolationQuality(bitmapRef, kCGInterpolationNone);
+    CGContextScaleCTM(bitmapRef, scale, scale);
+    CGContextDrawImage(bitmapRef, ciImageRect, bitmapImage);
+    
+    CGImageRef scaledImage = CGBitmapContextCreateImage(bitmapRef);
+    CGContextRelease(bitmapRef);
+    CGImageRelease(bitmapImage);
+    
+    return [UIImage imageWithCGImage:scaledImage];
+}
+
+- (IBAction)clickedBtnCopyWalletId:(id)sender {
+    UIPasteboard *pastboard = [UIPasteboard generalPasteboard];
+    [pastboard setString:walletId];
+    [self.view makeToast:[LanguageService contentForKey:@"copySuc"]];
+}
+
+
+
+
 - (IBAction)clickReceive:(id)sender {
-    NSString* text = self.textView.text;
-    VcashSlate* slate = [VcashSlate modelWithJSON:text];
-    if (slate){
-        //[WalletWrapper receiveTransaction:slate];
-    }
+//    NSString* text = self.textView.text;
+//    VcashSlate* slate = [VcashSlate modelWithJSON:text];
+//    if (slate){
+//        //[WalletWrapper receiveTransaction:slate];
+//    }
 }
 
 - (IBAction)clickSend:(id)sender {
-    NSString* text = self.textView.text;
-    VcashSlate* slate = [VcashSlate modelWithJSON:text];
-    if (slate){
-        //[WalletWrapper finalizeTransaction:slate];
-    }
+//    NSString* text = self.textView.text;
+//    VcashSlate* slate = [VcashSlate modelWithJSON:text];
+//    if (slate){
+//        //[WalletWrapper finalizeTransaction:slate];
+//    }
 }
 
 /*

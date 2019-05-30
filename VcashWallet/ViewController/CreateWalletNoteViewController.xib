@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateWalletNoteViewController">
+            <connections>
+                <outlet property="agreeBtn" destination="UHT-x7-YaX" id="HsA-G1-rQ2"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o1i-fj-mmh">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7e1-0a-lIa">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tI6-zl-BCK" customClass="VcashLabel">
+                                    <rect key="frame" x="30" y="30" width="315" height="90"/>
+                                    <string key="text">Create new wallet by generating seed phrase.If you ever lose your device,you will need this phrase to recover your wallet!  Never save it in your loacl or remote folders in any form</string>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" red="0.12156862745098039" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localText" value="createWalletNote"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dottedline.png" translatesAutoresizingMaskIntoConstraints="NO" id="P7N-Ow-z85">
+                                    <rect key="frame" x="30" y="148" width="315" height="2"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="2" id="25K-hl-b2m"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="tI6-zl-BCK" secondAttribute="bottom" constant="30" id="74c-38-JU4"/>
+                                <constraint firstAttribute="bottom" secondItem="P7N-Ow-z85" secondAttribute="bottom" id="7b8-oM-JjV"/>
+                                <constraint firstAttribute="trailing" secondItem="P7N-Ow-z85" secondAttribute="trailing" constant="30" id="7sd-Gi-QxT"/>
+                                <constraint firstItem="P7N-Ow-z85" firstAttribute="leading" secondItem="7e1-0a-lIa" secondAttribute="leading" constant="30" id="ezB-zl-2YT"/>
+                                <constraint firstItem="tI6-zl-BCK" firstAttribute="top" secondItem="7e1-0a-lIa" secondAttribute="top" constant="30" id="fns-Pi-wCM"/>
+                                <constraint firstAttribute="trailing" secondItem="tI6-zl-BCK" secondAttribute="trailing" constant="30" id="nmW-Se-wlY"/>
+                                <constraint firstAttribute="width" constant="375" id="t6d-sE-ZK2"/>
+                                <constraint firstItem="tI6-zl-BCK" firstAttribute="leading" secondItem="7e1-0a-lIa" secondAttribute="leading" constant="30" id="yiM-vT-I08"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ilr-VF-w80">
+                            <rect key="frame" x="0.0" y="170" width="375" height="70"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eye.png" translatesAutoresizingMaskIntoConstraints="NO" id="L5s-Af-RLG">
+                                    <rect key="frame" x="33" y="17.5" width="35" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="35" id="Yk2-XI-iGV"/>
+                                        <constraint firstAttribute="height" constant="35" id="sbz-Wl-9Wy"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do not let anyone see your seed phrase." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5UD-iI-tNp" customClass="VcashLabel">
+                                    <rect key="frame" x="98" y="17" width="247" height="36"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localText" value="seedphraseNote"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="5UD-iI-tNp" firstAttribute="centerY" secondItem="Ilr-VF-w80" secondAttribute="centerY" id="2La-NL-fvV"/>
+                                <constraint firstItem="L5s-Af-RLG" firstAttribute="leading" secondItem="Ilr-VF-w80" secondAttribute="leading" constant="33" id="BCf-mD-ca1"/>
+                                <constraint firstAttribute="bottom" secondItem="5UD-iI-tNp" secondAttribute="bottom" constant="17" id="IPK-CR-oIz"/>
+                                <constraint firstItem="5UD-iI-tNp" firstAttribute="top" secondItem="Ilr-VF-w80" secondAttribute="top" constant="17" id="KQO-Vd-x1S"/>
+                                <constraint firstItem="L5s-Af-RLG" firstAttribute="centerY" secondItem="Ilr-VF-w80" secondAttribute="centerY" id="SFy-Or-yJb"/>
+                                <constraint firstItem="5UD-iI-tNp" firstAttribute="leading" secondItem="L5s-Af-RLG" secondAttribute="trailing" constant="30" id="hsQ-pS-qF0"/>
+                                <constraint firstAttribute="trailing" secondItem="5UD-iI-tNp" secondAttribute="trailing" constant="30" id="tD5-bc-ZCJ"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="z5J-pc-Moy"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vdR-gE-hxZ">
+                            <rect key="frame" x="0.0" y="240" width="375" height="70"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lock.png" translatesAutoresizingMaskIntoConstraints="NO" id="qOm-2x-1rw">
+                                    <rect key="frame" x="33" y="17.5" width="35" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="35" id="RLe-Tu-jfS"/>
+                                        <constraint firstAttribute="height" constant="35" id="h1U-ZK-2Qs"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Never type your seed phrase into password managers or elsewhere." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hHU-9H-d0C" customClass="VcashLabel">
+                                    <rect key="frame" x="98" y="16" width="247" height="38"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localText" value="seedphraseManagerNote"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="hHU-9H-d0C" secondAttribute="trailing" constant="30" id="60n-uG-pVC"/>
+                                <constraint firstItem="hHU-9H-d0C" firstAttribute="leading" secondItem="qOm-2x-1rw" secondAttribute="trailing" constant="30" id="Ap6-Uf-ULy"/>
+                                <constraint firstItem="hHU-9H-d0C" firstAttribute="centerY" secondItem="vdR-gE-hxZ" secondAttribute="centerY" id="DGC-42-OGv"/>
+                                <constraint firstItem="hHU-9H-d0C" firstAttribute="top" secondItem="vdR-gE-hxZ" secondAttribute="top" constant="16" id="Nvg-cc-veS"/>
+                                <constraint firstItem="qOm-2x-1rw" firstAttribute="centerY" secondItem="vdR-gE-hxZ" secondAttribute="centerY" id="QE6-0Z-OPR"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="hmO-2g-cLN"/>
+                                <constraint firstAttribute="bottom" secondItem="hHU-9H-d0C" secondAttribute="bottom" constant="16" id="tD4-it-zTz"/>
+                                <constraint firstItem="qOm-2x-1rw" firstAttribute="leading" secondItem="vdR-gE-hxZ" secondAttribute="leading" constant="33" id="wO4-TB-bj0"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8xO-jW-ZnA">
+                            <rect key="frame" x="0.0" y="310" width="375" height="70"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="copy.png" translatesAutoresizingMaskIntoConstraints="NO" id="Lxk-qQ-Y2C">
+                                    <rect key="frame" x="33" y="17.5" width="35" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="35" id="7tv-St-bCX"/>
+                                        <constraint firstAttribute="width" constant="35" id="bOk-vT-Vlk"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make at least 2 copies of the phrase in caseof emergency." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qQ-6C-iby" customClass="VcashLabel">
+                                    <rect key="frame" x="98" y="16" width="247" height="38"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localText" value="copyphraseNote"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="7qQ-6C-iby" firstAttribute="centerY" secondItem="8xO-jW-ZnA" secondAttribute="centerY" id="2Pn-OI-Et9"/>
+                                <constraint firstItem="Lxk-qQ-Y2C" firstAttribute="leading" secondItem="8xO-jW-ZnA" secondAttribute="leading" constant="33" id="4c5-Wc-WpY"/>
+                                <constraint firstAttribute="trailing" secondItem="7qQ-6C-iby" secondAttribute="trailing" constant="30" id="6kT-6G-zmT"/>
+                                <constraint firstItem="7qQ-6C-iby" firstAttribute="top" secondItem="8xO-jW-ZnA" secondAttribute="top" constant="16" id="K3r-ZR-tyI"/>
+                                <constraint firstItem="7qQ-6C-iby" firstAttribute="leading" secondItem="Lxk-qQ-Y2C" secondAttribute="trailing" constant="30" id="OwC-zJ-i3A"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="XNw-IW-ggF"/>
+                                <constraint firstItem="Lxk-qQ-Y2C" firstAttribute="centerY" secondItem="8xO-jW-ZnA" secondAttribute="centerY" id="f8o-bg-WBW"/>
+                                <constraint firstAttribute="bottom" secondItem="7qQ-6C-iby" secondAttribute="bottom" constant="16" id="zBY-RU-nDm"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UHT-x7-YaX" customClass="VcashButton">
+                            <rect key="frame" x="28" y="494" width="319" height="44"/>
+                            <color key="backgroundColor" red="1" green="0.58431372549019611" blue="0.0078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="9hb-rH-Qx4"/>
+                            </constraints>
+                            <state key="normal" title="I Agree">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localTitle" value="agree"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="clickedBtnAgree:" destination="-1" eventType="touchUpInside" id="ZCm-4F-3pS"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="8xO-jW-ZnA" firstAttribute="top" secondItem="vdR-gE-hxZ" secondAttribute="bottom" id="3Ju-ZT-Wed"/>
+                        <constraint firstItem="7e1-0a-lIa" firstAttribute="leading" secondItem="o1i-fj-mmh" secondAttribute="leading" id="47g-MQ-3CO"/>
+                        <constraint firstItem="Ilr-VF-w80" firstAttribute="leading" secondItem="o1i-fj-mmh" secondAttribute="leading" id="7DG-7Y-3za"/>
+                        <constraint firstAttribute="bottom" secondItem="UHT-x7-YaX" secondAttribute="bottom" constant="40" id="7RI-NT-hEt"/>
+                        <constraint firstItem="7e1-0a-lIa" firstAttribute="top" secondItem="o1i-fj-mmh" secondAttribute="top" id="9Ev-9c-lbu"/>
+                        <constraint firstItem="UHT-x7-YaX" firstAttribute="leading" secondItem="o1i-fj-mmh" secondAttribute="leading" constant="28" id="BcI-36-UQC"/>
+                        <constraint firstItem="Ilr-VF-w80" firstAttribute="top" secondItem="7e1-0a-lIa" secondAttribute="bottom" constant="20" id="Bto-dF-ZfC"/>
+                        <constraint firstAttribute="trailing" secondItem="vdR-gE-hxZ" secondAttribute="trailing" id="Dp4-oN-9he"/>
+                        <constraint firstItem="vdR-gE-hxZ" firstAttribute="top" secondItem="Ilr-VF-w80" secondAttribute="bottom" id="KNY-Uk-tMk"/>
+                        <constraint firstItem="8xO-jW-ZnA" firstAttribute="leading" secondItem="o1i-fj-mmh" secondAttribute="leading" id="MA5-hl-jI7"/>
+                        <constraint firstAttribute="trailing" secondItem="UHT-x7-YaX" secondAttribute="trailing" constant="28" id="UkV-uv-Fek"/>
+                        <constraint firstAttribute="trailing" secondItem="7e1-0a-lIa" secondAttribute="trailing" id="Xku-o6-UkK"/>
+                        <constraint firstAttribute="trailing" secondItem="8xO-jW-ZnA" secondAttribute="trailing" id="b3y-gO-mDo"/>
+                        <constraint firstItem="vdR-gE-hxZ" firstAttribute="leading" secondItem="o1i-fj-mmh" secondAttribute="leading" id="hQ8-Ro-IO6"/>
+                        <constraint firstAttribute="bottom" secondItem="8xO-jW-ZnA" secondAttribute="bottom" constant="198" id="vbL-Ly-8le"/>
+                        <constraint firstAttribute="trailing" secondItem="Ilr-VF-w80" secondAttribute="trailing" id="zlA-dE-8RW"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="o1i-fj-mmh" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="0sO-u8-mmX"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="o1i-fj-mmh" secondAttribute="trailing" id="3S1-vl-Xg4"/>
+                <constraint firstItem="o1i-fj-mmh" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="T6E-a4-1Ts"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="o1i-fj-mmh" secondAttribute="bottom" id="buB-HB-gbw"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="55.200000000000003" y="48.125937031484263"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="copy.png" width="35" height="35"/>
+        <image name="dottedline.png" width="312" height="2"/>
+        <image name="eye.png" width="35" height="35"/>
+        <image name="lock.png" width="35" height="35"/>
+    </resources>
+</document>

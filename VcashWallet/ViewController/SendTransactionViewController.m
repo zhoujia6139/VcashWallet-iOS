@@ -9,11 +9,29 @@
 #import "SendTransactionViewController.h"
 #import "WalletWrapper.h"
 #import "SendTransactionConfirmView.h"
+#import "ScanViewController.h"
 
-@interface SendTransactionViewController ()
+
+#define CGrayColor [UIColor colorWithHexString:@"#EEEEEE"]
+
+#define COrangeColor  [UIColor colorWithHexString:@"#FF9502"]
+
+@interface SendTransactionViewController ()<UITextFieldDelegate,ScanViewControllerDelegate>
+
+
+
 @property (weak, nonatomic) IBOutlet UITextField *targetAddressField;
 
 @property (weak, nonatomic) IBOutlet UITextField *amountField;
+
+@property (weak, nonatomic) IBOutlet UIView *viewLineSendto;
+
+@property (weak, nonatomic) IBOutlet UIView *viewLineAmount;
+
+
+@property (weak, nonatomic) IBOutlet VcashButton *sendBtn;
+
+
 
 @end
 
@@ -21,13 +39,54 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"发送Vcash";
+    self.navigationItem.title = [LanguageService contentForKey:@"sendVcash"];
+    [self.amountField addTarget:self action:@selector(enterAmount:) forControlEvents:UIControlEventEditingChanged];
+    self.sendBtn.backgroundColor = CGrayColor;
+    self.sendBtn.userInteractionEnabled = NO;
+    ViewRadius(self.sendBtn, 4.0);
     // Do any additional setup after loading the view from its nib.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    if (textField == self.targetAddressField) {
+        self.viewLineSendto.backgroundColor = COrangeColor;
+    }
+    if (textField == self.amountField) {
+        self.viewLineAmount.backgroundColor = COrangeColor;
+    }
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    if (textField == self.targetAddressField) {
+        self.viewLineSendto.backgroundColor = CGrayColor;
+    }
+    if (textField == self.amountField) {
+        self.viewLineAmount.backgroundColor = CGrayColor;
+    }
+}
+
+#pragma mark - ScanViewControllerDelegate
+
+- (void)scanWithResult:(NSString *)result{
+    self.targetAddressField.text = result ? result : @"";
+}
+
+
+- (void)enterAmount:(UITextField *)textField{
+    if (textField.text.length > 0 && self.targetAddressField.text.length > 0) {
+        self.sendBtn.backgroundColor = COrangeColor;
+        self.sendBtn.userInteractionEnabled = YES;
+    }else{
+        self.sendBtn.backgroundColor = CGrayColor;
+        self.sendBtn.userInteractionEnabled = NO;
+    }
 }
 
 - (IBAction)clickSend:(id)sender {
@@ -55,6 +114,13 @@
 
     }
 }
+
+- (IBAction)pushScanQRVc:(id)sender {
+    ScanViewController *scanVc = [[ScanViewController alloc] init];
+    scanVc.delegate = self;
+    [self.navigationController pushViewController:scanVc animated:YES];
+}
+
 
 //- (IBAction)clickContract:(id)sender {
 //    [self.navigationController pushViewController:[MyContractViewController new] animated:YES];

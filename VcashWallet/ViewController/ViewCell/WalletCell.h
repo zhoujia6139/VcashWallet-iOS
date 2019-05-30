@@ -12,6 +12,7 @@
 
 @interface WalletCell : UITableViewCell
 
-@property (nonatomic, strong) VcashTxLog *txLog;
+
+- (void)setTxLog:(VcashTxLog *)txLog;
 
 @end

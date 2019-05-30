@@ -6,12 +6,17 @@
 //  Copyright © 2018年 blockin. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface PinPasswordSetViewController : UIViewController
+@interface PinPasswordSetViewController : BaseViewController
 
 @property (strong, nonatomic)NSArray* mnemonicWordsArr;
 
 @property (assign, nonatomic)BOOL isRecover;
+
+@property (assign, nonatomic)BOOL isChangePassword;
+
+@property (strong, nonatomic)NSString *currentPassword;
+
 
 @end
