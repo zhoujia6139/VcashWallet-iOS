@@ -143,13 +143,12 @@
 		A26FECA0229F805B003CCD7C /* bottomradius.9.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC4E229F805A003CCD7C /* bottomradius.9.png */; };
 		A26FECA3229F8064003CCD7C /* en.json in Resources */ = {isa = PBXBuildFile; fileRef = A26FECA2229F8063003CCD7C /* en.json */; };
 		A26FECA6229F836D003CCD7C /* NavigationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FECA4229F836C003CCD7C /* NavigationCenter.m */; };
-		A26FECAA229FA84F003CCD7C /* delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FECA8229FA84E003CCD7C /* delete@3x.png */; };
-		A26FECAB229FA84F003CCD7C /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FECA9229FA84F003CCD7C /* delete@2x.png */; };
 		A26FECAE229FB4E2003CCD7C /* ServerTxManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FECAD229FB4E2003CCD7C /* ServerTxManager.m */; };
 		A26FECB0229FEC26003CCD7C /* process_suc_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FECAF229FEC26003CCD7C /* process_suc_icon@2x.png */; };
 		A26FECB2229FEC33003CCD7C /* process_fail_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FECB1229FEC33003CCD7C /* process_fail_icon@2x.png */; };
 		A26FECB5229FF0EA003CCD7C /* nodata@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FECB3229FF0EA003CCD7C /* nodata@2x.png */; };
 		A26FECB6229FF0EA003CCD7C /* nodata@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FECB4229FF0EA003CCD7C /* nodata@3x.png */; };
+		A2B3A11722A0D8EF000F7495 /* ServerTransactionBlackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */; };
 		ED24988F2280298D00D94EBE /* ServerApi.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24988E2280298D00D94EBE /* ServerApi.m */; };
 		ED24989222802B9E00D94EBE /* ServerType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24989122802B9E00D94EBE /* ServerType.m */; };
 		ED3C7551226EC30A00B42555 /* VcashDataManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7550226EC30A00B42555 /* VcashDataManager.mm */; };
@@ -424,14 +423,14 @@
 		A26FECA2229F8063003CCD7C /* en.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = en.json; sourceTree = "<group>"; };
 		A26FECA4229F836C003CCD7C /* NavigationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationCenter.m; sourceTree = "<group>"; };
 		A26FECA5229F836D003CCD7C /* NavigationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationCenter.h; sourceTree = "<group>"; };
-		A26FECA8229FA84E003CCD7C /* delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "delete@3x.png"; path = "../../../Downloads/矢量智能对象_slices (15)/delete@3x.png"; sourceTree = "<group>"; };
-		A26FECA9229FA84F003CCD7C /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "delete@2x.png"; path = "../../../Downloads/矢量智能对象_slices (15)/delete@2x.png"; sourceTree = "<group>"; };
 		A26FECAC229FB4E2003CCD7C /* ServerTxManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerTxManager.h; sourceTree = "<group>"; };
 		A26FECAD229FB4E2003CCD7C /* ServerTxManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerTxManager.m; sourceTree = "<group>"; };
 		A26FECAF229FEC26003CCD7C /* process_suc_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "process_suc_icon@2x.png"; sourceTree = "<group>"; };
 		A26FECB1229FEC33003CCD7C /* process_fail_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "process_fail_icon@2x.png"; sourceTree = "<group>"; };
 		A26FECB3229FF0EA003CCD7C /* nodata@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nodata@2x.png"; sourceTree = "<group>"; };
 		A26FECB4229FF0EA003CCD7C /* nodata@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nodata@3x.png"; sourceTree = "<group>"; };
+		A2B3A11522A0D8EF000F7495 /* ServerTransactionBlackManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerTransactionBlackManager.h; sourceTree = "<group>"; };
+		A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerTransactionBlackManager.m; sourceTree = "<group>"; };
 		ED24988D2280298D00D94EBE /* ServerApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerApi.h; sourceTree = "<group>"; };
 		ED24988E2280298D00D94EBE /* ServerApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerApi.m; sourceTree = "<group>"; };
 		ED24989022802B9E00D94EBE /* ServerType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerType.h; sourceTree = "<group>"; };
@@ -739,9 +738,9 @@
 				A26FEB8D229F7DE0003CCD7C /* WalletCell.h */,
 				A26FEB88229F7DE0003CCD7C /* WalletCell.m */,
 				A26FEB8B229F7DE0003CCD7C /* WalletCell.xib */,
-				A26FEB89229F7DE0003CCD7C /* LeftMenuCell.xib */,
 				A26FEB8A229F7DE0003CCD7C /* LeftMenuCell.h */,
 				A26FEB8C229F7DE0003CCD7C /* LeftMenuCell.m */,
+				A26FEB89229F7DE0003CCD7C /* LeftMenuCell.xib */,
 			);
 			path = ViewCell;
 			sourceTree = "<group>";
@@ -749,12 +748,12 @@
 		A26FEB93229F7DE0003CCD7C /* SettingViewController */ = {
 			isa = PBXGroup;
 			children = (
-				A26FEB94229F7DE0003CCD7C /* ChangePasswordViewController.h */,
 				A26FEB95229F7DE0003CCD7C /* SettingViewController.h */,
-				A26FEB96229F7DE0003CCD7C /* ChangePasswordViewController.m */,
-				A26FEB97229F7DE0003CCD7C /* SettingViewController.xib */,
-				A26FEB98229F7DE0003CCD7C /* ChangePasswordViewController.xib */,
 				A26FEB99229F7DE0003CCD7C /* SettingViewController.m */,
+				A26FEB97229F7DE0003CCD7C /* SettingViewController.xib */,
+				A26FEB94229F7DE0003CCD7C /* ChangePasswordViewController.h */,
+				A26FEB96229F7DE0003CCD7C /* ChangePasswordViewController.m */,
+				A26FEB98229F7DE0003CCD7C /* ChangePasswordViewController.xib */,
 			);
 			path = SettingViewController;
 			sourceTree = "<group>";
@@ -825,8 +824,6 @@
 				A26FEBFD229F805A003CCD7C /* circle@2x.png */,
 				A26FEBFE229F805A003CCD7C /* lock@2x.png */,
 				A26FEBFF229F805A003CCD7C /* canceldetail@3x.png */,
-				A26FECA9229FA84F003CCD7C /* delete@2x.png */,
-				A26FECA8229FA84E003CCD7C /* delete@3x.png */,
 				A26FEC00229F805A003CCD7C /* walletleftimage@2x.png */,
 				A26FEC01229F805A003CCD7C /* back@2x.png */,
 				A26FEC02229F805A003CCD7C /* add@2x.png */,
@@ -1166,10 +1163,10 @@
 		EDA5148C22686DEC0011138F /* VcashWallet */ = {
 			isa = PBXGroup;
 			children = (
+				EDA514B4226891050011138F /* Core */,
 				A26FEBEE229F7E39003CCD7C /* VcashLib */,
 				ED3C754E226EC2CA00B42555 /* Database */,
 				A26FEB6F229F7DE0003CCD7C /* ViewController */,
-				EDA514B4226891050011138F /* Core */,
 				ED44BFC1226979DA0042928E /* Utils */,
 				EDA5148D22686DEC0011138F /* AppDelegate.h */,
 				EDA5148E22686DEC0011138F /* AppDelegate.m */,
@@ -1181,6 +1178,8 @@
 				A26FECA4229F836C003CCD7C /* NavigationCenter.m */,
 				A26FEBFA229F7FBB003CCD7C /* LanguageManager.h */,
 				A26FEBF9229F7FBB003CCD7C /* LanguageManager.m */,
+				A2B3A11522A0D8EF000F7495 /* ServerTransactionBlackManager.h */,
+				A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */,
 				ED44BFBD226978C50042928E /* UserCenter.h */,
 				ED44BFB8226978C50042928E /* UserCenter.m */,
 				ED44BFBA226978C50042928E /* UtilsMacros.h */,
@@ -1339,7 +1338,6 @@
 				A26FEC63229F805B003CCD7C /* dottedline@2x.png in Resources */,
 				A26FEC79229F805B003CCD7C /* scanLine@3x.png in Resources */,
 				A26FEC50229F805A003CCD7C /* lock@2x.png in Resources */,
-				A26FECAA229FA84F003CCD7C /* delete@3x.png in Resources */,
 				A26FEC54229F805A003CCD7C /* add@2x.png in Resources */,
 				A26FEC8D229F805B003CCD7C /* delete@2x.png in Resources */,
 				A26FEBDA229F7DE0003CCD7C /* ServerTxPopView.xib in Resources */,
@@ -1352,7 +1350,6 @@
 				A26FEBBF229F7DE0003CCD7C /* HandleSlateViewController.xib in Resources */,
 				A26FEC87229F805B003CCD7C /* logo@2x.png in Resources */,
 				A26FEBC3229F7DE0003CCD7C /* TransactionDetailViewController.xib in Resources */,
-				A26FECAB229FA84F003CCD7C /* delete@2x.png in Resources */,
 				EDA5149A22686DEE0011138F /* LaunchScreen.storyboard in Resources */,
 				A26FEC78229F805B003CCD7C /* topradius.9.png in Resources */,
 				A26FEBD7229F7DE0003CCD7C /* CreateMnemonicViewController.xib in Resources */,
@@ -1613,6 +1610,7 @@
 				ED44BF8F22696CF50042928E /* BTCCurvePoint+Tests.m in Sources */,
 				A26FEBF8229F7E39003CCD7C /* VcashLabel.m in Sources */,
 				ED44BF8322696CF50042928E /* BTCBlockchainInfo.m in Sources */,
+				A2B3A11722A0D8EF000F7495 /* ServerTransactionBlackManager.m in Sources */,
 				A26FEBC9229F7DE0003CCD7C /* WelcomePageViewController.m in Sources */,
 				ED3C7563226F112500B42555 /* VcashContext.mm in Sources */,
 			);

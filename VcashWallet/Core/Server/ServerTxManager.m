@@ -11,8 +11,9 @@
 #import "VcashSlate.h"
 #import "ServerTxPopView.h"
 #import "MessageNotificationView.h"
+#import "ServerTransactionBlackManager.h"
 
-#define TimerInterval 60
+#define TimerInterval 5
 
 @interface ServerTxManager()
 
@@ -49,7 +50,8 @@
 }
 
 -(void)stopWork{
-    [_timer setFireDate:[NSDate distantFuture]];
+    [_timer invalidate];
+    _timer = nil;
 }
 
 -(void)fetchTxStatus:(BOOL)force{
@@ -136,6 +138,10 @@
 
 -(void)handleServerTx{
     ServerTransaction* item = [self.txArr firstObject];
+    BOOL isBlack =  [[ServerTransactionBlackManager shareInstance] isBlackWithServerTransaction:item];
+    if (isBlack) {
+        return;
+    }
     if (item && !self.msgNotificationView.superview){
         if ([item.sender_id isEqualToString:[VcashWallet shareInstance].userId]){
             item.isSend = YES;

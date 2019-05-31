@@ -8,6 +8,7 @@
 
 #import "TransactionDetailViewController.h"
 #import "ServerType.h"
+#import "ServerTransactionBlackManager.h"
 
 @interface TransactionDetailViewController ()
 
@@ -71,113 +72,8 @@
     self.title = [LanguageService contentForKey:@"txDetailTitle"];
     ViewRadius(self.btnSignature, 4.0f);
     ViewBorderRadius(self.btnCancelTx, 4.0, 1.0, [UIColor colorWithHexString:@"#FF3333"]);
-    
-
-    if (self.serverTx) {
-         self.btnSignature.localTitle = self.serverTx.isSend ? @"verifySign" :  @"reveiveSign";
-         self.btnCancelTx.hidden = !self.serverTx.isSend;
-        switch (self.serverTx.status) {
-            case TxDefaultStatus:{
-                //default status
-                imageTxStatus = [UIImage imageNamed:@"ongoingdetail.png"];
-                txStatus = self.serverTx.isSend ? @"Tx Status: waiting for the sender to sign" : @"Tx Status: waiting for the recipient to sign";
-                self.btnSignature.hidden = NO;
-            }
-                break;
-            case TxFinalized:{
-                imageTxStatus = [UIImage imageNamed:@"confirmdetail.png"];
-                txStatus = @"Tx Status: transaction completed";
-                self.btnSignature.hidden = YES;
-                self.btnCancelTx.hidden = YES;
-            }
-                break;
-                
-            case TxReceiverd:{
-                //The recipient has already signed, waiting for the sender to broadcast
-                imageTxStatus = [UIImage imageNamed:@"ongoingdetail.png"];
-                txStatus = self.serverTx.isSend ? @"Tx Status: waiting for the sender to sign" : @"Tx Status: waiting for the recipient to sign";
-            }
-                break;
-                
-            case TxCanceled:{
-                imageTxStatus = [UIImage imageNamed:@"canceldetail.png"];
-                txStatus = @"Tx Status: transaction canceled";
-                self.btnSignature.hidden = YES;
-                [self.btnCancelTx setImage:[UIImage imageNamed:@"Delete the transaction"] forState:UIControlStateNormal];
-            }
-                break;
-                
-                
-            default:
-                break;
-        }
-        tx_id = self.serverTx.tx_id;
-        sender_id = self.serverTx.sender_id;
-        receiver_id = self.serverTx.receiver_id;
-        amount = self.serverTx.slateObj.amount;
-        fee = self.serverTx.slateObj.fee;
-    }
-    
-    if (self.txLog) {
-        if (self.txLog.tx_type == TxSent) {
-            self.btnSignature.localTitle =  @"verifySign";
-            self.btnCancelTx.hidden = NO;
-        }else if (self.txLog.tx_type == TxReceived){
-            //The recipient has already signed
-            self.btnSignature.hidden = YES;
-//            self.btnSignature.localTitle  = @"reveiveSign";
-            self.btnCancelTx.hidden = YES;
-        }
-        
-        switch (self.txLog.confirm_state) {
-            case DefaultState:{
-                if (self.txLog.tx_type == TxSent) {
-                    imageTxStatus = [UIImage imageNamed:@"ongoingdetail.png"];
-                    txStatus = @"Tx Status: waiting for the recipient to sign";
-                    if (self.txLog.status == TxDefaultStatus) {
-                         self.btnSignature.hidden = YES;
-                    }else if(self.txLog.status == TxReceiverd){
-                        self.btnSignature.hidden = NO;
-                    }
-                   
-                    self.btnCancelTx.hidden = NO;
-                }else if (self.txLog.tx_type == TxReceived){
-                    //The recipient has already signed
-                     imageTxStatus = [UIImage imageNamed:@"ongoingdetail.png"];
-                    txStatus = @"Tx Status: waiting for the sender to sign";
-                   
-                }
-            }
-                break;
-            case LoalConfirmed:{
-                //tx has benn post, but not confirm by node
-                txStatus = @"Tx Status: waiting for confirming";
-                imageTxStatus = [UIImage imageNamed:@"ongoingdetail.png"];
-                self.btnSignature.hidden = YES;
-                self.btnCancelTx.hidden = YES;
-            }
-                
-                break;
-            case NetConfirmed:{
-                //confirm by node
-                imageTxStatus = [UIImage imageNamed:@"confirmdetail.png"];
-                txStatus = @"Tx Status: transaction completed";
-                self.btnSignature.hidden = YES;
-                self.btnCancelTx.hidden = YES;
-               
-            }
-                break;
-                
-            default:
-                break;
-        }
-        tx_id = (self.txLog.tx_slate_id ? self.txLog.tx_slate_id :  @"unreachable");
-        [self configInfoFromTx_type:self.txLog.tx_type];
-        amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited);
-        fee = self.txLog.fee;
-        create_time = self.txLog.create_time;
-    }
-    
+    [self configDataFromServerTransaction];
+    [self configDataFromVcashTxLog];
     
     self.labelTxStatus.text = txStatus;
     self.imageViewTxStatus.image = imageTxStatus;
@@ -189,6 +85,106 @@
     self.labelTxTime.text = create_time > 0 ? [[NSDate dateWithTimeIntervalSince1970:create_time] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"] : [[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
 }
 
+- (void)configDataFromServerTransaction{
+    if (!self.serverTx) {
+        return;
+    }
+    imageTxStatus = [UIImage imageNamed:@"ongoingdetail.png"];
+    self.btnSignature.localTitle = self.serverTx.isSend ? @"verifySign" :  @"reveiveSign";
+    self.btnCancelTx.hidden = !self.serverTx.isSend;
+    switch (self.serverTx.status) {
+        case TxDefaultStatus:{
+            //default status
+            txStatus = self.serverTx.isSend ? @"Tx Status: waiting for the sender to sign" : @"Tx Status: waiting for the recipient to sign";
+            self.btnSignature.hidden = NO;
+        }
+            break;
+        case TxFinalized:{
+            txStatus = @"Tx Status: waiting for confirming";
+            self.btnSignature.hidden = YES;
+            self.btnCancelTx.hidden = YES;
+        }
+            break;
+            
+        case TxReceiverd:{
+            //The recipient has already signed, waiting for the sender to broadcast
+            txStatus = self.serverTx.isSend ? @"Tx Status: waiting for the sender to sign" : @"Tx Status: waiting for the recipient to sign";
+        }
+            break;
+            
+        case TxCanceled:{
+            imageTxStatus = [UIImage imageNamed:@"canceldetail.png"];
+            txStatus = @"Tx Status: transaction canceled";
+            self.btnSignature.hidden = YES;
+            [self.btnCancelTx setImage:[UIImage imageNamed:@"Delete the transaction"] forState:UIControlStateNormal];
+        }
+            break;
+            
+            
+        default:
+            break;
+    }
+    tx_id = self.serverTx.tx_id;
+    sender_id = self.serverTx.sender_id;
+    receiver_id = self.serverTx.receiver_id;
+    amount = self.serverTx.slateObj.amount;
+    fee = self.serverTx.slateObj.fee;
+    
+}
+
+- (void)configDataFromVcashTxLog{
+    if (!self.txLog) {
+        return;
+    }
+    switch (self.txLog.confirm_state) {
+        case DefaultState:{
+            if (self.txLog.tx_type == TxSent) {
+                imageTxStatus = [UIImage imageNamed:@"ongoingdetail.png"];
+                txStatus = @"Tx Status: waiting for the recipient to sign";
+                self.btnSignature.localTitle =  @"verifySign";
+                self.btnCancelTx.hidden = NO;
+                if (self.txLog.status == TxDefaultStatus) {
+                    self.btnSignature.hidden = YES;
+                }else if(self.txLog.status == TxReceiverd){
+                    self.btnSignature.hidden = NO;
+                }
+            }else if (self.txLog.tx_type == TxReceived){
+                //The recipient has already signed
+                imageTxStatus = [UIImage imageNamed:@"ongoingdetail.png"];
+                txStatus = @"Tx Status: waiting for the sender to sign";
+                self.btnSignature.hidden = YES;
+                self.btnCancelTx.hidden = YES;
+                
+            }
+        }
+            break;
+        case LoalConfirmed:{
+            //tx has benn post, but not confirm by node
+            txStatus = @"Tx Status: waiting for confirming";
+            imageTxStatus = [UIImage imageNamed:@"ongoingdetail.png"];
+            self.btnSignature.hidden = YES;
+            self.btnCancelTx.hidden = YES;
+        }
+            
+            break;
+        case NetConfirmed:{
+            //confirm by node
+            txStatus = @"Tx Status: transaction completed";
+            imageTxStatus = [UIImage imageNamed:@"confirmdetail.png"];
+            self.btnSignature.hidden = YES;
+            self.btnCancelTx.hidden = YES;
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+    [self configInfoFromTx_type:self.txLog.tx_type];
+    tx_id = (self.txLog.tx_slate_id ? self.txLog.tx_slate_id :  @"unreachable");
+    fee = self.txLog.fee;
+    create_time = self.txLog.create_time;
+}
 
 - (void)configInfoFromTx_type:(TxLogEntryType)tx_type{
     switch (tx_type) {
@@ -196,15 +192,18 @@
             tx_id = @"coinbase";
         }
             break;
-        case TxReceived:{
-            sender_id = self.txLog.parter_id ? self.txLog.parter_id : @"unreachable";
-            receiver_id = [VcashWallet shareInstance].userId;
             
-        }
-            break;
         case TxSent:{
             sender_id =  [VcashWallet shareInstance].userId;
             receiver_id = self.txLog.parter_id ? self.txLog.parter_id : @"unreachable";
+            amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited) - (int64_t)self.txLog.fee;
+        }
+            break;
+            
+        case TxReceived:{
+            sender_id = self.txLog.parter_id ? self.txLog.parter_id : @"unreachable";
+            receiver_id = [VcashWallet shareInstance].userId;
+            amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited);
         }
             break;
             
@@ -217,8 +216,10 @@
             [self.btnCancelTx setImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
             sender_id =  self.txLog.parter_id ? self.txLog.parter_id : @"unreachable";
             receiver_id = [VcashWallet shareInstance].userId;
+            amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited);
         }
             break;
+            
         case TxSentCancelled:{
             imageTxStatus = [UIImage imageNamed:@"canceldetail.png"];
             txStatus = @"Tx Status: transaction cancelled";
@@ -228,6 +229,7 @@
             [self.btnCancelTx setImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
             sender_id =  [VcashWallet shareInstance].userId;
             receiver_id = self.txLog.parter_id ? self.txLog.parter_id : @"unreachable";
+            amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited) - (int64_t)self.txLog.fee;
         }
             break;
         default:
@@ -268,15 +270,8 @@
             switch (self.txLog.tx_type) {
                 case TxSent:{
                     //sent
-                    switch (self.txLog.confirm_state) {
-                        case DefaultState:{
-                            //cancle tx
-                            [self cancleTxWith:self.txLog];
-                         }
-                            break;
-                            
-                        default:
-                            break;
+                    if (self.txLog.confirm_state == DefaultState) {
+                          [self cancleTxWith:self.txLog];
                     }
                 }
                     break;
@@ -285,22 +280,17 @@
                     //delete transaction
                     [self deleteTransactionWith:self.txLog];
                 }
-                    
                     break;
                     
                 default:
                     break;
             }
-        
-        
     }
     
     if(self.serverTx){
         if (self.serverTx.status == TxReceived) {
             VcashTxLog *txLog =  [WalletWrapper getTxByTxid:self.serverTx.tx_id];
             [self cancleTxWith:txLog];
-        }else{
-            
         }
     }
     

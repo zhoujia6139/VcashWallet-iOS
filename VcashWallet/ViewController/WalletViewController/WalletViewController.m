@@ -57,6 +57,7 @@ static NSString *const identifier = @"WalletCell";
 
 @property (nonatomic, strong) NSArray *arrTransactionList;
 
+
 @end
 
 @implementation WalletViewController
@@ -90,8 +91,14 @@ static NSString *const identifier = @"WalletCell";
     [self refreshMainView];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+     [[ServerTxManager shareInstance] startWork];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[ServerTxManager shareInstance] stopWork];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
@@ -109,14 +116,14 @@ static NSString *const identifier = @"WalletCell";
     self.constraintNaviHeight.constant = kTopHeight;
     [self.leftMenuView addInView];
     
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
-    [self.view addGestureRecognizer:pan];
+//    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
+//    [self.view addGestureRecognizer:pan];
     
-    UIPanGestureRecognizer *panLeft = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
-    [self.leftMenuView addGestureRecognizer:panLeft];
-    
-    UIPanGestureRecognizer *panLeftViewAlpha = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
-    [self.leftMenuView addAlphaViewPanGesture:panLeftViewAlpha];
+//    UIPanGestureRecognizer *panLeft = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
+//    [self.leftMenuView addGestureRecognizer:panLeft];
+//
+//    UIPanGestureRecognizer *panLeftViewAlpha = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
+//    [self.leftMenuView addAlphaViewPanGesture:panLeftViewAlpha];
     self.maskView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1];
     [AppHelper addLineWithParentView:self.transactionTitleView];
     
@@ -139,6 +146,7 @@ static NSString *const identifier = @"WalletCell";
     ViewRadius(self.receiveVcashBtn, 4.0);
     ViewRadius(self.sendVcashBtn, 4.0);
 }
+
 
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];

@@ -7,6 +7,7 @@
 //
 
 #import "ChangePasswordViewController.h"
+#import "PinPasswordSetViewController.h"
 
 @interface ChangePasswordViewController ()
 
@@ -53,6 +54,10 @@
         self.labelPrompt.hidden = YES;
         self.viewLine.backgroundColor = [UIColor colorWithHexString:@"#EEEEEE"];
         self.textFieldPassword.textColor = [UIColor darkTextColor];
+        PinPasswordSetViewController *passwordSetVc = [[PinPasswordSetViewController alloc] init];
+        passwordSetVc.isChangePassword = YES;
+        passwordSetVc.currentPassword = self.textFieldPassword.text;
+        [self.navigationController pushViewController:passwordSetVc animated:YES];
     }
 }
 

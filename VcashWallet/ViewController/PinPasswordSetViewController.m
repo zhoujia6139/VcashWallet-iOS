@@ -165,7 +165,7 @@
         NSString *wordStr  = [[UserCenter sharedInstance] getStoredMnemonicWordsWithKey:self.currentPassword];
         [[UserCenter sharedInstance] storeMnemonicWords:wordStr withKey:password];
         [MBHudHelper showTextTips:[LanguageService contentForKey:@"changePasswordSuc"] onView:nil withDuration:1.5];
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
         return;
     }
     

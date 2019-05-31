@@ -24,6 +24,14 @@
     return @[@"slateObj", @"isSend"];
 }
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder{
+    return [self modelInitWithCoder:aDecoder];
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder{
+    return [self modelEncodeWithCoder:aCoder];
+}
+
 @end
 
 @implementation FinalizeTxInfo

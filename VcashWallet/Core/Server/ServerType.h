@@ -20,7 +20,7 @@ typedef enum{
 
 @class VcashSlate;
 
-@interface ServerTransaction : NSObject
+@interface ServerTransaction : NSObject<NSCoding>
 
 @property(strong, nonatomic) NSString* tx_id;
 

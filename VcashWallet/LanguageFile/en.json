@@ -63,6 +63,8 @@
     "twoinputsNotSame":"The two inputs are inconsistent, please re-enter",
     "createNewPass":"Creat  new password to access your wallet",
     "deleteFailed":"failed to delete",
-    "deleteSuc":"successfully deleted"
+    "deleteSuc":"successfully deleted",
+    "senderMsgNoti":"The transaction you sent has been signed, and is waiting for your signature and confirmation",
+    "receiverMsgNoti":"You have received a new transaction, Waiting for you to sign"
     
 }

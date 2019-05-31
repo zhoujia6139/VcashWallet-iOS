@@ -9,6 +9,7 @@
 #import "MessageNotificationView.h"
 #import "ServerType.h"
 #import "TransactionDetailViewController.h"
+#import "ServerTransactionBlackManager.h"
 
 @interface MessageNotificationView ()
 
@@ -28,6 +29,15 @@
 }
 */
 
+- (void)setServerTx:(ServerTransaction *)serverTx{
+    _serverTx = serverTx;
+    if (_serverTx.isSend) {
+        self.messageLabel.text = [LanguageService contentForKey:@"senderMsgNoti"];
+    }else{
+        self.messageLabel.text = [LanguageService contentForKey:@"receiverMsgNoti"];
+    }
+}
+
 
 - (IBAction)clickedBtnSeeDetail:(id)sender {
     [self hiddenAnimation];
@@ -42,6 +52,7 @@
 
 - (IBAction)clickedBtnNoProcess:(id)sender {
     [self hiddenAnimation];
+    [[ServerTransactionBlackManager shareInstance] writeBlackServerTransaction:self.serverTx];
 }
 
 - (void)setMessage:(NSString *)message{
@@ -53,6 +64,7 @@
 
 - (void)show{
     
+    NSLog(@"serverTx:%@",[self.serverTx modelToJSONString]);
     UIWindow *wd = [UIApplication sharedApplication].keyWindow;
     [wd addSubview:self];
     [self layoutIfNeeded];

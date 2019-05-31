@@ -57,17 +57,11 @@
     switch (txLog.tx_type) {
         case ConfirmedCoinbase:
         case TxReceived:
+        case TxReceivedCancelled:
             [self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"receive.png"]];
             break;
         case TxSent:
-            [self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"send.png"]];
-            break;
-        case TxReceivedCancelled:
-            [self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"receive.png"]];
-            [self.imageViewState setImage:[UIImage imageNamed:@"canceled.png"]];
-            break;
         case TxSentCancelled:
-            [self.imageViewState setImage:[UIImage imageNamed:@"canceled.png"]];
             [self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"send.png"]];
             break;
         default:
@@ -86,12 +80,13 @@
     switch (txLog.confirm_state){
         case DefaultState:
         case LoalConfirmed://waiting confirm
-            self.stateLabel.text = @"ongoing";
-            [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
             if(txLog.tx_type == TxSentCancelled || txLog.tx_type == TxReceivedCancelled){
                 //sender canceled
                 self.stateLabel.text = @"Canceled";
                 [self.imageViewState setImage:[UIImage imageNamed:@"canceled.png"]];
+            }else{
+                self.stateLabel.text = @"ongoing";
+                [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
             }
             break;
         case NetConfirmed:
