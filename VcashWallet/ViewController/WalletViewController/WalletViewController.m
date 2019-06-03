@@ -79,7 +79,6 @@ static NSString *const identifier = @"WalletCell";
         [self.tableViewContainer.mj_header beginRefreshing];
     }
     
-    [[ServerTxManager shareInstance] startWork];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kTxLogDataChanged object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kWalletChainHeightChange object:nil];
@@ -93,6 +92,9 @@ static NSString *const identifier = @"WalletCell";
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
+        [self refreshMainView];
+    }];
      [[ServerTxManager shareInstance] startWork];
 }
 

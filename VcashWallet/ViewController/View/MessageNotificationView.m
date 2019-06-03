@@ -63,8 +63,6 @@
 }
 
 - (void)show{
-    
-    NSLog(@"serverTx:%@",[self.serverTx modelToJSONString]);
     UIWindow *wd = [UIApplication sharedApplication].keyWindow;
     [wd addSubview:self];
     [self layoutIfNeeded];

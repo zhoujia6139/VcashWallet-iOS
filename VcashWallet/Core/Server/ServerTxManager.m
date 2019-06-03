@@ -17,7 +17,7 @@
 
 @interface ServerTxManager()
 
-@property(strong, nonatomic)NSMutableArray* txArr;
+@property(nonatomic, strong)NSMutableDictionary *dicTx;
 
 @property(strong, nonatomic)MessageNotificationView* msgNotificationView;
 
@@ -60,6 +60,7 @@
         [[ServerApi shareInstance] checkStatusForUser:[VcashWallet shareInstance].userId WithComplete:^(BOOL yesOrNo, NSArray<ServerTransaction*>* txs) {
             DDLogInfo(@"check status ret %@ tx ", @(txs.count));
             if (yesOrNo){
+                [self.dicTx removeAllObjects];
                 lastFetch = [[NSDate date] timeIntervalSince1970];
                 for (ServerTransaction* item in txs){
                     item.slateObj = [VcashSlate modelWithJSON:item.slate];
@@ -112,16 +113,7 @@
                         }
                         
                         //if goes here item.status would be TxDefaultStatus or TxReceiverd
-                        BOOL isRepeat = NO;
-                        for (ServerTransaction* tx in self.txArr){
-                            if ([tx.tx_id isEqualToString:item.tx_id]){
-                                isRepeat = YES;
-                                break;
-                            }
-                        }
-                        if (!isRepeat){
-                            [self.txArr addObject:item];
-                        }
+                         [self.dicTx setObject:item forKey:item.tx_id];
                     }
                     else if (item){
                         DDLogError(@"receive a illegal tx:%@", [item modelToJSONString]);
@@ -137,11 +129,14 @@
 }
 
 -(void)handleServerTx{
-    ServerTransaction* item = [self.txArr firstObject];
-    BOOL isBlack =  [[ServerTransactionBlackManager shareInstance] isBlackWithServerTransaction:item];
-    if (isBlack) {
-        return;
+    NSMutableArray *txArr = [NSMutableArray array];
+    for (ServerTransaction *item in self.dicTx.allValues) {
+        BOOL isBlack =  [[ServerTransactionBlackManager shareInstance] isBlackWithServerTransaction:item];
+        if (!isBlack) {
+            [txArr addObject:item];
+        }
     }
+    ServerTransaction* item = [txArr firstObject];
     if (item && !self.msgNotificationView.superview){
         if ([item.sender_id isEqualToString:[VcashWallet shareInstance].userId]){
             item.isSend = YES;
@@ -156,17 +151,29 @@
         
         self.msgNotificationView.serverTx = item;
         [self.msgNotificationView show];
-        
-        [self.txArr removeObject:item];
     }
 }
 
--(NSMutableArray*)txArr{
-    if (!_txArr){
-        _txArr = [NSMutableArray new];
+- (void)hiddenMsgNotificationView{
+    if (!self.msgNotificationView.superview) {
+        return;
     }
-    
-    return _txArr;
+    [self.msgNotificationView hiddenAnimation];
+}
+
+- (ServerTransaction *)getServerTxByTx_id:(NSString *)tx_id{
+    if (!tx_id) {
+        return nil;
+    }
+   ServerTransaction *tx =  [self.dicTx objectForKey:tx_id];
+    return tx;
+}
+
+- (NSMutableDictionary *)dicTx{
+    if (!_dicTx) {
+        _dicTx = [NSMutableDictionary dictionary];
+    }
+    return _dicTx;
 }
 
 - (MessageNotificationView *)msgNotificationView{

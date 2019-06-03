@@ -21,6 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)fetchTxStatus:(BOOL)force;
 
+- (ServerTransaction *)getServerTxByTx_id:(NSString *)tx_id;
+
+- (void)hiddenMsgNotificationView;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

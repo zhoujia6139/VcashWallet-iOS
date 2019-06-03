@@ -9,6 +9,7 @@
 #import "TransactionDetailViewController.h"
 #import "ServerType.h"
 #import "ServerTransactionBlackManager.h"
+#import "ServerTxManager.h"
 
 @interface TransactionDetailViewController ()
 
@@ -55,6 +56,8 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [[ServerTxManager shareInstance] hiddenMsgNotificationView];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#EEEEEE"]] forBarMetrics:UIBarMetricsDefault];
     NSMutableArray *arrVcs = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
     NSInteger count = arrVcs.count;
     for (NSInteger i = count - 1; i >= 0; i--) {
@@ -65,7 +68,10 @@
             break;
         }
     }
-    
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)configView{
@@ -146,7 +152,10 @@
                 if (self.txLog.status == TxDefaultStatus) {
                     self.btnSignature.hidden = YES;
                 }else if(self.txLog.status == TxReceiverd){
-                    self.btnSignature.hidden = NO;
+                    if (!self.serverTx) {
+                        self.serverTx = [[ServerTxManager shareInstance] getServerTxByTx_id:self.txLog.tx_slate_id];
+                    }
+                    self.btnSignature.hidden = !self.serverTx;
                 }
             }else if (self.txLog.tx_type == TxReceived){
                 //The recipient has already signed
@@ -180,8 +189,8 @@
         default:
             break;
     }
-    [self configInfoFromTx_type:self.txLog.tx_type];
     tx_id = (self.txLog.tx_slate_id ? self.txLog.tx_slate_id :  @"unreachable");
+    [self configInfoFromTx_type:self.txLog.tx_type];
     fee = self.txLog.fee;
     create_time = self.txLog.create_time;
 }
@@ -190,6 +199,9 @@
     switch (tx_type) {
         case ConfirmedCoinbase:{
             tx_id = @"coinbase";
+            sender_id = @"coinbase";
+            receiver_id =  [VcashWallet shareInstance].userId;
+            amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited);
         }
             break;
             
@@ -248,15 +260,23 @@
         isSend = (self.txLog.tx_type == TxSent);
     }
     
+    
     if (isSend){
         [WalletWrapper finalizeTransaction:self.serverTx withComplete:^(BOOL yesOrNo, id _Nullable data){
-            [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:data];
+            NSString *tip = yesOrNo ? @"Successful broadcast" : @"failed broadcast";
+            [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:tip];
+            if (yesOrNo) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }];
     }
     else{
         [WalletWrapper receiveTransaction:self.serverTx withComplete:^(BOOL yesOrNo, id _Nullable data) {
-            [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:@"Successful signature"];
-            [self.navigationController popViewControllerAnimated:YES];
+            NSString *tip = yesOrNo ? @"Successful signature" : @"failed signature";
+            [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:tip];
+            if (yesOrNo) {
+                 [self.navigationController popViewControllerAnimated:YES];
+            }
         }];
     }
     
