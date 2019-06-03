@@ -44,6 +44,7 @@
             }
             strongSelf.seletedItem.isSeleted = NO;
             item.isSeleted = YES;
+            strongSelf.seletedItem = item;
             [[LockScreenTimeService shareInstance] writeLockScreenType:lockScreenType];
         };
         [AppHelper addLineWithParentView:item];

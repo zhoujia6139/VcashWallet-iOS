@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,11 +16,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xfi-Fk-b1r">
-                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9oY-Qo-V5S">
-                    <rect key="frame" x="15" y="249.5" width="345" height="188.5"/>
+                    <rect key="frame" x="15" y="239.5" width="345" height="188.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save seed phrase" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Yi-m0-LUK" customClass="VcashLabel">
                             <rect key="frame" x="23" y="20" width="299" height="21.5"/>
@@ -103,15 +102,14 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="xfi-Fk-b1r" secondAttribute="bottom" id="7UW-AZ-thB"/>
-                <constraint firstItem="xfi-Fk-b1r" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="J2M-Cp-K6w"/>
-                <constraint firstItem="9oY-Qo-V5S" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="LZo-hs-MIm"/>
-                <constraint firstItem="xfi-Fk-b1r" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Pjj-cL-KQ9"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="xfi-Fk-b1r" secondAttribute="trailing" id="af6-xi-D3q"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9oY-Qo-V5S" secondAttribute="trailing" constant="15" id="cSd-pa-B49"/>
-                <constraint firstItem="9oY-Qo-V5S" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="oaC-Za-gyK"/>
+                <constraint firstAttribute="bottom" secondItem="xfi-Fk-b1r" secondAttribute="bottom" id="7UW-AZ-thB"/>
+                <constraint firstItem="xfi-Fk-b1r" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="J2M-Cp-K6w"/>
+                <constraint firstItem="9oY-Qo-V5S" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="LZo-hs-MIm"/>
+                <constraint firstItem="xfi-Fk-b1r" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Pjj-cL-KQ9"/>
+                <constraint firstAttribute="trailing" secondItem="xfi-Fk-b1r" secondAttribute="trailing" id="af6-xi-D3q"/>
+                <constraint firstAttribute="trailing" secondItem="9oY-Qo-V5S" secondAttribute="trailing" constant="15" id="cSd-pa-B49"/>
+                <constraint firstItem="9oY-Qo-V5S" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="oaC-Za-gyK"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="alphaView" destination="xfi-Fk-b1r" id="kKL-B0-gAP"/>
                 <outlet property="contentView" destination="9oY-Qo-V5S" id="ob5-pF-V7u"/>

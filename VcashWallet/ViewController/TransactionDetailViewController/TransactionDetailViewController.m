@@ -17,6 +17,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *labelTxStatus;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintViewStatusWidth;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *labelTxid;
 
@@ -78,6 +80,7 @@
     self.title = [LanguageService contentForKey:@"txDetailTitle"];
     ViewRadius(self.btnSignature, 4.0f);
     ViewBorderRadius(self.btnCancelTx, 4.0, 1.0, [UIColor colorWithHexString:@"#FF3333"]);
+    self.constraintViewStatusWidth.constant = ScreenWidth;
     [self configDataFromServerTransaction];
     [self configDataFromVcashTxLog];
     

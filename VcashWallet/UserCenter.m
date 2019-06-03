@@ -12,6 +12,8 @@
 #define kKeyChainService  @"kVcashWallet"
 #define kKeyChainMnemonic  @"kKeyChainMnemonic"
 
+#define kAppInstallAndCreateWallet @"kAppInstallAndCreateWallet"
+
 @implementation UserCenter
 
 + (instancetype)sharedInstance
@@ -63,5 +65,17 @@
     [YYKeychain deletePasswordForService:kKeyChainService account:kKeyChainMnemonic];
     //[WalletWrapper clearWallet];
 }
+
+- (void)writeAppInstallAndCreateWallet:(BOOL)installAndCreateWallet{
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    [userDefault setObject:@(installAndCreateWallet) forKey:kAppInstallAndCreateWallet];
+    [userDefault synchronize];
+}
+
+- (BOOL)appInstallAndCreateWallet{
+     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    return [[userDefault objectForKey:kAppInstallAndCreateWallet] boolValue];
+}
+
 
 @end

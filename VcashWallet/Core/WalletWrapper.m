@@ -37,6 +37,7 @@
     {
         VcashKeyChain* keychain = [[VcashKeyChain alloc] initWithMnemonic:mnemonic];
         [VcashWallet createWalletWithKeyChain:keychain];
+        [[UserCenter sharedInstance] writeAppInstallAndCreateWallet:YES];
         //[[BTCWallet shareInstance] reSetMnemonic:mnemonic];
         return YES;
     }

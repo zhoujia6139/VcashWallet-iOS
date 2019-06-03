@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="btnCancelTx" destination="7o8-hg-Bz5" id="ti1-Vl-QIA"/>
                 <outlet property="btnSignature" destination="jfG-Mg-Nj0" id="2gW-41-UbQ"/>
+                <outlet property="constraintViewStatusWidth" destination="irL-7f-9NS" id="0M7-Gu-3un"/>
                 <outlet property="imageViewTxStatus" destination="2wy-ea-ttV" id="Fji-AM-Ykb"/>
                 <outlet property="labelAmount" destination="efA-ek-wA6" id="rTg-87-0c4"/>
                 <outlet property="labelFee" destination="qkH-au-M1w" id="wcd-3X-eCk"/>

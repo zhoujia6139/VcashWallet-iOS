@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateWalletNoteViewController">
             <connections>
                 <outlet property="agreeBtn" destination="UHT-x7-YaX" id="HsA-G1-rQ2"/>
+                <outlet property="constraintPromptViewWidth" destination="t6d-sE-ZK2" id="qSy-xN-or8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

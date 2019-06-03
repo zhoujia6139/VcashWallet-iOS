@@ -27,8 +27,12 @@
     
     if ([[UserCenter sharedInstance] checkUserHaveWallet])
     {
-        [NavigationCenter showPasswordVerifyPage];
-        [[LockScreenTimeService shareInstance] addObserver];
+        if ([[UserCenter sharedInstance] appInstallAndCreateWallet]) {
+            [NavigationCenter showPasswordVerifyPage];
+            [[LockScreenTimeService shareInstance] addObserver];
+        }else{
+             [NavigationCenter showWelcomePage];
+        }
     }
     else
     {
