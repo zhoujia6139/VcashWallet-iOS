@@ -39,4 +39,12 @@
 
 static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
+typedef NS_ENUM(NSInteger,LockScreenType) {
+    LockScreenType3Minute,//default
+    LockScreenTypeNever ,
+    LockScreenType30Seonds,
+    LockScreenType1Minute,
+    
+};
+
 #endif /* PrefixHeader_pch */

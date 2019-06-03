@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		111D98D7603A8F1579E12602 /* libPods-VcashWallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38B93DB289A56D999A4C8C7C /* libPods-VcashWallet.a */; };
+		A241822722A50A7F00519F7D /* LockScreenSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A241822522A50A7F00519F7D /* LockScreenSetViewController.m */; };
+		A241822B22A510D400519F7D /* LockScreenTimeService.m in Sources */ = {isa = PBXBuildFile; fileRef = A241822A22A510D400519F7D /* LockScreenTimeService.m */; };
 		A26FEBBD229F7DE0003CCD7C /* WalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB70229F7DE0003CCD7C /* WalletViewController.xib */; };
 		A26FEBBE229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB71229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m */; };
 		A26FEBBF229F7DE0003CCD7C /* HandleSlateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB73229F7DE0003CCD7C /* HandleSlateViewController.xib */; };
@@ -256,6 +258,10 @@
 		2B42695A9EB50E631A668976 /* Pods-VcashWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VcashWallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VcashWallet/Pods-VcashWallet.debug.xcconfig"; sourceTree = "<group>"; };
 		32DD39C5EA5AAED2839B1728 /* Pods-VcashWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VcashWallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-VcashWallet/Pods-VcashWallet.release.xcconfig"; sourceTree = "<group>"; };
 		38B93DB289A56D999A4C8C7C /* libPods-VcashWallet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VcashWallet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A241822422A50A7F00519F7D /* LockScreenSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockScreenSetViewController.h; sourceTree = "<group>"; };
+		A241822522A50A7F00519F7D /* LockScreenSetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockScreenSetViewController.m; sourceTree = "<group>"; };
+		A241822922A510D400519F7D /* LockScreenTimeService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockScreenTimeService.h; sourceTree = "<group>"; };
+		A241822A22A510D400519F7D /* LockScreenTimeService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockScreenTimeService.m; sourceTree = "<group>"; };
 		A26FEB70229F7DE0003CCD7C /* WalletViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletViewController.xib; sourceTree = "<group>"; };
 		A26FEB71229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmSeedphraseViewController.m; sourceTree = "<group>"; };
 		A26FEB72229F7DE0003CCD7C /* CreateWalletNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateWalletNoteViewController.h; sourceTree = "<group>"; };
@@ -754,6 +760,8 @@
 				A26FEB94229F7DE0003CCD7C /* ChangePasswordViewController.h */,
 				A26FEB96229F7DE0003CCD7C /* ChangePasswordViewController.m */,
 				A26FEB98229F7DE0003CCD7C /* ChangePasswordViewController.xib */,
+				A241822422A50A7F00519F7D /* LockScreenSetViewController.h */,
+				A241822522A50A7F00519F7D /* LockScreenSetViewController.m */,
 			);
 			path = SettingViewController;
 			sourceTree = "<group>";
@@ -1180,6 +1188,8 @@
 				A26FEBF9229F7FBB003CCD7C /* LanguageManager.m */,
 				A2B3A11522A0D8EF000F7495 /* ServerTransactionBlackManager.h */,
 				A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */,
+				A241822922A510D400519F7D /* LockScreenTimeService.h */,
+				A241822A22A510D400519F7D /* LockScreenTimeService.m */,
 				ED44BFBD226978C50042928E /* UserCenter.h */,
 				ED44BFB8226978C50042928E /* UserCenter.m */,
 				ED44BFBA226978C50042928E /* UtilsMacros.h */,
@@ -1572,6 +1582,7 @@
 				ED44C00C226D9FF50042928E /* NodeType.m in Sources */,
 				ED44BF8222696CF50042928E /* BTCScript+Tests.m in Sources */,
 				A26FEBE4229F7DE0003CCD7C /* LeftMenuView.m in Sources */,
+				A241822722A50A7F00519F7D /* LockScreenSetViewController.m in Sources */,
 				ED44BFAE22696CF50042928E /* BTCPaymentMethodRequest.m in Sources */,
 				A26FEBCA229F7DE0003CCD7C /* WalletCell.m in Sources */,
 				ED44BF8D22696CF50042928E /* BTCOpcode.m in Sources */,
@@ -1593,6 +1604,7 @@
 				A26FEBDB229F7DE0003CCD7C /* ServerTxPopView.m in Sources */,
 				ED44C009226D9D8D0042928E /* NodeApi.m in Sources */,
 				ED44BF9622696CF50042928E /* BTCTransactionInput.m in Sources */,
+				A241822B22A510D400519F7D /* LockScreenTimeService.m in Sources */,
 				ED3C7551226EC30A00B42555 /* VcashDataManager.mm in Sources */,
 				A26FEBED229F7E1B003CCD7C /* AppHelper.m in Sources */,
 				A26FEBF7229F7E39003CCD7C /* VcashTextField.m in Sources */,

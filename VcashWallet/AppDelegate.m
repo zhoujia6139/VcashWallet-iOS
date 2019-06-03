@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "NodeApi.h"
 #import "ServerTxManager.h"
+#import "LockScreenTimeService.h"
 
 @interface AppDelegate ()
 
@@ -27,6 +28,7 @@
     if ([[UserCenter sharedInstance] checkUserHaveWallet])
     {
         [NavigationCenter showPasswordVerifyPage];
+        [[LockScreenTimeService shareInstance] addObserver];
     }
     else
     {
