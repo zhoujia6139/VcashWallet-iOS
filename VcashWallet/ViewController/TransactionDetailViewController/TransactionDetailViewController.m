@@ -59,7 +59,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[ServerTxManager shareInstance] hiddenMsgNotificationView];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#EEEEEE"]] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#EEEEEE"]] forBarMetrics:UIBarMetricsDefault];
     NSMutableArray *arrVcs = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
     NSInteger count = arrVcs.count;
     for (NSInteger i = count - 1; i >= 0; i--) {
@@ -72,9 +72,9 @@
     }
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]] forBarMetrics:UIBarMetricsDefault];
-}
+//- (void)viewWillDisappear:(BOOL)animated{
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]] forBarMetrics:UIBarMetricsDefault];
+//}
 
 - (void)configView{
     self.title = [LanguageService contentForKey:@"txDetailTitle"];
@@ -89,12 +89,9 @@
     self.labelTxid.text = tx_id;
     self.labelSender.text = sender_id;
     self.labelRecipient.text = receiver_id;
-    NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p9fString;
-    if ([AppHelper isPureInt:amountStr]) {
-        amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
-    }
+    NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
     self.labelAmount.text = [NSString stringWithFormat:@"%@ VCash", amountStr];
-    self.labelFee.text = [NSString stringWithFormat:@"%@ VCash", @([WalletWrapper nanoToVcash:fee]).p9fString];
+    self.labelFee.text = [NSString stringWithFormat:@"%@ VCash", @([WalletWrapper nanoToVcash:fee]).p09fString];
     self.labelTxTime.text = create_time > 0 ? [[NSDate dateWithTimeIntervalSince1970:create_time] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"] : [[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
 }
 

@@ -20,12 +20,7 @@
 
 - (void)prepare{
     [super prepare];
-    self.lastUpdatedTimeText = ^NSString *(NSDate *lastUpdatedTime) {
-        if ([lastUpdatedTime isToday]) {
-            return [NSString stringWithFormat:@"%@%@ %@",[LanguageService contentForKey:@"MJRefreshHeaderLastTimeText"],[LanguageService contentForKey:@"MJRefreshHeaderDateTodayText"],[lastUpdatedTime stringWithFormat:@"HH:mm"]];
-        }
-        return [NSString stringWithFormat:@"%@%@",[LanguageService contentForKey:@"MJRefreshHeaderLastTimeText"],[lastUpdatedTime stringWithFormat:@"HH:mm"]];
-    };
+    self.lastUpdatedTimeLabel.hidden = YES;
     [self setTitle:[LanguageService contentForKey:@"MJRefreshHeaderIdleText"] forState:MJRefreshStateIdle];
     [self setTitle:[LanguageService contentForKey:@"MJRefreshHeaderPullingText"] forState:MJRefreshStatePulling];
     [self setTitle:[LanguageService contentForKey:@"MJRefreshHeaderRefreshingText"] forState:MJRefreshStateRefreshing];

@@ -176,20 +176,9 @@ static NSString *const identifier = @"WalletCell";
 -(void)refreshMainView{
     self.userIdView.text = [WalletWrapper getWalletUserId];
     WalletBalanceInfo* info = [WalletWrapper getWalletBalanceInfo];
-    NSString *balance = @([WalletWrapper nanoToVcash:info.total]).p9fString;
-    if ([AppHelper isPureInt:balance]) {
-        balance = @([WalletWrapper nanoToVcash:info.total]).p09fString;
-    }
-    
-    NSString *confirm = @([WalletWrapper nanoToVcash:info.spendable]).p9fString;
-    if ([AppHelper isPureInt:confirm]) {
-        confirm = @([WalletWrapper nanoToVcash:info.spendable]).p09fString;
-    }
-    
-    NSString *unconfirm =  @([WalletWrapper nanoToVcash:info.unconfirmed]).p9fString;
-    if ([AppHelper isPureInt:unconfirm]) {
-        unconfirm =  @([WalletWrapper nanoToVcash:info.unconfirmed]).p09fString;
-    }
+    NSString *balance = @([WalletWrapper nanoToVcash:info.total]).p09fString;
+    NSString *confirm = @([WalletWrapper nanoToVcash:info.spendable]).p09fString;
+    NSString *unconfirm =  @([WalletWrapper nanoToVcash:info.unconfirmed]).p09fString;
     self.balanceTotal.text = [NSString stringWithFormat:@"%@ V", balance];
     
     self.balanceConfirmed.text = [NSString stringWithFormat:@"%@",confirm];
@@ -206,7 +195,11 @@ static NSString *const identifier = @"WalletCell";
     self.netName.textColor = [UIColor redColor];
 #endif
     
-    self.arrTransactionList = [WalletWrapper getTransationArr];
+    NSArray *arrTransaction = [WalletWrapper getTransationArr];
+    self.arrTransactionList = [arrTransaction sortedArrayUsingComparator:^NSComparisonResult(VcashTxLog *obj1, VcashTxLog *obj2) {
+        return [@(obj2.create_time) compare:@(obj1.create_time)];
+    }];
+
     self.tableViewContainer.tableFooterView = self.arrTransactionList.count > 0 ? nil : self.footView;
     [self.tableViewContainer reloadData];
 }

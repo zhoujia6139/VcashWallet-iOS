@@ -26,9 +26,9 @@
         self.userLabel.text = [NSString stringWithFormat:@"Sender:%@", tx.sender_id];
     }
     
-    self.amountLabel.text = [NSString stringWithFormat:@"Amount:%@", @([WalletWrapper nanoToVcash:tx.slateObj.amount]).p9fString];
+    self.amountLabel.text = [NSString stringWithFormat:@"Amount:%@", @([WalletWrapper nanoToVcash:tx.slateObj.amount]).p09fString];
     
-    self.feeLabel.text = [NSString stringWithFormat:@"Fee:%@", @([WalletWrapper nanoToVcash:tx.slateObj.fee]).p9fString];
+    self.feeLabel.text = [NSString stringWithFormat:@"Fee:%@", @([WalletWrapper nanoToVcash:tx.slateObj.fee]).p09fString];
 }
 
 - (IBAction)clickConfirm:(id)sender {

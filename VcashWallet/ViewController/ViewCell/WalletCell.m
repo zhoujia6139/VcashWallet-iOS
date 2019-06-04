@@ -74,7 +74,7 @@
     }
     self.labelTxId.text = txId;
     int64_t amount = (int64_t)txLog.amount_credited - (int64_t)txLog.amount_debited;
-    self.labelAmount.text = [NSString stringWithFormat:@"%@",@([WalletWrapper nanoToVcash:amount]).p9fString];
+    self.labelAmount.text = [NSString stringWithFormat:@"%@",@([WalletWrapper nanoToVcash:amount]).p09fString];
     self.labelTime.text = [[NSDate dateWithTimeIntervalSince1970:txLog.create_time] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     switch (txLog.confirm_state){
