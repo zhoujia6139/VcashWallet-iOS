@@ -23,10 +23,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gem-0A-xWB">
-                    <rect key="frame" x="0.0" y="12" width="375" height="68"/>
+                    <rect key="frame" x="12" y="12" width="351" height="68"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a 24 word phrase you were given when you created your previous wallet." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bhk-F6-9dE" customClass="VcashLabel">
-                            <rect key="frame" x="20" y="16" width="335" height="36"/>
+                            <rect key="frame" x="20" y="16" width="311" height="36"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
@@ -46,10 +46,10 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nKk-dw-JPs">
-                    <rect key="frame" x="0.0" y="92" width="375" height="400"/>
+                    <rect key="frame" x="12" y="92" width="351" height="360"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="400" id="d6y-sN-C8E"/>
+                        <constraint firstAttribute="height" constant="360" id="d6y-sN-C8E"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YLI-hd-uj4" customClass="VcashButton" customModule="VcashWallet" customModuleProvider="target">
@@ -73,12 +73,12 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="nKk-dw-JPs" firstAttribute="top" secondItem="gem-0A-xWB" secondAttribute="bottom" constant="12" id="OKp-EC-Byo"/>
-                <constraint firstAttribute="trailing" secondItem="nKk-dw-JPs" secondAttribute="trailing" id="UGH-SV-McG"/>
+                <constraint firstAttribute="trailing" secondItem="nKk-dw-JPs" secondAttribute="trailing" constant="12" id="UGH-SV-McG"/>
                 <constraint firstAttribute="bottom" secondItem="YLI-hd-uj4" secondAttribute="bottom" constant="40" id="UwH-dP-wsg"/>
-                <constraint firstAttribute="trailing" secondItem="gem-0A-xWB" secondAttribute="trailing" id="ajS-6I-L9w"/>
-                <constraint firstItem="gem-0A-xWB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="bQH-Ey-WCQ"/>
+                <constraint firstAttribute="trailing" secondItem="gem-0A-xWB" secondAttribute="trailing" constant="12" id="ajS-6I-L9w"/>
+                <constraint firstItem="gem-0A-xWB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="bQH-Ey-WCQ"/>
                 <constraint firstItem="gem-0A-xWB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="12" id="owu-9f-zds"/>
-                <constraint firstItem="nKk-dw-JPs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qNA-Xv-Kfj"/>
+                <constraint firstItem="nKk-dw-JPs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="qNA-Xv-Kfj"/>
                 <constraint firstItem="YLI-hd-uj4" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="sUf-6d-eRp"/>
             </constraints>
         </view>

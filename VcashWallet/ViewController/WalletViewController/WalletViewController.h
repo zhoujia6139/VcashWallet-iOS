@@ -6,9 +6,10 @@
 //  Copyright © 2018年 blockin. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 
-@interface WalletViewController : UIViewController
+#import "BaseViewController.h"
+
+@interface WalletViewController : BaseViewController
 
 @property(assign, nonatomic)BOOL enterInRecoverMode;
 

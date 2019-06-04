@@ -37,7 +37,7 @@
     self.walletIdLabel.text = walletId;
     
     CIImage *ciImage = [self createQRCodeWithUrlString:walletId];
-    UIImage *imageQRCode = [self adjustQRImageSize:ciImage QRSize:156];
+    UIImage *imageQRCode = [self adjustQRImageSize:ciImage QRSize:170];
     self.scanQR.image = imageQRCode;
 }
 

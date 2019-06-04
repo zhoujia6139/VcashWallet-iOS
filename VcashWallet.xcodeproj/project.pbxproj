@@ -10,6 +10,7 @@
 		111D98D7603A8F1579E12602 /* libPods-VcashWallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38B93DB289A56D999A4C8C7C /* libPods-VcashWallet.a */; };
 		A241822722A50A7F00519F7D /* LockScreenSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A241822522A50A7F00519F7D /* LockScreenSetViewController.m */; };
 		A241822B22A510D400519F7D /* LockScreenTimeService.m in Sources */ = {isa = PBXBuildFile; fileRef = A241822A22A510D400519F7D /* LockScreenTimeService.m */; };
+		A241822E22A6367C00519F7D /* RefreshStateHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A241822D22A6367C00519F7D /* RefreshStateHeader.m */; };
 		A26FEBBD229F7DE0003CCD7C /* WalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB70229F7DE0003CCD7C /* WalletViewController.xib */; };
 		A26FEBBE229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB71229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m */; };
 		A26FEBBF229F7DE0003CCD7C /* HandleSlateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB73229F7DE0003CCD7C /* HandleSlateViewController.xib */; };
@@ -262,6 +263,8 @@
 		A241822522A50A7F00519F7D /* LockScreenSetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockScreenSetViewController.m; sourceTree = "<group>"; };
 		A241822922A510D400519F7D /* LockScreenTimeService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockScreenTimeService.h; sourceTree = "<group>"; };
 		A241822A22A510D400519F7D /* LockScreenTimeService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockScreenTimeService.m; sourceTree = "<group>"; };
+		A241822C22A6367C00519F7D /* RefreshStateHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefreshStateHeader.h; sourceTree = "<group>"; };
+		A241822D22A6367C00519F7D /* RefreshStateHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefreshStateHeader.m; sourceTree = "<group>"; };
 		A26FEB70229F7DE0003CCD7C /* WalletViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletViewController.xib; sourceTree = "<group>"; };
 		A26FEB71229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmSeedphraseViewController.m; sourceTree = "<group>"; };
 		A26FEB72229F7DE0003CCD7C /* CreateWalletNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateWalletNoteViewController.h; sourceTree = "<group>"; };
@@ -706,8 +709,8 @@
 				A26FEB76229F7DE0003CCD7C /* RecoverMnemonicViewController.h */,
 				A26FEB8E229F7DE0003CCD7C /* RecoverMnemonicViewController.m */,
 				A26FEBB3229F7DE0003CCD7C /* RecoverMnemonicViewController.xib */,
-				A26FEB8F229F7DE0003CCD7C /* HandleSlateViewController.m */,
 				A26FEB75229F7DE0003CCD7C /* HandleSlateViewController.h */,
+				A26FEB8F229F7DE0003CCD7C /* HandleSlateViewController.m */,
 				A26FEB73229F7DE0003CCD7C /* HandleSlateViewController.xib */,
 				A26FEB86229F7DE0003CCD7C /* SendTransactionViewController.h */,
 				A26FEBB8229F7DE0003CCD7C /* SendTransactionViewController.m */,
@@ -797,6 +800,8 @@
 				A26FEBA9229F7DE0003CCD7C /* LeftMenuView.xib */,
 				A26FEBB1229F7DE0003CCD7C /* PinPasswordInputView.h */,
 				A26FEBA7229F7DE0003CCD7C /* PinPasswordInputView.m */,
+				A241822C22A6367C00519F7D /* RefreshStateHeader.h */,
+				A241822D22A6367C00519F7D /* RefreshStateHeader.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1500,6 +1505,7 @@
 				ED44BF8C22696CF50042928E /* BTCSecretSharing.m in Sources */,
 				ED44BF9822696CF50042928E /* BTC256.m in Sources */,
 				A26FEBEA229F7DE0003CCD7C /* PinPasswordSetViewController.m in Sources */,
+				A241822E22A6367C00519F7D /* RefreshStateHeader.m in Sources */,
 				ED44BF7F22696CF50042928E /* BTCBigNumber+Tests.m in Sources */,
 				ED44BFB222696CF50042928E /* BTCKey.m in Sources */,
 				ED44BF7522696CF50042928E /* BTCTransactionBuilder.m in Sources */,

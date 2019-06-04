@@ -8,7 +8,7 @@
 
 #import "LockScreenTimeService.h"
 
-#define storageLockTypeKey @"lockType"
+#define storageLockTypePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"lockTypePath"]
 
 @interface LockScreenTimeService ()
 
@@ -93,14 +93,21 @@
 
 - (void)writeLockScreenType:(LockScreenType)type{
     _lockScreenType = type;
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:@(type) forKey:storageLockTypeKey];
-    [userDefaults synchronize];
+    NSURL *url = [NSURL URLWithString:storageLockTypePath];
+    NSError *error = nil;
+    BOOL success = [url setResourceValue: [NSNumber numberWithBool: YES]
+                                  forKey: NSURLIsExcludedFromBackupKey error: &error];
+    if (!success) {
+        DDLogError(@"Error excluding %@ from backup %@", [url lastPathComponent], error);
+    }
+    BOOL storageSuc = [NSKeyedArchiver archiveRootObject:@(type) toFile:storageLockTypePath];
+    if (!storageSuc) {
+        DDLogError(@"storage serverTx failed");
+    }
 }
 
 - (LockScreenType)readLockScreenType{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [[userDefaults objectForKey:storageLockTypeKey] integerValue];
+   return  [[NSKeyedUnarchiver unarchiveObjectWithFile:storageLockTypePath] integerValue];
 }
 
 

@@ -51,7 +51,7 @@
 }
 
 - (void)configView{
-    self.title = @"Confirm seed phrase";
+    self.title = [LanguageService contentForKey:@"confirmSeedPhrase"];
     ViewRadius(self.promptView, 4.0);
     [AppHelper addLineTopWithParentView:self.chosePhraseView];
    PhraseWordShowViewCreator  *creator = [PhraseWordShowViewCreator new];
@@ -71,7 +71,7 @@
                 vc.mnemonicWordsArr = strongSelf.mnemonicWordsArr;
                 [strongSelf.navigationController pushViewController:vc animated:YES];
             }else{
-                [self.view makeToast:@"The words are inconsistent with the seed phrase.please try again"];
+                [self.view makeToast:[LanguageService contentForKey:@"wordInconsistent"]];
             }
         }];
         

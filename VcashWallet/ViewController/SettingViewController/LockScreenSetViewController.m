@@ -21,9 +21,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"Lock screen";
+    self.title = [LanguageService contentForKey:@"lockScreen"];
     self.view.backgroundColor = [UIColor whiteColor];
-    NSArray *arrTitle= @[@"Never",@"After 30 seconds",@"After 1 minute",@"After 3 minutes"];
+    
+    NSArray *arrTitle= @[[LanguageService contentForKey:@"never"],[LanguageService contentForKey:@"after30Seconds"],[LanguageService contentForKey:@"after1Minute"],[LanguageService contentForKey:@"after3Minute"]];
     NSArray *arrLockScreenType = @[@(LockScreenTypeNever),@(LockScreenType30Seonds),@(LockScreenType1Minute),@(LockScreenType3Minute)];
     
     LockScreenSetItemView *priItem = nil;

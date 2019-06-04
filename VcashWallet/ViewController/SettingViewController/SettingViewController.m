@@ -36,18 +36,18 @@
     NSString *lockScreenTitle;
     switch (lockScreenType) {
         case LockScreenType3Minute:
-            lockScreenTitle = @"After 3 minutes";
+            lockScreenTitle = [LanguageService contentForKey:@"after3Minute"];
             break;
         case LockScreenTypeNever:
-            lockScreenTitle = @"Never";
+            lockScreenTitle = [LanguageService contentForKey:@"never"];
             break;
             
         case LockScreenType30Seonds:
-            lockScreenTitle = @"After 30 seconds";
+            lockScreenTitle = [LanguageService contentForKey:@"after30Seconds"];
             break;
             
         case LockScreenType1Minute:
-            lockScreenTitle = @"After 1 minute";
+            lockScreenTitle = [LanguageService contentForKey:@"after1Minute"];
             break;
             
         default:

@@ -89,8 +89,12 @@
     self.labelTxid.text = tx_id;
     self.labelSender.text = sender_id;
     self.labelRecipient.text = receiver_id;
-    self.labelAmount.text = [NSString stringWithFormat:@"%@ Vcash", @([WalletWrapper nanoToVcash:amount]).p9fString];
-    self.labelFee.text = [NSString stringWithFormat:@"%@ Vcash", @([WalletWrapper nanoToVcash:fee]).p9fString];
+    NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p9fString;
+    if ([AppHelper isPureInt:amountStr]) {
+        amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
+    }
+    self.labelAmount.text = [NSString stringWithFormat:@"%@ VCash", amountStr];
+    self.labelFee.text = [NSString stringWithFormat:@"%@ VCash", @([WalletWrapper nanoToVcash:fee]).p9fString];
     self.labelTxTime.text = create_time > 0 ? [[NSDate dateWithTimeIntervalSince1970:create_time] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"] : [[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
 }
 
@@ -104,12 +108,12 @@
     switch (self.serverTx.status) {
         case TxDefaultStatus:{
             //default status
-            txStatus = self.serverTx.isSend ? @"Tx Status: waiting for the sender to sign" : @"Tx Status: waiting for the recipient to sign";
+            txStatus = self.serverTx.isSend ? [LanguageService contentForKey:@"waitingSenderSign"] : [LanguageService contentForKey:@"waitingRecipientSign"];
             self.btnSignature.hidden = NO;
         }
             break;
         case TxFinalized:{
-            txStatus = @"Tx Status: waiting for confirming";
+            txStatus = [LanguageService contentForKey:@"waitingConfirming"];
             self.btnSignature.hidden = YES;
             self.btnCancelTx.hidden = YES;
         }
@@ -117,13 +121,13 @@
             
         case TxReceiverd:{
             //The recipient has already signed, waiting for the sender to broadcast
-            txStatus = self.serverTx.isSend ? @"Tx Status: waiting for the sender to sign" : @"Tx Status: waiting for the recipient to sign";
+            txStatus = self.serverTx.isSend ? [LanguageService contentForKey:@"waitingSenderSign"] : [LanguageService contentForKey:@"waitingRecipientSign"];
         }
             break;
             
         case TxCanceled:{
             imageTxStatus = [UIImage imageNamed:@"canceldetail.png"];
-            txStatus = @"Tx Status: transaction canceled";
+            txStatus = [LanguageService contentForKey:@"transactionCanceled"];
             self.btnSignature.hidden = YES;
             [self.btnCancelTx setImage:[UIImage imageNamed:@"Delete the transaction"] forState:UIControlStateNormal];
         }
@@ -149,7 +153,7 @@
         case DefaultState:{
             if (self.txLog.tx_type == TxSent) {
                 imageTxStatus = [UIImage imageNamed:@"ongoingdetail.png"];
-                txStatus = @"Tx Status: waiting for the recipient to sign";
+                txStatus = [LanguageService contentForKey:@"waitingRecipientSign"];
                 self.btnSignature.localTitle =  @"verifySign";
                 self.btnCancelTx.hidden = NO;
                 if (self.txLog.status == TxDefaultStatus) {
@@ -163,7 +167,7 @@
             }else if (self.txLog.tx_type == TxReceived){
                 //The recipient has already signed
                 imageTxStatus = [UIImage imageNamed:@"ongoingdetail.png"];
-                txStatus = @"Tx Status: waiting for the sender to sign";
+                txStatus = [LanguageService contentForKey:@"waitingSenderSign"];
                 self.btnSignature.hidden = YES;
                 self.btnCancelTx.hidden = YES;
                 
@@ -172,7 +176,7 @@
             break;
         case LoalConfirmed:{
             //tx has benn post, but not confirm by node
-            txStatus = @"Tx Status: waiting for confirming";
+            txStatus = [LanguageService contentForKey:@"waitingConfirming"];
             imageTxStatus = [UIImage imageNamed:@"ongoingdetail.png"];
             self.btnSignature.hidden = YES;
             self.btnCancelTx.hidden = YES;
@@ -181,7 +185,7 @@
             break;
         case NetConfirmed:{
             //confirm by node
-            txStatus = @"Tx Status: transaction completed";
+            txStatus = [LanguageService contentForKey:@"transactionCompleted"];
             imageTxStatus = [UIImage imageNamed:@"confirmdetail.png"];
             self.btnSignature.hidden = YES;
             self.btnCancelTx.hidden = YES;
@@ -192,7 +196,7 @@
         default:
             break;
     }
-    tx_id = (self.txLog.tx_slate_id ? self.txLog.tx_slate_id :  @"unreachable");
+    tx_id = (self.txLog.tx_slate_id ? self.txLog.tx_slate_id :  [LanguageService contentForKey:@"unreachable"]);
     [self configInfoFromTx_type:self.txLog.tx_type];
     fee = self.txLog.fee;
     create_time = self.txLog.create_time;
@@ -201,8 +205,8 @@
 - (void)configInfoFromTx_type:(TxLogEntryType)tx_type{
     switch (tx_type) {
         case ConfirmedCoinbase:{
-            tx_id = @"coinbase";
-            sender_id = @"coinbase";
+            tx_id = [LanguageService contentForKey:@"coinbase"];
+            sender_id = [LanguageService contentForKey:@"coinbase"];
             receiver_id =  [VcashWallet shareInstance].userId;
             amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited);
         }
@@ -210,13 +214,13 @@
             
         case TxSent:{
             sender_id =  [VcashWallet shareInstance].userId;
-            receiver_id = self.txLog.parter_id ? self.txLog.parter_id : @"unreachable";
+            receiver_id = self.txLog.parter_id ? self.txLog.parter_id : [LanguageService contentForKey:@"unreachable"];
             amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited) - (int64_t)self.txLog.fee;
         }
             break;
             
         case TxReceived:{
-            sender_id = self.txLog.parter_id ? self.txLog.parter_id : @"unreachable";
+            sender_id = self.txLog.parter_id ? self.txLog.parter_id : [LanguageService contentForKey:@"unreachable"];
             receiver_id = [VcashWallet shareInstance].userId;
             amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited);
         }
@@ -224,12 +228,12 @@
             
         case TxReceivedCancelled:{
             imageTxStatus = [UIImage imageNamed:@"canceldetail.png"];
-            txStatus = @"Tx Status: transaction cancelled";
+            txStatus = [LanguageService contentForKey:@"transactionCanceled"];
             self.btnSignature.hidden = YES;
             self.btnCancelTx.hidden = NO;
-            [self.btnCancelTx setTitle:@"Delete the transaction" forState:UIControlStateNormal];
+            [self.btnCancelTx setTitle:[LanguageService contentForKey:@"deleteTransaction"] forState:UIControlStateNormal];
             [self.btnCancelTx setImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
-            sender_id =  self.txLog.parter_id ? self.txLog.parter_id : @"unreachable";
+            sender_id =  self.txLog.parter_id ? self.txLog.parter_id : [LanguageService contentForKey:@"unreachable"];
             receiver_id = [VcashWallet shareInstance].userId;
             amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited);
         }
@@ -237,13 +241,13 @@
             
         case TxSentCancelled:{
             imageTxStatus = [UIImage imageNamed:@"canceldetail.png"];
-            txStatus = @"Tx Status: transaction cancelled";
+            txStatus = [LanguageService contentForKey:@"transactionCanceled"];
             self.btnSignature.hidden = YES;
             self.btnCancelTx.hidden = NO;
-            [self.btnCancelTx setTitle:@"Delete the transaction" forState:UIControlStateNormal];
+            [self.btnCancelTx setTitle:[LanguageService contentForKey:@"deleteTransaction"] forState:UIControlStateNormal];
             [self.btnCancelTx setImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
             sender_id =  [VcashWallet shareInstance].userId;
-            receiver_id = self.txLog.parter_id ? self.txLog.parter_id : @"unreachable";
+            receiver_id = self.txLog.parter_id ? self.txLog.parter_id : [LanguageService contentForKey:@"unreachable"];
             amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited) - (int64_t)self.txLog.fee;
         }
             break;
@@ -266,7 +270,7 @@
     
     if (isSend){
         [WalletWrapper finalizeTransaction:self.serverTx withComplete:^(BOOL yesOrNo, id _Nullable data){
-            NSString *tip = yesOrNo ? @"Successful broadcast" : @"failed broadcast";
+            NSString *tip = yesOrNo ? [LanguageService contentForKey:@"successfulBroadcast"] : [LanguageService contentForKey:@"broadcastFailure"];
             [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:tip];
             if (yesOrNo) {
                 [self.navigationController popViewControllerAnimated:YES];
@@ -275,7 +279,7 @@
     }
     else{
         [WalletWrapper receiveTransaction:self.serverTx withComplete:^(BOOL yesOrNo, id _Nullable data) {
-            NSString *tip = yesOrNo ? @"Successful signature" : @"failed signature";
+            NSString *tip = yesOrNo ? [LanguageService contentForKey:@"successfulSignature"] : [LanguageService contentForKey:@"signatureFailed"];
             [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:tip];
             if (yesOrNo) {
                  [self.navigationController popViewControllerAnimated:YES];

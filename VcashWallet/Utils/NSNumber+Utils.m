@@ -18,6 +18,10 @@
     return [self formatP9f];
 }
 
+- (NSString *)p09fString{
+    return [self formatP09f];
+}
+
 - (NSString *)p3fString{
     return [self formatP3f];
 }
@@ -40,6 +44,10 @@
 
 - (NSString *)formatP06f{
     return [NSString stringWithFormat:@"%.06f", [[self formatP6f] doubleValue]];
+}
+
+- (NSString *)formatP09f{
+    return [NSString stringWithFormat:@"%.09f", [[self formatP9f] doubleValue]];
 }
 
 - (NSString *)formatP12f{

@@ -48,8 +48,8 @@
                                 <action selector="clickedOpenOrCloseLeftMenuView:" destination="-1" eventType="touchUpInside" id="MyW-6B-ze6"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vcash Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TPG-o4-spJ">
-                            <rect key="frame" x="48" y="23" width="111.5" height="24"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VCash Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TPG-o4-spJ">
+                            <rect key="frame" x="48" y="23" width="116.5" height="24"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -177,28 +177,28 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Tr-ga-yCx">
-                            <rect key="frame" x="46" y="14.5" width="7" height="16"/>
+                            <rect key="frame" x="45" y="14.5" width="7" height="16"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="0.0" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rHb-KX-VKv">
                             <rect key="frame" x="341" y="14.5" width="7" height="16"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="0.0" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OaI-cV-RKV">
-                            <rect key="frame" x="311.5" y="14" width="13" height="17"/>
+                            <rect key="frame" x="323" y="14" width="13" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="2Tr-ga-yCx" firstAttribute="leading" secondItem="jTf-aD-Lyc" secondAttribute="trailing" constant="6" id="9tw-yk-ude"/>
-                        <constraint firstItem="rHb-KX-VKv" firstAttribute="leading" secondItem="OaI-cV-RKV" secondAttribute="trailing" constant="16.5" id="LcB-DR-xoJ"/>
+                        <constraint firstItem="2Tr-ga-yCx" firstAttribute="leading" secondItem="jTf-aD-Lyc" secondAttribute="trailing" constant="5" id="9tw-yk-ude"/>
+                        <constraint firstItem="rHb-KX-VKv" firstAttribute="leading" secondItem="OaI-cV-RKV" secondAttribute="trailing" constant="5" id="LcB-DR-xoJ"/>
                         <constraint firstItem="jTf-aD-Lyc" firstAttribute="leading" secondItem="fEM-9y-XJr" secondAttribute="leading" constant="27" id="UCv-X3-qjw"/>
                         <constraint firstItem="rHb-KX-VKv" firstAttribute="centerY" secondItem="OaI-cV-RKV" secondAttribute="centerY" id="UTN-u2-q2f"/>
                         <constraint firstItem="OaI-cV-RKV" firstAttribute="top" secondItem="fEM-9y-XJr" secondAttribute="top" constant="14" id="WP4-w9-6tE"/>

@@ -70,7 +70,7 @@
     
     NSString *txId = self.txLog.tx_slate_id;
     if (!txId) {
-        txId = (self.txLog.tx_type == ConfirmedCoinbase) ? @"coinbase" : @"unreachable";
+        txId = (self.txLog.tx_type == ConfirmedCoinbase) ? [LanguageService contentForKey:@"coinbase"] : [LanguageService contentForKey:@"unreachable"];
     }
     self.labelTxId.text = txId;
     int64_t amount = (int64_t)txLog.amount_credited - (int64_t)txLog.amount_debited;
@@ -82,15 +82,15 @@
         case LoalConfirmed://waiting confirm
             if(txLog.tx_type == TxSentCancelled || txLog.tx_type == TxReceivedCancelled){
                 //sender canceled
-                self.stateLabel.text = @"Canceled";
+                self.stateLabel.text = [LanguageService contentForKey:@"canceled"];
                 [self.imageViewState setImage:[UIImage imageNamed:@"canceled.png"]];
             }else{
-                self.stateLabel.text = @"ongoing";
+                self.stateLabel.text = [LanguageService contentForKey:@"ongoing"];
                 [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
             }
             break;
         case NetConfirmed:
-            self.stateLabel.text = @"Confirmed";
+            self.stateLabel.text = [LanguageService contentForKey:@"confirmed"];
             [self.imageViewState setImage:[UIImage imageNamed:@"confirmed.png"]];
             break;
     }

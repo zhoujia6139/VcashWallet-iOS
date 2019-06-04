@@ -81,6 +81,12 @@
 
 
 - (void)enterAmount:(UITextField *)textField{
+    NSRange ran = [textField.text rangeOfString:@"."];
+    if (ran.location != NSNotFound) {
+        if (textField.text.length -  ran.location - 1 > 9) {
+            textField.text = [textField.text substringWithRange:NSMakeRange(0, textField.text.length - ran.location)];
+        }
+    }
     if (textField.text.length > 0 && self.targetAddressField.text.length > 0) {
         self.sendBtn.backgroundColor = COrangeColor;
         self.sendBtn.userInteractionEnabled = YES;

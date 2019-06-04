@@ -14,6 +14,8 @@
 
 @property (nonatomic, strong, readonly) NSString *p9fString;/*无格式，精确8位小数，不补0， 四舍五入*/
 
+@property (nonatomic, strong, readonly) NSString *p09fString;/*无格式，精确8位小数，补0， 四舍五入*/
+
 @property (nonatomic, strong, readonly) NSString *p3fString;/*无格式，精确3位小数，不补0， 四舍五入*/
 
 @property (nonatomic, strong, readonly) NSString *p06fString;/*无格式，精确3位小数，补0， 四舍五入*/

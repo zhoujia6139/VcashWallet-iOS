@@ -17,6 +17,7 @@
 #import "HandleSlateViewController.h"
 #import "ServerTxManager.h"
 #import "LeftMenuView.h"
+#import "RefreshStateHeader.h"
 
 static NSString *const identifier = @"WalletCell";
 
@@ -141,7 +142,7 @@ static NSString *const identifier = @"WalletCell";
     [self.tableViewContainer registerNib:[UINib nibWithNibName:NSStringFromClass([WalletCell class]) bundle:nil] forCellReuseIdentifier:identifier];
     self.tableViewContainer.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.tableViewContainer.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+    self.tableViewContainer.mj_header = [RefreshStateHeader headerWithRefreshingBlock:^{
         [self refreshWalletStatus];
     }];
     
@@ -175,11 +176,25 @@ static NSString *const identifier = @"WalletCell";
 -(void)refreshMainView{
     self.userIdView.text = [WalletWrapper getWalletUserId];
     WalletBalanceInfo* info = [WalletWrapper getWalletBalanceInfo];
-    self.balanceTotal.text = [NSString stringWithFormat:@"%@ V", @([WalletWrapper nanoToVcash:info.total]).p9fString];
+    NSString *balance = @([WalletWrapper nanoToVcash:info.total]).p9fString;
+    if ([AppHelper isPureInt:balance]) {
+        balance = @([WalletWrapper nanoToVcash:info.total]).p09fString;
+    }
     
-    self.balanceConfirmed.text = [NSString stringWithFormat:@"%@", @([WalletWrapper nanoToVcash:info.spendable]).p9fString];
+    NSString *confirm = @([WalletWrapper nanoToVcash:info.spendable]).p9fString;
+    if ([AppHelper isPureInt:confirm]) {
+        confirm = @([WalletWrapper nanoToVcash:info.spendable]).p09fString;
+    }
     
-    self.balanceUnconfirmed.text = [NSString stringWithFormat:@"%@", @([WalletWrapper nanoToVcash:info.unconfirmed]).p9fString];
+    NSString *unconfirm =  @([WalletWrapper nanoToVcash:info.unconfirmed]).p9fString;
+    if ([AppHelper isPureInt:unconfirm]) {
+        unconfirm =  @([WalletWrapper nanoToVcash:info.unconfirmed]).p09fString;
+    }
+    self.balanceTotal.text = [NSString stringWithFormat:@"%@ V", balance];
+    
+    self.balanceConfirmed.text = [NSString stringWithFormat:@"%@",confirm];
+    
+    self.balanceUnconfirmed.text = [NSString stringWithFormat:@"%@",unconfirm];
     
     self.chainHeight.text = [NSString stringWithFormat:@"Height:%@", @([WalletWrapper getCurChainHeight])];
     
@@ -195,6 +210,7 @@ static NSString *const identifier = @"WalletCell";
     self.tableViewContainer.tableFooterView = self.arrTransactionList.count > 0 ? nil : self.footView;
     [self.tableViewContainer reloadData];
 }
+
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

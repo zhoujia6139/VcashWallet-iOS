@@ -12,7 +12,7 @@
 #define kKeyChainService  @"kVcashWallet"
 #define kKeyChainMnemonic  @"kKeyChainMnemonic"
 
-#define kAppInstallAndCreateWallet @"kAppInstallAndCreateWallet"
+#define storageAppInstallAndCreateWalletPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"appInstallAndCreateWalletPath"]
 
 @implementation UserCenter
 
@@ -67,14 +67,21 @@
 }
 
 - (void)writeAppInstallAndCreateWallet:(BOOL)installAndCreateWallet{
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    [userDefault setObject:@(installAndCreateWallet) forKey:kAppInstallAndCreateWallet];
-    [userDefault synchronize];
+    NSURL *url = [NSURL URLWithString:storageAppInstallAndCreateWalletPath];
+    NSError *error = nil;
+    BOOL success = [url setResourceValue: [NSNumber numberWithBool: YES]
+                                  forKey: NSURLIsExcludedFromBackupKey error: &error];
+    if (!success) {
+        DDLogError(@"Error excluding %@ from backup %@", [url lastPathComponent], error);
+    }
+   BOOL  writeSuc = [NSKeyedArchiver archiveRootObject:@(installAndCreateWallet) toFile:storageAppInstallAndCreateWalletPath];
+    if (!writeSuc) {
+        DDLogError(@"write Failed");
+    }
 }
 
 - (BOOL)appInstallAndCreateWallet{
-     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    return [[userDefault objectForKey:kAppInstallAndCreateWallet] boolValue];
+    return [[NSKeyedUnarchiver unarchiveObjectWithFile:storageAppInstallAndCreateWalletPath] boolValue];;
 }
 
 

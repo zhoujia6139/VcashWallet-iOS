@@ -55,18 +55,6 @@
     }
     
     [self.confirmPasTextField addTarget:self action:@selector(fillConfirmPassword:) forControlEvents:UIControlEventEditingChanged];
-    
-    
-//    self.pasView = [[PinPasswordInputView alloc] initWithFrame:CGRectMake(16, 100, self.view.frame.size.width - 32, 45)];
-//    self.pasView.delegate = self;
-//    [self.view addSubview:_pasView];
-    
-//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//    button.backgroundColor = [UIColor brownColor];
-//    button.frame = CGRectMake(100, 180, self.view.frame.size.width - 200, 50);
-//    [button addTarget:self action:@selector(btnAction) forControlEvents:UIControlEventTouchUpInside];
-//    [button setTitle:@"确定" forState:UIControlStateNormal];
-//    [self.view addSubview:button];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -105,50 +93,6 @@
         self.startUseWalletBtn.backgroundColor = CGrayColor;
     }
 }
-
-//- (void)btnAction
-//{
-//    NSString* inputStr = [self.pasView getInput];
-//    if (inputStr.length != 6)
-//    {
-//        [MBHudHelper showTextTips:@"请重新输入6位数字" onView:nil withDuration:1.5];
-//        return;
-//    }
-//
-//}
-//
-//-(void)PinPasswordView:(PinPasswordInputView*)inputview didGetPassword:(NSString*)password
-//{
-//    if (!firstPass)
-//    {
-//        firstPass = [self.pasView getInput];
-//        [self.pasView clearUpPassword];
-//        [MBHudHelper showTextTips:@"请再次输入" onView:nil withDuration:1.5];
-//        return;
-//    }
-//
-//    if (!secondPass)
-//    {
-//        secondPass  = [self.pasView getInput];
-//        if ([firstPass isEqualToString:secondPass])
-//        {
-//            BOOL yesOrNo = [WalletWrapper createWalletWithPhrase:self.mnemonicWordsArr nickname:nil password:nil];
-//            if (yesOrNo)
-//            {
-//                NSString* wordStr = [self.mnemonicWordsArr componentsJoinedByString:@" "];
-//                [[UserCenter sharedInstance] storeMnemonicWords:wordStr withKey:firstPass];
-//                [NavigationCenter showWalletPage:self.isRecover];
-//            }
-//        }
-//        else
-//        {
-//            firstPass = nil;
-//            secondPass = nil;
-//            [self.pasView clearUpPassword];
-//            [MBHudHelper showTextTips:@"两次输入不一致，请重新输入" onView:nil withDuration:1.5];
-//        }
-//    }
-//}
 
 - (BOOL)extracted {
     return [WalletWrapper createWalletWithPhrase:self.mnemonicWordsArr nickname:nil password:nil];

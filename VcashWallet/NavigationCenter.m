@@ -46,8 +46,9 @@ static UINavigationController* curNavVC;
     }
     else
     {
+        VcashNavigationViewController* nav = [[VcashNavigationViewController alloc] initWithRootViewController:vc];
         UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
-        keyWindow.rootViewController = vc;
+        keyWindow.rootViewController = nav;
     }
 }
 

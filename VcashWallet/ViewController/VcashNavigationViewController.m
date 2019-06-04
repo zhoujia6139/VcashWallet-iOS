@@ -32,9 +32,15 @@
     return  [self.childViewControllers count] == 1 ? NO:YES;
 }
 
+
+- (UIViewController *)childViewControllerForStatusBarStyle{
+    return self.topViewController;
+}
+
 - (BOOL)prefersStatusBarHidden{
     return NO;
 }
+
 
 - (UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleDefault;
