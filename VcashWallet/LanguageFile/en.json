@@ -108,4 +108,10 @@
     "after1Minute":"After 1 minute",
     "after3Minute":"After 3 minute",
     "lockScreen":"Lock screen",
+    "seedPhrase":"Seed phrase",
+    "mnemonicChangeedBackup":"The mnemonic has been changed, please re-back up",
+    "passwordsNotmatch":"Passwords do not match",
+    "recovering":"Recovering",
+    "successfulRecovery":"Successful recovery",
+    "recoveryFailure":"Recovery failure"
 }

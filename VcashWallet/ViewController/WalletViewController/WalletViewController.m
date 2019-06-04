@@ -66,20 +66,9 @@ static NSString *const identifier = @"WalletCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initSubviews];
-    if (self.enterInRecoverMode){
-        [MBHudHelper startWorkProcessWithTextTips:@"Recovering"];
-        [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
-            if (yesOrNo){
-                [self refreshMainView];
-            }
-            NSString* tips = yesOrNo?@"Recover Suc!":@"Recover failed!";
-            [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:tips];
-        }];
-    }
-    else{
+    if (!self.enterInRecoverMode){
         [self.tableViewContainer.mj_header beginRefreshing];
     }
-    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kTxLogDataChanged object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kWalletChainHeightChange object:nil];

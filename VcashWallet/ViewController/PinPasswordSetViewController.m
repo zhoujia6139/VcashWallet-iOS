@@ -11,6 +11,7 @@
 
 #define CGrayColor [UIColor colorWithHexString:@"#EEEEEE"]
 #define COrangeColor  [UIColor colorWithHexString:@"#FF9502"]
+#define CRedColor [UIColor colorWithHexString:@"#FF3333"]
 
 @interface PinPasswordSetViewController ()<UITextFieldDelegate>
 
@@ -32,12 +33,16 @@
 
 @property (weak, nonatomic) IBOutlet UIView *confirmPasLineView;
 
+@property (weak, nonatomic) IBOutlet VcashLabel *passwordNotmatchLabel;
+
+
 @end
 
 @implementation PinPasswordSetViewController
 {
     NSString* firstPass;
     NSString* secondPass;
+    BOOL isNotmatch;
 }
 
 - (void)viewDidLoad {
@@ -70,7 +75,7 @@
         self.pasLineView.backgroundColor = COrangeColor;
     }
     if (textField == self.confirmPasTextField) {
-        self.confirmPasLineView.backgroundColor = COrangeColor;
+        self.confirmPasLineView.backgroundColor = isNotmatch  ? CRedColor :COrangeColor;
     }
     return YES;
 }
@@ -80,7 +85,7 @@
         self.pasLineView.backgroundColor = CGrayColor;
     }
     if (textField == self.confirmPasTextField) {
-        self.confirmPasLineView.backgroundColor = CGrayColor;
+        self.confirmPasLineView.backgroundColor = isNotmatch ? CRedColor : CGrayColor;
     }
 }
 
@@ -100,9 +105,13 @@
 
 - (IBAction)clickedStartUseWallet:(id)sender {
     if (![self.passwordTextField.text isEqualToString:self.confirmPasTextField.text]) {
-         [MBHudHelper showTextTips:[LanguageService contentForKey:@"twoinputsNotSame"] onView:nil withDuration:1.5];
+        self.passwordNotmatchLabel.hidden = NO;
+        self.confirmPasLineView.backgroundColor = [UIColor colorWithHexString:@"#FF3333"];
+        isNotmatch = YES;
         return;
     }
+    self.passwordNotmatchLabel.hidden = YES;
+    self.confirmPasLineView.backgroundColor = [self.confirmPasTextField isFirstResponder] ?  COrangeColor : CGrayColor;
     NSString *password = self.passwordTextField.text;
     
     if (self.isChangePassword) {
@@ -118,6 +127,17 @@
     {
         NSString* wordStr = [self.mnemonicWordsArr componentsJoinedByString:@" "];
         [[UserCenter sharedInstance] storeMnemonicWords:wordStr withKey:password];
+        if (self.isRecover) {
+            [MBHudHelper startWorkProcessWithTextTips:[LanguageService contentForKey:@"recovering"]];
+            [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
+                NSString* tips = yesOrNo?[LanguageService contentForKey:@"successfulRecovery"]:[LanguageService contentForKey:@"recoveryFailure"];
+                [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:tips];
+                if (yesOrNo){
+                    [NavigationCenter showWalletPage:self.isRecover];
+                }
+            }];
+            return;
+        }
         [NavigationCenter showWalletPage:self.isRecover];
     }
 }

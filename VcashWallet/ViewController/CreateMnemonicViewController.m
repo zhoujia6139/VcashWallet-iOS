@@ -39,7 +39,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = [LanguageService contentForKey:@"createNewWalletTitle"];
+    self.navigationItem.title = [LanguageService contentForKey:@"seedPhrase"];
     self.copnstraintPromptView.constant = ScreenWidth - 24;
     ViewRadius(self.promptView, 4.0);
     ViewRadius(self.nextBtn, 4.0);
@@ -65,18 +65,31 @@
 -(void)didTakeScreenshot
 {
     [self refreshPharseView];
-    [MBHudHelper showTextTips:@"助记词已变更，请重新备份" onView:nil withDuration:5];
+    [MBHudHelper showTextTips:[LanguageService contentForKey:@"mnemonicChangeedBackup"] onView:nil withDuration:5];
 }
 
 - (IBAction)clickedWalletBtn:(id)sender {
     
-    AlertView *alertView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([AlertView class]) owner:nil options:nil] firstObject];
+//    AlertView *alertView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([AlertView class]) owner:nil options:nil] firstObject];
     __weak typeof(self) weakSelf = self;
-    alertView.doneCallBack = ^{
+//    alertView.doneCallBack = ^{
+//        __strong typeof(weakSelf) strongSelf = weakSelf;
+//        [strongSelf pushConfirmPhraseVc];
+//    };
+//    [alertView show];
+    
+    UIAlertController *alterVc = [UIAlertController alertControllerWithTitle:[LanguageService contentForKey:@"saveSeedphrase"] message:[LanguageService contentForKey:@"saveSeedphraseContent"] preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alterVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"cancel"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    
+    [alterVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"done"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         [strongSelf pushConfirmPhraseVc];
-    };
-    [alertView show];
+    }]];
+   
+    [self.navigationController presentViewController:alterVc animated:YES completion:nil];
 }
 
 - (void)pushConfirmPhraseVc{
