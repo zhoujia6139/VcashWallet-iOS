@@ -131,6 +131,7 @@
 
 - (void)pushTranscactionDetailVcWith:(VcashTxLog *)txLog{
     TransactionDetailViewController *transactionDetailVc = [[TransactionDetailViewController alloc] init];
+    transactionDetailVc.isFromSendTxVc = YES;
     transactionDetailVc.txLog = txLog;
     [self.navigationController pushViewController:transactionDetailVc animated:YES];
 }

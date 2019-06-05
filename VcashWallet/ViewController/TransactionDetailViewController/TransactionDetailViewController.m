@@ -59,6 +59,9 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[ServerTxManager shareInstance] hiddenMsgNotificationView];
+    if (self.isFromSendTxVc) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
 //    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#EEEEEE"]] forBarMetrics:UIBarMetricsDefault];
     NSMutableArray *arrVcs = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
     NSInteger count = arrVcs.count;
@@ -72,6 +75,12 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    if (self.isFromSendTxVc) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    }
+}
+
 //- (void)viewWillDisappear:(BOOL)animated{
 //    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]] forBarMetrics:UIBarMetricsDefault];
 //}
@@ -80,6 +89,16 @@
     self.title = [LanguageService contentForKey:@"txDetailTitle"];
     ViewRadius(self.btnSignature, 4.0f);
     ViewBorderRadius(self.btnCancelTx, 4.0, 1.0, [UIColor colorWithHexString:@"#FF3333"]);
+    if (self.isFromSendTxVc) {
+        self.isShowLiftBack = NO;
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+        [btn setTitle:[LanguageService contentForKey:@"done"] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithHexString:@"#FF9502"] forState:UIControlStateNormal];
+        btn.frame = CGRectMake(0, 0, 40, 40);
+        [btn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *rightButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+        self.navigationItem.rightBarButtonItem = rightButtonItem;
+    }
     self.constraintViewStatusWidth.constant = ScreenWidth;
     [self configDataFromServerTransaction];
     [self configDataFromVcashTxLog];
@@ -251,6 +270,10 @@
         default:
             break;
     }
+}
+
+- (void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
