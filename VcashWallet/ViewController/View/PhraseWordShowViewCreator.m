@@ -256,6 +256,9 @@
 
 - (void)setTextFieldEnble:(BOOL)textFieldEnble{
     self.textField.userInteractionEnabled = textFieldEnble;
+    if (self.tag == kWordItemTagStart) {
+        [self.textField becomeFirstResponder];
+    }
 }
 
 - (NSString *)phrase{
