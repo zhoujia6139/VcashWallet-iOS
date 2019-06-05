@@ -43,6 +43,8 @@
     self.copnstraintPromptView.constant = ScreenWidth - 24;
     ViewRadius(self.promptView, 4.0);
     ViewRadius(self.nextBtn, 4.0);
+    [self.nextBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
+    [self.nextBtn setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
     creator = [PhraseWordShowViewCreator new];
     [creator creatPhraseViewWithParentView:self.phraseWordView isCanEdit:NO withCallBack:nil];
 

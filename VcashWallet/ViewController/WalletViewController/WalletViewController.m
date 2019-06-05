@@ -108,14 +108,6 @@ static NSString *const identifier = @"WalletCell";
     self.constraintNaviHeight.constant = kTopHeight;
     [self.leftMenuView addInView];
     
-//    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
-//    [self.view addGestureRecognizer:pan];
-    
-//    UIPanGestureRecognizer *panLeft = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
-//    [self.leftMenuView addGestureRecognizer:panLeft];
-//
-//    UIPanGestureRecognizer *panLeftViewAlpha = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
-//    [self.leftMenuView addAlphaViewPanGesture:panLeftViewAlpha];
     self.maskView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1];
     [AppHelper addLineWithParentView:self.transactionTitleView];
     
@@ -137,6 +129,14 @@ static NSString *const identifier = @"WalletCell";
     
     ViewRadius(self.receiveVcashBtn, 4.0);
     ViewRadius(self.sendVcashBtn, 4.0);
+    
+    [self.receiveVcashBtn setBackgroundImage:[UIImage imageWithColor:CGreenColor] forState:UIControlStateNormal];
+    [self.receiveVcashBtn setBackgroundImage:[UIImage imageWithColor:CGreenHighlightedColor] forState:UIControlStateHighlighted];
+    
+    [self.sendVcashBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
+    [self.sendVcashBtn setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
+    
+    
 }
 
 

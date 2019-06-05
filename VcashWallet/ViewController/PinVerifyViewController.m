@@ -30,11 +30,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.textFieldPassword setValue:[UIColor colorWithHexString:@"#666666"] forKeyPath:@"_placeholderLabel.textColor"];
-    self.btnOpenWallet.userInteractionEnabled = NO;
-    self.btnOpenWallet.backgroundColor = CGrayColor;
+    self.textFieldPassword.tintColor = [UIColor whiteColor];
+    [self.btnOpenWallet setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
+    [self.btnOpenWallet setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
     ViewRadius(self.btnOpenWallet, 4.0);
     self.textFieldPassword.delegate  = self;
-    [self.textFieldPassword addTarget:self action:@selector(enterPassword:) forControlEvents:UIControlEventEditingChanged];
     UIButton* btn = [[UIButton alloc] init];
     [btn setTitle:[LanguageService contentForKey:@"restoreWallet"] forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
@@ -63,15 +63,6 @@
     [self.pasView openKeyboard];
 }
 
-- (void)enterPassword:(UITextField *)textField{
-    if (textField.text.length > 0) {
-        self.btnOpenWallet.userInteractionEnabled = YES;
-        self.btnOpenWallet.backgroundColor = COrangeColor;
-    }else{
-        self.btnOpenWallet.userInteractionEnabled = NO;
-        self.btnOpenWallet.backgroundColor = CGrayColor;
-    }
-}
 
 - (BOOL)prefersStatusBarHidden{
     return NO;

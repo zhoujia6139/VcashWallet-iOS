@@ -16,4 +16,6 @@
 
 +(void)showPasswordVerifyPage;
 
++(void)showSettingVcPage;
+
 @end

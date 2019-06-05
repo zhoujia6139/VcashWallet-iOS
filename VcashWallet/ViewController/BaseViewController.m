@@ -7,8 +7,11 @@
 //
 
 #import "BaseViewController.h"
+#import "leftMenuView.h"
 
 @interface BaseViewController ()
+
+@property (nonatomic, strong) LeftMenuView *leftMenuView;
 
 @end
 
@@ -17,12 +20,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.isShowLiftBack = YES;
+    self.isShowLeftBack = YES;
 }
 
-- (void)setIsShowLiftBack:(BOOL)isShowLiftBack{
+- (void)setIsShowLeftBack:(BOOL)isShowLeftBack{
     NSInteger VCCount = self.navigationController.viewControllers.count;
-    if (isShowLiftBack && ( VCCount > 1 || self.navigationController.presentingViewController != nil)) {
+    if (isShowLeftBack && ( VCCount > 1 || self.navigationController.presentingViewController != nil)) {
         [self addNavigationItemWithImageNames:@[@"back"] isLeft:YES target:self action:@selector(backBtnClicked) tags:nil];
         
     } else {
@@ -31,6 +34,19 @@
         self.navigationItem.leftBarButtonItem = NULLBar;
     }
 }
+
+- (void)setIsShowLeftMeue:(BOOL)isShowLeftMeue{
+    if (isShowLeftMeue) {
+        [self.leftMenuView addInView];
+        [self addNavigationItemWithImageNames:@[@"walletleftimage"] isLeft:YES target:self action:@selector(showLeftMenu:) tags:nil];
+    }
+}
+
+- (void)showLeftMenu:(UIButton *)btn{
+    btn.selected = !btn.selected;
+    btn.selected ? [self.leftMenuView showAnimation] : [self.leftMenuView hiddenAnimation];
+}
+    
 
 - (void)backBtnClicked{
     if (self.presentingViewController) {
@@ -73,6 +89,15 @@
         self.navigationItem.rightBarButtonItems = items;
     }
     return arrBtn;
+}
+
+#pragma mark - Lazy
+- (LeftMenuView *)leftMenuView{
+    if (!_leftMenuView) {
+        _leftMenuView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([LeftMenuView class]) owner:nil options:nil] firstObject];
+        _leftMenuView.delegate = self;
+    }
+    return _leftMenuView;
 }
 
 /*

@@ -42,7 +42,7 @@
     [super viewDidLoad];
     self.navigationItem.title = [LanguageService contentForKey:@"sendVcash"];
     [self.amountField addTarget:self action:@selector(enterAmount:) forControlEvents:UIControlEventEditingChanged];
-    self.sendBtn.backgroundColor = CGrayColor;
+    self.sendBtn.backgroundColor = COrangeEnableColor;
     self.sendBtn.userInteractionEnabled = NO;
     ViewRadius(self.sendBtn, 4.0);
     // Do any additional setup after loading the view from its nib.
@@ -91,7 +91,7 @@
         self.sendBtn.backgroundColor = COrangeColor;
         self.sendBtn.userInteractionEnabled = YES;
     }else{
-        self.sendBtn.backgroundColor = CGrayColor;
+        self.sendBtn.backgroundColor = COrangeEnableColor;
         self.sendBtn.userInteractionEnabled = NO;
     }
 }

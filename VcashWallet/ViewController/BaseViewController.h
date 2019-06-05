@@ -16,7 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
  *
  Whether to display the back button, the default is YES
  */
-@property (nonatomic, assign) BOOL isShowLiftBack;
+@property (nonatomic, assign) BOOL isShowLeftBack;
+
+@property (nonatomic, assign) BOOL isShowLeftMeue;
 
 
 @end

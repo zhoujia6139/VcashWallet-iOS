@@ -36,6 +36,7 @@
         item.title = arrTitle[i];
         item.lockScreenType = [arrLockScreenType[i] integerValue];
         if (item.lockScreenType == userLockScreenType) {
+            item.isSeleted = YES;
             self.seletedItem = item;
         }
         item.choseLockScreenTypeCallBack = ^(LockScreenType lockScreenType, LockScreenSetItemView * _Nonnull item) {
@@ -52,7 +53,7 @@
         [self.view addSubview:item];
         if (!priItem) {
             [item mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.view).offset(20);
+                make.top.equalTo(self.view);
                 make.left.right.equalTo(self.view);
                 make.height.mas_equalTo(50);
             }];
@@ -91,8 +92,6 @@
     self = [super init];
     if (self) {
         btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-        [btn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#999999"]] forState:UIControlStateSelected];
         [self addSubview:btn];
         [btn addTarget:self action:@selector(choseLockScreenTime) forControlEvents:UIControlEventTouchUpInside];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -121,7 +120,7 @@
 
 - (void)setIsSeleted:(BOOL)isSeleted{
     _isSeleted = isSeleted;
-    imageView.image = isSeleted ? [UIImage imageNamed:@""] : nil;
+    imageView.image = isSeleted ? [UIImage imageNamed:@"seletedindicator.png"] : nil;
 }
 
 - (void)setTitle:(NSString *)title{

@@ -69,7 +69,15 @@ green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 #define COrangeColor  [UIColor colorWithHexString:@"#FF9502"]
+#define COrangeHighlightedColor  [UIColor colorWithHexString:@"#D28924"]
+
+#define COrangeEnableColor [UIColor colorWithHexString:@"#FFD8A0"]
+
 #define CGrayColor [UIColor colorWithHexString:@"#EEEEEE"]
+#define CGrayHighlightedColor    [UIColor colorWithHexString:@"#999999"]
+
+#define CGreenColor  [UIColor colorWithHexString:@"#66CC33"]
+#define CGreenHighlightedColor  [UIColor colorWithHexString:@"#6BA34F"]
 
 
 #endif /* UtilsMacros_h */

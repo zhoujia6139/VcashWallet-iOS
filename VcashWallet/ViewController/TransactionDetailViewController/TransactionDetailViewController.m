@@ -90,7 +90,7 @@
     ViewRadius(self.btnSignature, 4.0f);
     ViewBorderRadius(self.btnCancelTx, 4.0, 1.0, [UIColor colorWithHexString:@"#FF3333"]);
     if (self.isFromSendTxVc) {
-        self.isShowLiftBack = NO;
+        self.isShowLeftBack = NO;
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
         [btn setTitle:[LanguageService contentForKey:@"done"] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor colorWithHexString:@"#FF9502"] forState:UIControlStateNormal];

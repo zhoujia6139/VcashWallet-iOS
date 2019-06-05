@@ -27,11 +27,13 @@
     // Do any additional setup after loading the view from its nib.
     self.title = [LanguageService contentForKey:@"setting"];
     [AppHelper addLineWithParentView:self.viewLockScreen];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    self.isShowLeftBack = NO;
+    self.isShowLeftMeue = YES;
     LockScreenType lockScreenType = [[LockScreenTimeService shareInstance] readLockScreenType];
     NSString *lockScreenTitle;
     switch (lockScreenType) {

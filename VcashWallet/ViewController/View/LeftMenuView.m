@@ -83,14 +83,15 @@ static NSString * const identifier = @"LeftMenuCell";
     model.selected = !model.selected;
     priMenuModel = model;
     [tableView reloadData];
+    [self hiddenAnimation];
     if ([model.title isEqualToString:[LanguageService contentForKey:@"VcashWallet"]]) {
-        [self hiddenAnimation];
+        [NavigationCenter showWalletPage:NO];
         return;
     }
     if ([model.title isEqualToString:[LanguageService contentForKey:@"setting"]]) {
-        SettingViewController *setVc = [[SettingViewController alloc] init];
-        [[[[AppHelper shareInstance] visibleViewController] navigationController] pushViewController:setVc animated:YES];
-        [self hiddenAnimation];
+//        SettingViewController *setVc = [[SettingViewController alloc] init];
+//        [[[[AppHelper shareInstance] visibleViewController] navigationController] pushViewController:setVc animated:YES];
+        [NavigationCenter showSettingVcPage];
         return;
     }
 }

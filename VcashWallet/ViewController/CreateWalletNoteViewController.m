@@ -27,6 +27,8 @@
     
     self.title = [LanguageService contentForKey:@"createNewWalletTitle"];
     self.constraintPromptViewWidth.constant = ScreenWidth;
+    [self.agreeBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
+    [self.agreeBtn setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
     ViewRadius(self.agreeBtn, 4.0);
     
 }
