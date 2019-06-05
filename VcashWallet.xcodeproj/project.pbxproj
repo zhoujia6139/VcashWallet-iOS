@@ -8,6 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		111D98D7603A8F1579E12602 /* libPods-VcashWallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38B93DB289A56D999A4C8C7C /* libPods-VcashWallet.a */; };
+		A241822722A50A7F00519F7D /* LockScreenSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A241822522A50A7F00519F7D /* LockScreenSetViewController.m */; };
+		A241822B22A510D400519F7D /* LockScreenTimeService.m in Sources */ = {isa = PBXBuildFile; fileRef = A241822A22A510D400519F7D /* LockScreenTimeService.m */; };
+		A241822E22A6367C00519F7D /* RefreshStateHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A241822D22A6367C00519F7D /* RefreshStateHeader.m */; };
+		A241824622A7B15C00519F7D /* circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A241824422A7B15C00519F7D /* circle@2x.png */; };
+		A241824722A7B15C00519F7D /* circle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A241824522A7B15C00519F7D /* circle@3x.png */; };
+		A241824A22A7B1B200519F7D /* canceled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A241824822A7B1B100519F7D /* canceled@3x.png */; };
+		A241824B22A7B1B200519F7D /* canceled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A241824922A7B1B200519F7D /* canceled@2x.png */; };
+		A241824E22A7C1A600519F7D /* indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A241824C22A7C1A500519F7D /* indicator@2x.png */; };
+		A241824F22A7C1A600519F7D /* indicator@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A241824D22A7C1A600519F7D /* indicator@3x.png */; };
+		A241825222A7C49900519F7D /* seletedindicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A241825022A7C49800519F7D /* seletedindicator@2x.png */; };
+		A241825322A7C49900519F7D /* seletedindicator@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A241825122A7C49900519F7D /* seletedindicator@3x.png */; };
 		A26FEBBD229F7DE0003CCD7C /* WalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB70229F7DE0003CCD7C /* WalletViewController.xib */; };
 		A26FEBBE229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB71229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m */; };
 		A26FEBBF229F7DE0003CCD7C /* HandleSlateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB73229F7DE0003CCD7C /* HandleSlateViewController.xib */; };
@@ -59,7 +70,6 @@
 		A26FEBF7229F7E39003CCD7C /* VcashTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBF3229F7E39003CCD7C /* VcashTextField.m */; };
 		A26FEBF8229F7E39003CCD7C /* VcashLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBF5229F7E39003CCD7C /* VcashLabel.m */; };
 		A26FEBFB229F7FBB003CCD7C /* LanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBF9229F7FBB003CCD7C /* LanguageManager.m */; };
-		A26FEC4F229F805A003CCD7C /* circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBFD229F805A003CCD7C /* circle@2x.png */; };
 		A26FEC50229F805A003CCD7C /* lock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBFE229F805A003CCD7C /* lock@2x.png */; };
 		A26FEC51229F805A003CCD7C /* canceldetail@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBFF229F805A003CCD7C /* canceldetail@3x.png */; };
 		A26FEC52229F805A003CCD7C /* walletleftimage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC00229F805A003CCD7C /* walletleftimage@2x.png */; };
@@ -76,13 +86,11 @@
 		A26FEC5D229F805B003CCD7C /* walletleftimage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC0B229F805A003CCD7C /* walletleftimage@3x.png */; };
 		A26FEC5E229F805B003CCD7C /* canceldetail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC0C229F805A003CCD7C /* canceldetail@2x.png */; };
 		A26FEC5F229F805B003CCD7C /* lock@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC0D229F805A003CCD7C /* lock@3x.png */; };
-		A26FEC60229F805B003CCD7C /* circle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC0E229F805A003CCD7C /* circle@3x.png */; };
 		A26FEC61229F805B003CCD7C /* eye@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC0F229F805A003CCD7C /* eye@3x.png */; };
 		A26FEC62229F805B003CCD7C /* finish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC10229F805A003CCD7C /* finish@2x.png */; };
 		A26FEC63229F805B003CCD7C /* dottedline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC11229F805A003CCD7C /* dottedline@2x.png */; };
 		A26FEC64229F805B003CCD7C /* receivechose@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC12229F805A003CCD7C /* receivechose@3x.png */; };
 		A26FEC65229F805B003CCD7C /* cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC13229F805A003CCD7C /* cancel@3x.png */; };
-		A26FEC66229F805B003CCD7C /* canceled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC14229F805A003CCD7C /* canceled@3x.png */; };
 		A26FEC67229F805B003CCD7C /* restore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC15229F805A003CCD7C /* restore@2x.png */; };
 		A26FEC68229F805B003CCD7C /* copy@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC16229F805A003CCD7C /* copy@3x.png */; };
 		A26FEC69229F805B003CCD7C /* setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC17229F805A003CCD7C /* setting@2x.png */; };
@@ -90,7 +98,6 @@
 		A26FEC6B229F805B003CCD7C /* scanscanBg.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC19229F805A003CCD7C /* scanscanBg.png */; };
 		A26FEC6C229F805B003CCD7C /* copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC1A229F805A003CCD7C /* copy@2x.png */; };
 		A26FEC6D229F805B003CCD7C /* restore@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC1B229F805A003CCD7C /* restore@3x.png */; };
-		A26FEC6E229F805B003CCD7C /* canceled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC1C229F805A003CCD7C /* canceled@2x.png */; };
 		A26FEC6F229F805B003CCD7C /* cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC1D229F805A003CCD7C /* cancel@2x.png */; };
 		A26FEC70229F805B003CCD7C /* receivechose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC1E229F805A003CCD7C /* receivechose@2x.png */; };
 		A26FEC71229F805B003CCD7C /* dottedline@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC1F229F805A003CCD7C /* dottedline@3x.png */; };
@@ -124,7 +131,6 @@
 		A26FEC8D229F805B003CCD7C /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC3B229F805A003CCD7C /* delete@2x.png */; };
 		A26FEC8E229F805B003CCD7C /* wallet_hight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC3C229F805A003CCD7C /* wallet_hight@3x.png */; };
 		A26FEC8F229F805B003CCD7C /* confirmdetail@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC3D229F805A003CCD7C /* confirmdetail@3x.png */; };
-		A26FEC90229F805B003CCD7C /* indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC3E229F805A003CCD7C /* indicator@2x.png */; };
 		A26FEC91229F805B003CCD7C /* wallet@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC3F229F805A003CCD7C /* wallet@3x.png */; };
 		A26FEC92229F805B003CCD7C /* vcash@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC40229F805A003CCD7C /* vcash@3x.png */; };
 		A26FEC93229F805B003CCD7C /* adressbook_hight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC41229F805A003CCD7C /* adressbook_hight@3x.png */; };
@@ -135,7 +141,6 @@
 		A26FEC98229F805B003CCD7C /* adressbook_hight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC46229F805A003CCD7C /* adressbook_hight@2x.png */; };
 		A26FEC99229F805B003CCD7C /* wallet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC47229F805A003CCD7C /* wallet@2x.png */; };
 		A26FEC9A229F805B003CCD7C /* tip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC48229F805A003CCD7C /* tip@2x.png */; };
-		A26FEC9B229F805B003CCD7C /* indicator@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC49229F805A003CCD7C /* indicator@3x.png */; };
 		A26FEC9C229F805B003CCD7C /* normal.9.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC4A229F805A003CCD7C /* normal.9.png */; };
 		A26FEC9D229F805B003CCD7C /* confirmdetail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC4B229F805A003CCD7C /* confirmdetail@2x.png */; };
 		A26FEC9E229F805B003CCD7C /* wallet_hight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC4C229F805A003CCD7C /* wallet_hight@2x.png */; };
@@ -143,9 +148,14 @@
 		A26FECA0229F805B003CCD7C /* bottomradius.9.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC4E229F805A003CCD7C /* bottomradius.9.png */; };
 		A26FECA3229F8064003CCD7C /* en.json in Resources */ = {isa = PBXBuildFile; fileRef = A26FECA2229F8063003CCD7C /* en.json */; };
 		A26FECA6229F836D003CCD7C /* NavigationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FECA4229F836C003CCD7C /* NavigationCenter.m */; };
+		A26FECAE229FB4E2003CCD7C /* ServerTxManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FECAD229FB4E2003CCD7C /* ServerTxManager.m */; };
+		A26FECB0229FEC26003CCD7C /* process_suc_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FECAF229FEC26003CCD7C /* process_suc_icon@2x.png */; };
+		A26FECB2229FEC33003CCD7C /* process_fail_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FECB1229FEC33003CCD7C /* process_fail_icon@2x.png */; };
+		A26FECB5229FF0EA003CCD7C /* nodata@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FECB3229FF0EA003CCD7C /* nodata@2x.png */; };
+		A26FECB6229FF0EA003CCD7C /* nodata@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FECB4229FF0EA003CCD7C /* nodata@3x.png */; };
+		A2B3A11722A0D8EF000F7495 /* ServerTransactionBlackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */; };
 		ED24988F2280298D00D94EBE /* ServerApi.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24988E2280298D00D94EBE /* ServerApi.m */; };
 		ED24989222802B9E00D94EBE /* ServerType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24989122802B9E00D94EBE /* ServerType.m */; };
-		ED2498992281279600D94EBE /* ServerTxManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2498982281279600D94EBE /* ServerTxManager.m */; };
 		ED3C7551226EC30A00B42555 /* VcashDataManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7550226EC30A00B42555 /* VcashDataManager.mm */; };
 		ED3C7557226EC78B00B42555 /* VcashOutput.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7556226EC78B00B42555 /* VcashOutput.mm */; };
 		ED3C755C226EE9ED00B42555 /* VcashTxLog.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C755B226EE9ED00B42555 /* VcashTxLog.mm */; };
@@ -251,6 +261,20 @@
 		2B42695A9EB50E631A668976 /* Pods-VcashWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VcashWallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VcashWallet/Pods-VcashWallet.debug.xcconfig"; sourceTree = "<group>"; };
 		32DD39C5EA5AAED2839B1728 /* Pods-VcashWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VcashWallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-VcashWallet/Pods-VcashWallet.release.xcconfig"; sourceTree = "<group>"; };
 		38B93DB289A56D999A4C8C7C /* libPods-VcashWallet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VcashWallet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A241822422A50A7F00519F7D /* LockScreenSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockScreenSetViewController.h; sourceTree = "<group>"; };
+		A241822522A50A7F00519F7D /* LockScreenSetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockScreenSetViewController.m; sourceTree = "<group>"; };
+		A241822922A510D400519F7D /* LockScreenTimeService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockScreenTimeService.h; sourceTree = "<group>"; };
+		A241822A22A510D400519F7D /* LockScreenTimeService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockScreenTimeService.m; sourceTree = "<group>"; };
+		A241822C22A6367C00519F7D /* RefreshStateHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefreshStateHeader.h; sourceTree = "<group>"; };
+		A241822D22A6367C00519F7D /* RefreshStateHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefreshStateHeader.m; sourceTree = "<group>"; };
+		A241824422A7B15C00519F7D /* circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle@2x.png"; sourceTree = "<group>"; };
+		A241824522A7B15C00519F7D /* circle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle@3x.png"; sourceTree = "<group>"; };
+		A241824822A7B1B100519F7D /* canceled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canceled@3x.png"; sourceTree = "<group>"; };
+		A241824922A7B1B200519F7D /* canceled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canceled@2x.png"; sourceTree = "<group>"; };
+		A241824C22A7C1A500519F7D /* indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator@2x.png"; sourceTree = "<group>"; };
+		A241824D22A7C1A600519F7D /* indicator@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator@3x.png"; sourceTree = "<group>"; };
+		A241825022A7C49800519F7D /* seletedindicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seletedindicator@2x.png"; sourceTree = "<group>"; };
+		A241825122A7C49900519F7D /* seletedindicator@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seletedindicator@3x.png"; sourceTree = "<group>"; };
 		A26FEB70229F7DE0003CCD7C /* WalletViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletViewController.xib; sourceTree = "<group>"; };
 		A26FEB71229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmSeedphraseViewController.m; sourceTree = "<group>"; };
 		A26FEB72229F7DE0003CCD7C /* CreateWalletNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateWalletNoteViewController.h; sourceTree = "<group>"; };
@@ -333,7 +357,6 @@
 		A26FEBF5229F7E39003CCD7C /* VcashLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VcashLabel.m; sourceTree = "<group>"; };
 		A26FEBF9229F7FBB003CCD7C /* LanguageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageManager.m; sourceTree = "<group>"; };
 		A26FEBFA229F7FBB003CCD7C /* LanguageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageManager.h; sourceTree = "<group>"; };
-		A26FEBFD229F805A003CCD7C /* circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle@2x.png"; sourceTree = "<group>"; };
 		A26FEBFE229F805A003CCD7C /* lock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock@2x.png"; sourceTree = "<group>"; };
 		A26FEBFF229F805A003CCD7C /* canceldetail@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canceldetail@3x.png"; sourceTree = "<group>"; };
 		A26FEC00229F805A003CCD7C /* walletleftimage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "walletleftimage@2x.png"; sourceTree = "<group>"; };
@@ -350,13 +373,11 @@
 		A26FEC0B229F805A003CCD7C /* walletleftimage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "walletleftimage@3x.png"; sourceTree = "<group>"; };
 		A26FEC0C229F805A003CCD7C /* canceldetail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canceldetail@2x.png"; sourceTree = "<group>"; };
 		A26FEC0D229F805A003CCD7C /* lock@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock@3x.png"; sourceTree = "<group>"; };
-		A26FEC0E229F805A003CCD7C /* circle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle@3x.png"; sourceTree = "<group>"; };
 		A26FEC0F229F805A003CCD7C /* eye@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eye@3x.png"; sourceTree = "<group>"; };
 		A26FEC10229F805A003CCD7C /* finish@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "finish@2x.png"; sourceTree = "<group>"; };
 		A26FEC11229F805A003CCD7C /* dottedline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dottedline@2x.png"; sourceTree = "<group>"; };
 		A26FEC12229F805A003CCD7C /* receivechose@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "receivechose@3x.png"; sourceTree = "<group>"; };
 		A26FEC13229F805A003CCD7C /* cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@3x.png"; sourceTree = "<group>"; };
-		A26FEC14229F805A003CCD7C /* canceled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canceled@3x.png"; sourceTree = "<group>"; };
 		A26FEC15229F805A003CCD7C /* restore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "restore@2x.png"; sourceTree = "<group>"; };
 		A26FEC16229F805A003CCD7C /* copy@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "copy@3x.png"; sourceTree = "<group>"; };
 		A26FEC17229F805A003CCD7C /* setting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting@2x.png"; sourceTree = "<group>"; };
@@ -364,7 +385,6 @@
 		A26FEC19229F805A003CCD7C /* scanscanBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scanscanBg.png; sourceTree = "<group>"; };
 		A26FEC1A229F805A003CCD7C /* copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "copy@2x.png"; sourceTree = "<group>"; };
 		A26FEC1B229F805A003CCD7C /* restore@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "restore@3x.png"; sourceTree = "<group>"; };
-		A26FEC1C229F805A003CCD7C /* canceled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canceled@2x.png"; sourceTree = "<group>"; };
 		A26FEC1D229F805A003CCD7C /* cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@2x.png"; sourceTree = "<group>"; };
 		A26FEC1E229F805A003CCD7C /* receivechose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "receivechose@2x.png"; sourceTree = "<group>"; };
 		A26FEC1F229F805A003CCD7C /* dottedline@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dottedline@3x.png"; sourceTree = "<group>"; };
@@ -398,7 +418,6 @@
 		A26FEC3B229F805A003CCD7C /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
 		A26FEC3C229F805A003CCD7C /* wallet_hight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wallet_hight@3x.png"; sourceTree = "<group>"; };
 		A26FEC3D229F805A003CCD7C /* confirmdetail@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "confirmdetail@3x.png"; sourceTree = "<group>"; };
-		A26FEC3E229F805A003CCD7C /* indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator@2x.png"; sourceTree = "<group>"; };
 		A26FEC3F229F805A003CCD7C /* wallet@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wallet@3x.png"; sourceTree = "<group>"; };
 		A26FEC40229F805A003CCD7C /* vcash@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vcash@3x.png"; sourceTree = "<group>"; };
 		A26FEC41229F805A003CCD7C /* adressbook_hight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adressbook_hight@3x.png"; sourceTree = "<group>"; };
@@ -409,7 +428,6 @@
 		A26FEC46229F805A003CCD7C /* adressbook_hight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adressbook_hight@2x.png"; sourceTree = "<group>"; };
 		A26FEC47229F805A003CCD7C /* wallet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wallet@2x.png"; sourceTree = "<group>"; };
 		A26FEC48229F805A003CCD7C /* tip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tip@2x.png"; sourceTree = "<group>"; };
-		A26FEC49229F805A003CCD7C /* indicator@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator@3x.png"; sourceTree = "<group>"; };
 		A26FEC4A229F805A003CCD7C /* normal.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = normal.9.png; sourceTree = "<group>"; };
 		A26FEC4B229F805A003CCD7C /* confirmdetail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "confirmdetail@2x.png"; sourceTree = "<group>"; };
 		A26FEC4C229F805A003CCD7C /* wallet_hight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wallet_hight@2x.png"; sourceTree = "<group>"; };
@@ -418,12 +436,18 @@
 		A26FECA2229F8063003CCD7C /* en.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = en.json; sourceTree = "<group>"; };
 		A26FECA4229F836C003CCD7C /* NavigationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationCenter.m; sourceTree = "<group>"; };
 		A26FECA5229F836D003CCD7C /* NavigationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationCenter.h; sourceTree = "<group>"; };
+		A26FECAC229FB4E2003CCD7C /* ServerTxManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerTxManager.h; sourceTree = "<group>"; };
+		A26FECAD229FB4E2003CCD7C /* ServerTxManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerTxManager.m; sourceTree = "<group>"; };
+		A26FECAF229FEC26003CCD7C /* process_suc_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "process_suc_icon@2x.png"; sourceTree = "<group>"; };
+		A26FECB1229FEC33003CCD7C /* process_fail_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "process_fail_icon@2x.png"; sourceTree = "<group>"; };
+		A26FECB3229FF0EA003CCD7C /* nodata@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nodata@2x.png"; sourceTree = "<group>"; };
+		A26FECB4229FF0EA003CCD7C /* nodata@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nodata@3x.png"; sourceTree = "<group>"; };
+		A2B3A11522A0D8EF000F7495 /* ServerTransactionBlackManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerTransactionBlackManager.h; sourceTree = "<group>"; };
+		A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerTransactionBlackManager.m; sourceTree = "<group>"; };
 		ED24988D2280298D00D94EBE /* ServerApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerApi.h; sourceTree = "<group>"; };
 		ED24988E2280298D00D94EBE /* ServerApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerApi.m; sourceTree = "<group>"; };
 		ED24989022802B9E00D94EBE /* ServerType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerType.h; sourceTree = "<group>"; };
 		ED24989122802B9E00D94EBE /* ServerType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerType.m; sourceTree = "<group>"; };
-		ED2498972281279600D94EBE /* ServerTxManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerTxManager.h; sourceTree = "<group>"; };
-		ED2498982281279600D94EBE /* ServerTxManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerTxManager.m; sourceTree = "<group>"; };
 		ED3C754F226EC30A00B42555 /* VcashDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashDataManager.h; sourceTree = "<group>"; };
 		ED3C7550226EC30A00B42555 /* VcashDataManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VcashDataManager.mm; sourceTree = "<group>"; };
 		ED3C7555226EC78B00B42555 /* VcashOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashOutput.h; sourceTree = "<group>"; };
@@ -676,20 +700,21 @@
 				A26FEBB9229F7DE0003CCD7C /* WelcomePageViewController.h */,
 				A26FEB85229F7DE0003CCD7C /* WelcomePageViewController.m */,
 				A26FEB77229F7DE0003CCD7C /* WelcomePageViewController.xib */,
+				A26FECA7229FA58B003CCD7C /* WalletViewController */,
 				A26FEB72229F7DE0003CCD7C /* CreateWalletNoteViewController.h */,
 				A26FEB90229F7DE0003CCD7C /* CreateWalletNoteViewController.m */,
 				A26FEBBA229F7DE0003CCD7C /* CreateWalletNoteViewController.xib */,
 				A26FEBB5229F7DE0003CCD7C /* CreateMnemonicViewController.h */,
 				A26FEB81229F7DE0003CCD7C /* CreateMnemonicViewController.m */,
 				A26FEB9B229F7DE0003CCD7C /* CreateMnemonicViewController.xib */,
-				A26FEB71229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m */,
 				A26FEB91229F7DE0003CCD7C /* ConfirmSeedphraseViewController.h */,
+				A26FEB71229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m */,
 				A26FEB78229F7DE0003CCD7C /* ConfirmSeedphraseViewController.xib */,
 				A26FEB76229F7DE0003CCD7C /* RecoverMnemonicViewController.h */,
 				A26FEB8E229F7DE0003CCD7C /* RecoverMnemonicViewController.m */,
 				A26FEBB3229F7DE0003CCD7C /* RecoverMnemonicViewController.xib */,
-				A26FEB8F229F7DE0003CCD7C /* HandleSlateViewController.m */,
 				A26FEB75229F7DE0003CCD7C /* HandleSlateViewController.h */,
+				A26FEB8F229F7DE0003CCD7C /* HandleSlateViewController.m */,
 				A26FEB73229F7DE0003CCD7C /* HandleSlateViewController.xib */,
 				A26FEB86229F7DE0003CCD7C /* SendTransactionViewController.h */,
 				A26FEBB8229F7DE0003CCD7C /* SendTransactionViewController.m */,
@@ -700,9 +725,6 @@
 				A26FEB80229F7DE0003CCD7C /* PinVerifyViewController.h */,
 				A26FEBB6229F7DE0003CCD7C /* PinVerifyViewController.m */,
 				A26FEB7F229F7DE0003CCD7C /* PinVerifyViewController.xib */,
-				A26FEB83229F7DE0003CCD7C /* WalletViewController.h */,
-				A26FEBBB229F7DE0003CCD7C /* WalletViewController.m */,
-				A26FEB70229F7DE0003CCD7C /* WalletViewController.xib */,
 				A26FEBB4229F7DE0003CCD7C /* ScanViewController.h */,
 				A26FEB82229F7DE0003CCD7C /* ScanViewController.m */,
 				A26FEB7D229F7DE0003CCD7C /* VcashNavigationViewController.h */,
@@ -716,9 +738,9 @@
 		A26FEB79229F7DE0003CCD7C /* TransactionDetailViewController */ = {
 			isa = PBXGroup;
 			children = (
-				A26FEB7A229F7DE0003CCD7C /* TransactionDetailViewController.xib */,
 				A26FEB7B229F7DE0003CCD7C /* TransactionDetailViewController.h */,
 				A26FEB7C229F7DE0003CCD7C /* TransactionDetailViewController.m */,
+				A26FEB7A229F7DE0003CCD7C /* TransactionDetailViewController.xib */,
 			);
 			path = TransactionDetailViewController;
 			sourceTree = "<group>";
@@ -726,12 +748,12 @@
 		A26FEB87229F7DE0003CCD7C /* ViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				A26FEB88229F7DE0003CCD7C /* WalletCell.m */,
-				A26FEB89229F7DE0003CCD7C /* LeftMenuCell.xib */,
-				A26FEB8A229F7DE0003CCD7C /* LeftMenuCell.h */,
-				A26FEB8B229F7DE0003CCD7C /* WalletCell.xib */,
-				A26FEB8C229F7DE0003CCD7C /* LeftMenuCell.m */,
 				A26FEB8D229F7DE0003CCD7C /* WalletCell.h */,
+				A26FEB88229F7DE0003CCD7C /* WalletCell.m */,
+				A26FEB8B229F7DE0003CCD7C /* WalletCell.xib */,
+				A26FEB8A229F7DE0003CCD7C /* LeftMenuCell.h */,
+				A26FEB8C229F7DE0003CCD7C /* LeftMenuCell.m */,
+				A26FEB89229F7DE0003CCD7C /* LeftMenuCell.xib */,
 			);
 			path = ViewCell;
 			sourceTree = "<group>";
@@ -739,12 +761,14 @@
 		A26FEB93229F7DE0003CCD7C /* SettingViewController */ = {
 			isa = PBXGroup;
 			children = (
-				A26FEB94229F7DE0003CCD7C /* ChangePasswordViewController.h */,
 				A26FEB95229F7DE0003CCD7C /* SettingViewController.h */,
-				A26FEB96229F7DE0003CCD7C /* ChangePasswordViewController.m */,
-				A26FEB97229F7DE0003CCD7C /* SettingViewController.xib */,
-				A26FEB98229F7DE0003CCD7C /* ChangePasswordViewController.xib */,
 				A26FEB99229F7DE0003CCD7C /* SettingViewController.m */,
+				A26FEB97229F7DE0003CCD7C /* SettingViewController.xib */,
+				A26FEB94229F7DE0003CCD7C /* ChangePasswordViewController.h */,
+				A26FEB96229F7DE0003CCD7C /* ChangePasswordViewController.m */,
+				A26FEB98229F7DE0003CCD7C /* ChangePasswordViewController.xib */,
+				A241822422A50A7F00519F7D /* LockScreenSetViewController.h */,
+				A241822522A50A7F00519F7D /* LockScreenSetViewController.m */,
 			);
 			path = SettingViewController;
 			sourceTree = "<group>";
@@ -762,24 +786,26 @@
 			isa = PBXGroup;
 			children = (
 				A26FEBA0229F7DE0003CCD7C /* AlertView.h */,
-				A26FEBA1229F7DE0003CCD7C /* PhraseWordShowViewCreator.m */,
-				A26FEBA2229F7DE0003CCD7C /* ServerTxPopView.xib */,
-				A26FEBA3229F7DE0003CCD7C /* ServerTxPopView.m */,
-				A26FEBA4229F7DE0003CCD7C /* SendTransactionConfirmView.xib */,
-				A26FEBA5229F7DE0003CCD7C /* MessageNotificationView.m */,
-				A26FEBA6229F7DE0003CCD7C /* LeftMenuView.h */,
-				A26FEBA7229F7DE0003CCD7C /* PinPasswordInputView.m */,
-				A26FEBA8229F7DE0003CCD7C /* MessageNotificationView.xib */,
-				A26FEBA9229F7DE0003CCD7C /* LeftMenuView.xib */,
-				A26FEBAA229F7DE0003CCD7C /* SendTransactionConfirmView.m */,
-				A26FEBAB229F7DE0003CCD7C /* ServerTxPopView.h */,
+				A26FEBAE229F7DE0003CCD7C /* AlertView.m */,
 				A26FEBAC229F7DE0003CCD7C /* AlertView.xib */,
 				A26FEBAD229F7DE0003CCD7C /* PhraseWordShowViewCreator.h */,
-				A26FEBAE229F7DE0003CCD7C /* AlertView.m */,
-				A26FEBAF229F7DE0003CCD7C /* MessageNotificationView.h */,
+				A26FEBA1229F7DE0003CCD7C /* PhraseWordShowViewCreator.m */,
+				A26FEBAB229F7DE0003CCD7C /* ServerTxPopView.h */,
+				A26FEBA3229F7DE0003CCD7C /* ServerTxPopView.m */,
+				A26FEBA2229F7DE0003CCD7C /* ServerTxPopView.xib */,
 				A26FEBB0229F7DE0003CCD7C /* SendTransactionConfirmView.h */,
-				A26FEBB1229F7DE0003CCD7C /* PinPasswordInputView.h */,
+				A26FEBAA229F7DE0003CCD7C /* SendTransactionConfirmView.m */,
+				A26FEBA4229F7DE0003CCD7C /* SendTransactionConfirmView.xib */,
+				A26FEBAF229F7DE0003CCD7C /* MessageNotificationView.h */,
+				A26FEBA5229F7DE0003CCD7C /* MessageNotificationView.m */,
+				A26FEBA8229F7DE0003CCD7C /* MessageNotificationView.xib */,
+				A26FEBA6229F7DE0003CCD7C /* LeftMenuView.h */,
 				A26FEBB2229F7DE0003CCD7C /* LeftMenuView.m */,
+				A26FEBA9229F7DE0003CCD7C /* LeftMenuView.xib */,
+				A26FEBB1229F7DE0003CCD7C /* PinPasswordInputView.h */,
+				A26FEBA7229F7DE0003CCD7C /* PinPasswordInputView.m */,
+				A241822C22A6367C00519F7D /* RefreshStateHeader.h */,
+				A241822D22A6367C00519F7D /* RefreshStateHeader.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -808,30 +834,37 @@
 		A26FEBFC229F805A003CCD7C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A26FEBFD229F805A003CCD7C /* circle@2x.png */,
+				A26FECAF229FEC26003CCD7C /* process_suc_icon@2x.png */,
+				A26FECB1229FEC33003CCD7C /* process_fail_icon@2x.png */,
+				A241825022A7C49800519F7D /* seletedindicator@2x.png */,
+				A241825122A7C49900519F7D /* seletedindicator@3x.png */,
+				A241824C22A7C1A500519F7D /* indicator@2x.png */,
+				A241824D22A7C1A600519F7D /* indicator@3x.png */,
+				A241824422A7B15C00519F7D /* circle@2x.png */,
+				A241824522A7B15C00519F7D /* circle@3x.png */,
+				A26FECB3229FF0EA003CCD7C /* nodata@2x.png */,
+				A26FECB4229FF0EA003CCD7C /* nodata@3x.png */,
 				A26FEBFE229F805A003CCD7C /* lock@2x.png */,
 				A26FEBFF229F805A003CCD7C /* canceldetail@3x.png */,
 				A26FEC00229F805A003CCD7C /* walletleftimage@2x.png */,
 				A26FEC01229F805A003CCD7C /* back@2x.png */,
+				A26FEC07229F805A003CCD7C /* back@3x.png */,
 				A26FEC02229F805A003CCD7C /* add@2x.png */,
-				A26FEC03229F805A003CCD7C /* confirmed@2x.png */,
+				A26FEC08229F805A003CCD7C /* add@3x.png */,
 				A26FEC04229F805A003CCD7C /* setting_hight@2x.png */,
+				A26FEC0A229F805A003CCD7C /* setting_hight@3x.png */,
 				A26FEC05229F805A003CCD7C /* send@2x.png */,
 				A26FEC06229F805A003CCD7C /* send@3x.png */,
-				A26FEC07229F805A003CCD7C /* back@3x.png */,
-				A26FEC08229F805A003CCD7C /* add@3x.png */,
+				A26FEC03229F805A003CCD7C /* confirmed@2x.png */,
 				A26FEC09229F805A003CCD7C /* confirmed@3x.png */,
-				A26FEC0A229F805A003CCD7C /* setting_hight@3x.png */,
 				A26FEC0B229F805A003CCD7C /* walletleftimage@3x.png */,
 				A26FEC0C229F805A003CCD7C /* canceldetail@2x.png */,
 				A26FEC0D229F805A003CCD7C /* lock@3x.png */,
-				A26FEC0E229F805A003CCD7C /* circle@3x.png */,
 				A26FEC0F229F805A003CCD7C /* eye@3x.png */,
 				A26FEC10229F805A003CCD7C /* finish@2x.png */,
 				A26FEC11229F805A003CCD7C /* dottedline@2x.png */,
 				A26FEC12229F805A003CCD7C /* receivechose@3x.png */,
 				A26FEC13229F805A003CCD7C /* cancel@3x.png */,
-				A26FEC14229F805A003CCD7C /* canceled@3x.png */,
 				A26FEC15229F805A003CCD7C /* restore@2x.png */,
 				A26FEC16229F805A003CCD7C /* copy@3x.png */,
 				A26FEC17229F805A003CCD7C /* setting@2x.png */,
@@ -839,7 +872,6 @@
 				A26FEC19229F805A003CCD7C /* scanscanBg.png */,
 				A26FEC1A229F805A003CCD7C /* copy@2x.png */,
 				A26FEC1B229F805A003CCD7C /* restore@3x.png */,
-				A26FEC1C229F805A003CCD7C /* canceled@2x.png */,
 				A26FEC1D229F805A003CCD7C /* cancel@2x.png */,
 				A26FEC1E229F805A003CCD7C /* receivechose@2x.png */,
 				A26FEC1F229F805A003CCD7C /* dottedline@3x.png */,
@@ -855,6 +887,8 @@
 				A26FEC29229F805A003CCD7C /* balancelogo@3x.png */,
 				A26FEC2A229F805A003CCD7C /* adressbook@3x.png */,
 				A26FEC2B229F805A003CCD7C /* copywalletid@2x.png */,
+				A241824922A7B1B200519F7D /* canceled@2x.png */,
+				A241824822A7B1B100519F7D /* canceled@3x.png */,
 				A26FEC2C229F805A003CCD7C /* bg@2x.png */,
 				A26FEC2D229F805A003CCD7C /* scan@2x.png */,
 				A26FEC2E229F805A003CCD7C /* ongoing@2x.png */,
@@ -873,7 +907,6 @@
 				A26FEC3B229F805A003CCD7C /* delete@2x.png */,
 				A26FEC3C229F805A003CCD7C /* wallet_hight@3x.png */,
 				A26FEC3D229F805A003CCD7C /* confirmdetail@3x.png */,
-				A26FEC3E229F805A003CCD7C /* indicator@2x.png */,
 				A26FEC3F229F805A003CCD7C /* wallet@3x.png */,
 				A26FEC40229F805A003CCD7C /* vcash@3x.png */,
 				A26FEC41229F805A003CCD7C /* adressbook_hight@3x.png */,
@@ -884,7 +917,6 @@
 				A26FEC46229F805A003CCD7C /* adressbook_hight@2x.png */,
 				A26FEC47229F805A003CCD7C /* wallet@2x.png */,
 				A26FEC48229F805A003CCD7C /* tip@2x.png */,
-				A26FEC49229F805A003CCD7C /* indicator@3x.png */,
 				A26FEC4A229F805A003CCD7C /* normal.9.png */,
 				A26FEC4B229F805A003CCD7C /* confirmdetail@2x.png */,
 				A26FEC4C229F805A003CCD7C /* wallet_hight@2x.png */,
@@ -902,6 +934,16 @@
 			path = LanguageFile;
 			sourceTree = "<group>";
 		};
+		A26FECA7229FA58B003CCD7C /* WalletViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A26FEB83229F7DE0003CCD7C /* WalletViewController.h */,
+				A26FEBBB229F7DE0003CCD7C /* WalletViewController.m */,
+				A26FEB70229F7DE0003CCD7C /* WalletViewController.xib */,
+			);
+			path = WalletViewController;
+			sourceTree = "<group>";
+		};
 		ED24988C2280297100D94EBE /* Server */ = {
 			isa = PBXGroup;
 			children = (
@@ -909,8 +951,8 @@
 				ED24988E2280298D00D94EBE /* ServerApi.m */,
 				ED24989022802B9E00D94EBE /* ServerType.h */,
 				ED24989122802B9E00D94EBE /* ServerType.m */,
-				ED2498972281279600D94EBE /* ServerTxManager.h */,
-				ED2498982281279600D94EBE /* ServerTxManager.m */,
+				A26FECAC229FB4E2003CCD7C /* ServerTxManager.h */,
+				A26FECAD229FB4E2003CCD7C /* ServerTxManager.m */,
 			);
 			path = Server;
 			sourceTree = "<group>";
@@ -1140,10 +1182,10 @@
 		EDA5148C22686DEC0011138F /* VcashWallet */ = {
 			isa = PBXGroup;
 			children = (
+				EDA514B4226891050011138F /* Core */,
 				A26FEBEE229F7E39003CCD7C /* VcashLib */,
 				ED3C754E226EC2CA00B42555 /* Database */,
 				A26FEB6F229F7DE0003CCD7C /* ViewController */,
-				EDA514B4226891050011138F /* Core */,
 				ED44BFC1226979DA0042928E /* Utils */,
 				EDA5148D22686DEC0011138F /* AppDelegate.h */,
 				EDA5148E22686DEC0011138F /* AppDelegate.m */,
@@ -1155,6 +1197,10 @@
 				A26FECA4229F836C003CCD7C /* NavigationCenter.m */,
 				A26FEBFA229F7FBB003CCD7C /* LanguageManager.h */,
 				A26FEBF9229F7FBB003CCD7C /* LanguageManager.m */,
+				A2B3A11522A0D8EF000F7495 /* ServerTransactionBlackManager.h */,
+				A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */,
+				A241822922A510D400519F7D /* LockScreenTimeService.h */,
+				A241822A22A510D400519F7D /* LockScreenTimeService.m */,
 				ED44BFBD226978C50042928E /* UserCenter.h */,
 				ED44BFB8226978C50042928E /* UserCenter.m */,
 				ED44BFBA226978C50042928E /* UtilsMacros.h */,
@@ -1293,7 +1339,6 @@
 				A26FEC68229F805B003CCD7C /* copy@3x.png in Resources */,
 				A26FEBE2229F7DE0003CCD7C /* AlertView.xib in Resources */,
 				A26FEC9A229F805B003CCD7C /* tip@2x.png in Resources */,
-				A26FEC9B229F805B003CCD7C /* indicator@3x.png in Resources */,
 				A26FECA0229F805B003CCD7C /* bottomradius.9.png in Resources */,
 				A26FEC5A229F805A003CCD7C /* add@3x.png in Resources */,
 				A26FECA3229F8064003CCD7C /* en.json in Resources */,
@@ -1301,24 +1346,24 @@
 				A26FEC62229F805B003CCD7C /* finish@2x.png in Resources */,
 				A26FEC77229F805B003CCD7C /* headbg@2x.png in Resources */,
 				A26FEC76229F805B003CCD7C /* sendchose@2x.png in Resources */,
+				A241824722A7B15C00519F7D /* circle@3x.png in Resources */,
 				A26FEBCB229F7DE0003CCD7C /* LeftMenuCell.xib in Resources */,
 				A26FEC73229F805B003CCD7C /* eye@2x.png in Resources */,
 				A26FEC65229F805B003CCD7C /* cancel@3x.png in Resources */,
 				A26FEC9C229F805B003CCD7C /* normal.9.png in Resources */,
 				A26FEC8C229F805B003CCD7C /* rightindicator@2x.png in Resources */,
 				A26FEC8F229F805B003CCD7C /* confirmdetail@3x.png in Resources */,
-				A26FEC66229F805B003CCD7C /* canceled@3x.png in Resources */,
 				A26FEC7D229F805B003CCD7C /* copywalletid@2x.png in Resources */,
 				A26FEC59229F805A003CCD7C /* back@3x.png in Resources */,
 				A26FEC69229F805B003CCD7C /* setting@2x.png in Resources */,
 				A26FEC63229F805B003CCD7C /* dottedline@2x.png in Resources */,
 				A26FEC79229F805B003CCD7C /* scanLine@3x.png in Resources */,
+				A241824E22A7C1A600519F7D /* indicator@2x.png in Resources */,
 				A26FEC50229F805A003CCD7C /* lock@2x.png in Resources */,
 				A26FEC54229F805A003CCD7C /* add@2x.png in Resources */,
 				A26FEC8D229F805B003CCD7C /* delete@2x.png in Resources */,
 				A26FEBDA229F7DE0003CCD7C /* ServerTxPopView.xib in Resources */,
 				A26FEBDC229F7DE0003CCD7C /* SendTransactionConfirmView.xib in Resources */,
-				A26FEC4F229F805A003CCD7C /* circle@2x.png in Resources */,
 				A26FEC5F229F805B003CCD7C /* lock@3x.png in Resources */,
 				A26FEC67229F805B003CCD7C /* restore@2x.png in Resources */,
 				A26FEC6A229F805B003CCD7C /* setting@3x.png in Resources */,
@@ -1333,11 +1378,14 @@
 				A26FEC64229F805B003CCD7C /* receivechose@3x.png in Resources */,
 				A26FEBCC229F7DE0003CCD7C /* WalletCell.xib in Resources */,
 				A26FEBE0229F7DE0003CCD7C /* LeftMenuView.xib in Resources */,
+				A241824622A7B15C00519F7D /* circle@2x.png in Resources */,
 				A26FEBC1229F7DE0003CCD7C /* WelcomePageViewController.xib in Resources */,
 				A26FEC71229F805B003CCD7C /* dottedline@3x.png in Resources */,
+				A241824B22A7B1B200519F7D /* canceled@2x.png in Resources */,
 				A26FEBBD229F7DE0003CCD7C /* WalletViewController.xib in Resources */,
 				A26FEC6B229F805B003CCD7C /* scanscanBg.png in Resources */,
 				A26FEC5D229F805B003CCD7C /* walletleftimage@3x.png in Resources */,
+				A26FECB6229FF0EA003CCD7C /* nodata@3x.png in Resources */,
 				A26FEC89229F805B003CCD7C /* headbg@3x.png in Resources */,
 				A26FEC56229F805A003CCD7C /* setting_hight@2x.png in Resources */,
 				A26FEBD4229F7DE0003CCD7C /* ChangePasswordViewController.xib in Resources */,
@@ -1353,11 +1401,13 @@
 				A26FEC85229F805B003CCD7C /* copywalletid@3x.png in Resources */,
 				A26FEC8B229F805B003CCD7C /* receive@2x.png in Resources */,
 				A26FEBD3229F7DE0003CCD7C /* SettingViewController.xib in Resources */,
+				A241825222A7C49900519F7D /* seletedindicator@2x.png in Resources */,
 				A26FEC53229F805A003CCD7C /* back@2x.png in Resources */,
 				A26FEC81229F805B003CCD7C /* ongoing@3x.png in Resources */,
 				A26FEBD1229F7DE0003CCD7C /* PinPasswordSetViewController.xib in Resources */,
 				EDA5149722686DEE0011138F /* Assets.xcassets in Resources */,
 				A26FEC7C229F805B003CCD7C /* adressbook@3x.png in Resources */,
+				A241824A22A7B1B200519F7D /* canceled@3x.png in Resources */,
 				A26FEC98229F805B003CCD7C /* adressbook_hight@2x.png in Resources */,
 				A26FEC9D229F805B003CCD7C /* confirmdetail@2x.png in Resources */,
 				A26FEC9E229F805B003CCD7C /* wallet_hight@2x.png in Resources */,
@@ -1366,16 +1416,16 @@
 				A26FEC86229F805B003CCD7C /* balancelogo@2x.png in Resources */,
 				A26FEC6F229F805B003CCD7C /* cancel@2x.png in Resources */,
 				A26FEC96229F805B003CCD7C /* ongoingdetail@3x.png in Resources */,
-				A26FEC90229F805B003CCD7C /* indicator@2x.png in Resources */,
+				A26FECB2229FEC33003CCD7C /* process_fail_icon@2x.png in Resources */,
 				A26FEBC2229F7DE0003CCD7C /* ConfirmSeedphraseViewController.xib in Resources */,
 				A26FEC7F229F805B003CCD7C /* scan@2x.png in Resources */,
 				A26FEC80229F805B003CCD7C /* ongoing@2x.png in Resources */,
+				A241824F22A7C1A600519F7D /* indicator@3x.png in Resources */,
 				A26FEC58229F805A003CCD7C /* send@3x.png in Resources */,
 				A26FEC61229F805B003CCD7C /* eye@3x.png in Resources */,
 				A26FEC6C229F805B003CCD7C /* copy@2x.png in Resources */,
 				A26FEC55229F805A003CCD7C /* confirmed@2x.png in Resources */,
 				A26FEC92229F805B003CCD7C /* vcash@3x.png in Resources */,
-				A26FEC6E229F805B003CCD7C /* canceled@2x.png in Resources */,
 				A26FEC5C229F805B003CCD7C /* setting_hight@3x.png in Resources */,
 				A26FEC72229F805B003CCD7C /* finish@3x.png in Resources */,
 				A26FEC8E229F805B003CCD7C /* wallet_hight@3x.png in Resources */,
@@ -1390,10 +1440,12 @@
 				A26FEC51229F805A003CCD7C /* canceldetail@3x.png in Resources */,
 				A26FEC93229F805B003CCD7C /* adressbook_hight@3x.png in Resources */,
 				A26FEBC6229F7DE0003CCD7C /* PinVerifyViewController.xib in Resources */,
-				A26FEC60229F805B003CCD7C /* circle@3x.png in Resources */,
+				A241825322A7C49900519F7D /* seletedindicator@3x.png in Resources */,
+				A26FECB5229FF0EA003CCD7C /* nodata@2x.png in Resources */,
 				A26FEC70229F805B003CCD7C /* receivechose@2x.png in Resources */,
 				A26FEC7A229F805B003CCD7C /* logo@3x.png in Resources */,
 				A26FEC74229F805B003CCD7C /* rightindicator@3x.png in Resources */,
+				A26FECB0229FEC26003CCD7C /* process_suc_icon@2x.png in Resources */,
 				A26FEC82229F805B003CCD7C /* scan@3x.png in Resources */,
 				A26FEC95229F805B003CCD7C /* ongoingdetail@2x.png in Resources */,
 			);
@@ -1481,6 +1533,7 @@
 				ED44BF8C22696CF50042928E /* BTCSecretSharing.m in Sources */,
 				ED44BF9822696CF50042928E /* BTC256.m in Sources */,
 				A26FEBEA229F7DE0003CCD7C /* PinPasswordSetViewController.m in Sources */,
+				A241822E22A6367C00519F7D /* RefreshStateHeader.m in Sources */,
 				ED44BF7F22696CF50042928E /* BTCBigNumber+Tests.m in Sources */,
 				ED44BFB222696CF50042928E /* BTCKey.m in Sources */,
 				ED44BF7522696CF50042928E /* BTCTransactionBuilder.m in Sources */,
@@ -1541,7 +1594,6 @@
 				ED3C756D2271611400B42555 /* VcashWalletInfo.mm in Sources */,
 				A26FEBE6229F7DE0003CCD7C /* PinVerifyViewController.m in Sources */,
 				ED44BFAD22696CF50042928E /* BTCBase58.m in Sources */,
-				ED2498992281279600D94EBE /* ServerTxManager.m in Sources */,
 				ED44BF7122696CF50042928E /* BTCBlock.m in Sources */,
 				A26FEBC4229F7DE0003CCD7C /* TransactionDetailViewController.m in Sources */,
 				A26FEBCE229F7DE0003CCD7C /* RecoverMnemonicViewController.m in Sources */,
@@ -1564,6 +1616,7 @@
 				ED44C00C226D9FF50042928E /* NodeType.m in Sources */,
 				ED44BF8222696CF50042928E /* BTCScript+Tests.m in Sources */,
 				A26FEBE4229F7DE0003CCD7C /* LeftMenuView.m in Sources */,
+				A241822722A50A7F00519F7D /* LockScreenSetViewController.m in Sources */,
 				ED44BFAE22696CF50042928E /* BTCPaymentMethodRequest.m in Sources */,
 				A26FEBCA229F7DE0003CCD7C /* WalletCell.m in Sources */,
 				ED44BF8D22696CF50042928E /* BTCOpcode.m in Sources */,
@@ -1585,6 +1638,7 @@
 				A26FEBDB229F7DE0003CCD7C /* ServerTxPopView.m in Sources */,
 				ED44C009226D9D8D0042928E /* NodeApi.m in Sources */,
 				ED44BF9622696CF50042928E /* BTCTransactionInput.m in Sources */,
+				A241822B22A510D400519F7D /* LockScreenTimeService.m in Sources */,
 				ED3C7551226EC30A00B42555 /* VcashDataManager.mm in Sources */,
 				A26FEBED229F7E1B003CCD7C /* AppHelper.m in Sources */,
 				A26FEBF7229F7E39003CCD7C /* VcashTextField.m in Sources */,
@@ -1596,11 +1650,13 @@
 				A26FEBDE229F7DE0003CCD7C /* PinPasswordInputView.m in Sources */,
 				ED44BF8622696CF50042928E /* BTCMnemonic.m in Sources */,
 				ED44BF9C22696CF50042928E /* BTCMerkleTree.m in Sources */,
+				A26FECAE229FB4E2003CCD7C /* ServerTxManager.m in Sources */,
 				ED3C756A2270744400B42555 /* PublicTool.m in Sources */,
 				ED44BF7B22696CF50042928E /* BTCQRCode.m in Sources */,
 				ED44BF8F22696CF50042928E /* BTCCurvePoint+Tests.m in Sources */,
 				A26FEBF8229F7E39003CCD7C /* VcashLabel.m in Sources */,
 				ED44BF8322696CF50042928E /* BTCBlockchainInfo.m in Sources */,
+				A2B3A11722A0D8EF000F7495 /* ServerTransactionBlackManager.m in Sources */,
 				A26FEBC9229F7DE0003CCD7C /* WelcomePageViewController.m in Sources */,
 				ED3C7563226F112500B42555 /* VcashContext.mm in Sources */,
 			);

@@ -14,9 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TransactionDetailViewController : BaseViewController
 
-@property (nonatomic, strong) ServerTransaction *serverTx;
+@property (nonatomic, assign) BOOL isFromSendTxVc;
+
+@property (nonatomic, strong) ServerTransaction  *serverTx;
 
 @property (nonatomic, strong) VcashTxLog *txLog;
+
+
 
 @end
 

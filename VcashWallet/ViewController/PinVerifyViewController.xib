@@ -60,7 +60,7 @@
                                 <constraint firstAttribute="height" constant="40" id="ce2-WD-8ij"/>
                             </constraints>
                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localPlaceholder" value="passwordTitle"/>
@@ -81,7 +81,7 @@
                         <constraint firstItem="mJ8-7j-bBv" firstAttribute="leading" secondItem="1ha-oY-4um" secondAttribute="leading" constant="26" id="vhE-pA-04x"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8DH-ak-S48" customClass="VcashButton">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8DH-ak-S48" customClass="VcashButton">
                     <rect key="frame" x="33" y="461" width="309" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="GQJ-v5-bds"/>

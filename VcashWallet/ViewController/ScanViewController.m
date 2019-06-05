@@ -236,20 +236,18 @@
     }
 }
 
-#pragma mark ===========添加提示框===========
-//提示框alert
+#pragma mark ===========add alertView===========
 - (void)showAlertViewWithTitle:(NSString *)aTitle withMessage:(NSString *)aMessage
 {
     
-    //弹出提示框后，关闭扫描
+
     [self.session stopRunning];
-    //弹出alert，关闭定时器
+    
     [_timer setFireDate:[NSDate distantFuture]];
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:aTitle message:[NSString stringWithFormat:@"%@",aMessage] preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"tishi" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        //点击alert，开始扫描
+        
         [self.session startRunning];
-        //开启定时器
         [_timer setFireDate:[NSDate distantPast]];
     }]];
     [self presentViewController:alert animated:true completion:^{
@@ -259,8 +257,7 @@
 }
 
 
-#pragma mark ===========扫描的代理方法===========
-//得到扫描结果
+#pragma mark ===========scan delegate===========
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
     if ([metadataObjects count] > 0) {

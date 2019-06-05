@@ -55,7 +55,7 @@
                         <constraint firstAttribute="width" constant="310" id="ivf-3F-Ztu"/>
                     </constraints>
                     <inset key="titleEdgeInsets" minX="13" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Restore from paper key" image="restore.png"/>
+                    <state key="normal" title="Restore from recovery phrase" image="restore.png"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="localTitle" value="restoreWallet"/>
                     </userDefinedRuntimeAttributes>

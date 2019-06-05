@@ -7,6 +7,7 @@
 //
 
 #import "ChangePasswordViewController.h"
+#import "PinPasswordSetViewController.h"
 
 @interface ChangePasswordViewController ()
 
@@ -29,17 +30,18 @@
     self.title = [LanguageService contentForKey:@"changePw"];
     ViewRadius(self.btnNext, 4.0);
     self.btnNext.userInteractionEnabled = NO;
-    self.btnNext.backgroundColor = CGrayColor;
+    [self.btnNext setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
+    [self.btnNext setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
     [self.textFieldPassword addTarget:self action:@selector(enterCurrentPassword:) forControlEvents:UIControlEventEditingChanged];
 }
 
 - (void)enterCurrentPassword:(UITextField *)textField{
     if (textField.text.length > 0) {
         self.btnNext.userInteractionEnabled = YES;
-        self.btnNext.backgroundColor = COrangeColor;
+        [self.btnNext setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
     }else{
         self.btnNext.userInteractionEnabled = NO;
-        self.btnNext.backgroundColor = CGrayColor;
+        [self.btnNext setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
     }
 }
 
@@ -53,6 +55,10 @@
         self.labelPrompt.hidden = YES;
         self.viewLine.backgroundColor = [UIColor colorWithHexString:@"#EEEEEE"];
         self.textFieldPassword.textColor = [UIColor darkTextColor];
+        PinPasswordSetViewController *passwordSetVc = [[PinPasswordSetViewController alloc] init];
+        passwordSetVc.isChangePassword = YES;
+        passwordSetVc.currentPassword = self.textFieldPassword.text;
+        [self.navigationController pushViewController:passwordSetVc animated:YES];
     }
 }
 

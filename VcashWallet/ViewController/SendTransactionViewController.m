@@ -10,6 +10,7 @@
 #import "WalletWrapper.h"
 #import "SendTransactionConfirmView.h"
 #import "ScanViewController.h"
+#import "TransactionDetailViewController/TransactionDetailViewController.h"
 
 
 #define CGrayColor [UIColor colorWithHexString:@"#EEEEEE"]
@@ -41,7 +42,7 @@
     [super viewDidLoad];
     self.navigationItem.title = [LanguageService contentForKey:@"sendVcash"];
     [self.amountField addTarget:self action:@selector(enterAmount:) forControlEvents:UIControlEventEditingChanged];
-    self.sendBtn.backgroundColor = CGrayColor;
+    self.sendBtn.backgroundColor = COrangeEnableColor;
     self.sendBtn.userInteractionEnabled = NO;
     ViewRadius(self.sendBtn, 4.0);
     // Do any additional setup after loading the view from its nib.
@@ -80,11 +81,17 @@
 
 
 - (void)enterAmount:(UITextField *)textField{
+    NSRange ran = [textField.text rangeOfString:@"."];
+    if (ran.location != NSNotFound) {
+        if (textField.text.length -  ran.location - 1 > 9) {
+            textField.text = [textField.text substringWithRange:NSMakeRange(0, textField.text.length - ran.location)];
+        }
+    }
     if (textField.text.length > 0 && self.targetAddressField.text.length > 0) {
         self.sendBtn.backgroundColor = COrangeColor;
         self.sendBtn.userInteractionEnabled = YES;
     }else{
-        self.sendBtn.backgroundColor = CGrayColor;
+        self.sendBtn.backgroundColor = COrangeEnableColor;
         self.sendBtn.userInteractionEnabled = NO;
     }
 }
@@ -98,13 +105,7 @@
         [WalletWrapper createSendTransaction:self.targetAddressField.text amount:[WalletWrapper vcashToNano:amount] fee:0 withComplete:^(BOOL yesOrNo, id retData) {
             if (yesOrNo){
                 VcashSlate* slate = (VcashSlate*)retData;
-                SendTransactionConfirmView* confirmView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SendTransactionConfirmView class]) owner:self options:nil][0];
-                [confirmView setReceiverId:self.targetAddressField.text andSlate:slate];
-                UIView* window = [UIApplication sharedApplication].keyWindow;
-                [window addSubview:confirmView];
-                [confirmView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.edges.equalTo(window);
-                }];
+                [self sendTransactionWithUseId:self.targetAddressField.text slate:slate];
             }
             else{
                 [MBHudHelper showTextTips:[NSString stringWithFormat:@"SendFailed:%@", retData] onView:nil withDuration:1.5];
@@ -113,6 +114,26 @@
         }];
 
     }
+}
+
+- (void)sendTransactionWithUseId:(NSString *)useId slate:(VcashSlate *)slate{
+    [WalletWrapper sendTransaction:slate forUser:useId withComplete:^(BOOL yesOrNo, id _Nullable data) {
+        if (yesOrNo){
+            [MBHudHelper showTextTips:@"Send success!" onView:nil withDuration:1];
+             VcashTxLog *txLog =  [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
+            [self pushTranscactionDetailVcWith:txLog];
+        }
+        else{
+            [MBHudHelper showTextTips:[NSString stringWithFormat:@"Send failed:%@", data] onView:nil withDuration:1];
+        }
+    }];
+}
+
+- (void)pushTranscactionDetailVcWith:(VcashTxLog *)txLog{
+    TransactionDetailViewController *transactionDetailVc = [[TransactionDetailViewController alloc] init];
+    transactionDetailVc.isFromSendTxVc = YES;
+    transactionDetailVc.txLog = txLog;
+    [self.navigationController pushViewController:transactionDetailVc animated:YES];
 }
 
 - (IBAction)pushScanQRVc:(id)sender {

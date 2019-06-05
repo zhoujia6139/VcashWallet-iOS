@@ -14,6 +14,9 @@
 @property (weak, nonatomic) IBOutlet VcashButton *agreeBtn;
 
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintPromptViewWidth;
+
+
 @end
 
 @implementation CreateWalletNoteViewController
@@ -23,6 +26,9 @@
     // Do any additional setup after loading the view from its nib.
     
     self.title = [LanguageService contentForKey:@"createNewWalletTitle"];
+    self.constraintPromptViewWidth.constant = ScreenWidth;
+    [self.agreeBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
+    [self.agreeBtn setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
     ViewRadius(self.agreeBtn, 4.0);
     
 }

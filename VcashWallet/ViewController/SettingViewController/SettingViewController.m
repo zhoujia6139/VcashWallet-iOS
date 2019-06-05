@@ -8,12 +8,15 @@
 
 #import "SettingViewController.h"
 #import "ChangePasswordViewController.h"
+#import "LockScreenSetViewController.h"
+#import "LockScreenTimeService.h"
 
 @interface SettingViewController ()
 
 
 @property (weak, nonatomic) IBOutlet UIView *viewLockScreen;
 
+@property (weak, nonatomic) IBOutlet UILabel *labelLockScreenTitle;
 
 @end
 
@@ -26,10 +29,40 @@
     [AppHelper addLineWithParentView:self.viewLockScreen];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    self.isShowLeftBack = NO;
+    self.isShowLeftMeue = YES;
+    LockScreenType lockScreenType = [[LockScreenTimeService shareInstance] readLockScreenType];
+    NSString *lockScreenTitle;
+    switch (lockScreenType) {
+        case LockScreenType3Minute:
+            lockScreenTitle = [LanguageService contentForKey:@"after3Minute"];
+            break;
+        case LockScreenTypeNever:
+            lockScreenTitle = [LanguageService contentForKey:@"never"];
+            break;
+            
+        case LockScreenType30Seonds:
+            lockScreenTitle = [LanguageService contentForKey:@"after30Seconds"];
+            break;
+            
+        case LockScreenType1Minute:
+            lockScreenTitle = [LanguageService contentForKey:@"after1Minute"];
+            break;
+            
+        default:
+            break;
+    }
+    self.labelLockScreenTitle.text = lockScreenTitle;
+}
+
 
 
 - (IBAction)clickedBtnLockScreen:(id)sender {
-    
+    LockScreenSetViewController *lockScreenSetVc = [[LockScreenSetViewController alloc] init];
+    [self.navigationController pushViewController:lockScreenSetVc animated:YES];
 }
 
 
@@ -40,6 +73,7 @@
 
 
 - (IBAction)clickedBtnReport:(id)sender {
+    
 }
 
 /*

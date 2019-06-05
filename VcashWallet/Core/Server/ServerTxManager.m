@@ -10,14 +10,16 @@
 #import "ServerApi.h"
 #import "VcashSlate.h"
 #import "ServerTxPopView.h"
+#import "MessageNotificationView.h"
+#import "ServerTransactionBlackManager.h"
 
-#define TimerInterval 30
+#define TimerInterval 5
 
 @interface ServerTxManager()
 
-@property(strong, nonatomic)NSMutableArray* txArr;
+@property(nonatomic, strong)NSMutableDictionary *dicTx;
 
-@property(strong, nonatomic)ServerTxPopView* handleView;
+@property(strong, nonatomic)MessageNotificationView* msgNotificationView;
 
 @end
 
@@ -48,7 +50,8 @@
 }
 
 -(void)stopWork{
-    [_timer setFireDate:[NSDate distantFuture]];
+    [_timer invalidate];
+    _timer = nil;
 }
 
 -(void)fetchTxStatus:(BOOL)force{
@@ -57,6 +60,7 @@
         [[ServerApi shareInstance] checkStatusForUser:[VcashWallet shareInstance].userId WithComplete:^(BOOL yesOrNo, NSArray<ServerTransaction*>* txs) {
             DDLogInfo(@"check status ret %@ tx ", @(txs.count));
             if (yesOrNo){
+                [self.dicTx removeAllObjects];
                 lastFetch = [[NSDate date] timeIntervalSince1970];
                 for (ServerTransaction* item in txs){
                     item.slateObj = [VcashSlate modelWithJSON:item.slate];
@@ -118,16 +122,9 @@
                             continue;
                         }
                         
-                        BOOL isRepeat = NO;
-                        for (ServerTransaction* tx in self.txArr){
-                            if ([tx.tx_id isEqualToString:item.tx_id]){
-                                isRepeat = YES;
-                                break;
-                            }
-                        }
-                        if (!isRepeat){
-                            [self.txArr addObject:item];
-                        }
+
+                        [self.dicTx setObject:item forKey:item.tx_id];
+
                     }
                     else if (item){
                         DDLogError(@"receive a illegal tx:%@", [item modelToJSONString]);
@@ -143,8 +140,15 @@
 }
 
 -(void)handleServerTx{
-    ServerTransaction* item = [self.txArr firstObject];
-    if (item && !self.handleView.superview){
+    NSMutableArray *txArr = [NSMutableArray array];
+    for (ServerTransaction *item in self.dicTx.allValues) {
+        BOOL isBlack =  [[ServerTransactionBlackManager shareInstance] isBlackWithServerTransaction:item];
+        if (!isBlack) {
+            [txArr addObject:item];
+        }
+    }
+    ServerTransaction* item = [txArr firstObject];
+    if (item && !self.msgNotificationView.superview){
         if ([item.sender_id isEqualToString:[VcashWallet shareInstance].userId]){
             item.isSend = YES;
         }
@@ -156,31 +160,40 @@
             return;
         }
         
-        self.handleView.serverTx = item;
-        UIView* window = [UIApplication sharedApplication].keyWindow;
-        [window addSubview:self.handleView];
-        [self.handleView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(window);
-        }];
-        
-        [self.txArr removeObject:item];
+        self.msgNotificationView.serverTx = item;
+        [self.msgNotificationView show];
     }
 }
 
--(NSMutableArray*)txArr{
-    if (!_txArr){
-        _txArr = [NSMutableArray new];
+- (void)hiddenMsgNotificationView{
+    if (!self.msgNotificationView.superview) {
+        return;
     }
-    
-    return _txArr;
+    [self.msgNotificationView hiddenAnimation];
 }
 
--(ServerTxPopView*) handleView{
-    if (!_handleView){
-        _handleView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([ServerTxPopView class]) owner:self options:nil][0];
+- (ServerTransaction *)getServerTxByTx_id:(NSString *)tx_id{
+    if (!tx_id) {
+        return nil;
+    }
+   ServerTransaction *tx =  [self.dicTx objectForKey:tx_id];
+    return tx;
+}
+
+- (NSMutableDictionary *)dicTx{
+    if (!_dicTx) {
+        _dicTx = [NSMutableDictionary dictionary];
+    }
+    return _dicTx;
+}
+
+- (MessageNotificationView *)msgNotificationView{
+    if (!_msgNotificationView){
+        _msgNotificationView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([MessageNotificationView class]) owner:self options:nil][0];
     }
     
-    return _handleView;
+    return _msgNotificationView;
 }
+
 
 @end

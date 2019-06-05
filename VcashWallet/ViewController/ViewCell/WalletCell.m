@@ -57,17 +57,11 @@
     switch (txLog.tx_type) {
         case ConfirmedCoinbase:
         case TxReceived:
+        case TxReceivedCancelled:
             [self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"receive.png"]];
             break;
         case TxSent:
-            [self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"send.png"]];
-            break;
-        case TxReceivedCancelled:
-            [self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"receive.png"]];
-            [self.imageViewState setImage:[UIImage imageNamed:@"canceled.png"]];
-            break;
         case TxSentCancelled:
-            [self.imageViewState setImage:[UIImage imageNamed:@"canceled.png"]];
             [self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"send.png"]];
             break;
         default:
@@ -76,21 +70,27 @@
     
     NSString *txId = self.txLog.tx_slate_id;
     if (!txId) {
-        txId = (self.txLog.tx_type == ConfirmedCoinbase) ? @"coinbase" : @"unreachable";
+        txId = (self.txLog.tx_type == ConfirmedCoinbase) ? [LanguageService contentForKey:@"coinbase"] : [LanguageService contentForKey:@"unreachable"];
     }
     self.labelTxId.text = txId;
     int64_t amount = (int64_t)txLog.amount_credited - (int64_t)txLog.amount_debited;
-    self.labelAmount.text = [NSString stringWithFormat:@"%@",@([WalletWrapper nanoToVcash:amount]).p9fString];
+    self.labelAmount.text = [NSString stringWithFormat:@"%@",@([WalletWrapper nanoToVcash:amount]).p09fString];
     self.labelTime.text = [[NSDate dateWithTimeIntervalSince1970:txLog.create_time] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     switch (txLog.confirm_state){
         case DefaultState:
         case LoalConfirmed://waiting confirm
-            self.stateLabel.text = @"ongoing";
-            [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
+            if(txLog.tx_type == TxSentCancelled || txLog.tx_type == TxReceivedCancelled){
+                //sender canceled
+                self.stateLabel.text = [LanguageService contentForKey:@"canceled"];
+                [self.imageViewState setImage:[UIImage imageNamed:@"canceled.png"]];
+            }else{
+                self.stateLabel.text = [LanguageService contentForKey:@"ongoing"];
+                [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
+            }
             break;
         case NetConfirmed:
-            self.stateLabel.text = @"Confirmed";
+            self.stateLabel.text = [LanguageService contentForKey:@"confirmed"];
             [self.imageViewState setImage:[UIImage imageNamed:@"confirmed.png"]];
             break;
     }

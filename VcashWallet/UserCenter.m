@@ -12,6 +12,8 @@
 #define kKeyChainService  @"kVcashWallet"
 #define kKeyChainMnemonic  @"kKeyChainMnemonic"
 
+#define storageAppInstallAndCreateWalletPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"appInstallAndCreateWalletPath"]
+
 @implementation UserCenter
 
 + (instancetype)sharedInstance
@@ -63,5 +65,24 @@
     [YYKeychain deletePasswordForService:kKeyChainService account:kKeyChainMnemonic];
     //[WalletWrapper clearWallet];
 }
+
+- (void)writeAppInstallAndCreateWallet:(BOOL)installAndCreateWallet{
+    NSURL *url = [NSURL URLWithString:storageAppInstallAndCreateWalletPath];
+    NSError *error = nil;
+    BOOL success = [url setResourceValue: [NSNumber numberWithBool: YES]
+                                  forKey: NSURLIsExcludedFromBackupKey error: &error];
+    if (!success) {
+        DDLogError(@"Error excluding %@ from backup %@", [url lastPathComponent], error);
+    }
+   BOOL  writeSuc = [NSKeyedArchiver archiveRootObject:@(installAndCreateWallet) toFile:storageAppInstallAndCreateWalletPath];
+    if (!writeSuc) {
+        DDLogError(@"write Failed");
+    }
+}
+
+- (BOOL)appInstallAndCreateWallet{
+    return [[NSKeyedUnarchiver unarchiveObjectWithFile:storageAppInstallAndCreateWalletPath] boolValue];;
+}
+
 
 @end

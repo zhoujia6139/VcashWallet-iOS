@@ -9,10 +9,13 @@
 #import "MessageNotificationView.h"
 #import "ServerType.h"
 #import "TransactionDetailViewController.h"
+#import "ServerTransactionBlackManager.h"
 
 @interface MessageNotificationView ()
 
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *seeDetailBtn;
 
 
 @end
@@ -28,6 +31,15 @@
 }
 */
 
+- (void)setServerTx:(ServerTransaction *)serverTx{
+    _serverTx = serverTx;
+    if (_serverTx.isSend) {
+        self.messageLabel.text = [LanguageService contentForKey:@"senderMsgNoti"];
+    }else{
+        self.messageLabel.text = [LanguageService contentForKey:@"receiverMsgNoti"];
+    }
+}
+
 
 - (IBAction)clickedBtnSeeDetail:(id)sender {
     [self hiddenAnimation];
@@ -42,6 +54,7 @@
 
 - (IBAction)clickedBtnNoProcess:(id)sender {
     [self hiddenAnimation];
+    [[ServerTransactionBlackManager shareInstance] writeBlackServerTransaction:self.serverTx];
 }
 
 - (void)setMessage:(NSString *)message{
@@ -52,21 +65,23 @@
 }
 
 - (void)show{
-    
     UIWindow *wd = [UIApplication sharedApplication].keyWindow;
     [wd addSubview:self];
     [self layoutIfNeeded];
+    ViewRadius(self, 4.0);
+    ViewRadius(self.seeDetailBtn, 4.0);
     CGFloat height = [self selfHeight];
     [self mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(wd.mas_top).offset(-height);
-        make.left.right.equalTo(wd);
+        make.top.equalTo(wd.mas_top).offset(-height - kStatusBarHeight);
+        make.left.equalTo(wd).offset(12);
+        make.right.equalTo(wd).offset(-12);
         make.height.mas_equalTo(height);
     }];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [UIView animateWithDuration:0.25 animations:^{
             [self mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(wd);
+                make.top.equalTo(wd).offset(kStatusBarHeight);
             }];
             [wd layoutIfNeeded];
         } completion:^(BOOL finished) {
@@ -83,7 +98,7 @@
     UIWindow *wd = [UIApplication sharedApplication].keyWindow;
     [UIView animateWithDuration:0.25 animations:^{
         [self mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(wd.mas_top).offset(-[self selfHeight]);
+            make.top.equalTo(wd.mas_top).offset(-[self selfHeight] -kStatusBarHeight);
         }];
         [wd layoutIfNeeded];
     } completion:^(BOOL finished) {

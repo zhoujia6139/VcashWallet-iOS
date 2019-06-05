@@ -27,8 +27,8 @@
     self.receiverId = receiverId;
     self.slate = slate;
     self.addressLabel.text = [NSString stringWithFormat:@"ReceiverId:%@", receiverId];
-    self.amountLabel.text = [NSString stringWithFormat:@"Amount:%@", @([WalletWrapper nanoToVcash:slate.amount]).p9fString];
-    self.feeLabel.text = [NSString stringWithFormat:@"Fee:%@", @([WalletWrapper nanoToVcash:slate.fee]).p9fString];
+    self.amountLabel.text = [NSString stringWithFormat:@"Amount:%@", @([WalletWrapper nanoToVcash:slate.amount]).p09fString];
+    self.feeLabel.text = [NSString stringWithFormat:@"Fee:%@", @([WalletWrapper nanoToVcash:slate.fee]).p09fString];
 }
 
 - (IBAction)clickCancel:(id)sender {

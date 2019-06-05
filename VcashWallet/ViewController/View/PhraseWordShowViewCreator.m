@@ -39,10 +39,6 @@
         itemView.index = i;
         itemView.userInteractionEnabled = yesOrNo;
         itemView.textFieldEnble = yesOrNo;
-//        itemView.textAlignment = NSTextAlignmentCenter;
-//        itemView.delegate = self;
-//        itemView.keyboardType = UIKeyboardTypeNamePhonePad;
-//        itemView.autocapitalizationType = UITextAutocapitalizationTypeNone;
         [view addSubview:itemView];
         int top = line*kWordItemViewHeight;
         int left = row*kWordItemViewWidth;
@@ -52,8 +48,6 @@
             make.width.mas_equalTo(kWordItemViewWidth);
             make.height.mas_equalTo(kWordItemViewHeight);
         }];
-//        [itemView setThreshold:[arr objectAtIndex:i] andCoinType:self.coinType];
-//        [itemView addTarget:self action:@selector(ItemViewGetClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     ViewBorderRadius(view, 4.0, VLineWidth, CLineColor);
@@ -90,7 +84,7 @@
         itemView.tag = (kWordItemTagStart + i);
         itemView.textFieldEnble = NO;
         itemView.index = [[dicData objectForKey:key] integerValue];
-        itemView.tagColor = [UIColor colorWithRed:236 / 255.0 green:235 / 255.0 blue:235 / 255.0 alpha:1];
+        itemView.tagColor = [UIColor colorWithRed:194 / 255.0 green:194 / 255.0 blue:194 / 255.0 alpha:1];
         if (i < arrPhrase.count) {
             itemView.phrase = arrPhrase[i];
             BOOL fillRight = ([[dicData objectForKey:itemView.phrase] integerValue] == itemView.index);
@@ -141,14 +135,7 @@
         }
     }
     
-//    if (wordsArr.count == kWordItemCount)
-//    {
-        return wordsArr;
-//    }
-//    else
-//    {
-//        return nil;
-//    }
+    return wordsArr;
 }
 
 -(void)setInputWordsArray:(NSArray*)wordsArr
@@ -164,53 +151,6 @@
     }
 }
 
-#pragma mark delegate
-//- (void)textFieldDidEndEditing:(UITextField *)textField;
-//{
-//    NSInteger nextTag = textField.tag + 1;
-//    if (nextTag <= kWordItemTagEnd)
-//    {
-//        UITextField* nextInput = [mParentView viewWithTag:nextTag];
-//        [nextInput becomeFirstResponder];
-//    }
-//
-//}
-//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
-//{
-//    return [self checkWordIsValid:textField.text];
-//}
-
-
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    if ([self checkWordIsValid:textField.text])
-    {
-        NSInteger nextTag = textField.tag + 1;
-        if (nextTag <= kWordItemTagEnd)
-        {
-            UITextField* nextInput = [mParentView viewWithTag:nextTag];
-            [nextInput becomeFirstResponder];
-        }
-        return YES;
-    }
-    [MBHudHelper showTextTips:@"请输入有效的词语" onView:nil withDuration:1.5];
-    return NO;
-}
-
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-//{
-//    if (string.length == 0 && textField.text.length == 0)
-//    {
-//        NSInteger lastTag = textField.tag - 1;
-//        if (lastTag >= kWordItemTagStart)
-//        {
-//            UITextField* lastInput = [mParentView viewWithTag:lastTag];
-//            [lastInput becomeFirstResponder];
-//        }
-//    }
-//    return YES;
-//}
 
 #pragma mark private
 
@@ -260,7 +200,7 @@
         
         _tagBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _tagBtn.userInteractionEnabled = NO;
-        _tagBtn.backgroundColor = [UIColor colorWithRed:236 / 255.0 green:235 / 255.0 blue:235 / 255.0 alpha:1];
+        _tagBtn.backgroundColor =  [UIColor colorWithRed:194 / 255.0 green:194 / 255.0 blue:194 / 255.0 alpha:1];
         _tagBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         ViewRadius(_tagBtn, 9.0);
         [self addSubview:_tagBtn];
@@ -282,9 +222,6 @@
             make.centerY.equalTo(self);
             make.height.mas_equalTo(16);
         }];
-//        self.layer.borderWidth = 1;
-//        self.layer.borderColor = [UIColorFromRGB(0xcccccc) CGColor];
-        
         [AppHelper addLineWithParentView:self];
         [AppHelper addLineRightWithParentView:self];
     }
@@ -303,7 +240,7 @@
     _phrase = textField.text;
     if (textField.text.length == 0) {
         self.textField.textColor = [UIColor darkTextColor];
-        self.tagBtn.backgroundColor = [UIColor colorWithRed:236 / 255.0 green:235 / 255.0 blue:235 / 255.0 alpha:1];
+        self.tagBtn.backgroundColor = [UIColor colorWithRed:194 / 255.0 green:194 / 255.0 blue:194 / 255.0 alpha:1];
         return;
     }
     self.tagColor = [self checkWordIsValid:textField.text] ?  [UIColor colorWithHexString:@"#66CC33"] : [UIColor colorWithHexString:@"#FF3333"];
@@ -319,6 +256,9 @@
 
 - (void)setTextFieldEnble:(BOOL)textFieldEnble{
     self.textField.userInteractionEnabled = textFieldEnble;
+    if (self.tag == kWordItemTagStart) {
+        [self.textField becomeFirstResponder];
+    }
 }
 
 - (NSString *)phrase{
@@ -357,15 +297,6 @@
     }
 }
 
-//-(instancetype)initWithFrame:(CGRect)frame
-//{
-//    self = [super initWithFrame:frame];
-//    if (self)
-//    {
-//       
-//    }
-//    
-//    return self;
-//}
+
 
 @end

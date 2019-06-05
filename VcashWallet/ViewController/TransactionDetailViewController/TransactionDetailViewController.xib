@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="btnCancelTx" destination="7o8-hg-Bz5" id="ti1-Vl-QIA"/>
                 <outlet property="btnSignature" destination="jfG-Mg-Nj0" id="2gW-41-UbQ"/>
+                <outlet property="constraintViewStatusWidth" destination="irL-7f-9NS" id="0M7-Gu-3un"/>
                 <outlet property="imageViewTxStatus" destination="2wy-ea-ttV" id="Fji-AM-Ykb"/>
                 <outlet property="labelAmount" destination="efA-ek-wA6" id="rTg-87-0c4"/>
                 <outlet property="labelFee" destination="qkH-au-M1w" id="wcd-3X-eCk"/>
@@ -49,7 +50,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="2wy-ea-ttV" firstAttribute="leading" secondItem="GrY-Zo-j3K" secondAttribute="leading" constant="18" id="7pm-5u-lOd"/>
                                 <constraint firstAttribute="trailing" secondItem="tGG-L4-qj4" secondAttribute="trailing" constant="43" id="CdB-0t-XDh"/>
@@ -303,9 +304,12 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="Cancel the transation" image="cancel.png">
+                            <state key="normal" title="Cancel the transaction" image="cancel.png">
                                 <color key="titleColor" red="1" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localTitle" value="cancelTransaction"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="clickedBtnCancelTx:" destination="-1" eventType="touchUpInside" id="roQ-8D-aE9"/>
                             </connections>

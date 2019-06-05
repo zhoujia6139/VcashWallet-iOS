@@ -38,13 +38,13 @@
     self.creator = [PhraseWordShowViewCreator new];
     __weak typeof(self) weakSelf = self;
     [self.creator creatPhraseViewWithParentView:self.phraseView isCanEdit:YES withCallBack:^(CGFloat height, NSInteger wordsCount) {
-        __strong typeof(weakSelf) strongSlef = weakSelf;
+//        __strong typeof(weakSelf) strongSlef = weakSelf;
 //        if (wordsCount != 24) {
 //            strongSlef.recoverBtn.userInteractionEnabled = NO;
 //            strongSlef.recoverBtn.backgroundColor = CGrayColor;
 //        }else{
 //            strongSlef.recoverBtn.userInteractionEnabled = YES;
-//            strongSlef.recoverBtn.backgroundColor = COrangeColor;
+//           strongSlef.recoverBtn.backgroundColor = COrangeColor;
 //        }
     }];
     // Do any additional setup after loading the view from its nib.
@@ -59,7 +59,7 @@
     NSArray* wordsArr = [self.creator getAllInputWords];
     if (wordsArr.count == 0)
     {
-        //NSString* mnemonicStr = @"glue tilt pair insane enroll scissors galaxy know fringe joke mother zebra";
+//        //NSString* mnemonicStr = @"glue tilt pair insane enroll scissors galaxy know fringe joke mother zebra";
         NSString* mnemonicStr = @"layer floor valley flag dawn dress sponsor whale illegal session juice beef scout mammal snake cage river lemon easily away title else layer limit";
         //NSString* mnemonicStr = @"evidence boy green adult kidney biology hollow expire jewel give elegant engine farm photo tomato sustain rigid emerge afford sibling color assume gesture material";
         wordsArr = [mnemonicStr componentsSeparatedByString:@" "];
@@ -67,7 +67,7 @@
     
     if (wordsArr.count != 24)
     {
-        [MBHudHelper showTextTips:@"请输入24个有效的单词" onView:nil withDuration:2];
+        [MBHudHelper showTextTips:[LanguageService contentForKey:@"24valid"] onView:nil withDuration:2];
         return;
     }
 

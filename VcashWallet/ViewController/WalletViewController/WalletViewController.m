@@ -17,6 +17,7 @@
 #import "HandleSlateViewController.h"
 #import "ServerTxManager.h"
 #import "LeftMenuView.h"
+#import "RefreshStateHeader.h"
 
 static NSString *const identifier = @"WalletCell";
 
@@ -48,11 +49,15 @@ static NSString *const identifier = @"WalletCell";
 
 @property (weak, nonatomic) IBOutlet UIView *transactionTitleView;
 
+@property (strong, nonatomic) IBOutlet UIView *footView;
+
+
 @property (nonatomic, strong) LeftMenuView *leftMenuView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintNaviHeight;
 
 @property (nonatomic, strong) NSArray *arrTransactionList;
+
 
 @end
 
@@ -61,21 +66,9 @@ static NSString *const identifier = @"WalletCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initSubviews];
-    if (self.enterInRecoverMode){
-        [MBHudHelper startWorkProcessWithTextTips:@"Recovering"];
-        [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
-            if (yesOrNo){
-                [self refreshMainView];
-            }
-            NSString* tips = yesOrNo?@"Recover Suc!":@"Recover failed!";
-            [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:tips];
-        }];
-    }
-    else{
+    if (!self.enterInRecoverMode){
         [self.tableViewContainer.mj_header beginRefreshing];
     }
-    
-    [[ServerTxManager shareInstance] startWork];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kTxLogDataChanged object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kWalletChainHeightChange object:nil];
@@ -87,8 +80,17 @@ static NSString *const identifier = @"WalletCell";
     [self refreshMainView];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
+        [self refreshMainView];
+    }];
+     [[ServerTxManager shareInstance] startWork];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[ServerTxManager shareInstance] stopWork];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
@@ -106,14 +108,6 @@ static NSString *const identifier = @"WalletCell";
     self.constraintNaviHeight.constant = kTopHeight;
     [self.leftMenuView addInView];
     
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
-    [self.view addGestureRecognizer:pan];
-    
-    UIPanGestureRecognizer *panLeft = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
-    [self.leftMenuView addGestureRecognizer:panLeft];
-    
-    UIPanGestureRecognizer *panLeftViewAlpha = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
-    [self.leftMenuView addAlphaViewPanGesture:panLeftViewAlpha];
     self.maskView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1];
     [AppHelper addLineWithParentView:self.transactionTitleView];
     
@@ -129,13 +123,22 @@ static NSString *const identifier = @"WalletCell";
     [self.tableViewContainer registerNib:[UINib nibWithNibName:NSStringFromClass([WalletCell class]) bundle:nil] forCellReuseIdentifier:identifier];
     self.tableViewContainer.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.tableViewContainer.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+    self.tableViewContainer.mj_header = [RefreshStateHeader headerWithRefreshingBlock:^{
         [self refreshWalletStatus];
     }];
     
     ViewRadius(self.receiveVcashBtn, 4.0);
     ViewRadius(self.sendVcashBtn, 4.0);
+    
+    [self.receiveVcashBtn setBackgroundImage:[UIImage imageWithColor:CGreenColor] forState:UIControlStateNormal];
+    [self.receiveVcashBtn setBackgroundImage:[UIImage imageWithColor:CGreenHighlightedColor] forState:UIControlStateHighlighted];
+    
+    [self.sendVcashBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
+    [self.sendVcashBtn setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
+    
+    
 }
+
 
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
@@ -162,11 +165,14 @@ static NSString *const identifier = @"WalletCell";
 -(void)refreshMainView{
     self.userIdView.text = [WalletWrapper getWalletUserId];
     WalletBalanceInfo* info = [WalletWrapper getWalletBalanceInfo];
-    self.balanceTotal.text = [NSString stringWithFormat:@"%@ V", @([WalletWrapper nanoToVcash:info.total]).p9fString];
+    NSString *balance = @([WalletWrapper nanoToVcash:info.total]).p09fString;
+    NSString *confirm = @([WalletWrapper nanoToVcash:info.spendable]).p09fString;
+    NSString *unconfirm =  @([WalletWrapper nanoToVcash:info.unconfirmed]).p09fString;
+    self.balanceTotal.text = [NSString stringWithFormat:@"%@ V", balance];
     
-    self.balanceConfirmed.text = [NSString stringWithFormat:@"%@", @([WalletWrapper nanoToVcash:info.spendable]).p9fString];
+    self.balanceConfirmed.text = [NSString stringWithFormat:@"%@",confirm];
     
-    self.balanceUnconfirmed.text = [NSString stringWithFormat:@"%@", @([WalletWrapper nanoToVcash:info.unconfirmed]).p9fString];
+    self.balanceUnconfirmed.text = [NSString stringWithFormat:@"%@",unconfirm];
     
     self.chainHeight.text = [NSString stringWithFormat:@"Height:%@", @([WalletWrapper getCurChainHeight])];
     
@@ -178,9 +184,15 @@ static NSString *const identifier = @"WalletCell";
     self.netName.textColor = [UIColor redColor];
 #endif
     
-    self.arrTransactionList = [WalletWrapper getTransationArr];
+    NSArray *arrTransaction = [WalletWrapper getTransationArr];
+    self.arrTransactionList = [arrTransaction sortedArrayUsingComparator:^NSComparisonResult(VcashTxLog *obj1, VcashTxLog *obj2) {
+        return [@(obj2.create_time) compare:@(obj1.create_time)];
+    }];
+
+    self.tableViewContainer.tableFooterView = self.arrTransactionList.count > 0 ? nil : self.footView;
     [self.tableViewContainer reloadData];
 }
+
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -196,21 +208,21 @@ static NSString *const identifier = @"WalletCell";
     return cell;
 }
 
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    VcashTxLog *model = self.arrTransactionList[indexPath.row];
+    if (model.tx_type == TxSentCancelled || model.tx_type == TxReceivedCancelled) {
+        return YES;
+    }
+    return NO;
+}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+     VcashTxLog *model = self.arrTransactionList[indexPath.row];
     if(editingStyle == UITableViewCellEditingStyleDelete){
-        VcashTxLog *model = self.arrTransactionList[indexPath.row];
-        if (model.isCanBeCanneled){
-            if ([WalletWrapper cancelTransaction:model]){
-                [MBHudHelper showTextTips:@"Tx cancel suc" onView:nil withDuration:1];
-            }
-            else{
-                [MBHudHelper showTextTips:@"Tx cancel failed" onView:nil withDuration:1];
-            }
-            
-            [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationMiddle];
-        }
-        else{
-            [MBHudHelper showTextTips:@"Tx cannot be cancel!" onView:nil withDuration:1];
+       BOOL result = [WalletWrapper deleteTxByTxid:model.tx_slate_id];
+        if (!result) {
+            DDLogError(@"delete canceled transaction failed");
         }
     }
 }
@@ -224,12 +236,9 @@ static NSString *const identifier = @"WalletCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row < self.arrTransactionList.count) {
         VcashTxLog *txLog = self.arrTransactionList[indexPath.row];
-//        TransactionRecordModel *model = self.arrTransactionList[indexPath.row];
         TransactionDetailViewController* transcationDetailVc = [TransactionDetailViewController new];
         transcationDetailVc.txLog = txLog;
         [self.navigationController pushViewController:transcationDetailVc animated:YES];
-//        vc.transactionData = model;
-//        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

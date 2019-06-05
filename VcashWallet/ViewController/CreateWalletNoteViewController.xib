@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateWalletNoteViewController">
             <connections>
                 <outlet property="agreeBtn" destination="UHT-x7-YaX" id="HsA-G1-rQ2"/>
+                <outlet property="constraintPromptViewWidth" destination="t6d-sE-ZK2" id="qSy-xN-or8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -25,11 +26,11 @@
                     <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7e1-0a-lIa">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="132"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tI6-zl-BCK" customClass="VcashLabel">
-                                    <rect key="frame" x="30" y="30" width="315" height="90"/>
-                                    <string key="text">Create new wallet by generating seed phrase.If you ever lose your device,you will need this phrase to recover your wallet!  Never save it in your loacl or remote folders in any form</string>
+                                    <rect key="frame" x="30" y="30" width="315" height="72"/>
+                                    <string key="text">By creating the wallet, you need to write down your seed recovery phrase and store it securely so that your wallet can be recovered in the case your device was lost for stolen.</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.12156862745098039" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -38,7 +39,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dottedline.png" translatesAutoresizingMaskIntoConstraints="NO" id="P7N-Ow-z85">
-                                    <rect key="frame" x="30" y="148" width="315" height="2"/>
+                                    <rect key="frame" x="30" y="130" width="315" height="2"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="2" id="25K-hl-b2m"/>
                                     </constraints>
@@ -57,7 +58,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ilr-VF-w80">
-                            <rect key="frame" x="0.0" y="170" width="375" height="70"/>
+                            <rect key="frame" x="0.0" y="152" width="375" height="70"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eye.png" translatesAutoresizingMaskIntoConstraints="NO" id="L5s-Af-RLG">
                                     <rect key="frame" x="33" y="17.5" width="35" height="35"/>
@@ -89,7 +90,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vdR-gE-hxZ">
-                            <rect key="frame" x="0.0" y="240" width="375" height="70"/>
+                            <rect key="frame" x="0.0" y="222" width="375" height="70"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lock.png" translatesAutoresizingMaskIntoConstraints="NO" id="qOm-2x-1rw">
                                     <rect key="frame" x="33" y="17.5" width="35" height="35"/>
@@ -121,7 +122,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8xO-jW-ZnA">
-                            <rect key="frame" x="0.0" y="310" width="375" height="70"/>
+                            <rect key="frame" x="0.0" y="292" width="375" height="70"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="copy.png" translatesAutoresizingMaskIntoConstraints="NO" id="Lxk-qQ-Y2C">
                                     <rect key="frame" x="33" y="17.5" width="35" height="35"/>
@@ -153,12 +154,12 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UHT-x7-YaX" customClass="VcashButton">
-                            <rect key="frame" x="28" y="494" width="319" height="44"/>
+                            <rect key="frame" x="28" y="476" width="319" height="44"/>
                             <color key="backgroundColor" red="1" green="0.58431372549019611" blue="0.0078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="9hb-rH-Qx4"/>
                             </constraints>
-                            <state key="normal" title="I Agree">
+                            <state key="normal" title="Got it">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <userDefinedRuntimeAttributes>

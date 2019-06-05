@@ -20,4 +20,9 @@
 
 -(void)clearWallet;
 
+- (void)writeAppInstallAndCreateWallet:(BOOL)installAndCreateWallet;
+
+- (BOOL)appInstallAndCreateWallet;
+
+
 @end

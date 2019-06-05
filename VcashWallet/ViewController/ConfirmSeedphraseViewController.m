@@ -51,6 +51,7 @@
 }
 
 - (void)configView{
+    self.title = [LanguageService contentForKey:@"confirmSeedPhrase"];
     ViewRadius(self.promptView, 4.0);
     [AppHelper addLineTopWithParentView:self.chosePhraseView];
    PhraseWordShowViewCreator  *creator = [PhraseWordShowViewCreator new];
@@ -70,9 +71,7 @@
                 vc.mnemonicWordsArr = strongSelf.mnemonicWordsArr;
                 [strongSelf.navigationController pushViewController:vc animated:YES];
             }else{
-                PinPasswordSetViewController*vc = [PinPasswordSetViewController new];
-                vc.mnemonicWordsArr = strongSelf.mnemonicWordsArr;
-                [strongSelf.navigationController pushViewController:vc animated:YES];
+                [self.view makeToast:[LanguageService contentForKey:@"wordInconsistent"]];
             }
         }];
         

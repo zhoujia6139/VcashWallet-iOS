@@ -18,7 +18,7 @@
     UINavigationBar *naviBar = [UINavigationBar appearance];
     [naviBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [naviBar setTitleTextAttributes:@{NSForegroundColorAttributeName :[UIColor darkTextColor], NSFontAttributeName : [UIFont systemFontOfSize:17]}];
-    [naviBar setShadowImage:[UIImage new]];
+//    [naviBar setShadowImage:[UIImage new]];
 }
 
 - (void)viewDidLoad {
@@ -32,9 +32,15 @@
     return  [self.childViewControllers count] == 1 ? NO:YES;
 }
 
+
+- (UIViewController *)childViewControllerForStatusBarStyle{
+    return self.topViewController;
+}
+
 - (BOOL)prefersStatusBarHidden{
     return NO;
 }
+
 
 - (UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleDefault;

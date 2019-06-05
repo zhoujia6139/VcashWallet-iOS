@@ -30,44 +30,46 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.textFieldPassword setValue:[UIColor colorWithHexString:@"#666666"] forKeyPath:@"_placeholderLabel.textColor"];
-    self.btnOpenWallet.userInteractionEnabled = NO;
-    self.btnOpenWallet.backgroundColor = CGrayColor;
+    self.textFieldPassword.tintColor = [UIColor whiteColor];
+    [self.btnOpenWallet setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
+    [self.btnOpenWallet setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
     ViewRadius(self.btnOpenWallet, 4.0);
     self.textFieldPassword.delegate  = self;
-    [self.textFieldPassword addTarget:self action:@selector(enterPassword:) forControlEvents:UIControlEventEditingChanged];
-    
-//    self.pasView = [[PinPasswordInputView alloc] initWithFrame:CGRectMake(16, 100, self.view.frame.size.width - 32, 45)];
-//    self.pasView.delegate = self;
-//    [self.view addSubview:_pasView];
-//    
-    
-//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//    button.backgroundColor = [UIColor brownColor];
-//    button.frame = CGRectMake(100, 180, self.view.frame.size.width - 200, 50);
-//    [button addTarget:self action:@selector(btnAction) forControlEvents:UIControlEventTouchUpInside];
-//    [button setTitle:@"确定" forState:UIControlStateNormal];
-//    [self.view addSubview:button];
-    UIButton* btn = [[UIButton alloc] initWithFrame:CGRectMake((ScreenWidth-140)/2, (ScreenHeight-50), 140, 40)];
-    [btn setTitle:@"重新恢复钱包" forState:UIControlStateNormal];
+    UIButton* btn = [[UIButton alloc] init];
+    [btn setTitle:[LanguageService contentForKey:@"restoreWallet"] forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(resetWallet) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
+    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(28);
+        make.right.equalTo(self.view).offset(-28);
+        make.bottom.equalTo(self.view).offset(-50);
+    }];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor blackColor]] forBarMetrics:UIBarMetricsDefault];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+}
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self.pasView openKeyboard];
 }
 
-- (void)enterPassword:(UITextField *)textField{
-    if (textField.text.length > 0) {
-        self.btnOpenWallet.userInteractionEnabled = YES;
-        self.btnOpenWallet.backgroundColor = COrangeColor;
-    }else{
-        self.btnOpenWallet.userInteractionEnabled = NO;
-        self.btnOpenWallet.backgroundColor = CGrayColor;
-    }
+
+- (BOOL)prefersStatusBarHidden{
+    return NO;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
 }
 
 #pragma mark - UITextFieldDelegate
@@ -98,7 +100,7 @@
     else
     {
         DDLogWarn(@"-------mnemonioc words in keychain is not available");
-        [MBHudHelper showTextTips:@"密码不对" onView:nil withDuration:1.5];
+        [MBHudHelper showTextTips:[LanguageService contentForKey:@"passwordIsWrong"] onView:nil withDuration:1.5];
         [self.pasView clearUpPassword];
     }
 }

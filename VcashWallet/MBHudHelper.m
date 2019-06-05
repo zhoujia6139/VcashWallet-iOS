@@ -49,7 +49,7 @@
 +(void)endWorkProcessWithSuc:(BOOL)isSuc andTextTips:(NSString*)tips
 {
     MBProgressHUD *hud = [MBProgressHUD HUDForView:[UIApplication sharedApplication].keyWindow];
-    NSString* imageName = isSuc?@"poolin_process_suc_icon.png":@"poolin_process_fail_icon.png";
+    NSString* imageName = isSuc?@"process_suc_icon.png":@"process_fail_icon.png";
     UIView *iv = [[UIView alloc] init];
     UIImage *image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 //    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
@@ -62,16 +62,16 @@
         make.width.height.mas_equalTo(40);
     }];
     
-//    HudLabel *label = [[HudLabel alloc] init];
-//    label.numberOfLines = 0;
-//    label.font = [UIFont boldSystemFontOfSize:16.0f];
-//    label.textColor = [UIColor colorWithWhite:0.f alpha:0.7f];
-//    label.text = tips;
-//    [iv addSubview:label];
-//    [label mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(imageView.mas_bottom);
-//        make.left.right.bottom.equalTo(iv);
-//    }];
+    UILabel *label = [[UILabel alloc] init];
+    label.numberOfLines = 0;
+    label.font = [UIFont boldSystemFontOfSize:16.0f];
+    label.textColor = [UIColor colorWithWhite:0.f alpha:0.7f];
+    label.text = tips;
+    [iv addSubview:label];
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(imageView.mas_bottom);
+        make.left.right.bottom.equalTo(iv);
+    }];
     
     hud.mode = MBProgressHUDModeCustomView;
     if (tips)

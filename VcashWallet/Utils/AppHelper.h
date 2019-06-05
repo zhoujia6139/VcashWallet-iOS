@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIViewController *)visibleViewController;
 
++ (BOOL)isPureInt:(NSString*)string;
+
 @end
 
 NS_ASSUME_NONNULL_END

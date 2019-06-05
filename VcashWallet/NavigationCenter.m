@@ -11,6 +11,7 @@
 #import "WalletViewController.h"
 #import "PinVerifyViewController.h"
 #import "VcashNavigationViewController.h"
+#import "SettingViewController.h"
 
 static UINavigationController* curNavVC;
 
@@ -28,13 +29,19 @@ static UINavigationController* curNavVC;
 
 +(void)showWalletPage:(BOOL)isRecover
 {
-    VcashNavigationViewController* nav = [[VcashNavigationViewController alloc] init];
-    WalletViewController* welcomeVc = [[WalletViewController alloc] init];
-    welcomeVc.enterInRecoverMode = isRecover;
-    nav.viewControllers = @[welcomeVc];
-    UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
-    keyWindow.rootViewController = nav;
-    curNavVC = nav;
+   WalletViewController* welcomeVc = [[WalletViewController alloc] init];
+    if (curNavVC) {
+        curNavVC.viewControllers = @[welcomeVc];
+    }else{
+        
+        VcashNavigationViewController* nav = [[VcashNavigationViewController alloc] init];
+        welcomeVc.enterInRecoverMode = isRecover;
+        nav.viewControllers = @[welcomeVc];
+        UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
+        keyWindow.rootViewController = nav;
+        curNavVC = nav;
+    }
+  
 }
 
 +(void)showPasswordVerifyPage
@@ -46,9 +53,23 @@ static UINavigationController* curNavVC;
     }
     else
     {
+        VcashNavigationViewController* nav = [[VcashNavigationViewController alloc] initWithRootViewController:vc];
         UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
-        keyWindow.rootViewController = vc;
+        keyWindow.rootViewController = nav;
     }
+}
+
++ (void)showSettingVcPage{
+      SettingViewController *settingVc = [[SettingViewController alloc] init];
+    if (curNavVC) {
+        curNavVC.viewControllers = @[settingVc];
+    }else{
+        VcashNavigationViewController* nav = [[VcashNavigationViewController alloc] initWithRootViewController:settingVc];
+        UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
+        keyWindow.rootViewController = nav;
+        curNavVC = nav;
+    }
+   
 }
 
 @end

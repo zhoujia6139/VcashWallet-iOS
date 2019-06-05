@@ -140,6 +140,19 @@
     return YES;
 }
 
+- (BOOL)deleteTxBySlateId:(NSString *)slate_id{
+    NSString *className = NSStringFromClass(VcashTxLog.class);
+    NSString *tableName = className;
+    BOOL ret = [self.database deleteObjectsFromTable:tableName where:VcashTxLog.tx_slate_id == slate_id];
+    if (!ret)
+    {
+        DDLogError(@"----------db error, deleteTx fail");
+        return NO;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTxLogDataChanged object:nil];
+    return YES;
+}
+
 -(VcashTxLog*)getTxBySlateId:(NSString*)slate_id{
     NSString *className = NSStringFromClass(VcashTxLog.class);
     NSString *tableName = className;

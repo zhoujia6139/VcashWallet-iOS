@@ -56,14 +56,14 @@
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VgT-wY-oBE">
-                    <rect key="frame" x="109.5" y="232" width="156" height="156"/>
+                    <rect key="frame" x="102.5" y="232" width="170" height="170"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="156" id="4Hl-Fd-Bak"/>
-                        <constraint firstAttribute="height" constant="156" id="rrZ-fy-eYu"/>
+                        <constraint firstAttribute="width" constant="170" id="4Hl-Fd-Bak"/>
+                        <constraint firstAttribute="height" constant="170" id="rrZ-fy-eYu"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or scan the QR code" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9a-BT-iif" customClass="VcashLabel">
-                    <rect key="frame" x="10" y="408" width="355" height="17"/>
+                    <rect key="frame" x="10" y="422" width="355" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="1" green="0.58431372550000005" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
