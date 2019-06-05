@@ -163,7 +163,6 @@ static VcashWallet* walletInstance = nil;
             output.lock_height = nodeOutput.block_height;
         }
         output.status = Unspent;
-        output.blinding = info.secretKey;
         
         return output;
     }

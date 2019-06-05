@@ -11,7 +11,7 @@
 #import "VcashSlate.h"
 #import "ServerTxPopView.h"
 
-#define TimerInterval 60
+#define TimerInterval 30
 
 @interface ServerTxManager()
 
@@ -109,6 +109,15 @@
                         }
                         
                         //if goes here item.status would be TxDefaultStatus or TxReceiverd
+                        
+                        //process special case here
+                        //if tx confirmed by net, finalize directly
+                        if (txLog.confirm_state == NetConfirmed){
+                            [[ServerApi shareInstance] filanizeTransaction:txLog.tx_slate_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
+                            }];
+                            continue;
+                        }
+                        
                         BOOL isRepeat = NO;
                         for (ServerTransaction* tx in self.txArr){
                             if ([tx.tx_id isEqualToString:item.tx_id]){

@@ -195,6 +195,11 @@
 
 +(void)finalizeTransaction:(ServerTransaction*)tx withComplete:(RequestCompleteBlock)block{
     VcashContext* context = [[VcashDataManager shareInstance] getContextBySlateId:tx.slateObj.uuid];
+    if (!context){
+        DDLogError(@"--------database record is broke, cannot finalize tx");
+        block?block(NO, @""):nil;
+        return;
+    }
     tx.slateObj.context = context;
     if (![[VcashWallet shareInstance] finalizeTransaction:tx.slateObj]){
         DDLogError(@"--------finalizeTransaction failed");
@@ -260,7 +265,9 @@
         [[VcashWallet shareInstance] syncOutputInfo];
         
         [[ServerApi shareInstance] cancelTransaction:txLog.tx_slate_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
-            
+            if (!yesOrNo){
+                DDLogError(@"cancel tx to Server failed");
+            }
         }];
         
         return YES;
@@ -320,6 +327,7 @@
                         if (tx){
                             tx.confirm_state = NetConfirmed;
                             tx.confirm_time = [[NSDate date] timeIntervalSince1970];
+                            tx.status = TxFinalized;
                         }
                         item.height = nodeOutput.height;
                         item.status = Unspent;
@@ -330,6 +338,7 @@
                 else{
                     if (item.status == Locked || item.status == Unspent){
                         item.status = Spent;
+                        hasChange = YES;
                     }
                 }
             }
