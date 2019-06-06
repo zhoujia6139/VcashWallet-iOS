@@ -208,6 +208,7 @@
         return;
     }
     
+    [tx.slateObj.tx sortTx];
     NSData* txPayload = [tx.slateObj.tx computePayloadForHash:NO];
     [[NodeApi shareInstance] postTx:BTCHexFromData(txPayload) WithComplete:^(BOOL yesOrNo, id _Nullable data) {
         if (yesOrNo){
