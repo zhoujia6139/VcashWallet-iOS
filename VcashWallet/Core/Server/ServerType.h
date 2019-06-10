@@ -37,6 +37,9 @@ typedef enum{
 
 @property(assign, nonatomic) BOOL isSend;
 
+
+
+
 -(id)initWithSlate:(VcashSlate*)slate;
 
 

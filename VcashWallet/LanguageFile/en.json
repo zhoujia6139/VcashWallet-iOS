@@ -113,5 +113,9 @@
     "passwordsNotmatch":"Passwords do not match",
     "recovering":"Recovering",
     "successfulRecovery":"Successful recovery",
-    "recoveryFailure":"Recovery failure"
+    "recoveryFailure":"Recovery failure",
+    "waitProcess":"waiting for processing",
+    "deleteTransaction":"delete transaction",
+    "openFailure":"Open failure",
+    "openAlbumInfo":"The album failed to open. The device does not support access to the album, please set it in Settings -> Privacy -> Photos",
 }

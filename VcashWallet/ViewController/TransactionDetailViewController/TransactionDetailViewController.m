@@ -8,7 +8,7 @@
 
 #import "TransactionDetailViewController.h"
 #import "ServerType.h"
-#import "ServerTransactionBlackManager.h"
+#import "ServerTransactionProcessManager.h"
 #import "ServerTxManager.h"
 
 @interface TransactionDetailViewController ()
@@ -58,7 +58,6 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[ServerTxManager shareInstance] hiddenMsgNotificationView];
     if (self.isFromSendTxVc) {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
@@ -79,6 +78,11 @@
     if (self.isFromSendTxVc) {
         self.navigationController.interactivePopGestureRecognizer.enabled = YES;
     }
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [[ServerTxManager shareInstance] clearDicTempRead];
 }
 
 //- (void)viewWillDisappear:(BOOL)animated{
@@ -357,6 +361,9 @@
 
 - (void)cancleTxWith:(VcashTxLog *)txlog{
     if ([WalletWrapper cancelTransaction:txlog]){
+        if (txlog.tx_slate_id) {
+            [[ServerTxManager shareInstance] removeServerTxByTx_id:txlog.tx_slate_id];
+        }
         [MBHudHelper showTextTips:@"Tx cancel suc" onView:nil withDuration:1];
         [self.navigationController popViewControllerAnimated:YES];
     }

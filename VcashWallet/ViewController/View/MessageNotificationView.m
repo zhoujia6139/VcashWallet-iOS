@@ -9,7 +9,8 @@
 #import "MessageNotificationView.h"
 #import "ServerType.h"
 #import "TransactionDetailViewController.h"
-#import "ServerTransactionBlackManager.h"
+#import "ServerTransactionProcessManager.h"
+#import "ServerTxManager.h"
 
 @interface MessageNotificationView ()
 
@@ -47,6 +48,7 @@
 }
 
 - (void)pushTransactionDetailVc{
+    [[ServerTxManager shareInstance] setObjectForTempReadWith:self.serverTx];
     TransactionDetailViewController *transactionDetailVc = [[TransactionDetailViewController alloc] init];
     transactionDetailVc.serverTx = self.serverTx;
     [[[[AppHelper shareInstance] visibleViewController] navigationController] pushViewController:transactionDetailVc animated:YES];
@@ -54,7 +56,7 @@
 
 - (IBAction)clickedBtnNoProcess:(id)sender {
     [self hiddenAnimation];
-    [[ServerTransactionBlackManager shareInstance] writeBlackServerTransaction:self.serverTx];
+    [[ServerTransactionProcessManager shareInstance] writeProcessServerTransaction:self.serverTx];
 }
 
 - (void)setMessage:(NSString *)message{

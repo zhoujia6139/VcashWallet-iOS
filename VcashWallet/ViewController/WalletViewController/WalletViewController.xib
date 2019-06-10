@@ -20,7 +20,6 @@
                 <outlet property="constraintNaviHeight" destination="cEW-PD-VBU" id="Zhf-Iq-TQP"/>
                 <outlet property="footView" destination="wgg-9J-bTQ" id="EPI-9q-yHC"/>
                 <outlet property="maskView" destination="fEM-9y-XJr" id="Fdb-Xg-T5D"/>
-                <outlet property="netName" destination="eKN-CY-rWQ" id="m1i-VO-7sR"/>
                 <outlet property="receiveVcashBtn" destination="9oW-aY-TEn" id="Apx-VE-Q67"/>
                 <outlet property="sendVcashBtn" destination="hh3-a0-fEH" id="ZiL-01-2lM"/>
                 <outlet property="tableViewContainer" destination="ggw-su-c8X" id="NOm-wl-gq1"/>
@@ -48,7 +47,7 @@
                                 <action selector="clickedOpenOrCloseLeftMenuView:" destination="-1" eventType="touchUpInside" id="MyW-6B-ze6"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VCash Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TPG-o4-spJ">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VCash Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TPG-o4-spJ" customClass="VcashLabel">
                             <rect key="frame" x="48" y="23" width="116.5" height="24"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -57,14 +56,14 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="localText" value="VcashWallet"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DAV-FD-2Vx">
-                            <rect key="frame" x="324" y="28" width="31" height="14.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DAV-FD-2Vx">
+                            <rect key="frame" x="343.5" y="28" width="11.5" height="14.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.png" translatesAutoresizingMaskIntoConstraints="NO" id="mXg-P8-Q5a">
-                            <rect key="frame" x="306" y="29.5" width="11" height="11"/>
+                            <rect key="frame" x="325.5" y="29.5" width="11" height="11"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="11" id="EzR-YN-tNk"/>
                                 <constraint firstAttribute="width" constant="11" id="oA5-2C-2BG"/>
@@ -228,13 +227,7 @@
                         <constraint firstItem="X8f-AK-3za" firstAttribute="centerY" secondItem="EXq-lG-u0E" secondAttribute="centerY" id="S33-W3-MY6"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKN-CY-rWQ">
-                    <rect key="frame" x="20" y="7" width="42" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.2345 BTC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAj-r0-mKB">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- V" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAj-r0-mKB">
                     <rect key="frame" x="10" y="80" width="355" height="39"/>
                     <fontDescription key="fontDescription" type="system" pointSize="32"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -289,7 +282,6 @@
             <color key="backgroundColor" red="0.69220367500000002" green="0.69083467860000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="eAj-r0-mKB" firstAttribute="leading" secondItem="K8U-Op-xPE" secondAttribute="leading" constant="10" id="1L3-iT-QKV"/>
-                <constraint firstItem="eKN-CY-rWQ" firstAttribute="top" secondItem="K8U-Op-xPE" secondAttribute="top" constant="7" id="21p-u2-JRb"/>
                 <constraint firstItem="Z47-DQ-wb5" firstAttribute="centerX" secondItem="K8U-Op-xPE" secondAttribute="centerX" id="2e3-iQ-vTT"/>
                 <constraint firstItem="fEM-9y-XJr" firstAttribute="leading" secondItem="K8U-Op-xPE" secondAttribute="leading" id="63m-gl-8sh"/>
                 <constraint firstAttribute="trailing" secondItem="fEM-9y-XJr" secondAttribute="trailing" id="A9A-4B-Ics"/>
@@ -299,7 +291,6 @@
                 <constraint firstItem="1Je-8t-8en" firstAttribute="leading" secondItem="K8U-Op-xPE" secondAttribute="leading" constant="27" id="SOH-8n-TWC"/>
                 <constraint firstAttribute="bottom" secondItem="fEM-9y-XJr" secondAttribute="bottom" id="Sav-nq-42e"/>
                 <constraint firstItem="0ad-b9-zPB" firstAttribute="top" secondItem="OaI-cV-RKV" secondAttribute="bottom" constant="8" id="VYy-1r-MSW"/>
-                <constraint firstItem="eKN-CY-rWQ" firstAttribute="leading" secondItem="K8U-Op-xPE" secondAttribute="leading" constant="20" id="a81-yT-jJ2"/>
                 <constraint firstItem="eAj-r0-mKB" firstAttribute="top" secondItem="K8U-Op-xPE" secondAttribute="top" constant="80" id="c3w-qt-k7y"/>
                 <constraint firstItem="1Je-8t-8en" firstAttribute="top" secondItem="jTf-aD-Lyc" secondAttribute="bottom" constant="8" id="cIc-Uk-ml0"/>
                 <constraint firstAttribute="bottom" secondItem="6kF-8D-3JP" secondAttribute="bottom" id="fZu-lc-5MG"/>
@@ -311,7 +302,7 @@
                 <constraint firstAttribute="top" secondItem="6kF-8D-3JP" secondAttribute="top" id="wzR-rS-Tql"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="466" y="-18"/>
+            <point key="canvasLocation" x="970" y="-149"/>
         </view>
         <view contentMode="scaleToFill" id="wgg-9J-bTQ">
             <rect key="frame" x="0.0" y="0.0" width="375" height="346"/>

@@ -9,9 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "ServerType.h"
 
+#define  kServerTxChange @"kServerTxChange"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ServerTxManager : NSObject
+
+@property (nonatomic, strong) NSMutableDictionary *dicTempRead;
 
 + (instancetype)shareInstance;
 
@@ -23,7 +26,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (ServerTransaction *)getServerTxByTx_id:(NSString *)tx_id;
 
+- (void)removeServerTxByTx_id:(NSString *)tx_id;
+
+- (NSArray *)allServerTransactions;
+
 - (void)hiddenMsgNotificationView;
+
+- (void)setObjectForTempReadWith:(ServerTransaction *)serverTx;
+
+- (void)clearDicTempRead;
 
 
 @end

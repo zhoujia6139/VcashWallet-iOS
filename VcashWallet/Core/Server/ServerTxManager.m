@@ -11,9 +11,9 @@
 #import "VcashSlate.h"
 #import "ServerTxPopView.h"
 #import "MessageNotificationView.h"
-#import "ServerTransactionBlackManager.h"
+#import "ServerTransactionProcessManager.h"
 
-#define TimerInterval 5
+#define TimerInterval 2
 
 @interface ServerTxManager()
 
@@ -59,8 +59,10 @@
     if (force || [[NSDate date] timeIntervalSince1970] - lastFetch  >= (TimerInterval-1)){
         [[ServerApi shareInstance] checkStatusForUser:[VcashWallet shareInstance].userId WithComplete:^(BOOL yesOrNo, NSArray<ServerTransaction*>* txs) {
             DDLogInfo(@"check status ret %@ tx ", @(txs.count));
-            if (yesOrNo){
+            if (txs.count == 0) {
                 [self.dicTx removeAllObjects];
+            }
+            if (yesOrNo){
                 lastFetch = [[NSDate date] timeIntervalSince1970];
                 for (ServerTransaction* item in txs){
                     item.slateObj = [VcashSlate modelWithJSON:item.slate];
@@ -69,6 +71,7 @@
                         
                         //check as receiver
                         if ([item.receiver_id isEqualToString:[VcashWallet shareInstance].userId]){
+                            item.isSend  = NO;
                             if (item.status == TxFinalized ||
                                 item.status == TxCanceled){
                                 if (txLog && txLog.confirm_state == DefaultState){
@@ -92,6 +95,7 @@
                         }
                         //check as sender
                         else if ([item.sender_id isEqualToString:[VcashWallet shareInstance].userId]){
+                            item.isSend  = YES;
                             //check is cancelled
                             if (txLog.status == TxCanceled){
                                 [[ServerApi shareInstance] cancelTransaction:txLog.tx_slate_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
@@ -131,6 +135,9 @@
                     }
                 }
                 [self handleServerTx];
+                if (force) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kServerTxChange object:nil];
+                }
             }
             else{
                 lastFetch = 0;
@@ -142,10 +149,12 @@
 -(void)handleServerTx{
     NSMutableArray *txArr = [NSMutableArray array];
     for (ServerTransaction *item in self.dicTx.allValues) {
-        BOOL isBlack =  [[ServerTransactionBlackManager shareInstance] isBlackWithServerTransaction:item];
-        if (!isBlack) {
-            [txArr addObject:item];
+        BOOL isProcess =  [[ServerTransactionProcessManager shareInstance] isProcessWithServerTransaction:item];
+        BOOL isTmpRead = [self.dicTempRead objectForKey:item.tx_id];
+        if (isProcess || isTmpRead) {
+            continue;
         }
+        [txArr addObject:item];
     }
     ServerTransaction* item = [txArr firstObject];
     if (item && !self.msgNotificationView.superview){
@@ -163,6 +172,22 @@
         self.msgNotificationView.serverTx = item;
         [self.msgNotificationView show];
     }
+}
+
+- (NSArray *)allServerTransactions{
+    return self.dicTx.allValues;
+}
+
+- (void)removeServerTxByTx_id:(NSString *)tx_id{
+    [self.dicTx removeObjectForKey:tx_id];
+}
+
+- (void)setObjectForTempReadWith:(ServerTransaction *)serverTx{
+    [self.dicTempRead setObject:serverTx forKey:serverTx.tx_id];
+}
+
+- (void)clearDicTempRead{
+    [self.dicTempRead removeAllObjects];
 }
 
 - (void)hiddenMsgNotificationView{
@@ -185,6 +210,13 @@
         _dicTx = [NSMutableDictionary dictionary];
     }
     return _dicTx;
+}
+
+- (NSMutableDictionary *)dicTempRead{
+    if (!_dicTempRead) {
+        _dicTempRead = [NSMutableDictionary dictionary];
+    }
+    return _dicTempRead;
 }
 
 - (MessageNotificationView *)msgNotificationView{

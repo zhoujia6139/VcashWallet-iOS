@@ -9,8 +9,11 @@
 #import "WalletCell.h"
 #import "VcashTxLog.h"
 #import "NSNumber+Utils.h"
+#import "ServerType.h"
 
 @interface WalletCell ()
+
+@property (nonatomic, strong) ServerTransaction *serverTx;
 
 @property (nonatomic, strong) VcashTxLog *txLog;
 
@@ -52,6 +55,18 @@
     // Configure the view for the selected state
 }
 
+- (void)setServerTransaction:(ServerTransaction *)serverTx{
+    _serverTx = serverTx;
+    self.labelTxId.text = serverTx.tx_id;
+    serverTx.isSend ? [self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"send.png"]] :[self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"receive.png"]];
+    int64_t amount = serverTx.slateObj.amount;
+    self.labelAmount.text = [NSString stringWithFormat:@"%@",@([WalletWrapper nanoToVcash:amount]).p09fString];
+    self.labelTime.text = [[NSDate date] stringWithFormat:@"yyyy-MM-dd"];
+    [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
+    self.stateLabel.textColor = [UIColor colorWithHexString:@"#FF3333"];
+    self.stateLabel.text = [LanguageService contentForKey:@"waitProcess"];
+}
+
 -(void)setTxLog:(VcashTxLog *)txLog{
     _txLog = txLog;
     switch (txLog.tx_type) {
@@ -75,8 +90,8 @@
     self.labelTxId.text = txId;
     int64_t amount = (int64_t)txLog.amount_credited - (int64_t)txLog.amount_debited;
     self.labelAmount.text = [NSString stringWithFormat:@"%@",@([WalletWrapper nanoToVcash:amount]).p09fString];
-    self.labelTime.text = [[NSDate dateWithTimeIntervalSince1970:txLog.create_time] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
+    self.labelTime.text = [[NSDate dateWithTimeIntervalSince1970:txLog.create_time] stringWithFormat:@"yyyy-MM-dd"];
+    self.stateLabel.textColor = [UIColor colorWithHexString:@"#CCCCCC"];
     switch (txLog.confirm_state){
         case DefaultState:
         case LoalConfirmed://waiting confirm

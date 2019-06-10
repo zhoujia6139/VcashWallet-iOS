@@ -37,14 +37,18 @@ static NSString * const identifier = @"LeftMenuCell";
 
 - (void)awakeFromNib{
     [super awakeFromNib];
-    NSArray *arrImageName = @[@"wallet.png",@"setting.png",@"adressbook.png"];
-    NSArray *arrHightImageName = @[@"wallet_hight.png",@"setting_hight.png",@"adressbook_hight.png"];
-    NSArray *arrTitle = @[[LanguageService contentForKey:@"VcashWallet"],[LanguageService contentForKey:@"setting"],[LanguageService contentForKey:@"addressBook"]];
+    NSArray *arrImageName = @[@"wallet.png",@"setting.png"];
+    NSArray *arrHightImageName = @[@"wallet_hight.png",@"setting_hight.png"];
+    NSArray *arrTitle = @[[LanguageService contentForKey:@"VcashWallet"],[LanguageService contentForKey:@"setting"]];
     _arrData = [NSMutableArray array];
-    for (NSInteger i = 0; i < 3; i++) {
+    for (NSInteger i = 0; i < arrTitle.count; i++) {
         LeftMenuModel *model = [LeftMenuModel new];
         model.imageName = arrImageName[i];
         model.imageHightName = arrHightImageName[i];
+        if (i == 0) {
+            model.selected = YES;
+            priMenuModel = model;
+        }
         model.title = arrTitle[i];
         [_arrData addObject:model];
     }
@@ -58,6 +62,12 @@ static NSString * const identifier = @"LeftMenuCell";
     _viewAlpha.hidden = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenAnimation)];
     [_viewAlpha addGestureRecognizer:tap];
+    
+    UIPanGestureRecognizer *panGestureViewAlpha = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
+    [_viewAlpha addGestureRecognizer:panGestureViewAlpha];
+    
+    UIPanGestureRecognizer *panGestureSelf = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
+    [self addGestureRecognizer:panGestureSelf];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -89,8 +99,6 @@ static NSString * const identifier = @"LeftMenuCell";
         return;
     }
     if ([model.title isEqualToString:[LanguageService contentForKey:@"setting"]]) {
-//        SettingViewController *setVc = [[SettingViewController alloc] init];
-//        [[[[AppHelper shareInstance] visibleViewController] navigationController] pushViewController:setVc animated:YES];
         [NavigationCenter showSettingVcPage];
         return;
     }
@@ -102,6 +110,9 @@ static NSString * const identifier = @"LeftMenuCell";
 }
 
 - (void)addInView{
+    if (self.superview) {
+        return;
+    }
     UIWindow *wd= [[[UIApplication sharedApplication] delegate] window];
     [wd addSubview:self.viewAlpha];
     self.viewAlpha.frame = CGRectMake(0, 0, wd.size.width, wd.size.height);
@@ -136,5 +147,38 @@ static NSString * const identifier = @"LeftMenuCell";
         }
     }];
 }
+
+- (void)panLeftMenu:(UIPanGestureRecognizer *)pan{
+    CGPoint offSet = [pan translationInView:pan.view];
+    CGPoint center = self.center;
+    if (self.origin.x >= 0 && offSet.x > 0) {
+        CGRect fra = self.frame;
+        fra.origin.x = 0;
+        self.frame = fra;
+    }else{
+        center.x = center.x + offSet.x;
+        self.center = center;
+    }
+    BOOL isLeft = NO;
+    CGPoint velocity = [pan velocityInView:pan.view];
+    if (velocity.x < 0) {
+        isLeft = YES;
+    }
+    
+    [pan setTranslation:CGPointZero inView:pan.view];
+    if (pan.state == UIGestureRecognizerStateEnded) {
+        if (!isLeft) {
+            if (self.frame.origin.x >= (- ScreenWidth * 3 /4.0 + 80)) {
+                [self showAnimation];
+            }else{
+                [self hiddenAnimation];
+            }
+        }else{
+            [self hiddenAnimation];
+        }
+        
+    }
+}
+
 
 @end

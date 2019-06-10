@@ -14,6 +14,7 @@
 
 #define kTxLogDataChanged @"kTxLogDataChanged"
 
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface VcashDataManager : NSObject

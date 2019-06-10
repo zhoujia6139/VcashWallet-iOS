@@ -10,13 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ServerTransactionBlackManager : NSObject
+@interface ServerTransactionProcessManager : NSObject
 
 + (id)shareInstance;
 
-- (BOOL)isBlackWithServerTransaction:(ServerTransaction *)serverTx;
+- (BOOL)isProcessWithServerTransaction:(ServerTransaction *)serverTx;
 
-- (void)writeBlackServerTransaction:(ServerTransaction *)serverTx;
+- (void)writeProcessServerTransaction:(ServerTransaction *)serverTx;
+
+- (NSDictionary *)readServerTransactions;
 
 
 @end

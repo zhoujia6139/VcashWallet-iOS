@@ -6,23 +6,23 @@
 //  Copyright © 2019 blockin. All rights reserved.
 //
 
-#import "ServerTransactionBlackManager.h"
+#import "ServerTransactionProcessManager.h"
 
 #define storagePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"serverTransactionBlack"]
 
-@interface ServerTransactionBlackManager ()
+@interface ServerTransactionProcessManager ()
 
 @property (nonatomic, strong) NSMutableDictionary *dicData;
 
 @end
 
-@implementation ServerTransactionBlackManager
+@implementation ServerTransactionProcessManager
 
 + (id)shareInstance{
-    static ServerTransactionBlackManager *manager = nil;
+    static ServerTransactionProcessManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        manager = [[ServerTransactionBlackManager alloc] init];
+        manager = [[ServerTransactionProcessManager alloc] init];
     });
     return manager;
 }
@@ -41,7 +41,7 @@
 }
 
 
-- (void)writeBlackServerTransaction:(ServerTransaction *)serverTx{
+- (void)writeProcessServerTransaction:(ServerTransaction *)serverTx{
     ServerTransaction *transaction = [self.dicData objectForKey:serverTx.tx_id];
     if (!transaction) {
        [self.dicData setObject:serverTx forKey:serverTx.tx_id];
@@ -59,12 +59,15 @@
     }
 }
 
-- (BOOL)isBlackWithServerTransaction:(ServerTransaction *)serverTx{
+- (BOOL)isProcessWithServerTransaction:(ServerTransaction *)serverTx{
     BOOL isBlack = [self.dicData objectForKey:serverTx.tx_id] ? YES : NO;
     return isBlack;
 }
 
 - (NSDictionary *)readServerTransactions{
+    if (self.dicData.allKeys.count > 0) {
+        return self.dicData;
+    }
     return [NSKeyedUnarchiver unarchiveObjectWithFile:storagePath];
 }
 
