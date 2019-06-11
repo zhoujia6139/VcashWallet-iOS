@@ -49,7 +49,7 @@ static UINavigationController* curNavVC;
     PinVerifyViewController* vc = [PinVerifyViewController new];
     if (curNavVC)
     {
-        [curNavVC pushViewController:vc animated:YES];
+        curNavVC.viewControllers = @[vc];
     }
     else
     {

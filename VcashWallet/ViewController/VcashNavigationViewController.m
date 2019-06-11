@@ -7,8 +7,9 @@
 //
 
 #import "VcashNavigationViewController.h"
+#import "LeftMenuManager.h"
 
-@interface VcashNavigationViewController ()<UIGestureRecognizerDelegate>
+@interface VcashNavigationViewController ()<UIGestureRecognizerDelegate,UINavigationControllerDelegate>
 
 @end
 
@@ -26,6 +27,8 @@
     // Do any additional setup after loading the view.
     self.interactivePopGestureRecognizer.enabled = YES;
     self.interactivePopGestureRecognizer.delegate = self;
+    self.delegate  = self;
+   
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
@@ -46,6 +49,13 @@
     return UIStatusBarStyleDefault;
 }
 
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
+    if (self.childViewControllers.count > 1) {
+        [[LeftMenuManager shareInstance] removeGestures];
+    }else{
+        [[LeftMenuManager shareInstance] addGestures];
+    }
+}
 /*
 #pragma mark - Navigation
 

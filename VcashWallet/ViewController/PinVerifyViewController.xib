@@ -97,10 +97,24 @@
                         <action selector="clickedEnterWallet:" destination="-1" eventType="touchUpInside" id="9X7-SV-2Za"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b0Y-Wg-Eu3" customClass="VcashButton">
+                    <rect key="frame" x="103.5" y="545" width="168" height="27"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="Restore from recovery phrase">
+                        <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localTitle" value="restoreWallet"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="clickedRestoreWallet:" destination="-1" eventType="touchUpInside" id="hZc-DH-LJN"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="FAZ-Rn-ChE" secondAttribute="trailing" id="2sm-SR-k6g"/>
+                <constraint firstItem="b0Y-Wg-Eu3" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4r0-Vv-T7y"/>
                 <constraint firstItem="PQh-5U-aDO" firstAttribute="centerX" secondItem="FAZ-Rn-ChE" secondAttribute="centerX" id="70C-6s-d7d"/>
                 <constraint firstItem="PQh-5U-aDO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="77" id="D2P-IG-6C1"/>
                 <constraint firstItem="8DH-ak-S48" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="33" id="DhP-Fe-Who"/>
@@ -112,6 +126,7 @@
                 <constraint firstAttribute="trailing" secondItem="1ha-oY-4um" secondAttribute="trailing" id="YAY-aH-myR"/>
                 <constraint firstItem="FAZ-Rn-ChE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Z0q-zk-PIC"/>
                 <constraint firstItem="8DH-ak-S48" firstAttribute="top" secondItem="1ha-oY-4um" secondAttribute="bottom" constant="33" id="gdh-Ta-rGj"/>
+                <constraint firstItem="b0Y-Wg-Eu3" firstAttribute="top" secondItem="8DH-ak-S48" secondAttribute="bottom" constant="40" id="mH0-u3-ofv"/>
             </constraints>
         </view>
     </objects>

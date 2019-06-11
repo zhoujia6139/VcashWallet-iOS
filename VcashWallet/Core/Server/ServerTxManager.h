@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "ServerType.h"
 
+#define  kServerTxChange @"kServerTxChange"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ServerTxManager : NSObject
+
 
 + (instancetype)shareInstance;
 
@@ -19,11 +21,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)stopWork;
 
--(void)fetchTxStatus:(BOOL)force;
+-(void)fetchTxStatus:(BOOL)force WithComplete:(RequestCompleteBlock)block;
 
 - (ServerTransaction *)getServerTxByTx_id:(NSString *)tx_id;
 
+- (void)removeServerTxByTx_id:(NSString *)tx_id;
+
+- (NSArray *)allServerTransactions;
+
 - (void)hiddenMsgNotificationView;
+
 
 
 @end

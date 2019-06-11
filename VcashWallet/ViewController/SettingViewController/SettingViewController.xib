@@ -119,36 +119,6 @@
                         <constraint firstItem="Ne4-HN-W4P" firstAttribute="centerY" secondItem="eTr-Rh-DAP" secondAttribute="centerY" id="wwW-Wc-Vt9"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dTv-f0-33Q">
-                    <rect key="frame" x="0.0" y="175" width="375" height="50"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o1l-tS-hjb">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
-                            <connections>
-                                <action selector="clickedBtnReport:" destination="-1" eventType="touchUpInside" id="IKv-C3-Vfa"/>
-                            </connections>
-                        </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Report a problem" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t9A-CD-HsN" customClass="VcashLabel">
-                            <rect key="frame" x="15" y="16" width="119" height="18"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localText" value="report"/>
-                            </userDefinedRuntimeAttributes>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstItem="t9A-CD-HsN" firstAttribute="centerY" secondItem="dTv-f0-33Q" secondAttribute="centerY" id="6C3-Fh-exL"/>
-                        <constraint firstItem="t9A-CD-HsN" firstAttribute="leading" secondItem="dTv-f0-33Q" secondAttribute="leading" constant="15" id="cvi-is-YUb"/>
-                        <constraint firstAttribute="trailing" secondItem="o1l-tS-hjb" secondAttribute="trailing" id="fli-A0-UIn"/>
-                        <constraint firstItem="o1l-tS-hjb" firstAttribute="leading" secondItem="dTv-f0-33Q" secondAttribute="leading" id="gZ2-cP-RNA"/>
-                        <constraint firstAttribute="height" constant="50" id="jIN-gn-1VW"/>
-                        <constraint firstAttribute="bottom" secondItem="o1l-tS-hjb" secondAttribute="bottom" id="k7m-cL-LGa"/>
-                        <constraint firstItem="o1l-tS-hjb" firstAttribute="top" secondItem="dTv-f0-33Q" secondAttribute="top" id="yv5-gi-5jp"/>
-                    </constraints>
-                </view>
             </subviews>
             <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -159,10 +129,7 @@
                 <constraint firstItem="jVo-wk-4Vh" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Kn9-0N-TI6"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="vL8-mY-7OQ" secondAttribute="trailing" id="PEf-o0-JxK"/>
                 <constraint firstAttribute="trailing" secondItem="eTr-Rh-DAP" secondAttribute="trailing" id="PYP-OB-0dg"/>
-                <constraint firstItem="dTv-f0-33Q" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="SlQ-Xs-DVi"/>
-                <constraint firstItem="dTv-f0-33Q" firstAttribute="top" secondItem="eTr-Rh-DAP" secondAttribute="bottom" constant="15" id="VvU-1B-7Xg"/>
                 <constraint firstItem="jVo-wk-4Vh" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="k2Y-5k-hcX"/>
-                <constraint firstAttribute="trailing" secondItem="dTv-f0-33Q" secondAttribute="trailing" id="md5-Sb-Vsz"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="jVo-wk-4Vh" secondAttribute="trailing" id="rqi-f4-h11"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>

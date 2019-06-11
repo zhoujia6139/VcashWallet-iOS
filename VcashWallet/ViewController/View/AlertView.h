@@ -14,6 +14,12 @@ typedef void(^DoneCallBack)(void);
 
 @interface AlertView : UIView
 
+@property (nonatomic, strong) NSString *title;
+
+@property (nonatomic, strong) NSString *msg;
+
+@property (nonatomic, strong) NSString *doneTitle;
+
 @property (nonatomic, copy) DoneCallBack doneCallBack;
 
 - (void)show;

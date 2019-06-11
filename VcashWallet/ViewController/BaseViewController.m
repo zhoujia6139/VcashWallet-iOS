@@ -7,7 +7,7 @@
 //
 
 #import "BaseViewController.h"
-#import "leftMenuView.h"
+#import "LeftMenuManager.h"
 
 @interface BaseViewController ()
 
@@ -37,14 +37,14 @@
 
 - (void)setIsShowLeftMeue:(BOOL)isShowLeftMeue{
     if (isShowLeftMeue) {
-        [self.leftMenuView addInView];
-        [self addNavigationItemWithImageNames:@[@"walletleftimage"] isLeft:YES target:self action:@selector(showLeftMenu:) tags:nil];
+        [[LeftMenuManager shareInstance] addInView];
+        [self addNavigationItemWithImageNames:@[@"leftmenu"] isLeft:YES target:self action:@selector(showLeftMenu:) tags:nil];
     }
 }
 
 - (void)showLeftMenu:(UIButton *)btn{
     btn.selected = !btn.selected;
-    btn.selected ? [self.leftMenuView showAnimation] : [self.leftMenuView hiddenAnimation];
+    btn.selected ? [[[LeftMenuManager shareInstance] leftMenuView] showAnimation] : [[[LeftMenuManager shareInstance] leftMenuView] hiddenAnimation];
 }
     
 
@@ -91,14 +91,7 @@
     return arrBtn;
 }
 
-#pragma mark - Lazy
-- (LeftMenuView *)leftMenuView{
-    if (!_leftMenuView) {
-        _leftMenuView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([LeftMenuView class]) owner:nil options:nil] firstObject];
-        _leftMenuView.delegate = self;
-    }
-    return _leftMenuView;
-}
+
 
 /*
 #pragma mark - Navigation

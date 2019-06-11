@@ -145,6 +145,7 @@
     [self.view addSubview:_line];
     
     UILabel * lable = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
+    lable.numberOfLines = 0;
     [lable setText:[LanguageService contentForKey:@"boxAutoIdentify"]];
     lable.textAlignment = NSTextAlignmentCenter;
     lable.textColor = [UIColor whiteColor];
@@ -187,7 +188,7 @@
     }
     else
     {
-        [self showAlertViewWithTitle:@"打开失败" withMessage:@"相册打开失败。设备不支持访问相册，请在设置->隐私->照片中进行设置！"];
+        [self showAlertViewWithTitle:[LanguageService contentForKey:@"openFailure"] withMessage:[LanguageService contentForKey:@"openAlbumInfo"]];
     }
     
 }
@@ -248,7 +249,7 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"tishi" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
         [self.session startRunning];
-        [_timer setFireDate:[NSDate distantPast]];
+        [self.timer setFireDate:[NSDate distantPast]];
     }]];
     [self presentViewController:alert animated:true completion:^{
         

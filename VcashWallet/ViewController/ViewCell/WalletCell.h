@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@class VcashTxLog;
+@class VcashTxLog,ServerTransaction;
 
 @interface WalletCell : UITableViewCell
 
 
+- (void)setServerTransaction:(ServerTransaction *)serverTx;
+
 - (void)setTxLog:(VcashTxLog *)txLog;
+
 
 @end

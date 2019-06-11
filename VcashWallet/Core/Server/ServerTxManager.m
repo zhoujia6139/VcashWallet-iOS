@@ -13,7 +13,7 @@
 #import "MessageNotificationView.h"
 #import "ServerTransactionBlackManager.h"
 
-#define TimerInterval 5
+#define TimerInterval 30
 
 @interface ServerTxManager()
 
@@ -42,7 +42,9 @@
         __weak typeof (self) weak_self = self;
         _timer = [NSTimer scheduledTimerWithTimeInterval:TimerInterval repeats:YES block:^(NSTimer * _Nonnull timer) {
             __strong typeof (weak_self) strong_self = weak_self;
-            [strong_self fetchTxStatus:NO];
+            [strong_self fetchTxStatus:NO WithComplete:^(BOOL yesOrNo, id _Nullable result) {
+                
+            }];
         }];
     }
     
@@ -54,7 +56,7 @@
     _timer = nil;
 }
 
--(void)fetchTxStatus:(BOOL)force{
+-(void)fetchTxStatus:(BOOL)force WithComplete:(RequestCompleteBlock)block{
     static NSTimeInterval lastFetch = 0;
     if (force || [[NSDate date] timeIntervalSince1970] - lastFetch  >= (TimerInterval-1)){
         [[ServerApi shareInstance] checkStatusForUser:[VcashWallet shareInstance].userId WithComplete:^(BOOL yesOrNo, NSArray<ServerTransaction*>* txs) {
@@ -69,6 +71,7 @@
                         
                         //check as receiver
                         if ([item.receiver_id isEqualToString:[VcashWallet shareInstance].userId]){
+                            item.isSend  = NO;
                             if (item.status == TxFinalized ||
                                 item.status == TxCanceled){
                                 if (txLog && txLog.confirm_state == DefaultState){
@@ -92,6 +95,7 @@
                         }
                         //check as sender
                         else if ([item.sender_id isEqualToString:[VcashWallet shareInstance].userId]){
+                            item.isSend  = YES;
                             //check is cancelled
                             if (txLog.status == TxCanceled){
                                 [[ServerApi shareInstance] cancelTransaction:txLog.tx_slate_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
@@ -127,7 +131,7 @@
                             continue;
                         }
                         
-
+                        
                         [self.dicTx setObject:item forKey:item.tx_id];
 
                     }
@@ -136,6 +140,12 @@
                     }
                 }
                 [self handleServerTx];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kServerTxChange object:nil];
+                if (force) {
+                    if (block) {
+                        block(yesOrNo,nil);
+                    }
+                }
             }
             else{
                 lastFetch = 0;
@@ -148,9 +158,10 @@
     NSMutableArray *txArr = [NSMutableArray array];
     for (ServerTransaction *item in self.dicTx.allValues) {
         BOOL isBlack =  [[ServerTransactionBlackManager shareInstance] isBlackWithServerTransaction:item];
-        if (!isBlack) {
-            [txArr addObject:item];
+        if (isBlack) {
+            continue;
         }
+        [txArr addObject:item];
     }
     ServerTransaction* item = [txArr firstObject];
     if (item && !self.msgNotificationView.superview){
@@ -158,6 +169,15 @@
         [self.msgNotificationView show];
     }
 }
+
+- (NSArray *)allServerTransactions{
+    return self.dicTx.allValues;
+}
+
+- (void)removeServerTxByTx_id:(NSString *)tx_id{
+    [self.dicTx removeObjectForKey:tx_id];
+}
+
 
 - (void)hiddenMsgNotificationView{
     if (!self.msgNotificationView.superview) {

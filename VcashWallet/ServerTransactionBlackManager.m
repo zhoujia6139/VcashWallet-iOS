@@ -65,6 +65,9 @@
 }
 
 - (NSDictionary *)readServerTransactions{
+    if (self.dicData.allKeys.count > 0) {
+        return self.dicData;
+    }
     return [NSKeyedUnarchiver unarchiveObjectWithFile:storagePath];
 }
 

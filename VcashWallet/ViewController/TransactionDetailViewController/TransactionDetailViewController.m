@@ -58,7 +58,6 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[ServerTxManager shareInstance] hiddenMsgNotificationView];
     if (self.isFromSendTxVc) {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
@@ -79,6 +78,10 @@
     if (self.isFromSendTxVc) {
         self.navigationController.interactivePopGestureRecognizer.enabled = YES;
     }
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
 }
 
 //- (void)viewWillDisappear:(BOOL)animated{
@@ -128,27 +131,12 @@
             self.btnSignature.hidden = NO;
         }
             break;
-        case TxFinalized:{
-            txStatus = [LanguageService contentForKey:@"waitingConfirming"];
-            self.btnSignature.hidden = YES;
-            self.btnCancelTx.hidden = YES;
-        }
-            break;
             
         case TxReceiverd:{
             //The recipient has already signed, waiting for the sender to broadcast
             txStatus = self.serverTx.isSend ? [LanguageService contentForKey:@"waitingSenderSign"] : [LanguageService contentForKey:@"waitingRecipientSign"];
         }
             break;
-            
-        case TxCanceled:{
-            imageTxStatus = [UIImage imageNamed:@"canceldetail.png"];
-            txStatus = [LanguageService contentForKey:@"transactionCanceled"];
-            self.btnSignature.hidden = YES;
-            [self.btnCancelTx setImage:[UIImage imageNamed:@"Delete the transaction"] forState:UIControlStateNormal];
-        }
-            break;
-            
             
         default:
             break;
@@ -175,9 +163,7 @@
                 if (self.txLog.status == TxDefaultStatus) {
                     self.btnSignature.hidden = YES;
                 }else if(self.txLog.status == TxReceiverd){
-                    if (!self.serverTx) {
-                        self.serverTx = [[ServerTxManager shareInstance] getServerTxByTx_id:self.txLog.tx_slate_id];
-                    }
+                    self.serverTx = [[ServerTxManager shareInstance] getServerTxByTx_id:self.txLog.tx_slate_id];
                     self.btnSignature.hidden = !self.serverTx;
                 }
             }else if (self.txLog.tx_type == TxReceived){
@@ -293,6 +279,7 @@
             NSString *tip = yesOrNo ? [LanguageService contentForKey:@"successfulBroadcast"] : [LanguageService contentForKey:@"broadcastFailure"];
             [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:tip];
             if (yesOrNo) {
+                [[ServerTxManager shareInstance] removeServerTxByTx_id:self.serverTx.tx_id];
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }];
@@ -302,6 +289,7 @@
             NSString *tip = yesOrNo ? [LanguageService contentForKey:@"successfulSignature"] : [LanguageService contentForKey:@"signatureFailed"];
             [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:tip];
             if (yesOrNo) {
+                [[ServerTxManager shareInstance] removeServerTxByTx_id:self.serverTx.tx_id];
                  [self.navigationController popViewControllerAnimated:YES];
             }
         }];
@@ -357,6 +345,9 @@
 
 - (void)cancleTxWith:(VcashTxLog *)txlog{
     if ([WalletWrapper cancelTransaction:txlog]){
+        if (txlog.tx_slate_id) {
+            [[ServerTxManager shareInstance] removeServerTxByTx_id:txlog.tx_slate_id];
+        }
         [MBHudHelper showTextTips:@"Tx cancel suc" onView:nil withDuration:1];
         [self.navigationController popViewControllerAnimated:YES];
     }
