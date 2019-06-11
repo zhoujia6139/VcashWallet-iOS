@@ -11,9 +11,9 @@
 #import "VcashSlate.h"
 #import "ServerTxPopView.h"
 #import "MessageNotificationView.h"
-#import "ServerTransactionProcessManager.h"
+#import "ServerTransactionBlackManager.h"
 
-#define TimerInterval 2
+#define TimerInterval 30
 
 @interface ServerTxManager()
 
@@ -42,7 +42,9 @@
         __weak typeof (self) weak_self = self;
         _timer = [NSTimer scheduledTimerWithTimeInterval:TimerInterval repeats:YES block:^(NSTimer * _Nonnull timer) {
             __strong typeof (weak_self) strong_self = weak_self;
-            [strong_self fetchTxStatus:NO];
+            [strong_self fetchTxStatus:NO WithComplete:^(BOOL yesOrNo, id _Nullable result) {
+                
+            }];
         }];
     }
     
@@ -54,15 +56,13 @@
     _timer = nil;
 }
 
--(void)fetchTxStatus:(BOOL)force{
+-(void)fetchTxStatus:(BOOL)force WithComplete:(RequestCompleteBlock)block{
     static NSTimeInterval lastFetch = 0;
     if (force || [[NSDate date] timeIntervalSince1970] - lastFetch  >= (TimerInterval-1)){
         [[ServerApi shareInstance] checkStatusForUser:[VcashWallet shareInstance].userId WithComplete:^(BOOL yesOrNo, NSArray<ServerTransaction*>* txs) {
             DDLogInfo(@"check status ret %@ tx ", @(txs.count));
-            if (txs.count == 0) {
-                [self.dicTx removeAllObjects];
-            }
             if (yesOrNo){
+                [self.dicTx removeAllObjects];
                 lastFetch = [[NSDate date] timeIntervalSince1970];
                 for (ServerTransaction* item in txs){
                     item.slateObj = [VcashSlate modelWithJSON:item.slate];
@@ -126,7 +126,7 @@
                             continue;
                         }
                         
-
+                        
                         [self.dicTx setObject:item forKey:item.tx_id];
 
                     }
@@ -135,8 +135,11 @@
                     }
                 }
                 [self handleServerTx];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kServerTxChange object:nil];
                 if (force) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kServerTxChange object:nil];
+                    if (block) {
+                        block(yesOrNo,nil);
+                    }
                 }
             }
             else{
@@ -149,9 +152,8 @@
 -(void)handleServerTx{
     NSMutableArray *txArr = [NSMutableArray array];
     for (ServerTransaction *item in self.dicTx.allValues) {
-        BOOL isProcess =  [[ServerTransactionProcessManager shareInstance] isProcessWithServerTransaction:item];
-        BOOL isTmpRead = [self.dicTempRead objectForKey:item.tx_id];
-        if (isProcess || isTmpRead) {
+        BOOL isBlack =  [[ServerTransactionBlackManager shareInstance] isBlackWithServerTransaction:item];
+        if (isBlack) {
             continue;
         }
         [txArr addObject:item];
@@ -182,13 +184,6 @@
     [self.dicTx removeObjectForKey:tx_id];
 }
 
-- (void)setObjectForTempReadWith:(ServerTransaction *)serverTx{
-    [self.dicTempRead setObject:serverTx forKey:serverTx.tx_id];
-}
-
-- (void)clearDicTempRead{
-    [self.dicTempRead removeAllObjects];
-}
 
 - (void)hiddenMsgNotificationView{
     if (!self.msgNotificationView.superview) {
@@ -210,13 +205,6 @@
         _dicTx = [NSMutableDictionary dictionary];
     }
     return _dicTx;
-}
-
-- (NSMutableDictionary *)dicTempRead{
-    if (!_dicTempRead) {
-        _dicTempRead = [NSMutableDictionary dictionary];
-    }
-    return _dicTempRead;
 }
 
 - (MessageNotificationView *)msgNotificationView{

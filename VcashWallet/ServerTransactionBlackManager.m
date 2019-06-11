@@ -6,23 +6,23 @@
 //  Copyright © 2019 blockin. All rights reserved.
 //
 
-#import "ServerTransactionProcessManager.h"
+#import "ServerTransactionBlackManager.h"
 
 #define storagePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"serverTransactionBlack"]
 
-@interface ServerTransactionProcessManager ()
+@interface ServerTransactionBlackManager ()
 
 @property (nonatomic, strong) NSMutableDictionary *dicData;
 
 @end
 
-@implementation ServerTransactionProcessManager
+@implementation ServerTransactionBlackManager
 
 + (id)shareInstance{
-    static ServerTransactionProcessManager *manager = nil;
+    static ServerTransactionBlackManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        manager = [[ServerTransactionProcessManager alloc] init];
+        manager = [[ServerTransactionBlackManager alloc] init];
     });
     return manager;
 }
@@ -41,7 +41,7 @@
 }
 
 
-- (void)writeProcessServerTransaction:(ServerTransaction *)serverTx{
+- (void)writeBlackServerTransaction:(ServerTransaction *)serverTx{
     ServerTransaction *transaction = [self.dicData objectForKey:serverTx.tx_id];
     if (!transaction) {
        [self.dicData setObject:serverTx forKey:serverTx.tx_id];
@@ -59,7 +59,7 @@
     }
 }
 
-- (BOOL)isProcessWithServerTransaction:(ServerTransaction *)serverTx{
+- (BOOL)isBlackWithServerTransaction:(ServerTransaction *)serverTx{
     BOOL isBlack = [self.dicData objectForKey:serverTx.tx_id] ? YES : NO;
     return isBlack;
 }

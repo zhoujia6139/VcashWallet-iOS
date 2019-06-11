@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ServerTxManager : NSObject
 
-@property (nonatomic, strong) NSMutableDictionary *dicTempRead;
 
 + (instancetype)shareInstance;
 
@@ -22,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)stopWork;
 
--(void)fetchTxStatus:(BOOL)force;
+-(void)fetchTxStatus:(BOOL)force WithComplete:(RequestCompleteBlock)block;
 
 - (ServerTransaction *)getServerTxByTx_id:(NSString *)tx_id;
 
@@ -32,9 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)hiddenMsgNotificationView;
 
-- (void)setObjectForTempReadWith:(ServerTransaction *)serverTx;
-
-- (void)clearDicTempRead;
 
 
 @end

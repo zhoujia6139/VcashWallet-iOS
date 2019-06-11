@@ -8,6 +8,7 @@
 
 #import "PinPasswordSetViewController.h"
 #import "PinPasswordInputView.h"
+#import "AlertView.h"
 
 #define CGrayColor [UIColor colorWithHexString:@"#EEEEEE"]
 #define COrangeColor  [UIColor colorWithHexString:@"#FF9502"]
@@ -62,11 +63,49 @@
     [self.confirmPasTextField addTarget:self action:@selector(fillConfirmPassword:) forControlEvents:UIControlEventEditingChanged];
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    if (!self.isRecover) {
+        NSMutableArray *vcs = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+        NSInteger count = vcs.count;
+        for (NSInteger i = count - 1; i >= 0; i--) {
+            UIViewController *vc = vcs[i];
+            if ([vc isKindOfClass:NSClassFromString(@"ConfirmSeedphraseViewController")]) {
+                [vcs removeObject:vc];
+                break;
+            }
+        }
+        self.navigationController.viewControllers = vcs;
+    }
+}
+
+-(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self.passwordTextField becomeFirstResponder];
-//    [self.pasView openKeyboard];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+}
+
+- (void)backBtnClicked{
+    if (!self.isRecover) {
+        [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+        AlertView *alertView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([AlertView class]) owner:nil options:nil] firstObject];
+        alertView.title = [LanguageService contentForKey:@"returnTitle"];
+        alertView.msg = [LanguageService contentForKey:@"retunrnMsg"];
+        alertView.doneTitle = [LanguageService contentForKey:@"doneTitle"];
+        __weak typeof(self) weakSelf = self;
+        alertView.doneCallBack = ^{
+            __weak typeof(weakSelf) strongSelf = weakSelf;
+            [strongSelf.navigationController popViewControllerAnimated:YES];
+        };
+        [alertView show];
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - UITextFieldDelegate
@@ -128,6 +167,7 @@
         NSString* wordStr = [self.mnemonicWordsArr componentsJoinedByString:@" "];
         [[UserCenter sharedInstance] storeMnemonicWords:wordStr withKey:password];
         if (self.isRecover) {
+            [WalletWrapper clearWallet];
             [MBHudHelper startWorkProcessWithTextTips:[LanguageService contentForKey:@"recovering"]];
             [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
                 NSString* tips = yesOrNo?[LanguageService contentForKey:@"successfulRecovery"]:[LanguageService contentForKey:@"recoveryFailure"];

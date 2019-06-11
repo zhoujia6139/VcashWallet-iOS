@@ -9,7 +9,7 @@
 #import "ChangePasswordViewController.h"
 #import "PinPasswordSetViewController.h"
 
-@interface ChangePasswordViewController ()
+@interface ChangePasswordViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet VcashButton *btnNext;
 
@@ -32,7 +32,14 @@
     self.btnNext.userInteractionEnabled = NO;
     [self.btnNext setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
     [self.btnNext setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
+    self.textFieldPassword.delegate = self;
     [self.textFieldPassword addTarget:self action:@selector(enterCurrentPassword:) forControlEvents:UIControlEventEditingChanged];
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    self.viewLine.backgroundColor = COrangeColor;
+    return YES;
 }
 
 - (void)enterCurrentPassword:(UITextField *)textField{

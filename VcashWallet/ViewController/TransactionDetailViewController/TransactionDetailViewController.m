@@ -8,7 +8,7 @@
 
 #import "TransactionDetailViewController.h"
 #import "ServerType.h"
-#import "ServerTransactionProcessManager.h"
+#import "ServerTransactionBlackManager.h"
 #import "ServerTxManager.h"
 
 @interface TransactionDetailViewController ()
@@ -82,7 +82,6 @@
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    [[ServerTxManager shareInstance] clearDicTempRead];
 }
 
 //- (void)viewWillDisappear:(BOOL)animated{
@@ -132,27 +131,12 @@
             self.btnSignature.hidden = NO;
         }
             break;
-        case TxFinalized:{
-            txStatus = [LanguageService contentForKey:@"waitingConfirming"];
-            self.btnSignature.hidden = YES;
-            self.btnCancelTx.hidden = YES;
-        }
-            break;
             
         case TxReceiverd:{
             //The recipient has already signed, waiting for the sender to broadcast
             txStatus = self.serverTx.isSend ? [LanguageService contentForKey:@"waitingSenderSign"] : [LanguageService contentForKey:@"waitingRecipientSign"];
         }
             break;
-            
-        case TxCanceled:{
-            imageTxStatus = [UIImage imageNamed:@"canceldetail.png"];
-            txStatus = [LanguageService contentForKey:@"transactionCanceled"];
-            self.btnSignature.hidden = YES;
-            [self.btnCancelTx setImage:[UIImage imageNamed:@"Delete the transaction"] forState:UIControlStateNormal];
-        }
-            break;
-            
             
         default:
             break;
@@ -179,9 +163,7 @@
                 if (self.txLog.status == TxDefaultStatus) {
                     self.btnSignature.hidden = YES;
                 }else if(self.txLog.status == TxReceiverd){
-                    if (!self.serverTx) {
-                        self.serverTx = [[ServerTxManager shareInstance] getServerTxByTx_id:self.txLog.tx_slate_id];
-                    }
+                    self.serverTx = [[ServerTxManager shareInstance] getServerTxByTx_id:self.txLog.tx_slate_id];
                     self.btnSignature.hidden = !self.serverTx;
                 }
             }else if (self.txLog.tx_type == TxReceived){
@@ -297,6 +279,7 @@
             NSString *tip = yesOrNo ? [LanguageService contentForKey:@"successfulBroadcast"] : [LanguageService contentForKey:@"broadcastFailure"];
             [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:tip];
             if (yesOrNo) {
+                [[ServerTxManager shareInstance] removeServerTxByTx_id:self.serverTx.tx_id];
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }];
@@ -306,6 +289,7 @@
             NSString *tip = yesOrNo ? [LanguageService contentForKey:@"successfulSignature"] : [LanguageService contentForKey:@"signatureFailed"];
             [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:tip];
             if (yesOrNo) {
+                [[ServerTxManager shareInstance] removeServerTxByTx_id:self.serverTx.tx_id];
                  [self.navigationController popViewControllerAnimated:YES];
             }
         }];

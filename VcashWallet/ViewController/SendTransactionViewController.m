@@ -98,8 +98,16 @@
 
 - (IBAction)clickSend:(id)sender {
     NSString* strAmount = self.amountField.text;
+    if (![self isNumber:strAmount]) {
+        [self.view makeToast:[LanguageService contentForKey:@"enterDigit"]];
+        return;
+    }
     NSNumber* numberAmount = [NSNumber numberWithString:strAmount];
     double amount = [numberAmount doubleValue];
+    if (amount < 0.01) {
+        [self.view makeToast:[LanguageService contentForKey:@"amountLimit"]];
+        return;
+    }
     if (self.targetAddressField.text && amount > 0)
     {
         [WalletWrapper createSendTransaction:self.targetAddressField.text amount:[WalletWrapper vcashToNano:amount] fee:0 withComplete:^(BOOL yesOrNo, id retData) {
@@ -115,6 +123,25 @@
 
     }
 }
+
+
+- (BOOL)isNumber:(NSString *)strValue
+{
+    if (strValue == nil || [strValue length] <= 0)
+    {
+        return NO;
+    }
+    
+    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789."] invertedSet];
+    NSString *filtered = [[strValue componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    
+    if (![strValue isEqualToString:filtered])
+    {
+        return NO;
+    }
+    return YES;
+}
+
 
 - (void)sendTransactionWithUseId:(NSString *)useId slate:(VcashSlate *)slate{
     [WalletWrapper sendTransaction:slate forUser:useId withComplete:^(BOOL yesOrNo, id _Nullable data) {

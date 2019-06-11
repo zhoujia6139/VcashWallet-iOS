@@ -12,7 +12,6 @@
 #import "VcashTxLog.h"
 #import "VcashContext.h"
 
-#define kTxLogDataChanged @"kTxLogDataChanged"
 
 
 NS_ASSUME_NONNULL_BEGIN

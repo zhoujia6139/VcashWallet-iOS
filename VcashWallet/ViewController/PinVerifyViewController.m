@@ -35,16 +35,6 @@
     [self.btnOpenWallet setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
     ViewRadius(self.btnOpenWallet, 4.0);
     self.textFieldPassword.delegate  = self;
-    UIButton* btn = [[UIButton alloc] init];
-    [btn setTitle:[LanguageService contentForKey:@"restoreWallet"] forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(resetWallet) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
-    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(28);
-        make.right.equalTo(self.view).offset(-28);
-        make.bottom.equalTo(self.view).offset(-50);
-    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -105,9 +95,7 @@
     }
 }
 
--(void)resetWallet
-{
-    [WalletWrapper clearWallet];
+- (IBAction)clickedRestoreWallet:(id)sender {
     [NavigationCenter showWelcomePage];
 }
 

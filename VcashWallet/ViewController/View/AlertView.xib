@@ -112,6 +112,7 @@
             </constraints>
             <connections>
                 <outlet property="alphaView" destination="xfi-Fk-b1r" id="kKL-B0-gAP"/>
+                <outlet property="btnDone" destination="H8D-mM-AIX" id="3L8-as-UM6"/>
                 <outlet property="contentView" destination="9oY-Qo-V5S" id="ob5-pF-V7u"/>
                 <outlet property="msgLabel" destination="GIm-F6-7jd" id="FuB-Ey-sFx"/>
                 <outlet property="titleLabel" destination="5Yi-m0-LUK" id="OWg-G6-o6O"/>

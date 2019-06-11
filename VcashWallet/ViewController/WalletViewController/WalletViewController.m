@@ -18,7 +18,7 @@
 #import "ServerTxManager.h"
 #import "LeftMenuView.h"
 #import "RefreshStateHeader.h"
-#import "ServerTransactionProcessManager.h"
+#import "ServerTransactionBlackManager.h"
 #import "LeftMenuManager.h"
 
 static NSString *const identifier = @"WalletCell";
@@ -77,7 +77,6 @@ static NSString *const identifier = @"WalletCell";
         [self.tableViewContainer.mj_header beginRefreshing];
     }
 //    [[[LeftMenuManager shareInstance] panGesture] requireGestureRecognizerToFail:self.tableViewContainer.panGestureRecognizer];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kTxLogDataChanged object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kWalletChainHeightChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kServerTxChange object:nil];
 }
@@ -85,11 +84,14 @@ static NSString *const identifier = @"WalletCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
+        [self.tableViewContainer.mj_header endRefreshing];
+        [self refreshMainView];
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self refreshWalletStatus];
     [[ServerTxManager shareInstance] startWork];
 }
 
@@ -161,11 +163,12 @@ static NSString *const identifier = @"WalletCell";
 }
 
 -(void)refreshWalletStatus{
-    [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
-        [self.tableViewContainer.mj_header endRefreshing];
-        [self refreshMainView];
+    [[ServerTxManager shareInstance] fetchTxStatus:YES WithComplete:^(BOOL yesOrNo, id _Nullable result) {
+        [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
+            [self.tableViewContainer.mj_header endRefreshing];
+            [self refreshMainView];
+        }];
     }];
-    [[ServerTxManager shareInstance] fetchTxStatus:YES];
 }
 
 -(void)refreshMainView{
@@ -181,6 +184,7 @@ static NSString *const identifier = @"WalletCell";
     self.balanceUnconfirmed.text = [NSString stringWithFormat:@"%@",unconfirm];
     
     self.chainHeight.text = [NSString stringWithFormat:@"Height:%@", @([WalletWrapper getCurChainHeight])];
+    
     
     NSArray *arrTransaction = [WalletWrapper getTransationArr];
     if (arrTransaction) {
@@ -267,6 +271,8 @@ static NSString *const identifier = @"WalletCell";
             BOOL result = [WalletWrapper deleteTxByTxid:serverTx.tx_id];
             if (!result) {
                 DDLogError(@"delete canceled transaction failed");
+            }else{
+                [self refreshMainView];
             }
             return;
         }
@@ -274,6 +280,8 @@ static NSString *const identifier = @"WalletCell";
         BOOL result = [WalletWrapper deleteTxByTxid:model.tx_slate_id];
         if (!result) {
             DDLogError(@"delete canceled transaction failed");
+        }else{
+            [self refreshMainView];
         }
     }];
     return @[deleteRowAction];
@@ -302,7 +310,7 @@ static NSString *const identifier = @"WalletCell";
 
 - (void)pushTransactionDetailVcWithTxLog:(VcashTxLog *)txLog serverTx:(ServerTransaction *)serverTx{
     if (serverTx) {
-        [[ServerTxManager shareInstance] setObjectForTempReadWith:serverTx];
+        [[ServerTransactionBlackManager shareInstance] writeBlackServerTransaction:serverTx];
     }
     TransactionDetailViewController* transcationDetailVc = [TransactionDetailViewController new];
     transcationDetailVc.serverTx = serverTx;

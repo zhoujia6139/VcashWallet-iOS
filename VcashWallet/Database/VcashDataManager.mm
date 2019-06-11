@@ -119,7 +119,6 @@
         DDLogError(@"----------db error, saveTxData fail");
         return NO;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:kTxLogDataChanged object:nil];
     return YES;
 }
 
@@ -136,7 +135,7 @@
         DDLogError(@"----------db error, saveAppendTx fail");
         return NO;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:kTxLogDataChanged object:nil];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kTxLogDataChanged object:nil];
     return YES;
 }
 
@@ -149,7 +148,6 @@
         DDLogError(@"----------db error, deleteTx fail");
         return NO;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:kTxLogDataChanged object:nil];
     return YES;
 }
 

@@ -19,6 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet VcashLabel *msgLabel;
 
+@property (weak, nonatomic) IBOutlet VcashButton *btnDone;
 
 @end
 
@@ -38,6 +39,19 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(remove)];
     [self.alphaView addGestureRecognizer:tap];
+}
+
+
+- (void)setTitle:(NSString *)title{
+    self.titleLabel.text = title;
+}
+
+- (void)setMsg:(NSString *)msg{
+    self.msgLabel.text = msg;
+}
+
+- (void)setDoneTitle:(NSString *)doneTitle{
+    [self.btnDone setTitle:doneTitle forState:UIControlStateNormal];
 }
 
 

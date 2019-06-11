@@ -72,10 +72,6 @@
 }
 
 
-- (IBAction)clickedBtnReport:(id)sender {
-    
-}
-
 /*
 #pragma mark - Navigation
 
