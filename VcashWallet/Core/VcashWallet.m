@@ -50,10 +50,15 @@ static VcashWallet* walletInstance = nil;
 
 -(NSString*)userId{
     if (!_userId){
-        VcashSecretKey* key = [self.mKeyChain deriveKey:0 andKeypath:[[VcashKeychainPath alloc] initWithDepth:4 d0:0 d1:0 d2:0 d3:0]];
-        _userId = BTCHexFromData([key.data subdataWithRange:NSMakeRange(0, 10)]);
+        BTCKey* key = [self.mKeyChain deriveBTCKeyWithKeypath:[[VcashKeychainPath alloc] initWithDepth:4 d0:0 d1:0 d2:0 d3:0]];
+        _userId = BTCHexFromData(key.publicKey);
     }
     return _userId;
+}
+
+-(NSData*)getSignerKey{
+    BTCKey* key = [self.mKeyChain deriveBTCKeyWithKeypath:[[VcashKeychainPath alloc] initWithDepth:4 d0:0 d1:0 d2:0 d3:0]];
+    return key.privateKey;
 }
 
 -(void)setChainOutputs:(NSArray*)arr{

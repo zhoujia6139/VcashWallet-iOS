@@ -11,6 +11,7 @@
 #include "secp256k1_aggsig.h"
 #import "CoreBitcoin.h"
 #import "VcashSecretKey.h"
+#include "blake2.h"
 
 #define MAX_PROOF_SIZE 5134
 
@@ -305,6 +306,47 @@
         return nil;
     }
                                
+}
+
+-(NSData*)ecdsaSign:(NSData*)msgdata seckey:(NSData*)seckey{
+    secp256k1_ecdsa_signature sig;
+    uint8_t hash[32];
+    if( blake2b( hash, msgdata.bytes, nil, 32, msgdata.length, 0 ) < 0){
+        return nil;
+    }
+    int ret = secp256k1_ecdsa_sign(_context,
+                                   &sig,
+                                   hash,
+                                   seckey.bytes,
+                                   NULL,
+                                   NULL);
+    if (ret == 1){
+        return [self signatureToCompactData:[NSData dataWithBytes:sig.data length:64]];
+    }
+    
+    return nil;
+}
+
+-(Boolean)ecdsaVerify:(NSData*)msgdata sigData:(NSData*)sigData pubkey:(NSData*)pubkeyData{
+    uint8_t hash[32];
+    if( blake2b( hash, msgdata.bytes, nil, 32, msgdata.length, 0 ) < 0){
+        return NO;
+    }
+    NSData* signature = [self compactDataToSignature:sigData];
+    secp256k1_pubkey pubkey;
+    int ret = secp256k1_ec_pubkey_parse(_context,
+                              &pubkey,
+                              pubkeyData.bytes,
+                              pubkeyData.length);
+    if (ret == 1){
+        ret = secp256k1_ecdsa_verify(_context,
+                                     signature.bytes,
+                                     hash,
+                                     &pubkey);
+        return (ret == 1);
+    }
+
+    return NO;
 }
 
 #pragma proof

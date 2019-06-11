@@ -32,12 +32,22 @@ typedef enum{
 
 @property(assign, nonatomic) ServerTxStatus status;
 
+@property(strong, nonatomic) NSString* msg_sig;
+
+@property(strong, nonatomic) NSString* tx_sig;
+
 //unselialised
 @property(strong, nonatomic) VcashSlate* slateObj;
 
 @property(assign, nonatomic) BOOL isSend;
 
 -(id)initWithSlate:(VcashSlate*)slate;
+
+-(Boolean)isValidTxSignature;
+
+-(NSData*)msgToSign;
+
+-(NSData*)txDataToSign;
 
 
 @end
@@ -47,6 +57,10 @@ typedef enum{
 @property(strong, nonatomic) NSString* tx_id;
 
 @property(assign, nonatomic) ServerTxStatus code;
+
+@property(strong, nonatomic) NSString* msg_sig;
+
+-(NSData*)msgToSign;
 
 @end
 

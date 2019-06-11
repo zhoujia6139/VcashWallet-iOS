@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id) initWithMnemonic:(BTCMnemonic*)mnemonic;
 
+-(BTCKey*)deriveBTCKeyWithKeypath:(VcashKeychainPath*)keypath;
+
 -(VcashSecretKey*)deriveKey:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath;
 
 -(NSData*)createCommitment:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath;

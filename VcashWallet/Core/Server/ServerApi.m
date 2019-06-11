@@ -46,6 +46,8 @@
 
 -(void)sendTransaction:(ServerTransaction*)tx WithComplete:(RequestCompleteBlock)block{
     NSString* url = [NSString stringWithFormat:@"%@/sendvcash", SERVER_URL];
+    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+    NSData* signature = [secp ecdsaSign:[tx msgToSign] seckey:[[VcashWallet shareInstance] getSignerKey]];
     [[self sessionManager] POST:url parameters:[tx modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -59,6 +61,11 @@
 
 -(void)receiveTransaction:(ServerTransaction*)tx WithComplete:(RequestCompleteBlock)block{
     NSString* url = [NSString stringWithFormat:@"%@/receivevcash", SERVER_URL];
+    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+    NSData* msgsignature = [secp ecdsaSign:[tx msgToSign] seckey:[[VcashWallet shareInstance] getSignerKey]];
+    tx.msg_sig = BTCHexFromData(msgsignature);
+    NSData* txsignature = [secp ecdsaSign:[tx txDataToSign] seckey:[[VcashWallet shareInstance] getSignerKey]];
+    tx.tx_sig = BTCHexFromData(txsignature);
     [[self sessionManager] POST:url parameters:[tx modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -75,6 +82,9 @@
     FinalizeTxInfo* info = [FinalizeTxInfo new];
     info.tx_id = tx_id;
     info.code = TxFinalized;
+    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+    NSData* signature = [secp ecdsaSign:[info msgToSign] seckey:[[VcashWallet shareInstance] getSignerKey]];
+    info.msg_sig = BTCHexFromData(signature);
     [[self sessionManager] POST:url parameters:[info modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -91,6 +101,9 @@
     FinalizeTxInfo* info = [FinalizeTxInfo new];
     info.tx_id = tx_id;
     info.code = TxCanceled;
+    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+    NSData* signature = [secp ecdsaSign:[info msgToSign] seckey:[[VcashWallet shareInstance] getSignerKey]];
+    info.msg_sig = BTCHexFromData(signature);
     [[self sessionManager] POST:url parameters:[info modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -107,6 +120,9 @@
     FinalizeTxInfo* info = [FinalizeTxInfo new];
     info.tx_id = tx_id;
     info.code = TxClosed;
+    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+    NSData* signature = [secp ecdsaSign:[info msgToSign] seckey:[[VcashWallet shareInstance] getSignerKey]];
+    info.msg_sig = BTCHexFromData(signature);
     [[self sessionManager] POST:url parameters:[info modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

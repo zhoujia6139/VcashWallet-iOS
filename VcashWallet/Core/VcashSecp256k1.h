@@ -53,6 +53,11 @@ enum ContextFlag {
 
 -(NSData*)compactDataToSignature:(NSData*)compactData;
 
+//escda sig
+-(NSData*)ecdsaSign:(NSData*)msgdata seckey:(NSData*)seckey;
+
+-(Boolean)ecdsaVerify:(NSData*)msgdata sigData:(NSData*)sigData pubkey:(NSData*)pubkey;
+
 //secret nonce
 -(VcashSecretKey*)exportSecnonceSingle;
 

@@ -25,9 +25,14 @@
     return self;
 }
 
--(VcashSecretKey*)deriveKey:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath{
+-(BTCKey*)deriveBTCKeyWithKeypath:(VcashKeychainPath*)keypath{
     BTCKeychain* keychain = [_keyChain derivedKeychainWithPath:keypath.pathStr];
     BTCKey* key = keychain.key;
+    return key;
+}
+
+-(VcashSecretKey*)deriveKey:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath{
+    BTCKey* key = [self deriveBTCKeyWithKeypath:keypath];
     NSData* data = [_secp blindSwitch:amount withKey:[[VcashSecretKey alloc] initWithData:key.privateKey]];
     return [[VcashSecretKey alloc] initWithData:data];
 }

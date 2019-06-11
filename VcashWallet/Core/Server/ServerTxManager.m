@@ -113,6 +113,11 @@
                         }
                         
                         //if goes here item.status would be TxDefaultStatus or TxReceiverd
+                        item.isSend = (item.status == TxReceiverd);
+                        if (![item isValidTxSignature]){
+                            DDLogError(@"receive a invalid tx:%@", [item modelToJSONString]);
+                            continue;
+                        }
                         
                         //process special case here
                         //if tx confirmed by net, finalize directly
@@ -149,17 +154,6 @@
     }
     ServerTransaction* item = [txArr firstObject];
     if (item && !self.msgNotificationView.superview){
-        if ([item.sender_id isEqualToString:[VcashWallet shareInstance].userId]){
-            item.isSend = YES;
-        }
-        else if ([item.receiver_id isEqualToString:[VcashWallet shareInstance].userId]){
-            item.isSend = NO;
-        }
-        else{
-            DDLogError(@"-----------get a servertx not belong to me!!");
-            return;
-        }
-        
         self.msgNotificationView.serverTx = item;
         [self.msgNotificationView show];
     }
