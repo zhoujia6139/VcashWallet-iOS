@@ -166,8 +166,8 @@
     {
         NSString* wordStr = [self.mnemonicWordsArr componentsJoinedByString:@" "];
         [[UserCenter sharedInstance] storeMnemonicWords:wordStr withKey:password];
+        [WalletWrapper clearWallet];
         if (self.isRecover) {
-            [WalletWrapper clearWallet];
             [MBHudHelper startWorkProcessWithTextTips:[LanguageService contentForKey:@"recovering"]];
             [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
                 NSString* tips = yesOrNo?[LanguageService contentForKey:@"successfulRecovery"]:[LanguageService contentForKey:@"recoveryFailure"];
