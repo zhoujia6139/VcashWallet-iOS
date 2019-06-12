@@ -44,7 +44,7 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGG-L4-qj4">
-                                    <rect key="frame" x="53" y="10" width="279" height="31.5"/>
+                                    <rect key="frame" x="46" y="10" width="319" height="31.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -53,11 +53,11 @@
                             <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="2wy-ea-ttV" firstAttribute="leading" secondItem="GrY-Zo-j3K" secondAttribute="leading" constant="18" id="7pm-5u-lOd"/>
-                                <constraint firstAttribute="trailing" secondItem="tGG-L4-qj4" secondAttribute="trailing" constant="43" id="CdB-0t-XDh"/>
+                                <constraint firstAttribute="trailing" secondItem="tGG-L4-qj4" secondAttribute="trailing" constant="10" id="CdB-0t-XDh"/>
                                 <constraint firstAttribute="bottom" secondItem="tGG-L4-qj4" secondAttribute="bottom" constant="15" id="Vmy-LD-l14"/>
                                 <constraint firstItem="tGG-L4-qj4" firstAttribute="top" secondItem="2wy-ea-ttV" secondAttribute="top" constant="-5" id="hiJ-TF-SLB"/>
                                 <constraint firstAttribute="width" constant="375" id="irL-7f-9NS"/>
-                                <constraint firstItem="tGG-L4-qj4" firstAttribute="leading" secondItem="2wy-ea-ttV" secondAttribute="trailing" constant="17" id="lMm-8d-gk1"/>
+                                <constraint firstItem="tGG-L4-qj4" firstAttribute="leading" secondItem="2wy-ea-ttV" secondAttribute="trailing" constant="10" id="lMm-8d-gk1"/>
                                 <constraint firstItem="2wy-ea-ttV" firstAttribute="top" secondItem="GrY-Zo-j3K" secondAttribute="top" constant="15" id="vE9-xj-M05"/>
                             </constraints>
                         </view>
