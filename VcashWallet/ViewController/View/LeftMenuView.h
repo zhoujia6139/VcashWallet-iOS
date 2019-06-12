@@ -36,7 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)hiddenAnimation;
 
-- (void)hiddenAnimationWith:(void (^ __nullable)(BOOL finished))completion;
 
 
 @end
