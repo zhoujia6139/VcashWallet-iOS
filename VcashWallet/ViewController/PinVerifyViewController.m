@@ -14,14 +14,17 @@
 
 @interface PinVerifyViewController ()<PasswordViewDelegate,UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet VcashButton *btnOpenWallet;
 
+@property (weak, nonatomic) IBOutlet VcashButton *btnOpenWallet;
 
 @property (weak, nonatomic) IBOutlet VcashTextField *textFieldPassword;
 
 @property (weak, nonatomic) IBOutlet UIView *viewLine;
 
 @property (nonatomic, strong) PinPasswordInputView *pasView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintImageBgTop;
+
 
 @end
 
@@ -36,17 +39,18 @@
     [self.btnOpenWallet setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
     ViewRadius(self.btnOpenWallet, 4.0);
     self.textFieldPassword.delegate  = self;
+    self.constraintImageBgTop.constant = kTopHeight;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor blackColor]] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 -(void)viewDidAppear:(BOOL)animated{

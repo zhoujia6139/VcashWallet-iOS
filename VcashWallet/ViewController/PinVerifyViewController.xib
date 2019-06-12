@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PinVerifyViewController">
             <connections>
                 <outlet property="btnOpenWallet" destination="8DH-ak-S48" id="Vj9-z9-3DX"/>
+                <outlet property="constraintImageBgTop" destination="Wuy-ob-35y" id="7gW-sV-QJI"/>
                 <outlet property="textFieldPassword" destination="n9N-Va-7bp" id="KRn-Cz-2ZQ"/>
                 <outlet property="view" destination="iN0-l3-epB" id="pn2-Ut-DL7"/>
                 <outlet property="viewLine" destination="jAy-qY-FvC" id="LYi-eD-wZL"/>
