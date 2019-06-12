@@ -12,11 +12,11 @@
 
 typedef void (^PhraseWordViewCallback)(CGFloat height,NSInteger wordsCount);
 
-typedef void (^PhraseWordFillAllCallBack)(BOOL);
+typedef void (^PhraseWordFillAllCallBack)(NSString *title);
 
 -(void)creatPhraseViewWithParentView:(UIView*)view isCanEdit:(BOOL)yesOrNo withCallBack:(PhraseWordViewCallback)callback;
 
-- (void)creatPhraseViewWithParentView:(UIView*)view needConfirmPhraseArr:(NSArray *)needConfirmPhraseArr dicData:(NSDictionary *)dicData arrPhrase:(NSMutableArray *)arrPhrase withCallBack:(PhraseWordFillAllCallBack)callback;
+- (void)creatPhraseViewWithParentView:(UIView*)view vc:(UIViewController *)vc needConfirmPhraseArr:(NSArray *)needConfirmPhraseArr dicData:(NSDictionary *)dicData  withCallBack:(PhraseWordFillAllCallBack)callback;
 
 -(NSArray*)getAllInputWords;
 
@@ -34,6 +34,8 @@ typedef void(^DidEndEditingCallBack)(void);
 @property (nonatomic, strong) UIColor *tagColor;
 
 @property (nonatomic, assign) BOOL textFieldEnble;
+
+@property (nonatomic, strong) UIColor *textFieldColor;
 
 @property (nonatomic, assign) NSInteger index;
 

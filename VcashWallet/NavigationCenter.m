@@ -33,7 +33,6 @@ static UINavigationController* curNavVC;
     if (curNavVC) {
         curNavVC.viewControllers = @[welcomeVc];
     }else{
-        
         VcashNavigationViewController* nav = [[VcashNavigationViewController alloc] init];
         welcomeVc.enterInRecoverMode = isRecover;
         nav.viewControllers = @[welcomeVc];

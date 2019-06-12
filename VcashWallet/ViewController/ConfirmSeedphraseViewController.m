@@ -24,9 +24,17 @@
 
 @property (nonatomic, strong) NSMutableDictionary *dic;
 
+@property (nonatomic, strong) NSMutableArray *phraseArr;
+
+@property (nonatomic, strong) NSMutableSet *mutableBtnSet;
+
+
+@property (weak, nonatomic) IBOutlet UIButton *btnCheck;
+
 @end
 
 @implementation ConfirmSeedphraseViewController{
+    PhraseWordShowViewCreator  *creator;
     
 }
 
@@ -46,37 +54,130 @@
         [indexArr addObject:@(index)];
         [self.dic setObject:@(index) forKey:str];
     }
-    
+    _phraseArr = [NSMutableArray array];
+    _mutableBtnSet = [[NSMutableSet alloc] init];
     [self configView];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self addObserver:self forKeyPath:@"phraseArr" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self removeObserver:self forKeyPath:@"phraseArr"];
 }
 
 - (void)configView{
     self.title = [LanguageService contentForKey:@"confirmSeedPhrase"];
     ViewRadius(self.promptView, 4.0);
-    [AppHelper addLineTopWithParentView:self.chosePhraseView];
-   PhraseWordShowViewCreator  *creator = [PhraseWordShowViewCreator new];
-    [creator creatPhraseViewWithParentView:self.needConfirmPhraseView needConfirmPhraseArr:self.needConfirmPhraseArr dicData:self.dic arrPhrase:nil withCallBack:nil];
-    __weak typeof(self) weakSelf = self;
-    NSMutableArray *phraseArr = [NSMutableArray array];
-    [ChosePhraseItemView creatPhraseViewWithParentView:self.chosePhraseView phraseArr:self.confirmPhraseArr choseCallBack:^(NSInteger index) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        NSString *phrase = strongSelf.confirmPhraseArr[index];
-        if ([phraseArr containsObject:phrase]) {
-            return ;
-        }
-        [phraseArr addObject:phrase];
-        [creator creatPhraseViewWithParentView:strongSelf.needConfirmPhraseView needConfirmPhraseArr:strongSelf.needConfirmPhraseArr dicData:strongSelf.dic arrPhrase:phraseArr withCallBack:^(BOOL isAllRight) {
-            if (isAllRight) {
-                PinPasswordSetViewController*vc = [PinPasswordSetViewController new];
-                vc.mnemonicWordsArr = strongSelf.mnemonicWordsArr;
-                [strongSelf.navigationController pushViewController:vc animated:YES];
+    ViewRadius(self.btnCheck, 4.0);
+    self.btnCheck.userInteractionEnabled = NO;
+    [self.btnCheck setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.btnCheck setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
+    creator = [PhraseWordShowViewCreator new];
+    [creator creatPhraseViewWithParentView:self.needConfirmPhraseView vc:self needConfirmPhraseArr:self.needConfirmPhraseArr dicData:self.dic  withCallBack:nil];
+    
+    CGFloat itemWidth = (ScreenWidth - 80 - 18) / 3;
+    CGFloat itemHeight = 45.0;
+    UIButton *priBtn = nil;
+    for (NSInteger i = 0; i < self.confirmPhraseArr.count; i++) {
+        int row = i % 3;
+        UIButton *btn = [[UIButton alloc] init];
+        ViewBorderRadius(btn, 4.0, 1, CLineColor);
+        [btn addTarget:self action:@selector(chose:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+        [btn setTitle:self.confirmPhraseArr[i] forState:UIControlStateNormal];
+        btn.tag = 100 + i;
+        [self.chosePhraseView addSubview:btn];
+        if (!priBtn) {
+            [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.chosePhraseView).offset(40);
+                make.top.equalTo(self.chosePhraseView);
+                make.width.mas_equalTo(itemWidth);
+                make.height.mas_equalTo(itemHeight);
+            }];
+        }else{
+            if (row != 0) {
+                [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(priBtn.mas_right).offset(9);
+                    make.top.equalTo(priBtn);
+                    make.width.mas_equalTo(itemWidth);
+                    make.height.mas_equalTo(itemHeight);
+                }];
             }else{
-                [self.view makeToast:[LanguageService contentForKey:@"wordInconsistent"]];
+                [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.chosePhraseView).offset(40);
+                    make.top.equalTo(priBtn.mas_bottom).offset(10);
+                    make.width.mas_equalTo(itemWidth);
+                    make.height.mas_equalTo(itemHeight);
+                }];
             }
-        }];
-        
+            
+        }
+        priBtn = btn;
+    }
+    
+   
+}
+
+- (void)chose:(UIButton *)btn{
+    [self.mutableBtnSet addObject:btn];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    btn.backgroundColor = [UIColor colorWithHexString:@"#CCCCCC"];
+    ViewBorderRadius(btn, 4, 0, CLineColor);
+    NSInteger index = btn.tag - 100;
+    NSString *phrase = self.confirmPhraseArr[index];
+    if ([self.phraseArr containsObject:phrase]) {
+        return ;
+    }
+    [[self mutableArrayValueForKeyPath:@"phraseArr"] addObject:phrase];
+    [creator creatPhraseViewWithParentView:self.needConfirmPhraseView vc:self needConfirmPhraseArr:self.needConfirmPhraseArr dicData:self.dic  withCallBack:^(NSString *title) {
+        for (UIButton *btn in self.mutableBtnSet) {
+            if ([btn.currentTitle isEqualToString:title]) {
+                [btn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+                btn.backgroundColor = [UIColor whiteColor];
+                ViewBorderRadius(btn, 4, 1, CLineColor);
+            }
+        }
     }];
 }
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+    if ([keyPath isEqualToString:@"phraseArr"]) {
+        if (self.phraseArr.count < 6) {
+            self.btnCheck.userInteractionEnabled = NO;
+            [self.btnCheck setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [self.btnCheck setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
+        }else{
+            self.btnCheck.userInteractionEnabled = YES;
+            [self.btnCheck setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [self.btnCheck setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
+        }
+    }
+}
+
+- (IBAction)clickedCheck:(id)sender {
+    if (self.needConfirmPhraseArr.count == self.phraseArr.count) {
+        NSInteger count = self.needConfirmPhraseArr.count;
+        BOOL same = YES;
+        for (NSInteger i = 0; i < count; i++) {
+            if (![self.needConfirmPhraseArr[i] isEqualToString:self.phraseArr[i]]) {
+                same = NO;
+                break;
+            }
+        }
+        if (!same) {
+            [self.view makeToast:[LanguageService contentForKey:@"wordInconsistent"]];
+            return;
+        }
+        PinPasswordSetViewController *passwordSetVc = [[PinPasswordSetViewController alloc] init];
+        [self.navigationController pushViewController:passwordSetVc animated:YES];
+    }
+}
+
 
 - (NSArray *)randomConfirmPhraseArr{
     NSArray *array = self.mnemonicWordsArr;
@@ -129,26 +230,25 @@
         [phraseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
-        [AppHelper addLineWithParentView:self];
-        [AppHelper addLineRightWithParentView:self];
     }
     return self;
 }
 
 + (UIView *)creatPhraseViewWithParentView:(UIView *)view phraseArr:(NSArray *)phraseArr choseCallBack:(ChosePhraseCallBack)choseCallBack{
     ChosePhraseItemView *priItemView;
-    CGFloat itemWidth = ScreenWidth / 3.0;
+    CGFloat itemWidth = (ScreenWidth - 100 - 30) / 3;
     CGFloat itemHeight = 45.0;
     for (NSInteger i = 0; i < phraseArr.count; i++) {
         int row = i % 3;
         ChosePhraseItemView *itemView = [[ChosePhraseItemView alloc] init];
         itemView.chosePhraseCallBack = choseCallBack;
+        ViewBorderRadius(itemView, 4.0, 1, CLineColor);
         itemView.title = phraseArr[i];
         itemView.tag = 100 + i;
         [view addSubview:itemView];
         if (!priItemView) {
             [itemView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(view);
+                make.left.equalTo(view).offset(50);
                 make.top.equalTo(view);
                 make.width.mas_equalTo(itemWidth);
                 make.height.mas_equalTo(itemHeight);
@@ -156,15 +256,15 @@
         }else{
             if (row != 0) {
                 [itemView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(priItemView.mas_right);
+                    make.left.equalTo(priItemView.mas_right).offset(15);
                     make.top.equalTo(priItemView);
                     make.width.mas_equalTo(itemWidth);
                     make.height.mas_equalTo(itemHeight);
                 }];
             }else{
                 [itemView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(view);
-                    make.top.equalTo(priItemView.mas_bottom);
+                    make.left.equalTo(view).offset(50);
+                    make.top.equalTo(priItemView.mas_bottom).offset(15);
                     make.width.mas_equalTo(itemWidth);
                     make.height.mas_equalTo(itemHeight);
                 }];
@@ -185,6 +285,8 @@
 
 - (void)chosePhrase:(UIButton *)btn{
     NSInteger index = self.tag - 100;
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    btn.backgroundColor = [UIColor colorWithHexString:@"#999999"];
     if (self.chosePhraseCallBack) {
         self.chosePhraseCallBack(index);
     }
