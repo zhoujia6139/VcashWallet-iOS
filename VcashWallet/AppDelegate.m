@@ -11,6 +11,8 @@
 #import "ServerTxManager.h"
 #import "LockScreenTimeService.h"
 #import <UIView+Toast.h>
+#import <IQKeyboardManager.h>
+#import "UIView+Extension.h"
 
 @interface AppDelegate ()
 
@@ -21,6 +23,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self runtimeInit];
     [self initLoger];
     [CSToastManager setDefaultPosition:CSToastPositionCenter];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -55,6 +58,13 @@
     //fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
     fileLogger.logFileManager.maximumNumberOfLogFiles = 3;
     [DDLog addLogger:fileLogger];
+}
+
+-(void)runtimeInit{
+    //Solve the problem of white bar of IQKeyboardManager navigation bar
+    Method a = class_getInstanceMethod([UIView class], @selector(topMostController));
+    Method b = class_getInstanceMethod([UIView class], @selector(new_topMostController));
+    method_exchangeImplementations(a, b);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
