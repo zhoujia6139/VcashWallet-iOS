@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id <LeftMenuViewDelegate> delegate;
 
-- (void)configData;
+- (void)refreshData;
 
 - (void)addInView;
 
@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showAnimation;
 
 - (void)hiddenAnimation;
+
+- (void)hiddenAnimationWith:(void (^ __nullable)(BOOL finished))completion;
 
 
 @end

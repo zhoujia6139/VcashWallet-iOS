@@ -7,6 +7,7 @@
 //
 
 #import "LockScreenTimeService.h"
+#import "LeftMenuManager.h"
 
 #define storageLockTypePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"lockTypePath"]
 
@@ -87,6 +88,7 @@
 - (void)showPasswordVerifyVc{
     if ([[UserCenter sharedInstance] checkUserHaveWallet]){
         [NavigationCenter showPasswordVerifyPage];
+        [[[LeftMenuManager shareInstance] leftMenuView] refreshData];
     }
 }
 

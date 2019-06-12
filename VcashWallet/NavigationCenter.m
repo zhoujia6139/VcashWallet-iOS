@@ -34,7 +34,6 @@ static UINavigationController* curNavVC;
    VcashNavigationViewController* nav = [[VcashNavigationViewController alloc] init];
    welcomeVc.enterInRecoverMode = isRecover;
    nav.viewControllers = @[welcomeVc];
-   [[[LeftMenuManager shareInstance] leftMenuView] configData];
    UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
    keyWindow.rootViewController = nav;
    curNavVC = nav;

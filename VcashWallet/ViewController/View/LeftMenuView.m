@@ -75,6 +75,11 @@ static NSString * const identifier = @"LeftMenuCell";
     }
 }
 
+- (void)refreshData{
+    [self configData];
+    [self.tableViewContainer reloadData];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _arrData.count;
 }
@@ -98,15 +103,17 @@ static NSString * const identifier = @"LeftMenuCell";
     model.selected = !model.selected;
     priMenuModel = model;
     [tableView reloadData];
-    [self hiddenAnimation];
-    if ([model.title isEqualToString:[LanguageService contentForKey:@"VcashWallet"]]) {
-        [NavigationCenter showWalletPage:NO];
-        return;
-    }
-    if ([model.title isEqualToString:[LanguageService contentForKey:@"setting"]]) {
-        [NavigationCenter showSettingVcPage];
-        return;
-    }
+    [self hiddenAnimationWith:^(BOOL finished) {
+        if ([model.title isEqualToString:[LanguageService contentForKey:@"VcashWallet"]]) {
+            [NavigationCenter showWalletPage:NO];
+            return;
+        }
+        if ([model.title isEqualToString:[LanguageService contentForKey:@"setting"]]) {
+            [NavigationCenter showSettingVcPage];
+            return;
+        }
+    }];
+    
 }
 
 
@@ -129,7 +136,7 @@ static NSString * const identifier = @"LeftMenuCell";
     UIWindow *wd= [[[UIApplication sharedApplication] delegate] window];
     [wd bringSubviewToFront:self.viewAlpha];
     [wd bringSubviewToFront:self];
-    [UIView animateWithDuration:0.25 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         CGRect fra = self.frame;
         fra.origin.x = 0;
         self.frame = fra;
@@ -143,17 +150,25 @@ static NSString * const identifier = @"LeftMenuCell";
 }
 
 - (void)hiddenAnimation{
-    [UIView animateWithDuration:0.25 animations:^{
+    [self hiddenAnimationWith:nil];
+}
+
+- (void)hiddenAnimationWith:(void (^ __nullable)(BOOL finished))completion{
+    [UIView animateWithDuration:0.2 animations:^{
         CGRect fra = self.frame;
         fra.origin.x = - fra.size.width;
         self.frame = fra;
         self.viewAlpha.alpha = 0;
     } completion:^(BOOL finished) {
+        if(completion){
+            completion(finished);
+        }
         self.viewAlpha.hidden = YES;
         if (self.delegate && [self.delegate respondsToSelector:@selector(isHaveHidden:)]) {
             [self.delegate isHaveHidden:YES];
         }
     }];
+   
 }
 
 - (void)panLeftMenu:(UIPanGestureRecognizer *)pan{
