@@ -13,4 +13,7 @@
 
 @property(assign, nonatomic)BOOL enterInRecoverMode;
 
+@property(assign, nonatomic)BOOL createNewWallet;
+
+
 @end

@@ -86,7 +86,7 @@
     BOOL yesOrNO = [WalletWrapper createWalletWithPhrase:wordsArr nickname:nil password:nil];
     if (yesOrNO)
     {
-        [NavigationCenter showWalletPage:NO];
+        [NavigationCenter showWalletPage:NO createNewWallet:NO];
     }
     else
     {

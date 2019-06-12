@@ -91,6 +91,12 @@ static NSString *const identifier = @"WalletCell";
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [[ServerTxManager shareInstance] startWork];
+    if (self.createNewWallet) {
+        [MBHudHelper startWorkProcessWithTextTips:@""];
+        [MBHudHelper endWorkProcessWithSuc:YES andTextTips:[LanguageService contentForKey:@"usableWallet"]];
+        self.createNewWallet = NO;
+    }
+  
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

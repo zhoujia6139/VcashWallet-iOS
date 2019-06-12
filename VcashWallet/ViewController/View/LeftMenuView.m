@@ -109,7 +109,7 @@ static NSString * const identifier = @"LeftMenuCell";
     priMenuModel = model;
     [tableView reloadData];
     if ([model.title isEqualToString:[LanguageService contentForKey:@"VcashWallet"]]) {
-        [NavigationCenter showWalletPage:NO];
+        [NavigationCenter showWalletPage:NO createNewWallet:NO];
         [self hiddenAnimation];
         return;
     }

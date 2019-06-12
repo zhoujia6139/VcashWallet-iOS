@@ -173,12 +173,12 @@
                 NSString* tips = yesOrNo?[LanguageService contentForKey:@"successfulRecovery"]:[LanguageService contentForKey:@"recoveryFailure"];
                 [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:tips];
                 if (yesOrNo){
-                    [NavigationCenter showWalletPage:self.isRecover];
+                    [NavigationCenter showWalletPage:self.isRecover createNewWallet:NO];
                 }
             }];
             return;
         }
-        [NavigationCenter showWalletPage:self.isRecover];
+        [NavigationCenter showWalletPage:self.isRecover createNewWallet:YES];
     }
 }
 

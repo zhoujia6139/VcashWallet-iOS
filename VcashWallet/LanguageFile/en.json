@@ -127,4 +127,5 @@
     "matchWords":"Match the words to their due sequences",
     "confirmBackTitle":"Back to seed phrase",
     "confirmBackMsg":"Your current seed will become obsolete and the new seed will be genetrated",
+    "usableWallet":"Wallet is ready for use",
 }

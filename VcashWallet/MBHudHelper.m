@@ -49,6 +49,7 @@
 +(void)endWorkProcessWithSuc:(BOOL)isSuc andTextTips:(NSString*)tips
 {
     MBProgressHUD *hud = [MBProgressHUD HUDForView:[UIApplication sharedApplication].keyWindow];
+    hud.label.text = @"";
     NSString* imageName = isSuc?@"process_suc_icon.png":@"process_fail_icon.png";
     UIView *iv = [[UIView alloc] init];
     UIImage *image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
@@ -69,7 +70,7 @@
     label.text = tips;
     [iv addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(imageView.mas_bottom);
+        make.top.equalTo(imageView.mas_bottom).offset(8);
         make.left.right.bottom.equalTo(iv);
     }];
     

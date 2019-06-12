@@ -61,8 +61,10 @@
     serverTx.isSend ? [self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"send.png"]] :[self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"receive.png"]];
     int64_t amount = serverTx.slateObj.amount;
     NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
-    if (amount > 0) {
+    if (!serverTx.isSend) {
         amountStr = [NSString stringWithFormat:@"+%@",@([WalletWrapper nanoToVcash:amount]).p09fString];
+    }else{
+        amountStr = [NSString stringWithFormat:@"-%@",@([WalletWrapper nanoToVcash:amount]).p09fString];
     }
     self.labelAmount.text = [NSString stringWithFormat:@"%@",amountStr];
     self.labelTime.text = [[NSDate date] stringWithFormat:@"yyyy-MM-dd"];
@@ -73,11 +75,14 @@
 
 -(void)setTxLog:(VcashTxLog *)txLog{
     _txLog = txLog;
+    int64_t amount = (int64_t)txLog.amount_credited - (int64_t)txLog.amount_debited;
+    NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
     switch (txLog.tx_type) {
         case ConfirmedCoinbase:
         case TxReceived:
         case TxReceivedCancelled:
             [self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"receive.png"]];
+            amountStr = [NSString stringWithFormat:@"+%@",@([WalletWrapper nanoToVcash:amount]).p09fString];
             break;
         case TxSent:
         case TxSentCancelled:
@@ -92,11 +97,6 @@
         txId = (self.txLog.tx_type == ConfirmedCoinbase) ? [LanguageService contentForKey:@"coinbase"] : [LanguageService contentForKey:@"unreachable"];
     }
     self.labelTxId.text = txId;
-    int64_t amount = (int64_t)txLog.amount_credited - (int64_t)txLog.amount_debited;
-    NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
-    if (amount > 0) {
-        amountStr = [NSString stringWithFormat:@"+%@",@([WalletWrapper nanoToVcash:amount]).p09fString];
-    }
     self.labelAmount.text = [NSString stringWithFormat:@"%@",amountStr];
     self.labelTime.text = [[NSDate dateWithTimeIntervalSince1970:txLog.create_time] stringWithFormat:@"yyyy-MM-dd"];
     self.stateLabel.textColor = [UIColor colorWithHexString:@"#AEAEAE"];
