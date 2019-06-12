@@ -25,26 +25,24 @@
 @end
 
 @implementation RecoverMnemonicViewController
-{
-    
-}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = [LanguageService contentForKey:@"restorePhrase"];
     ViewRadius(self.recoverBtn, 4.0);
-//    self.recoverBtn.userInteractionEnabled = NO;
-//    self.recoverBtn.backgroundColor = CGrayColor;
+    self.recoverBtn.userInteractionEnabled = NO;
+    [self.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
     self.creator = [PhraseWordShowViewCreator new];
     __weak typeof(self) weakSelf = self;
     [self.creator creatPhraseViewWithParentView:self.phraseView isCanEdit:YES withCallBack:^(CGFloat height, NSInteger wordsCount) {
         __strong typeof(weakSelf) strongSlef = weakSelf;
         if (wordsCount != 24) {
             strongSlef.recoverBtn.userInteractionEnabled = NO;
-            strongSlef.recoverBtn.backgroundColor = CGrayColor;
+            [strongSlef.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
         }else{
             strongSlef.recoverBtn.userInteractionEnabled = YES;
-           strongSlef.recoverBtn.backgroundColor = COrangeColor;
+           [strongSlef.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
         }
     }];
     // Do any additional setup after loading the view from its nib.

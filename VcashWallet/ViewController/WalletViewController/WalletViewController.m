@@ -105,14 +105,12 @@ static NSString *const identifier = @"WalletCell";
 - (void)initSubviews{
     if (@available(iOS 11.0, *)) {
         self.tableViewContainer.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        
+
     } else {
         if([UIViewController instancesRespondToSelector:@selector(edgesForExtendedLayout)]) {
             self.edgesForExtendedLayout = UIRectEdgeNone;
         }
     }
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    
     self.constraintNaviHeight.constant = kTopHeight;
     [[[LeftMenuManager shareInstance] leftMenuView] addInView];
     

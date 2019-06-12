@@ -91,7 +91,7 @@
     int64_t amount = (int64_t)txLog.amount_credited - (int64_t)txLog.amount_debited;
     self.labelAmount.text = [NSString stringWithFormat:@"%@",@([WalletWrapper nanoToVcash:amount]).p09fString];
     self.labelTime.text = [[NSDate dateWithTimeIntervalSince1970:txLog.create_time] stringWithFormat:@"yyyy-MM-dd"];
-    self.stateLabel.textColor = [UIColor colorWithHexString:@"#CCCCCC"];
+    self.stateLabel.textColor = [UIColor colorWithHexString:@"#AEAEAE"];
     switch (txLog.confirm_state){
         case DefaultState:
         case LoalConfirmed://waiting confirm

@@ -8,6 +8,7 @@
 
 #import "PinVerifyViewController.h"
 #import "PinPasswordInputView.h"
+#import "RecoverMnemonicViewController.h"
 
 
 
@@ -96,7 +97,7 @@
 }
 
 - (IBAction)clickedRestoreWallet:(id)sender {
-    [NavigationCenter showWelcomePage];
+    [self.navigationController pushViewController:[RecoverMnemonicViewController new] animated:YES];
 }
 
 - (void)btnAction

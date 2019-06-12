@@ -97,6 +97,10 @@
 }
 
 - (IBAction)clickSend:(id)sender {
+    if ([self.targetAddressField.text isEqualToString:[WalletWrapper getWalletUserId]]) {
+        [self.view makeToast:[LanguageService contentForKey:@"sendSelfWarning"]];
+        return;
+    }
     NSString* strAmount = self.amountField.text;
     if (![self isNumber:strAmount]) {
         [self.view makeToast:[LanguageService contentForKey:@"enterDigit"]];

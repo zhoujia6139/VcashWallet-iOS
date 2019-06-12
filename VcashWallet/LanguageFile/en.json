@@ -33,7 +33,7 @@
     "receiveVcash":"Receive VCash",
     "walletid":"Your wallet ID",
     "scanQR":"Or scan the QR code",
-    "copySuc":"Successful copy",
+    "copySuc":"copied to clipboard",
     "boxAutoIdentify":"Put the QR code into the box and automatically identify it",
     "nocamera":"Camera not detected",
     "album":"Album",
@@ -123,4 +123,6 @@
     "returnTitle":"Return to seed phrase",
     "retunrnMsg":"If you return to seed phrase,it would be changed and your local password won't be saved.",
     "doneTitle":"Generate",
+    "sendSelfWarning":"Sorry, you can't send VCash to yourself.",
+    "matchWords":"Match the words to their due sequences",
 }

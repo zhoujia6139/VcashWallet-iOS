@@ -60,36 +60,47 @@
     }
 }
 
-- (void)creatPhraseViewWithParentView:(UIView*)view needConfirmPhraseArr:(NSArray *)needConfirmPhraseArr dicData:(NSDictionary *)dicData arrPhrase:(NSMutableArray *)arrPhrase withCallBack:(PhraseWordFillAllCallBack)callback{
+- (void)creatPhraseViewWithParentView:(UIView*)view vc:(UIViewController *)vc needConfirmPhraseArr:(NSArray *)needConfirmPhraseArr dicData:(NSDictionary *)dicData  withCallBack:(PhraseWordFillAllCallBack)callback{
     [view removeAllSubviews];
     NSInteger itemCount = needConfirmPhraseArr.count;
-//    CGFloat parentHeight = 4*kWordItemViewHeight;
-    NSMutableArray *arrFill = [NSMutableArray array];
     for (int i=0; i<itemCount; i++)
     {
         NSString *key = needConfirmPhraseArr[i];
         int line = i/3;
         int row = i%3;
         PhraseWordItemView *itemView = [[PhraseWordItemView alloc] init];
+        if (i == [vc mutableArrayValueForKeyPath:@"phraseArr"].count) {
+            UIView *cursorView = [[UIView alloc] init];
+            cursorView.backgroundColor = [UIColor colorWithHexString:@"#1A181C"];
+            [itemView addSubview:cursorView];
+            [cursorView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(itemView).offset(45);
+                make.centerY.equalTo(itemView);
+                make.width.mas_equalTo(1);
+                make.height.mas_equalTo(18);
+            }];
+        }
+        
         itemView.clickPhraseCallBack = ^(NSInteger index) {
-            if ([[dicData objectForKey:itemView.phrase] integerValue] == itemView.index) {
-                return ;
-            }
-            if (index < arrPhrase.count) {
-                [arrPhrase removeObjectAtIndex:index];
+            if (index < [vc mutableArrayValueForKeyPath:@"phraseArr"].count) {
+                NSString *title = [[vc mutableArrayValueForKeyPath:@"phraseArr"] objectAtIndex:index];
+                if (callback) {
+                     callback(title);
+                }
+                [[vc mutableArrayValueForKeyPath:@"phraseArr"] removeObjectAtIndex:index];
+            }else{
+                return;
             }
              [view removeAllSubviews];
-            [self creatPhraseViewWithParentView:view needConfirmPhraseArr:needConfirmPhraseArr dicData:dicData arrPhrase:arrPhrase withCallBack:callback];
+            [self creatPhraseViewWithParentView:view vc:vc needConfirmPhraseArr:needConfirmPhraseArr dicData:dicData  withCallBack:callback];
         };
         itemView.tag = (kWordItemTagStart + i);
         itemView.textFieldEnble = NO;
         itemView.index = [[dicData objectForKey:key] integerValue];
-        itemView.tagColor = [UIColor colorWithRed:194 / 255.0 green:194 / 255.0 blue:194 / 255.0 alpha:1];
-        if (i < arrPhrase.count) {
-            itemView.phrase = arrPhrase[i];
-            BOOL fillRight = ([[dicData objectForKey:itemView.phrase] integerValue] == itemView.index);
-            [arrFill addObject:@(fillRight)];
-            itemView.tagColor =  fillRight ? [UIColor colorWithHexString:@"#66CC33"] : [UIColor colorWithHexString:@"#FF3333"];
+        itemView.tagColor = [UIColor colorWithHexString:@"#AEAEAE"];
+        itemView.textFieldColor = [UIColor darkTextColor];
+        if (i < [vc mutableArrayValueForKeyPath:@"phraseArr"].count) {
+            itemView.phrase = [vc mutableArrayValueForKeyPath:@"phraseArr"][i];
         }
       
         [view addSubview:itemView];
@@ -105,19 +116,6 @@
     
     ViewBorderRadius(view, 4.0, VLineWidth, CLineColor);
     mParentView = view;
-    if (arrPhrase.count == 6) {
-        BOOL isAllRight = YES;
-        for (NSNumber *num in arrFill) {
-            if ([num integerValue] == 0) {
-                isAllRight = NO;
-                break;
-            }
-        }
-        if (callback)
-        {
-            callback(isAllRight);
-        }
-    }
     
     
 }
@@ -178,7 +176,6 @@
 @property (nonatomic, strong) UITextField *textField;
 
 
-
 @end
 
 @implementation PhraseWordItemView{
@@ -222,6 +219,7 @@
             make.centerY.equalTo(self);
             make.height.mas_equalTo(16);
         }];
+        
         [AppHelper addLineWithParentView:self];
         [AppHelper addLineRightWithParentView:self];
     }
@@ -288,6 +286,10 @@
 - (void)setTagColor:(UIColor *)tagColor{
     self.tagBtn.backgroundColor = tagColor;
     self.textField.textColor = tagColor;
+}
+
+- (void)setTextFieldColor:(UIColor *)textFieldColor{
+    self.textField.textColor = textFieldColor;
 }
 
 - (void)clickPhrase:(UIButton *)btn{
