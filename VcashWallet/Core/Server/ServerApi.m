@@ -48,6 +48,7 @@
     NSString* url = [NSString stringWithFormat:@"%@/sendvcash", SERVER_URL];
     VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
     NSData* signature = [secp ecdsaSign:[tx msgToSign] seckey:[[VcashWallet shareInstance] getSignerKey]];
+    tx.msg_sig = BTCHexFromData(signature);
     [[self sessionManager] POST:url parameters:[tx modelToJSONObject] progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
