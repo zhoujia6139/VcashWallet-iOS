@@ -121,13 +121,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VcashWallet/Core/Server/ServerType.m"
-            timestampString = "581947239.507574"
+            filePath = "VcashWallet/Core/VcashSecp256k1.m"
+            timestampString = "582003014.016553"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "-isValidTxSignature"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
+            landmarkName = "-ecdsaVerify:sigData:pubkey:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -137,13 +137,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VcashWallet/Core/VcashSecp256k1.m"
-            timestampString = "581947239.50791"
+            filePath = "VcashWallet/Core/Server/ServerApi.m"
+            timestampString = "581999431.066156"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "332"
-            endingLineNumber = "332"
-            landmarkName = "-ecdsaVerify:sigData:pubkey:"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "-receiveTransaction:WithComplete:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

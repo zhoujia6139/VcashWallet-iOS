@@ -242,27 +242,7 @@
 
 +(BOOL)cancelTransaction:(VcashTxLog*)txLog{
     if ([txLog isCanBeCanneled]){
-        NSArray* walletOutputs = [VcashWallet shareInstance].outputs;
-        if (txLog.tx_type == TxSent){
-            for (NSString* commitment in txLog.inputs){
-                for (VcashOutput* item in walletOutputs){
-                    if ([commitment isEqualToString:item.commitment]){
-                        item.status = Unspent;
-                    }
-                }
-            }
-        }
-        
-        for (NSString* commitment in txLog.outputs){
-            for (VcashOutput* item in walletOutputs){
-                if ([commitment isEqualToString:item.commitment]){
-                    item.status = Spent;
-                }
-            }
-        }
-        
-        txLog.tx_type = (txLog.tx_type == TxSent?TxSentCancelled:TxReceivedCancelled);
-        txLog.status = TxCanceled;
+        [txLog cancelTxlog];
         [[VcashDataManager shareInstance] saveTx:txLog];
         [[VcashWallet shareInstance] syncOutputInfo];
         

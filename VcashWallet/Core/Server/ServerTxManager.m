@@ -80,7 +80,7 @@
                                             txLog.confirm_state = LoalConfirmed;
                                             break;
                                         case TxCanceled:
-                                            txLog.tx_type = TxReceivedCancelled;
+                                            [txLog cancelTxlog];
                                             break;
                                             
                                         default:
