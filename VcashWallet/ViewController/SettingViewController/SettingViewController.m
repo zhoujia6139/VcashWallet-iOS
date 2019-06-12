@@ -16,7 +16,13 @@
 
 @property (weak, nonatomic) IBOutlet UIView *viewLockScreen;
 
+@property (weak, nonatomic) IBOutlet UIButton *btnLockScreen;
+
+
 @property (weak, nonatomic) IBOutlet UILabel *labelLockScreenTitle;
+
+@property (weak, nonatomic) IBOutlet UIButton *btnChangePassword;
+
 
 @end
 
@@ -27,6 +33,8 @@
     // Do any additional setup after loading the view from its nib.
     self.title = [LanguageService contentForKey:@"setting"];
     [AppHelper addLineWithParentView:self.viewLockScreen];
+    [self.btnLockScreen setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#9C9D9D"]] forState:UIControlStateHighlighted];
+    [self.btnChangePassword setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#9C9D9D"]] forState:UIControlStateHighlighted];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

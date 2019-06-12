@@ -91,8 +91,9 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
-        btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn = [UIButton buttonWithType:UIButtonTypeSystem];
         [self addSubview:btn];
+        [btn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#9C9D9D"]] forState:UIControlStateHighlighted];
         [btn addTarget:self action:@selector(choseLockScreenTime) forControlEvents:UIControlEventTouchUpInside];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);

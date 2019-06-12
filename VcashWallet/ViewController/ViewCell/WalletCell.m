@@ -44,7 +44,7 @@
     [super awakeFromNib];
     // Initialization code
    
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
+//    self.selectionStyle = UITableViewCellSelectionStyleNone;
     [AppHelper addLineWithParentView:self];
 
 }
