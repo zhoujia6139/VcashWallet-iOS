@@ -13,8 +13,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SendTransactionViewController">
             <connections>
                 <outlet property="amountField" destination="YRG-CG-Brs" id="ZPc-np-l3u"/>
+                <outlet property="constraintTextViewHeight" destination="Gc8-70-jKf" id="oHJ-FM-n1P"/>
+                <outlet property="labelPlaceHolder" destination="bPv-1N-TGU" id="tYV-bQ-1IE"/>
                 <outlet property="sendBtn" destination="LH6-sa-gCG" id="DpX-ug-jR6"/>
-                <outlet property="targetAddressField" destination="Hkc-tj-pR2" id="sO9-wU-2ak"/>
+                <outlet property="targetAddressTextView" destination="DzF-iA-TgO" id="pfc-Sq-f8t"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewLineAmount" destination="ooY-S2-Qmq" id="ei3-20-17n"/>
                 <outlet property="viewLineSendto" destination="dU0-U8-DR2" id="iOr-XG-SNa"/>
@@ -62,21 +64,15 @@
                                 <constraint firstAttribute="height" constant="3" id="kut-Bc-lpR"/>
                             </constraints>
                         </view>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="enter or scan the recipient’s ID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hkc-tj-pR2" customClass="VcashTextField">
-                            <rect key="frame" x="26" y="58.5" width="264" height="40"/>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DzF-iA-TgO">
+                            <rect key="frame" x="20" y="58.5" width="270" height="40"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="40" id="5Jk-Sd-Qgp"/>
+                                <constraint firstAttribute="height" constant="40" id="Gc8-70-jKf"/>
                             </constraints>
-                            <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localPlaceholder" value="enterOrScan"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="whp-KK-bhl"/>
-                            </connections>
-                        </textField>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i4b-P1-4Ir">
                             <rect key="frame" x="307" y="58.5" width="40" height="40"/>
                             <constraints>
@@ -88,19 +84,30 @@
                                 <action selector="pushScanQRVc:" destination="-1" eventType="touchUpInside" id="9ro-We-EWW"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="enter or scan the recipient’s ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPv-1N-TGU" customClass="VcashLabel">
+                            <rect key="frame" x="26" y="68.5" width="198" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localText" value="enterOrScan"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="g9O-nh-01K" firstAttribute="top" secondItem="zrg-pV-E6b" secondAttribute="top" constant="27" id="CMz-lh-qsg"/>
+                        <constraint firstItem="bPv-1N-TGU" firstAttribute="leading" secondItem="DzF-iA-TgO" secondAttribute="leading" constant="6" id="Csh-CD-3bW"/>
                         <constraint firstAttribute="trailing" secondItem="i4b-P1-4Ir" secondAttribute="trailing" constant="28" id="EmW-FY-3n8"/>
-                        <constraint firstItem="Hkc-tj-pR2" firstAttribute="leading" secondItem="zrg-pV-E6b" secondAttribute="leading" constant="26" id="Qlp-hN-TdC"/>
                         <constraint firstAttribute="trailing" secondItem="g9O-nh-01K" secondAttribute="trailing" constant="26" id="TNF-on-OPN"/>
                         <constraint firstAttribute="trailing" secondItem="dU0-U8-DR2" secondAttribute="trailing" constant="26" id="Xkt-bk-Css"/>
-                        <constraint firstItem="i4b-P1-4Ir" firstAttribute="centerY" secondItem="Hkc-tj-pR2" secondAttribute="centerY" id="a5G-g9-jkG"/>
+                        <constraint firstAttribute="bottom" secondItem="DzF-iA-TgO" secondAttribute="bottom" constant="3" id="YTN-wn-gF8"/>
+                        <constraint firstItem="i4b-P1-4Ir" firstAttribute="centerY" secondItem="DzF-iA-TgO" secondAttribute="centerY" id="ZWE-zA-10g"/>
+                        <constraint firstItem="DzF-iA-TgO" firstAttribute="top" secondItem="g9O-nh-01K" secondAttribute="bottom" constant="10" id="blh-3d-h30"/>
+                        <constraint firstAttribute="trailing" secondItem="DzF-iA-TgO" secondAttribute="trailing" constant="85" id="e1z-ca-RY7"/>
                         <constraint firstAttribute="bottom" secondItem="dU0-U8-DR2" secondAttribute="bottom" id="hWY-Al-9DJ"/>
-                        <constraint firstAttribute="bottom" secondItem="Hkc-tj-pR2" secondAttribute="bottom" constant="3" id="jDh-k5-zAT"/>
-                        <constraint firstItem="Hkc-tj-pR2" firstAttribute="top" secondItem="g9O-nh-01K" secondAttribute="bottom" constant="10" id="jg4-N7-wzj"/>
-                        <constraint firstAttribute="trailing" secondItem="Hkc-tj-pR2" secondAttribute="trailing" constant="85" id="pBa-ql-fKK"/>
+                        <constraint firstItem="bPv-1N-TGU" firstAttribute="top" secondItem="g9O-nh-01K" secondAttribute="bottom" constant="20" id="lhY-ga-ly3"/>
+                        <constraint firstItem="DzF-iA-TgO" firstAttribute="leading" secondItem="zrg-pV-E6b" secondAttribute="leading" constant="20" id="o6V-vl-yD6"/>
                         <constraint firstItem="dU0-U8-DR2" firstAttribute="leading" secondItem="zrg-pV-E6b" secondAttribute="leading" constant="26" id="pEx-nD-bmi"/>
                         <constraint firstItem="g9O-nh-01K" firstAttribute="leading" secondItem="zrg-pV-E6b" secondAttribute="leading" constant="26" id="y1h-4f-bbB"/>
                     </constraints>
@@ -179,6 +186,7 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="zrg-pV-E6b" secondAttribute="trailing" id="v8n-Dv-kgh"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="55.200000000000003" y="48.125937031484263"/>
         </view>
     </objects>
     <resources>

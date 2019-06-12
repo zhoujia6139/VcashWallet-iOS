@@ -123,6 +123,8 @@
     "returnTitle":"Return to seed phrase",
     "retunrnMsg":"If you return to seed phrase,it would be changed and your local password won't be saved.",
     "doneTitle":"Generate",
-    "sendSelfWarning":"Sorry, you can't send VCash to yourself.",
+    "sendSelfWarning":"Please don't send VCash to your own wallet address",
     "matchWords":"Match the words to their due sequences",
+    "confirmBackTitle":"Back to seed phrase",
+    "confirmBackMsg":"Your current seed will become obsolete and the new seed will be genetrated",
 }

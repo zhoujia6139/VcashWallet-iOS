@@ -9,6 +9,7 @@
 #import "ConfirmSeedphraseViewController.h"
 #import "PhraseWordShowViewCreator.h"
 #import "PinPasswordSetViewController.h"
+#import "AlertView.h"
 
 @interface ConfirmSeedphraseViewController ()
 
@@ -61,11 +62,13 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self addObserver:self forKeyPath:@"phraseArr" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
     [self removeObserver:self forKeyPath:@"phraseArr"];
 }
 
@@ -123,6 +126,19 @@
    
 }
 
+- (void)backBtnClicked{
+    AlertView *alterView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([AlertView class]) owner:nil options:nil] firstObject];
+    __weak typeof(self) weakSelf = self;
+    alterView.doneCallBack = ^{
+        __weak typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf.navigationController popViewControllerAnimated:YES];
+    };
+    alterView.title = [LanguageService contentForKey:@"confirmBackTitle"];
+    alterView.msg = [LanguageService contentForKey:@"confirmBackMsg"];
+    alterView.doneTitle = [LanguageService contentForKey:@"doneTitle"];
+    [alterView show];
+}
+
 - (void)chose:(UIButton *)btn{
     [self.mutableBtnSet addObject:btn];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -171,6 +187,17 @@
         }
         if (!same) {
             [self.view makeToast:[LanguageService contentForKey:@"wordInconsistent"]];
+            [[self mutableArrayValueForKeyPath:@"phraseArr"] removeAllObjects];
+            for (UIButton *btn in self.mutableBtnSet) {
+                [btn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+                btn.backgroundColor = [UIColor whiteColor];
+                ViewBorderRadius(btn, 4, 1, CLineColor);
+            }
+            [self.mutableBtnSet removeAllObjects];
+            [creator creatPhraseViewWithParentView:self.needConfirmPhraseView vc:self needConfirmPhraseArr:self.needConfirmPhraseArr dicData:self.dic  withCallBack:^(NSString *title) {
+                
+            }];
+            
             return;
         }
         PinPasswordSetViewController *passwordSetVc = [[PinPasswordSetViewController alloc] init];

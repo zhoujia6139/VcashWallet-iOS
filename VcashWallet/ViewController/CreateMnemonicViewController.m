@@ -48,10 +48,16 @@
     creator = [PhraseWordShowViewCreator new];
     [creator creatPhraseViewWithParentView:self.phraseWordView isCanEdit:NO withCallBack:nil];
 
-    [self refreshPharseView];
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didTakeScreenshot) name:UIApplicationUserDidTakeScreenshotNotification object:nil];
 }
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+     [self refreshPharseView];
+}
+
 
 -(void)dealloc
 {

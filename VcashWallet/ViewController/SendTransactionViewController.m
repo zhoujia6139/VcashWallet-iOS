@@ -17,11 +17,13 @@
 
 #define COrangeColor  [UIColor colorWithHexString:@"#FF9502"]
 
-@interface SendTransactionViewController ()<UITextFieldDelegate,ScanViewControllerDelegate>
+@interface SendTransactionViewController ()<UITextFieldDelegate,UITextViewDelegate,ScanViewControllerDelegate>
 
 
 
-@property (weak, nonatomic) IBOutlet UITextField *targetAddressField;
+@property (weak, nonatomic) IBOutlet UITextView *targetAddressTextView;
+
+@property (weak, nonatomic) IBOutlet VcashLabel *labelPlaceHolder;
 
 @property (weak, nonatomic) IBOutlet UITextField *amountField;
 
@@ -33,6 +35,9 @@
 @property (weak, nonatomic) IBOutlet VcashButton *sendBtn;
 
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTextViewHeight;
+
+
 
 @end
 
@@ -41,11 +46,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = [LanguageService contentForKey:@"sendVcash"];
+    self.targetAddressTextView.delegate = self;
+    [self setTextViewHeight];
+    [self.amountField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     [self.amountField addTarget:self action:@selector(enterAmount:) forControlEvents:UIControlEventEditingChanged];
     self.sendBtn.backgroundColor = COrangeEnableColor;
     self.sendBtn.userInteractionEnabled = NO;
     ViewRadius(self.sendBtn, 4.0);
+    
     // Do any additional setup after loading the view from its nib.
+}
+
+
+- (void)setTextViewHeight{
+    CGFloat textViewHeight = [self.targetAddressTextView.text boundingRectWithSize:CGSizeMake(ScreenWidth - 114, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]} context:nil].size.height + 10;
+    if (textViewHeight > 40) {
+        self.constraintTextViewHeight.constant = textViewHeight;
+    }else{
+        self.constraintTextViewHeight.constant = 40;
+    }
+    [self.targetAddressTextView scrollRangeToVisible:NSMakeRange(self.targetAddressTextView.text.length, 1)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,28 +75,36 @@
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    if (textField == self.targetAddressField) {
-        self.viewLineSendto.backgroundColor = COrangeColor;
-    }
-    if (textField == self.amountField) {
-        self.viewLineAmount.backgroundColor = COrangeColor;
-    }
+    self.viewLineAmount.backgroundColor = COrangeColor;
     return YES;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    if (textField == self.targetAddressField) {
-        self.viewLineSendto.backgroundColor = CGrayColor;
-    }
-    if (textField == self.amountField) {
-        self.viewLineAmount.backgroundColor = CGrayColor;
-    }
+    self.viewLineAmount.backgroundColor = CGrayColor;
+}
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
+    self.viewLineSendto.backgroundColor = COrangeColor;
+    return YES;
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView{
+     self.viewLineSendto.backgroundColor = CGrayColor;
+}
+
+- (void)textViewDidChange:(UITextView *)textView{
+    self.labelPlaceHolder.hidden = textView.text.length > 0 ? YES : NO;
+    [self setTextViewHeight];
 }
 
 #pragma mark - ScanViewControllerDelegate
 
 - (void)scanWithResult:(NSString *)result{
-    self.targetAddressField.text = result ? result : @"";
+    self.targetAddressTextView.text = result ? result : @"";
+    self.labelPlaceHolder.hidden = result ? YES : NO;
+    [self setTextViewHeight];
 }
 
 
@@ -87,7 +115,7 @@
             textField.text = [textField.text substringWithRange:NSMakeRange(0, textField.text.length - ran.location)];
         }
     }
-    if (textField.text.length > 0 && self.targetAddressField.text.length > 0) {
+    if (textField.text.length > 0 && self.targetAddressTextView.text.length > 0) {
         self.sendBtn.backgroundColor = COrangeColor;
         self.sendBtn.userInteractionEnabled = YES;
     }else{
@@ -97,7 +125,7 @@
 }
 
 - (IBAction)clickSend:(id)sender {
-    if ([self.targetAddressField.text isEqualToString:[WalletWrapper getWalletUserId]]) {
+    if ([self.targetAddressTextView.text isEqualToString:[WalletWrapper getWalletUserId]]) {
         [self.view makeToast:[LanguageService contentForKey:@"sendSelfWarning"]];
         return;
     }
@@ -112,12 +140,12 @@
         [self.view makeToast:[LanguageService contentForKey:@"amountLimit"]];
         return;
     }
-    if (self.targetAddressField.text && amount > 0)
+    if (self.targetAddressTextView.text && amount > 0)
     {
-        [WalletWrapper createSendTransaction:self.targetAddressField.text amount:[WalletWrapper vcashToNano:amount] fee:0 withComplete:^(BOOL yesOrNo, id retData) {
+        [WalletWrapper createSendTransaction:self.targetAddressTextView.text amount:[WalletWrapper vcashToNano:amount] fee:0 withComplete:^(BOOL yesOrNo, id retData) {
             if (yesOrNo){
                 VcashSlate* slate = (VcashSlate*)retData;
-                [self sendTransactionWithUseId:self.targetAddressField.text slate:slate];
+                [self sendTransactionWithUseId:self.targetAddressTextView.text slate:slate];
             }
             else{
                 [MBHudHelper showTextTips:[NSString stringWithFormat:@"SendFailed:%@", retData] onView:nil withDuration:1.5];
