@@ -174,6 +174,7 @@
             return;
         }
         PinPasswordSetViewController *passwordSetVc = [[PinPasswordSetViewController alloc] init];
+        passwordSetVc.mnemonicWordsArr = self.mnemonicWordsArr;
         [self.navigationController pushViewController:passwordSetVc animated:YES];
     }
 }
