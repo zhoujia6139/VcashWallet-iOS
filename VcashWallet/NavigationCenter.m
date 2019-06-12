@@ -12,6 +12,7 @@
 #import "PinVerifyViewController.h"
 #import "VcashNavigationViewController.h"
 #import "SettingViewController.h"
+#import "LeftMenuManager.h"
 
 static UINavigationController* curNavVC;
 
@@ -30,17 +31,13 @@ static UINavigationController* curNavVC;
 +(void)showWalletPage:(BOOL)isRecover
 {
    WalletViewController* welcomeVc = [[WalletViewController alloc] init];
-    if (curNavVC) {
-        curNavVC.viewControllers = @[welcomeVc];
-    }else{
-        VcashNavigationViewController* nav = [[VcashNavigationViewController alloc] init];
-        welcomeVc.enterInRecoverMode = isRecover;
-        nav.viewControllers = @[welcomeVc];
-        UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
-        keyWindow.rootViewController = nav;
-        curNavVC = nav;
-    }
-  
+   VcashNavigationViewController* nav = [[VcashNavigationViewController alloc] init];
+   welcomeVc.enterInRecoverMode = isRecover;
+   nav.viewControllers = @[welcomeVc];
+   [[[LeftMenuManager shareInstance] leftMenuView] configData];
+   UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
+   keyWindow.rootViewController = nav;
+   curNavVC = nav;
 }
 
 +(void)showPasswordVerifyPage

@@ -37,22 +37,9 @@ static NSString * const identifier = @"LeftMenuCell";
 
 - (void)awakeFromNib{
     [super awakeFromNib];
-    NSArray *arrImageName = @[@"wallet.png",@"setting.png"];
-    NSArray *arrHightImageName = @[@"wallet_hight.png",@"setting_hight.png"];
-    NSArray *arrTitle = @[[LanguageService contentForKey:@"VcashWallet"],[LanguageService contentForKey:@"setting"]];
-    _arrData = [NSMutableArray array];
-    for (NSInteger i = 0; i < arrTitle.count; i++) {
-        LeftMenuModel *model = [LeftMenuModel new];
-        model.imageName = arrImageName[i];
-        model.imageHightName = arrHightImageName[i];
-        if (i == 0) {
-            model.selected = YES;
-            priMenuModel = model;
-        }
-        model.title = arrTitle[i];
-        [_arrData addObject:model];
-    }
-    
+   
+   
+    [self configData];
     [self.tableViewContainer registerNib:[UINib nibWithNibName:NSStringFromClass([LeftMenuCell class]) bundle:nil] forCellReuseIdentifier:identifier];
     
     self.tableViewContainer.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -68,6 +55,24 @@ static NSString * const identifier = @"LeftMenuCell";
     
     UIPanGestureRecognizer *panGestureSelf = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
     [self addGestureRecognizer:panGestureSelf];
+}
+
+- (void)configData{
+    NSArray *arrImageName = @[@"wallet.png",@"setting.png"];
+    NSArray *arrHightImageName = @[@"wallet_hight.png",@"setting_hight.png"];
+    NSArray *arrTitle = @[[LanguageService contentForKey:@"VcashWallet"],[LanguageService contentForKey:@"setting"]];
+    _arrData = [NSMutableArray array];
+    for (NSInteger i = 0; i < arrTitle.count; i++) {
+        LeftMenuModel *model = [LeftMenuModel new];
+        model.imageName = arrImageName[i];
+        model.imageHightName = arrHightImageName[i];
+        if (i == 0) {
+            model.selected = YES;
+            priMenuModel = model;
+        }
+        model.title = arrTitle[i];
+        [_arrData addObject:model];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -121,6 +126,9 @@ static NSString * const identifier = @"LeftMenuCell";
 }
 
 - (void)showAnimation{
+    UIWindow *wd= [[[UIApplication sharedApplication] delegate] window];
+    [wd bringSubviewToFront:self.viewAlpha];
+    [wd bringSubviewToFront:self];
     [UIView animateWithDuration:0.25 animations:^{
         CGRect fra = self.frame;
         fra.origin.x = 0;

@@ -31,9 +31,6 @@ static NSString *const identifier = @"WalletCell";
 
 @property (strong, nonatomic) IBOutlet UIView *viewHeader;
 
-@property (weak, nonatomic) IBOutlet UIButton *btnOpenOrCloseLeftMenu;
-
-
 @property (weak, nonatomic) IBOutlet UILabel *balanceTotal;
 
 @property (weak, nonatomic) IBOutlet UIView *maskView;
@@ -73,10 +70,11 @@ static NSString *const identifier = @"WalletCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initSubviews];
-    if (!self.enterInRecoverMode){
-        [self.tableViewContainer.mj_header beginRefreshing];
-    }
-//    [[[LeftMenuManager shareInstance] panGesture] requireGestureRecognizerToFail:self.tableViewContainer.panGestureRecognizer];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (!self.enterInRecoverMode){
+            [self.tableViewContainer.mj_header beginRefreshing];
+        }
+    });
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kWalletChainHeightChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kServerTxChange object:nil];
 }
@@ -105,8 +103,8 @@ static NSString *const identifier = @"WalletCell";
 - (void)initSubviews{
     if (@available(iOS 11.0, *)) {
         self.tableViewContainer.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-
     } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
         if([UIViewController instancesRespondToSelector:@selector(edgesForExtendedLayout)]) {
             self.edgesForExtendedLayout = UIRectEdgeNone;
         }
@@ -128,7 +126,11 @@ static NSString *const identifier = @"WalletCell";
     self.tableViewContainer.delegate = self;
     [self.tableViewContainer registerNib:[UINib nibWithNibName:NSStringFromClass([WalletCell class]) bundle:nil] forCellReuseIdentifier:identifier];
     self.tableViewContainer.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    self.tableViewContainer.estimatedSectionHeaderHeight = 0;
+    self.tableViewContainer.estimatedSectionFooterHeight = 0;
+    self.tableViewContainer.estimatedRowHeight = 0;
+    self.tableViewContainer.sectionHeaderHeight = 0;
+    self.tableViewContainer.sectionFooterHeight = 0;
     self.tableViewContainer.mj_header = [RefreshStateHeader headerWithRefreshingBlock:^{
         [self refreshWalletStatus];
     }];
@@ -210,7 +212,7 @@ static NSString *const identifier = @"WalletCell";
         [self.arrSections addObject:TxLog];
     }
    
-    self.tableViewContainer.tableFooterView = self.arrTransactionList.count > 0 ? nil : self.footView;
+    self.tableViewContainer.tableFooterView = ((self.arrTransactionList.count   +  self.arrServerTransactins.count) > 0 )? nil : self.footView;
     [self.tableViewContainer reloadData];
 }
 
@@ -243,7 +245,6 @@ static NSString *const identifier = @"WalletCell";
     }
     return cell;
 }
-
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *title = self.arrSections[indexPath.section];
@@ -320,26 +321,13 @@ static NSString *const identifier = @"WalletCell";
     return UIStatusBarStyleLightContent;
 }
 
-#pragma mark - LeftMenuViewDelegate
-
-- (void)isHaveHidden:(BOOL)hidden{
-    self.btnOpenOrCloseLeftMenu.selected = !hidden;
-}
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)clickedOpenOrCloseLeftMenuView:(id)sender {
-    UIButton *btn = (UIButton *)sender;
-    btn.selected = !btn.selected;
-    if (btn.selected) {
-        [[[LeftMenuManager shareInstance] leftMenuView] showAnimation];
-    }else{
-        [[[LeftMenuManager shareInstance] leftMenuView] hiddenAnimation];
-    }
+- (IBAction)clickedOpenLeftMenuView:(id)sender {
+    [[[LeftMenuManager shareInstance] leftMenuView] showAnimation];
 }
 
 - (IBAction)clickSend:(id)sender {

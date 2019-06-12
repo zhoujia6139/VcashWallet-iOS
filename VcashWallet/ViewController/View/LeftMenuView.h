@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id <LeftMenuViewDelegate> delegate;
 
+- (void)configData;
+
 - (void)addInView;
 
 - (void)addAlphaViewPanGesture:(UIPanGestureRecognizer *)pan;
