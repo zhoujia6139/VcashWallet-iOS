@@ -118,7 +118,7 @@
     "deleteTransaction":"delete transaction",
     "openFailure":"Open failure",
     "openAlbumInfo":"The album failed to open. The device does not support access to the album, please set it in Settings -> Privacy -> Photos",
-    "amountLimit":"The number of transmissions cannot be less than 0.01",
+    "amountLimit":"The number of transmissions cannot be 0",
     "enterDigit":"Must enter a number",
     "returnTitle":"Return to seed phrase",
     "retunrnMsg":"If you return to seed phrase,it would be changed and your local password won't be saved.",

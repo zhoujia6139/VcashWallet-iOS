@@ -60,7 +60,7 @@
     }
 }
 
-- (void)firstTextFieldBecomeResponser{
+- (void)firstTextFieldBecomeFirstResponder{
    PhraseWordItemView *itemView = [mParentView viewWithTag:kWordItemTagStart];
     for (id  iv in itemView.subviews) {
         if ([iv isKindOfClass:[UITextField class]]) {

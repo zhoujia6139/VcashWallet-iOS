@@ -24,7 +24,7 @@ typedef void (^PhraseWordFillAllCallBack)(NSString *title);
 
 - (void)setInputWordsArray:(NSArray*)wordsArr;
 
-- (void)firstTextFieldBecomeResponser;
+- (void)firstTextFieldBecomeFirstResponder;
 
 
 @end

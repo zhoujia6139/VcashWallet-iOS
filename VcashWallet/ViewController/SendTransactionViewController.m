@@ -136,7 +136,7 @@
     }
     NSNumber* numberAmount = [NSNumber numberWithString:strAmount];
     double amount = [numberAmount doubleValue];
-    if (amount < 0.01) {
+    if (amount == 0) {
         [self.view makeToast:[LanguageService contentForKey:@"amountLimit"]];
         return;
     }
