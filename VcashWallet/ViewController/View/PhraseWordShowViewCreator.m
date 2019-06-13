@@ -60,6 +60,17 @@
     }
 }
 
+- (void)firstTextFieldBecomeResponser{
+   PhraseWordItemView *itemView = [mParentView viewWithTag:kWordItemTagStart];
+    for (id  iv in itemView.subviews) {
+        if ([iv isKindOfClass:[UITextField class]]) {
+            UITextField *textField = (UITextField *)iv;
+            [textField becomeFirstResponder];
+            break;
+        }
+    }
+}
+
 - (void)creatPhraseViewWithParentView:(UIView*)view vc:(UIViewController *)vc needConfirmPhraseArr:(NSArray *)needConfirmPhraseArr dicData:(NSDictionary *)dicData  withCallBack:(PhraseWordFillAllCallBack)callback{
     [view removeAllSubviews];
     NSInteger itemCount = needConfirmPhraseArr.count;
@@ -254,9 +265,6 @@
 
 - (void)setTextFieldEnble:(BOOL)textFieldEnble{
     self.textField.userInteractionEnabled = textFieldEnble;
-    if (self.tag == kWordItemTagStart) {
-        [self.textField becomeFirstResponder];
-    }
 }
 
 - (NSString *)phrase{

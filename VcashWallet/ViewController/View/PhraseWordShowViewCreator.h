@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+
+
 @interface PhraseWordShowViewCreator : NSObject<UITextFieldDelegate>
 
 typedef void (^PhraseWordViewCallback)(CGFloat height,NSInteger wordsCount);
@@ -20,7 +22,10 @@ typedef void (^PhraseWordFillAllCallBack)(NSString *title);
 
 -(NSArray*)getAllInputWords;
 
--(void)setInputWordsArray:(NSArray*)wordsArr;
+- (void)setInputWordsArray:(NSArray*)wordsArr;
+
+- (void)firstTextFieldBecomeResponser;
+
 
 @end
 

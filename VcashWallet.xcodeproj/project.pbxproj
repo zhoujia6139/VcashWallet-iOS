@@ -827,12 +827,12 @@
 		A26FEBEF229F7E39003CCD7C /* VcashUIKit */ = {
 			isa = PBXGroup;
 			children = (
-				A26FEBF0229F7E39003CCD7C /* VcashTextField.h */,
+				A26FEBF4229F7E39003CCD7C /* VcashButton.h */,
 				A26FEBF1229F7E39003CCD7C /* VcashButton.m */,
 				A26FEBF2229F7E39003CCD7C /* VcashLabel.h */,
-				A26FEBF3229F7E39003CCD7C /* VcashTextField.m */,
-				A26FEBF4229F7E39003CCD7C /* VcashButton.h */,
 				A26FEBF5229F7E39003CCD7C /* VcashLabel.m */,
+				A26FEBF0229F7E39003CCD7C /* VcashTextField.h */,
+				A26FEBF3229F7E39003CCD7C /* VcashTextField.m */,
 			);
 			path = VcashUIKit;
 			sourceTree = "<group>";

@@ -10,6 +10,7 @@
 #import "WalletWrapper.h"
 #import "PhraseWordShowViewCreator.h"
 #import "PinPasswordSetViewController.h"
+#import "WelcomePageViewController.h"
 
 @interface RecoverMnemonicViewController ()
 
@@ -29,6 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = [LanguageService contentForKey:@"restorePhrase"];
     ViewRadius(self.recoverBtn, 4.0);
     self.recoverBtn.userInteractionEnabled = NO;
@@ -42,10 +44,29 @@
             [strongSlef.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
         }else{
             strongSlef.recoverBtn.userInteractionEnabled = YES;
-           [strongSlef.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
+            [strongSlef.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
         }
     }];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    NSMutableArray *vcs = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+    NSInteger count = vcs.count;
+    for (NSInteger i = 0; i < count; i++) {
+        UIViewController *vc = vcs[i];
+        if ([vc isKindOfClass:NSClassFromString(@"PinVerifyViewController")]) {
+            [vcs replaceObjectAtIndex:0 withObject:[WelcomePageViewController new]];
+            break;
+        }
+    }
+    self.navigationController.viewControllers = vcs;
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self.creator firstTextFieldBecomeResponser];
 }
 
 - (void)didReceiveMemoryWarning {

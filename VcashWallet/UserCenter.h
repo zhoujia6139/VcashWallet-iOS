@@ -24,5 +24,10 @@
 
 - (BOOL)appInstallAndCreateWallet;
 
+- (void)writeRecoverStatusWithFailed:(BOOL)failed;
+
+- (BOOL)recoverFailed;
+
+
 
 @end

@@ -162,23 +162,31 @@
     }
     
     BOOL yesOrNo = [self extracted];
-    if (yesOrNo)
-    {
+    if (yesOrNo){
         NSString* wordStr = [self.mnemonicWordsArr componentsJoinedByString:@" "];
         [[UserCenter sharedInstance] storeMnemonicWords:wordStr withKey:password];
-        [WalletWrapper clearWallet];
         if (self.isRecover) {
             [MBHudHelper startWorkProcessWithTextTips:[LanguageService contentForKey:@"recovering"]];
+            [[UserCenter sharedInstance] writeRecoverStatusWithFailed:YES];
             [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
                 NSString* tips = yesOrNo?[LanguageService contentForKey:@"successfulRecovery"]:[LanguageService contentForKey:@"recoveryFailure"];
+                if (yesOrNo) {
+                    [[UserCenter sharedInstance] writeRecoverStatusWithFailed:NO];
+                }
                 [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:tips];
                 if (yesOrNo){
-                    [NavigationCenter showWalletPage:self.isRecover createNewWallet:NO];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [NavigationCenter showWalletPage:self.isRecover createNewWallet:NO];
+                    });
                 }
+                
             }];
             return;
         }
+        [[UserCenter sharedInstance] writeRecoverStatusWithFailed:NO];
         [NavigationCenter showWalletPage:self.isRecover createNewWallet:YES];
+    }else{
+        [self.view makeToast:[LanguageService contentForKey:@"checkSeedPhrase"]];
     }
 }
 

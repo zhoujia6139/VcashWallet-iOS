@@ -13,6 +13,7 @@
 #define kKeyChainMnemonic  @"kKeyChainMnemonic"
 
 #define storageAppInstallAndCreateWalletPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"appInstallAndCreateWalletPath"]
+#define storageRecoverStatusPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"storageRecoverStatusPath"]
 
 @implementation UserCenter
 
@@ -63,7 +64,7 @@
 -(void)clearWallet
 {
     [YYKeychain deletePasswordForService:kKeyChainService account:kKeyChainMnemonic];
-    //[WalletWrapper clearWallet];
+    [WalletWrapper clearWallet];
 }
 
 - (void)writeAppInstallAndCreateWallet:(BOOL)installAndCreateWallet{
@@ -84,5 +85,15 @@
     return [[NSKeyedUnarchiver unarchiveObjectWithFile:storageAppInstallAndCreateWalletPath] boolValue];;
 }
 
+- (void)writeRecoverStatusWithFailed:(BOOL)failed{
+   BOOL writeSucc = [NSKeyedArchiver archiveRootObject:@(failed) toFile:storageRecoverStatusPath];
+    if (!writeSucc) {
+          DDLogError(@"recoverStatus write Failed");
+    }
+}
+
+- (BOOL)recoverFailed{
+    return  [[NSKeyedUnarchiver unarchiveObjectWithFile:storageRecoverStatusPath] boolValue];
+}
 
 @end

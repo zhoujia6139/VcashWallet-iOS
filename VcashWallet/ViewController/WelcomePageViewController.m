@@ -9,6 +9,7 @@
 #import "WelcomePageViewController.h"
 #import "CreateWalletNoteViewController.h"
 #import "RecoverMnemonicViewController.h"
+#import "AlertView.h"
 
 @interface WelcomePageViewController ()
 
@@ -78,7 +79,17 @@
 }
 
 - (IBAction)clickRestore:(id)sender {
-    [self.navigationController pushViewController:[RecoverMnemonicViewController new] animated:YES];
+    AlertView *alterView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([AlertView class]) owner:nil options:nil] firstObject];
+    alterView.title =  [LanguageService contentForKey:@"warning"];
+    alterView.msg = [LanguageService contentForKey:@"recoverWalletWarning"];
+    alterView.doneTitle = [LanguageService contentForKey:@"doneTitle"];
+    __weak typeof(self) weakSelf = self;
+    alterView.doneCallBack = ^{
+        [[UserCenter sharedInstance] clearWallet];
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf.navigationController pushViewController:[RecoverMnemonicViewController new] animated:YES];
+    };
+    [alterView show];
 }
 
 

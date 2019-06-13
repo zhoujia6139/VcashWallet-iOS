@@ -33,8 +33,13 @@
     if ([[UserCenter sharedInstance] checkUserHaveWallet])
     {
         if ([[UserCenter sharedInstance] appInstallAndCreateWallet]) {
-            [NavigationCenter showPasswordVerifyPage];
-            [[LockScreenTimeService shareInstance] addObserver];
+            if ([[UserCenter sharedInstance] recoverFailed]) {
+                [NavigationCenter showWelcomePage];
+            }else{
+                [NavigationCenter showPasswordVerifyPage];
+                [[LockScreenTimeService shareInstance] addObserver];
+            }
+           
         }else{
              [NavigationCenter showWelcomePage];
         }

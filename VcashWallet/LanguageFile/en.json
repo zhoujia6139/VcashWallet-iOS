@@ -128,4 +128,7 @@
     "confirmBackTitle":"Back to seed phrase",
     "confirmBackMsg":"Your current seed will become obsolete and the new seed will be genetrated",
     "usableWallet":"Wallet is ready for use",
+    "recoverWalletWarning":"The recovered wallet will cover the original wallet, please be cautious",
+    "warning":"Warning",
+    "checkSeedPhrase":"Failed to create wallet, please check the information you filled out Is the seed phrase correct?"
 }
