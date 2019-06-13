@@ -152,7 +152,6 @@
 		A272699822AE3C6A00E76E0A /* canceldetail@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A272699622AE3C6A00E76E0A /* canceldetail@3x.png */; };
 		A27269A022AF984600E76E0A /* canceled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A272699E22AF984600E76E0A /* canceled@3x.png */; };
 		A27269A122AF984600E76E0A /* canceled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A272699F22AF984600E76E0A /* canceled@2x.png */; };
-		A27269A422B114AA00E76E0A /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = A27269A322B114AA00E76E0A /* UIView+Extension.m */; };
 		A2B3A11722A0D8EF000F7495 /* ServerTransactionBlackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */; };
 		A2E5602022A8DBE7002E8E2D /* leftmenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E5601E22A8DBE6002E8E2D /* leftmenu@2x.png */; };
 		A2E5602122A8DBE7002E8E2D /* leftmenu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E5601F22A8DBE6002E8E2D /* leftmenu@3x.png */; };
@@ -444,8 +443,6 @@
 		A272699622AE3C6A00E76E0A /* canceldetail@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canceldetail@3x.png"; sourceTree = "<group>"; };
 		A272699E22AF984600E76E0A /* canceled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canceled@3x.png"; sourceTree = "<group>"; };
 		A272699F22AF984600E76E0A /* canceled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canceled@2x.png"; sourceTree = "<group>"; };
-		A27269A222B114AA00E76E0A /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
-		A27269A322B114AA00E76E0A /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		A2B3A11522A0D8EF000F7495 /* ServerTransactionBlackManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerTransactionBlackManager.h; sourceTree = "<group>"; };
 		A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerTransactionBlackManager.m; sourceTree = "<group>"; };
 		A2E5601E22A8DBE6002E8E2D /* leftmenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftmenu@2x.png"; sourceTree = "<group>"; };
@@ -1154,8 +1151,6 @@
 				ED44BFC2226979DA0042928E /* NSData+AES256.m */,
 				ED44BFC9226979DA0042928E /* NSString +AES256.h */,
 				ED44BFC4226979DA0042928E /* NSString +AES256.m */,
-				A27269A222B114AA00E76E0A /* UIView+Extension.h */,
-				A27269A322B114AA00E76E0A /* UIView+Extension.m */,
 				ED44BFC3226979DA0042928E /* UIViewController+POPHUD.h */,
 				ED44BFC7226979DA0042928E /* UIViewController+POPHUD.m */,
 				ED44BFC8226979DA0042928E /* NSNumber+Utils.h */,
@@ -1581,7 +1576,6 @@
 				ED44BFB322696CF50042928E /* BTCData+Tests.m in Sources */,
 				A26FEBC8229F7DE0003CCD7C /* ScanViewController.m in Sources */,
 				ED44BFB522696CF50042928E /* BTCErrors.m in Sources */,
-				A27269A422B114AA00E76E0A /* UIView+Extension.m in Sources */,
 				ED44BFFC226AFE160042928E /* VcashWallet.m in Sources */,
 				A26FEBE3229F7DE0003CCD7C /* AlertView.m in Sources */,
 				ED44BF8822696CF50042928E /* BTCNetwork.m in Sources */,

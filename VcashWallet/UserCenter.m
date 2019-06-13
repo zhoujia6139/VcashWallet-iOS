@@ -64,7 +64,6 @@
 -(void)clearWallet
 {
     [YYKeychain deletePasswordForService:kKeyChainService account:kKeyChainMnemonic];
-    [WalletWrapper clearWallet];
 }
 
 - (void)writeAppInstallAndCreateWallet:(BOOL)installAndCreateWallet{

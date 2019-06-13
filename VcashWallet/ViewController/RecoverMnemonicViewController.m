@@ -19,6 +19,9 @@
 
 @property (weak, nonatomic) IBOutlet UIView *promptView;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintPromptViewWidth;
+
+
 @property (weak, nonatomic) IBOutlet UIView *phraseView;
 
 @property (nonatomic, strong) PhraseWordShowViewCreator *creator;
@@ -32,7 +35,9 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = [LanguageService contentForKey:@"restorePhrase"];
+    self.constraintPromptViewWidth.constant = ScreenWidth - 24;
     ViewRadius(self.recoverBtn, 4.0);
+    
     self.recoverBtn.userInteractionEnabled = NO;
     [self.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
     self.creator = [PhraseWordShowViewCreator new];
@@ -69,10 +74,12 @@
     [self.creator firstTextFieldBecomeFirstResponder];
 }
 
-- (void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

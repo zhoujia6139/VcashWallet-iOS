@@ -12,7 +12,6 @@
 #import "LockScreenTimeService.h"
 #import <UIView+Toast.h>
 #import <IQKeyboardManager.h>
-#import "UIView+Extension.h"
 
 @interface AppDelegate ()
 
@@ -23,8 +22,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [self runtimeInit];
     [self initLoger];
+    [IQKeyboardManager sharedManager].enable = YES;
     [CSToastManager setDefaultPosition:CSToastPositionCenter];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -65,12 +64,6 @@
     [DDLog addLogger:fileLogger];
 }
 
--(void)runtimeInit{
-    //Solve the problem of white bar of IQKeyboardManager navigation bar
-    Method a = class_getInstanceMethod([UIView class], @selector(topMostController));
-    Method b = class_getInstanceMethod([UIView class], @selector(new_topMostController));
-    method_exchangeImplementations(a, b);
-}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

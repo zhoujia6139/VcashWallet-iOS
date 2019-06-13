@@ -164,6 +164,7 @@
     
     BOOL yesOrNo = [self extracted];
     if (yesOrNo){
+        [WalletWrapper clearWallet];
         NSString* wordStr = [self.mnemonicWordsArr componentsJoinedByString:@" "];
         [[UserCenter sharedInstance] storeMnemonicWords:wordStr withKey:password];
         if (self.isRecover) {

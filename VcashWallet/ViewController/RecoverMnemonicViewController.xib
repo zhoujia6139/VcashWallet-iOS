@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RecoverMnemonicViewController">
             <connections>
+                <outlet property="constraintPromptViewWidth" destination="Fmp-Pi-QnW" id="y5O-R1-t9f"/>
                 <outlet property="phraseView" destination="nKk-dw-JPs" id="esy-BJ-u7I"/>
                 <outlet property="promptView" destination="gem-0A-xWB" id="OF1-WK-wP3"/>
                 <outlet property="recoverBtn" destination="YLI-hd-uj4" id="DfU-lO-l47"/>
@@ -22,36 +23,51 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gem-0A-xWB">
-                    <rect key="frame" x="12" y="12" width="351" height="68"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfO-do-qEm">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a 24 word phrase you were given when you created your previous wallet." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bhk-F6-9dE" customClass="VcashLabel">
-                            <rect key="frame" x="20" y="16" width="311" height="36"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localText" value="usecreatedPhrasePrompt"/>
-                            </userDefinedRuntimeAttributes>
-                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gem-0A-xWB">
+                            <rect key="frame" x="12" y="12" width="351" height="68"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a 24 word phrase you were given when you created your previous wallet." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bhk-F6-9dE" customClass="VcashLabel">
+                                    <rect key="frame" x="20" y="16" width="311" height="36"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localText" value="usecreatedPhrasePrompt"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="Bhk-F6-9dE" secondAttribute="bottom" constant="16" id="5H1-8Y-mI8"/>
+                                <constraint firstItem="Bhk-F6-9dE" firstAttribute="top" secondItem="gem-0A-xWB" secondAttribute="top" constant="16" id="DeR-JG-egK"/>
+                                <constraint firstAttribute="width" constant="351" id="Fmp-Pi-QnW"/>
+                                <constraint firstAttribute="trailing" secondItem="Bhk-F6-9dE" secondAttribute="trailing" constant="20" id="J5s-j3-wex"/>
+                                <constraint firstItem="Bhk-F6-9dE" firstAttribute="leading" secondItem="gem-0A-xWB" secondAttribute="leading" constant="20" id="eVW-cA-oMa"/>
+                                <constraint firstItem="Bhk-F6-9dE" firstAttribute="centerY" secondItem="gem-0A-xWB" secondAttribute="centerY" id="o3d-87-oFm"/>
+                                <constraint firstItem="Bhk-F6-9dE" firstAttribute="centerX" secondItem="gem-0A-xWB" secondAttribute="centerX" id="pbP-rM-gXc"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nKk-dw-JPs">
+                            <rect key="frame" x="12" y="92" width="351" height="360"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="360" id="d6y-sN-C8E"/>
+                            </constraints>
+                        </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="Bhk-F6-9dE" secondAttribute="bottom" constant="16" id="5H1-8Y-mI8"/>
-                        <constraint firstItem="Bhk-F6-9dE" firstAttribute="top" secondItem="gem-0A-xWB" secondAttribute="top" constant="16" id="DeR-JG-egK"/>
-                        <constraint firstAttribute="trailing" secondItem="Bhk-F6-9dE" secondAttribute="trailing" constant="20" id="J5s-j3-wex"/>
-                        <constraint firstItem="Bhk-F6-9dE" firstAttribute="leading" secondItem="gem-0A-xWB" secondAttribute="leading" constant="20" id="eVW-cA-oMa"/>
-                        <constraint firstItem="Bhk-F6-9dE" firstAttribute="centerY" secondItem="gem-0A-xWB" secondAttribute="centerY" id="o3d-87-oFm"/>
-                        <constraint firstItem="Bhk-F6-9dE" firstAttribute="centerX" secondItem="gem-0A-xWB" secondAttribute="centerX" id="pbP-rM-gXc"/>
+                        <constraint firstAttribute="bottom" secondItem="nKk-dw-JPs" secondAttribute="bottom" id="99A-Hg-WCv"/>
+                        <constraint firstItem="nKk-dw-JPs" firstAttribute="leading" secondItem="jfO-do-qEm" secondAttribute="leading" constant="12" id="Ehm-iz-d4w"/>
+                        <constraint firstItem="gem-0A-xWB" firstAttribute="leading" secondItem="jfO-do-qEm" secondAttribute="leading" constant="12" id="OqN-j6-Grt"/>
+                        <constraint firstAttribute="trailing" secondItem="gem-0A-xWB" secondAttribute="trailing" constant="12" id="OvW-ER-iXY"/>
+                        <constraint firstItem="nKk-dw-JPs" firstAttribute="top" secondItem="gem-0A-xWB" secondAttribute="bottom" constant="12" id="X9r-Np-Cca"/>
+                        <constraint firstAttribute="trailing" secondItem="nKk-dw-JPs" secondAttribute="trailing" constant="12" id="Xvb-zs-SzP"/>
+                        <constraint firstItem="gem-0A-xWB" firstAttribute="top" secondItem="jfO-do-qEm" secondAttribute="top" constant="12" id="eJg-Gf-PYK"/>
                     </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nKk-dw-JPs">
-                    <rect key="frame" x="12" y="92" width="351" height="360"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="360" id="d6y-sN-C8E"/>
-                    </constraints>
-                </view>
+                </scrollView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YLI-hd-uj4" customClass="VcashButton">
                     <rect key="frame" x="92.5" y="587" width="190" height="40"/>
                     <color key="backgroundColor" red="1" green="0.58431372549019611" blue="0.0078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
@@ -72,14 +88,12 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="nKk-dw-JPs" firstAttribute="top" secondItem="gem-0A-xWB" secondAttribute="bottom" constant="12" id="OKp-EC-Byo"/>
-                <constraint firstAttribute="trailing" secondItem="nKk-dw-JPs" secondAttribute="trailing" constant="12" id="UGH-SV-McG"/>
+                <constraint firstAttribute="trailing" secondItem="jfO-do-qEm" secondAttribute="trailing" id="ECy-sn-5ty"/>
+                <constraint firstItem="jfO-do-qEm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="PAt-3E-dCk"/>
+                <constraint firstItem="jfO-do-qEm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Rf8-Wm-uFp"/>
                 <constraint firstAttribute="bottom" secondItem="YLI-hd-uj4" secondAttribute="bottom" constant="40" id="UwH-dP-wsg"/>
-                <constraint firstAttribute="trailing" secondItem="gem-0A-xWB" secondAttribute="trailing" constant="12" id="ajS-6I-L9w"/>
-                <constraint firstItem="gem-0A-xWB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="bQH-Ey-WCQ"/>
-                <constraint firstItem="gem-0A-xWB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="12" id="owu-9f-zds"/>
-                <constraint firstItem="nKk-dw-JPs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="qNA-Xv-Kfj"/>
                 <constraint firstItem="YLI-hd-uj4" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="sUf-6d-eRp"/>
+                <constraint firstAttribute="bottom" secondItem="jfO-do-qEm" secondAttribute="bottom" id="xec-aQ-Idc"/>
             </constraints>
         </view>
     </objects>

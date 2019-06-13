@@ -224,6 +224,7 @@
         _textField.font = [UIFont systemFontOfSize:15];
         _textField.delegate = self;
         [_textField addTarget:self action:@selector(enterPhrase:) forControlEvents:UIControlEventEditingChanged];
+        _textField.returnKeyType = UIReturnKeyNext;
         [self addSubview:_textField];
         [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.tagBtn.mas_right).offset(8);

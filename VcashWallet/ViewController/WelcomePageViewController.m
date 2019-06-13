@@ -79,17 +79,21 @@
 }
 
 - (IBAction)clickRestore:(id)sender {
-    AlertView *alterView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([AlertView class]) owner:nil options:nil] firstObject];
-    alterView.title =  [LanguageService contentForKey:@"warning"];
-    alterView.msg = [LanguageService contentForKey:@"recoverWalletWarning"];
-    alterView.doneTitle = [LanguageService contentForKey:@"doneTitle"];
-    __weak typeof(self) weakSelf = self;
-    alterView.doneCallBack = ^{
-        [[UserCenter sharedInstance] clearWallet];
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        [strongSelf.navigationController pushViewController:[RecoverMnemonicViewController new] animated:YES];
-    };
-    [alterView show];
+    if ([[UserCenter sharedInstance] checkUserHaveWallet]) {
+        AlertView *alterView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([AlertView class]) owner:nil options:nil] firstObject];
+        alterView.title =  [LanguageService contentForKey:@"warning"];
+        alterView.msg = [LanguageService contentForKey:@"recoverWalletWarning"];
+        alterView.doneTitle = [LanguageService contentForKey:@"doneTitle"];
+        __weak typeof(self) weakSelf = self;
+        alterView.doneCallBack = ^{
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            [strongSelf.navigationController pushViewController:[RecoverMnemonicViewController new] animated:YES];
+        };
+        [alterView show];
+        return;
+    }
+    [self.navigationController pushViewController:[RecoverMnemonicViewController new] animated:YES];
+    
 }
 
 

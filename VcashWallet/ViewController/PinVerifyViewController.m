@@ -108,7 +108,6 @@
     alterView.doneTitle = [LanguageService contentForKey:@"doneTitle"];
     __weak typeof(self) weakSelf = self;
     alterView.doneCallBack = ^{
-        [[UserCenter sharedInstance] clearWallet];
         __strong typeof(weakSelf) strongSelf = weakSelf;
          [strongSelf.navigationController pushViewController:[RecoverMnemonicViewController new] animated:YES];
     };
