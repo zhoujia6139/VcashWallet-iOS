@@ -206,6 +206,7 @@
             make.edges.equalTo(self);
         }];
         
+        
         _tagBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _tagBtn.userInteractionEnabled = NO;
         _tagBtn.backgroundColor =  [UIColor colorWithRed:194 / 255.0 green:194 / 255.0 blue:194 / 255.0 alpha:1];
@@ -233,6 +234,14 @@
         
         [AppHelper addLineWithParentView:self];
         [AppHelper addLineRightWithParentView:self];
+        __weak typeof(self) weakSelf = self;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithActionBlock:^(id  _Nonnull sender) {
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            if (strongSelf.textField.userInteractionEnabled) {
+                [strongSelf.textField becomeFirstResponder];
+            }
+        }];
+        [self addGestureRecognizer:tap];
     }
     return self;
 }
@@ -301,6 +310,9 @@
 }
 
 - (void)clickPhrase:(UIButton *)btn{
+    if (self.textField.userInteractionEnabled) {
+        [self.textField becomeFirstResponder];
+    }
     if (self.clickPhraseCallBack) {
         NSInteger index = self.tag - kWordItemTagStart;
         self.clickPhraseCallBack(index);
