@@ -55,20 +55,6 @@
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    NSMutableArray *vcs = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
-    NSInteger count = vcs.count;
-    for (NSInteger i = 0; i < count; i++) {
-        UIViewController *vc = vcs[i];
-        if ([vc isKindOfClass:NSClassFromString(@"PinVerifyViewController")]) {
-            [vcs replaceObjectAtIndex:0 withObject:[WelcomePageViewController new]];
-            break;
-        }
-    }
-    self.navigationController.viewControllers = vcs;
-}
-
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self.creator firstTextFieldBecomeFirstResponder];

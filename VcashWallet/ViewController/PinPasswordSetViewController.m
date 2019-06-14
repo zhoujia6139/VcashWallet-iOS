@@ -171,15 +171,11 @@
             [MBHudHelper startWorkProcessWithTextTips:[LanguageService contentForKey:@"recovering"]];
             [[UserCenter sharedInstance] writeRecoverStatusWithFailed:YES];
             [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
-                NSString* tips = yesOrNo?[LanguageService contentForKey:@"successfulRecovery"]:[LanguageService contentForKey:@"recoveryFailure"];
                 if (yesOrNo) {
                     [[UserCenter sharedInstance] writeRecoverStatusWithFailed:NO];
-                }
-                [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:tips];
-                if (yesOrNo){
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [NavigationCenter showWalletPage:self.isRecover createNewWallet:NO];
-                    });
+                     [NavigationCenter showWalletPage:self.isRecover createNewWallet:NO];
+                }else{
+                     [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:[LanguageService contentForKey:@"recoveryFailure"]];
                 }
                 
             }];

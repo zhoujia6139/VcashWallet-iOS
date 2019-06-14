@@ -111,7 +111,7 @@
     "seedPhrase":"Seed phrase",
     "mnemonicChangeedBackup":"The mnemonic has been changed, please re-back up",
     "passwordsNotmatch":"Passwords do not match",
-    "recovering":"Recovering",
+    "recovering":"Restoring wallet...Please do not close wallet.",
     "successfulRecovery":"Successful recovery",
     "recoveryFailure":"Recovery failure",
     "waitProcess":"waiting for processing",

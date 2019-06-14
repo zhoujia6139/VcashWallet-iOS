@@ -272,6 +272,24 @@
     }
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    NSMutableArray *arr = [NSMutableArray array];
+    for (PhraseWordItemView *iv in [[self superview] subviews]) {
+        for (id subIv in iv.subviews) {
+            if ([subIv isKindOfClass:[UITextField class]]) {
+                [arr addObject:subIv];
+            }
+        }
+    }
+    NSInteger index = [arr indexOfObject:textField];
+    if (index + 1 < arr.count) {
+        UITextField *nextField = [arr objectAtIndex:index + 1];
+        [nextField becomeFirstResponder];
+    }
+    return NO;
+}
+
+
 
 - (void)setTextFieldEnble:(BOOL)textFieldEnble{
     self.textField.userInteractionEnabled = textFieldEnble;
