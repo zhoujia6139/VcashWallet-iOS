@@ -66,7 +66,7 @@
     "deleteSuc":"Deleted successfully",
     "senderMsgNoti":"The transaction you sent has been signed, and is waiting for your signature and confirmation",
     "receiverMsgNoti":"You have received a new transaction, Waiting for you to sign",
-    "passwordIsWrong":"The password is wrong",
+    "passwordIsWrong":"Wrong password",
     "MJRefreshHeaderIdleText":"Pull down to refresh",
     "MJRefreshHeaderPullingText":"Release to refresh",
     "MJRefreshHeaderRefreshingText":"Loading...",
@@ -137,4 +137,5 @@
     "insufficientFundsWaring":"Insufficient funds. You are trying to send more funds (%@ VCash) than available (%@ VCash).",
     "txCancelSuc":"Cancelled successully.",
     "txCancelFailed":"Failed to cancel the transaction.",
+    "fillPasswordWarning":"Please fill in password",
 }

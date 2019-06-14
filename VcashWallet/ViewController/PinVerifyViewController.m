@@ -104,6 +104,8 @@
     {
         DDLogWarn(@"-------mnemonioc words in keychain is not available");
         self.labelPasswordWrong.hidden = NO;
+        NSString *tips = password.length > 0 ? [LanguageService contentForKey:@"passwordIsWrong"] : [LanguageService contentForKey:@"fillPasswordWarning"];
+        self.labelPasswordWrong.text = tips;
         self.viewLine.backgroundColor = [UIColor colorWithHexString:@"#FF3333"];
         [self.pasView clearUpPassword];
     }
