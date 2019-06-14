@@ -17,11 +17,11 @@
 
 #define COrangeColor  [UIColor colorWithHexString:@"#FF9502"]
 
-@interface SendTransactionViewController ()<UITextFieldDelegate,UITextViewDelegate,ScanViewControllerDelegate>
+@interface SendTransactionViewController ()<UITextFieldDelegate,YYTextViewDelegate,ScanViewControllerDelegate>
 
 
 
-@property (weak, nonatomic) IBOutlet UITextView *targetAddressTextView;
+@property (weak, nonatomic) IBOutlet YYTextView *targetAddressTextView;
 
 @property (weak, nonatomic) IBOutlet VcashLabel *labelPlaceHolder;
 
@@ -37,6 +37,7 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTextViewHeight;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintContentViewWidth;
 
 
 @end
@@ -46,6 +47,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = [LanguageService contentForKey:@"sendVcash"];
+    self.constraintContentViewWidth.constant = ScreenWidth - 25 - 85;
+    self.targetAddressTextView.textColor = [UIColor darkTextColor];
+    self.targetAddressTextView.font = [UIFont systemFontOfSize:15];
+    self.targetAddressTextView.placeholderTextColor = [UIColor lightGrayColor];
+    self.targetAddressTextView.placeholderText = [LanguageService contentForKey:@"enterOrScan"];
     self.targetAddressTextView.delegate = self;
     [self setTextViewHeight];
     [self.amountField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
@@ -53,23 +59,19 @@
     self.sendBtn.backgroundColor = COrangeEnableColor;
     self.sendBtn.userInteractionEnabled = NO;
     ViewRadius(self.sendBtn, 4.0);
-    
-    // Do any additional setup after loading the view from its nib.
 }
 
 
 - (void)setTextViewHeight{
-    [self.targetAddressTextView setContentInset:UIEdgeInsetsMake(0, 0, -15, 0)];
     
-    [self.targetAddressTextView setTextAlignment:NSTextAlignmentLeft];
-    self.targetAddressTextView.layoutManager.allowsNonContiguousLayout = NO;
-    CGFloat textViewHeight = [self.targetAddressTextView.text boundingRectWithSize:CGSizeMake(ScreenWidth - 105, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]} context:nil].size.height + 15;
-    if (textViewHeight > 40) {
-        self.constraintTextViewHeight.constant = textViewHeight;
+    CGFloat textViewHeight = [self.targetAddressTextView.text boundingRectWithSize:CGSizeMake(ScreenWidth - 110, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]} context:nil].size.height;
+    if (textViewHeight > 30) {
+        self.constraintTextViewHeight.constant = textViewHeight + 10;
     }else{
-        self.constraintTextViewHeight.constant = 40;
+        textViewHeight = 30;
+        self.constraintTextViewHeight.constant = 30;
     }
-    self.targetAddressTextView.contentSize = CGSizeMake(ScreenWidth - 105, textViewHeight);
+    self.targetAddressTextView.contentSize = CGSizeMake(ScreenWidth - 110, textViewHeight);
     [self.targetAddressTextView scrollRangeToVisible:NSMakeRange(0, 0)];
 }
 
@@ -88,15 +90,15 @@
     self.viewLineAmount.backgroundColor = CGrayColor;
 }
 
-#pragma mark - UITextViewDelegate
+#pragma mark - YYTextViewDelegate
 
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
+- (BOOL)textViewShouldBeginEditing:(YYTextView *)textView{
     self.viewLineSendto.backgroundColor = COrangeColor;
     [self setTextViewHeight];
     return YES;
 }
 
-- (void)textViewDidEndEditing:(UITextView *)textView{
+- (void)textViewDidEndEditing:(YYTextView *)textView{
      self.viewLineSendto.backgroundColor = CGrayColor;
 }
 
