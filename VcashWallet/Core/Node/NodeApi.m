@@ -45,6 +45,8 @@
         }
         if (outputs.highest_index > outputs.last_retrieved_index){
             [self getOutputsByPmmrIndex:outputs.last_retrieved_index retArr:retArr WithComplete:completeblock];
+            double percent = (double)outputs.last_retrieved_index / (double)outputs.highest_index;
+            completeblock?completeblock(YES, @(percent)):nil;
         }
         else if(outputs.highest_index == outputs.last_retrieved_index){
             completeblock?completeblock(YES, retArr):nil;
