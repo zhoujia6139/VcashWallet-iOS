@@ -19,7 +19,7 @@
     UINavigationBar *naviBar = [UINavigationBar appearance];
     [naviBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [naviBar setTitleTextAttributes:@{NSForegroundColorAttributeName :[UIColor darkTextColor], NSFontAttributeName : [UIFont systemFontOfSize:17]}];
-//    [naviBar setShadowImage:[UIImage new]];
+    [naviBar setShadowImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#eeeeee"]]];
 }
 
 - (void)viewDidLoad {

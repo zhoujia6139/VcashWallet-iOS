@@ -61,14 +61,14 @@
                             <rect key="frame" x="26" y="100" width="323" height="3"/>
                             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="3" id="kut-Bc-lpR"/>
+                                <constraint firstAttribute="height" constant="2" id="kut-Bc-lpR"/>
                             </constraints>
                         </view>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="270" placeholderIntrinsicHeight="46" translatesAutoresizingMaskIntoConstraints="NO" id="MKt-n8-jF5" customClass="YYTextView">
-                            <rect key="frame" x="20" y="57" width="270" height="40"/>
+                            <rect key="frame" x="25" y="57" width="265" height="40"/>
                             <subviews>
                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XFF-hg-PGt">
-                                    <rect key="frame" x="0.0" y="0.0" width="270" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="260" height="40"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="bZd-UT-cBs"/>
@@ -128,7 +128,7 @@
                             <rect key="frame" x="26" y="98.5" width="323" height="3"/>
                             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="3" id="YR2-H7-iSV"/>
+                                <constraint firstAttribute="height" constant="2" id="YR2-H7-iSV"/>
                             </constraints>
                         </view>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="enter amount" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YRG-CG-Brs" customClass="VcashTextField">
@@ -175,9 +175,9 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="LH6-sa-gCG" secondAttribute="bottom" constant="40" id="7uo-km-Hvh"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="LH6-sa-gCG" secondAttribute="bottom" constant="30" id="7uo-km-Hvh"/>
                 <constraint firstItem="dmR-Lj-w93" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Da2-FL-wjA"/>
-                <constraint firstItem="zrg-pV-E6b" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="50" id="KdJ-zv-A4O"/>
+                <constraint firstItem="zrg-pV-E6b" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="31.5" id="KdJ-zv-A4O"/>
                 <constraint firstItem="zrg-pV-E6b" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Wzc-8g-QJS"/>
                 <constraint firstItem="dmR-Lj-w93" firstAttribute="top" secondItem="zrg-pV-E6b" secondAttribute="bottom" id="XJ1-Rz-H2K"/>
                 <constraint firstItem="LH6-sa-gCG" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="28" id="fKv-ZB-EE7"/>

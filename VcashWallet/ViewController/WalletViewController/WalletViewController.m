@@ -123,7 +123,7 @@ static NSString *const identifier = @"WalletCell";
     [AppHelper addLineWithParentView:self.transactionTitleView];
     
     UIView *tableViewHeader = [[UIView alloc] init];
-    tableViewHeader.frame = CGRectMake(0, 0, ScreenWidth, 273);
+    tableViewHeader.frame = CGRectMake(0, 0, ScreenWidth, 265);
     [tableViewHeader addSubview:self.viewHeader];
     [self.viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(tableViewHeader);
@@ -184,7 +184,7 @@ static NSString *const identifier = @"WalletCell";
     NSString *balance = @([WalletWrapper nanoToVcash:info.total]).p09fString;
     NSString *confirm = @([WalletWrapper nanoToVcash:info.spendable]).p09fString;
     NSString *unconfirm =  @([WalletWrapper nanoToVcash:info.unconfirmed]).p09fString;
-    self.balanceTotal.text = [NSString stringWithFormat:@"%@ V", balance];
+    self.balanceTotal.text = balance;
     
     self.balanceConfirmed.text = [NSString stringWithFormat:@"%@",confirm];
     

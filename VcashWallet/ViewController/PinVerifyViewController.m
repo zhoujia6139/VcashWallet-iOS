@@ -26,6 +26,10 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintImageBgTop;
 
+@property (weak, nonatomic) IBOutlet VcashLabel *labelPrompt;
+
+@property (weak, nonatomic) IBOutlet VcashLabel *labelPasswordWrong;
+
 
 @end
 
@@ -70,12 +74,14 @@
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    self.labelPrompt.textColor = [UIColor colorWithHexString:@"#666666"];
     self.viewLine.backgroundColor = [UIColor whiteColor];
     return YES;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    self.viewLine.backgroundColor = CGrayColor;
+    self.labelPrompt.textColor = [UIColor whiteColor];
+    self.viewLine.backgroundColor = [UIColor colorWithHexString:@"#666666"];
 }
 
 
@@ -91,12 +97,14 @@
     BOOL yesOrNO = [WalletWrapper createWalletWithPhrase:wordsArr nickname:nil password:nil];
     if (yesOrNO)
     {
+        self.labelPasswordWrong.hidden = YES;
         [NavigationCenter showWalletPage:NO createNewWallet:NO];
     }
     else
     {
         DDLogWarn(@"-------mnemonioc words in keychain is not available");
-        [MBHudHelper showTextTips:[LanguageService contentForKey:@"passwordIsWrong"] onView:nil withDuration:1.5];
+        self.labelPasswordWrong.hidden = NO;
+        self.viewLine.backgroundColor = [UIColor colorWithHexString:@"#FF3333"];
         [self.pasView clearUpPassword];
     }
 }

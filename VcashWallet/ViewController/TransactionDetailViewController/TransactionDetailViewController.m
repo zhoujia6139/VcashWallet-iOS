@@ -348,11 +348,11 @@
         if (txlog.tx_slate_id) {
             [[ServerTxManager shareInstance] removeServerTxByTx_id:txlog.tx_slate_id];
         }
-        [MBHudHelper showTextTips:@"Tx cancel suc" onView:nil withDuration:1];
+        [MBHudHelper showTextTips:[LanguageService contentForKey:@"txCancelSuc"] onView:nil withDuration:1];
         [self.navigationController popViewControllerAnimated:YES];
     }
     else{
-        [MBHudHelper showTextTips:@"Tx cancel failed" onView:nil withDuration:1];
+        [MBHudHelper showTextTips:[LanguageService contentForKey:@"txCancelFailed"] onView:nil withDuration:1];
     }
 }
 

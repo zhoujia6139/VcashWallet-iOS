@@ -21,6 +21,9 @@
 
 @property (weak, nonatomic) IBOutlet UIView *promptView;
 
+@property (weak, nonatomic) IBOutlet VcashLabel *promptLabel;
+
+
 @property (weak, nonatomic) IBOutlet UIView *phraseWordView;
 
 @property (weak, nonatomic) IBOutlet VcashButton *nextBtn;
@@ -40,6 +43,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = [LanguageService contentForKey:@"seedPhrase"];
+    NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc] initWithString:[LanguageService contentForKey:@"backupPrompt"] attributes:@{NSForegroundColorAttributeName:[UIColor darkTextColor],NSFontAttributeName:[UIFont systemFontOfSize:15]}];
+    NSMutableParagraphStyle *para = [NSMutableParagraphStyle new];
+    para.lineSpacing = 5;
+    [attributeStr addAttribute:NSParagraphStyleAttributeName value:para range:NSMakeRange(0, attributeStr.length)];
+    self.promptLabel.attributedText = attributeStr;
     self.copnstraintPromptView.constant = ScreenWidth - 24;
     ViewRadius(self.promptView, 4.0);
     ViewRadius(self.nextBtn, 4.0);

@@ -20,7 +20,7 @@
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9oY-Qo-V5S">
-                    <rect key="frame" x="15" y="239.5" width="345" height="188.5"/>
+                    <rect key="frame" x="15" y="243.5" width="345" height="180.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save seed phrase" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Yi-m0-LUK" customClass="VcashLabel">
                             <rect key="frame" x="23" y="20" width="299" height="21.5"/>
@@ -42,7 +42,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H8D-mM-AIX" customClass="VcashButton">
-                            <rect key="frame" x="248" y="144.5" width="97" height="44"/>
+                            <rect key="frame" x="248" y="136.5" width="97" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="sBL-fa-1vZ"/>
                             </constraints>
@@ -59,7 +59,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pse-gL-4Er" customClass="VcashButton">
-                            <rect key="frame" x="146" y="144.5" width="108" height="44"/>
+                            <rect key="frame" x="146" y="136.5" width="108" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="fgr-If-mb1"/>
                             </constraints>
@@ -76,7 +76,7 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rMC-C3-CAv">
-                            <rect key="frame" x="253" y="159" width="1" height="15"/>
+                            <rect key="frame" x="253" y="151" width="1" height="15"/>
                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="15" id="0Jg-73-Vuy"/>
@@ -94,7 +94,7 @@
                         <constraint firstItem="rMC-C3-CAv" firstAttribute="trailing" secondItem="Pse-gL-4Er" secondAttribute="trailing" id="UtH-yf-8en"/>
                         <constraint firstItem="rMC-C3-CAv" firstAttribute="centerY" secondItem="Pse-gL-4Er" secondAttribute="centerY" id="Zje-ty-2Io"/>
                         <constraint firstItem="H8D-mM-AIX" firstAttribute="leading" secondItem="Pse-gL-4Er" secondAttribute="trailing" constant="-6" id="aEz-J4-6SJ"/>
-                        <constraint firstItem="H8D-mM-AIX" firstAttribute="top" secondItem="GIm-F6-7jd" secondAttribute="bottom" constant="18" id="bEt-nK-jHN"/>
+                        <constraint firstItem="H8D-mM-AIX" firstAttribute="top" secondItem="GIm-F6-7jd" secondAttribute="bottom" constant="10" id="bEt-nK-jHN"/>
                         <constraint firstItem="5Yi-m0-LUK" firstAttribute="leading" secondItem="9oY-Qo-V5S" secondAttribute="leading" constant="23" id="cjy-2j-8ii"/>
                         <constraint firstAttribute="trailing" secondItem="5Yi-m0-LUK" secondAttribute="trailing" constant="23" id="laM-H7-Zed"/>
                         <constraint firstAttribute="trailing" secondItem="GIm-F6-7jd" secondAttribute="trailing" constant="23" id="poi-5k-CJe"/>

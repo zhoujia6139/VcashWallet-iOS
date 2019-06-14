@@ -152,6 +152,8 @@
 		A272699822AE3C6A00E76E0A /* canceldetail@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A272699622AE3C6A00E76E0A /* canceldetail@3x.png */; };
 		A27269A022AF984600E76E0A /* canceled@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A272699E22AF984600E76E0A /* canceled@3x.png */; };
 		A27269A122AF984600E76E0A /* canceled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A272699F22AF984600E76E0A /* canceled@2x.png */; };
+		A27269AB22B3AB8B00E76E0A /* bg2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A27269A922B3AB8A00E76E0A /* bg2@3x.png */; };
+		A27269AC22B3AB8B00E76E0A /* bg2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A27269AA22B3AB8B00E76E0A /* bg2@2x.png */; };
 		A2B3A11722A0D8EF000F7495 /* ServerTransactionBlackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */; };
 		A2E5602022A8DBE7002E8E2D /* leftmenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E5601E22A8DBE6002E8E2D /* leftmenu@2x.png */; };
 		A2E5602122A8DBE7002E8E2D /* leftmenu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E5601F22A8DBE6002E8E2D /* leftmenu@3x.png */; };
@@ -443,6 +445,8 @@
 		A272699622AE3C6A00E76E0A /* canceldetail@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canceldetail@3x.png"; sourceTree = "<group>"; };
 		A272699E22AF984600E76E0A /* canceled@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canceled@3x.png"; sourceTree = "<group>"; };
 		A272699F22AF984600E76E0A /* canceled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canceled@2x.png"; sourceTree = "<group>"; };
+		A27269A922B3AB8A00E76E0A /* bg2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg2@3x.png"; sourceTree = "<group>"; };
+		A27269AA22B3AB8B00E76E0A /* bg2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg2@2x.png"; sourceTree = "<group>"; };
 		A2B3A11522A0D8EF000F7495 /* ServerTransactionBlackManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerTransactionBlackManager.h; sourceTree = "<group>"; };
 		A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerTransactionBlackManager.m; sourceTree = "<group>"; };
 		A2E5601E22A8DBE6002E8E2D /* leftmenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftmenu@2x.png"; sourceTree = "<group>"; };
@@ -839,6 +843,8 @@
 			children = (
 				A26FECAF229FEC26003CCD7C /* process_suc_icon@2x.png */,
 				A26FECB1229FEC33003CCD7C /* process_fail_icon@2x.png */,
+				A27269AA22B3AB8B00E76E0A /* bg2@2x.png */,
+				A27269A922B3AB8A00E76E0A /* bg2@3x.png */,
 				A272699522AE3C6900E76E0A /* canceldetail@2x.png */,
 				A272699622AE3C6A00E76E0A /* canceldetail@3x.png */,
 				A2E5601E22A8DBE6002E8E2D /* leftmenu@2x.png */,
@@ -1374,6 +1380,7 @@
 				A26FEC67229F805B003CCD7C /* restore@2x.png in Resources */,
 				A26FEC6A229F805B003CCD7C /* setting@3x.png in Resources */,
 				A27269A022AF984600E76E0A /* canceled@3x.png in Resources */,
+				A27269AB22B3AB8B00E76E0A /* bg2@3x.png in Resources */,
 				A26FEC9F229F805B003CCD7C /* delete@3x.png in Resources */,
 				A26FEBBF229F7DE0003CCD7C /* HandleSlateViewController.xib in Resources */,
 				A26FEC87229F805B003CCD7C /* logo@2x.png in Resources */,
@@ -1398,6 +1405,7 @@
 				A26FEC56229F805A003CCD7C /* setting_hight@2x.png in Resources */,
 				A26FEBD4229F7DE0003CCD7C /* ChangePasswordViewController.xib in Resources */,
 				A26FEC8A229F805B003CCD7C /* sendchose@3x.png in Resources */,
+				A27269AC22B3AB8B00E76E0A /* bg2@2x.png in Resources */,
 				A26FEBDF229F7DE0003CCD7C /* MessageNotificationView.xib in Resources */,
 				A26FEC91229F805B003CCD7C /* wallet@3x.png in Resources */,
 				A26FEC7B229F805B003CCD7C /* balancelogo@3x.png in Resources */,

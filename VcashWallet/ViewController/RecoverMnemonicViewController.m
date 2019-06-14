@@ -26,6 +26,9 @@
 
 @property (nonatomic, strong) PhraseWordShowViewCreator *creator;
 
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintRecoverBottom;
+
 @end
 
 @implementation RecoverMnemonicViewController
@@ -52,6 +55,7 @@
             [strongSlef.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
         }
     }];
+    self.constraintRecoverBottom.constant = 30 + Portrait_Bottom_SafeArea_Height;
     // Do any additional setup after loading the view from its nib.
 }
 

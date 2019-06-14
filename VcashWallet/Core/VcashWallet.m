@@ -194,7 +194,8 @@ static VcashWallet* walletInstance = nil;
     
     uint64_t amount_with_fee = amount + actualFee;
     if (total < amount_with_fee){
-        NSString* errMsg = [NSString stringWithFormat:@"Not enough funds, available:%@, needed:%@", @([WalletWrapper nanoToVcash:total]), @([WalletWrapper nanoToVcash:amount_with_fee])];
+        
+        NSString* errMsg = [NSString stringWithFormat:[LanguageService contentForKey:@"insufficientFundsWaring"], @([WalletWrapper nanoToVcash:amount_with_fee]),@([WalletWrapper nanoToVcash:total])];
         block?block(NO, errMsg):nil;
         return;
     }

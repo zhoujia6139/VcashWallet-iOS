@@ -15,6 +15,7 @@
                 <outlet property="copnstraintPromptView" destination="gsJ-Wb-iil" id="RoT-SK-ztU"/>
                 <outlet property="nextBtn" destination="2Wt-bg-ooa" id="lXa-LC-ma4"/>
                 <outlet property="phraseWordView" destination="BFv-zi-8Rj" id="USN-6u-lv9"/>
+                <outlet property="promptLabel" destination="h31-Wg-VUa" id="dzL-gH-Rvh"/>
                 <outlet property="promptView" destination="IBu-OA-vmb" id="Nt2-Cz-rLh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -83,10 +84,10 @@
                         <constraint firstItem="BFv-zi-8Rj" firstAttribute="leading" secondItem="MZ7-JE-zFs" secondAttribute="leading" constant="12" id="MYt-sx-bhe"/>
                         <constraint firstItem="2Wt-bg-ooa" firstAttribute="centerX" secondItem="MZ7-JE-zFs" secondAttribute="centerX" id="RWU-PY-9WB"/>
                         <constraint firstAttribute="trailing" secondItem="IBu-OA-vmb" secondAttribute="trailing" constant="12" id="V5Z-pe-pSP"/>
-                        <constraint firstItem="IBu-OA-vmb" firstAttribute="top" secondItem="MZ7-JE-zFs" secondAttribute="top" constant="10" id="cej-Us-Fgw"/>
+                        <constraint firstItem="IBu-OA-vmb" firstAttribute="top" secondItem="MZ7-JE-zFs" secondAttribute="top" constant="12" id="cej-Us-Fgw"/>
                         <constraint firstItem="BFv-zi-8Rj" firstAttribute="top" secondItem="IBu-OA-vmb" secondAttribute="bottom" constant="15" id="e42-Y1-WA1"/>
                         <constraint firstItem="IBu-OA-vmb" firstAttribute="leading" secondItem="MZ7-JE-zFs" secondAttribute="leading" constant="12" id="eHQ-To-H4C"/>
-                        <constraint firstItem="2Wt-bg-ooa" firstAttribute="top" secondItem="BFv-zi-8Rj" secondAttribute="bottom" constant="16" id="zWV-EP-EfL"/>
+                        <constraint firstItem="2Wt-bg-ooa" firstAttribute="top" secondItem="BFv-zi-8Rj" secondAttribute="bottom" constant="20" id="zWV-EP-EfL"/>
                     </constraints>
                 </scrollView>
             </subviews>

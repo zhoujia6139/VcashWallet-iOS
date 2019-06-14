@@ -154,7 +154,7 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UHT-x7-YaX" customClass="VcashButton">
-                            <rect key="frame" x="28" y="476" width="319" height="44"/>
+                            <rect key="frame" x="28" y="486" width="319" height="44"/>
                             <color key="backgroundColor" red="1" green="0.58431372549019611" blue="0.0078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="9hb-rH-Qx4"/>
@@ -174,7 +174,7 @@
                         <constraint firstItem="8xO-jW-ZnA" firstAttribute="top" secondItem="vdR-gE-hxZ" secondAttribute="bottom" id="3Ju-ZT-Wed"/>
                         <constraint firstItem="7e1-0a-lIa" firstAttribute="leading" secondItem="o1i-fj-mmh" secondAttribute="leading" id="47g-MQ-3CO"/>
                         <constraint firstItem="Ilr-VF-w80" firstAttribute="leading" secondItem="o1i-fj-mmh" secondAttribute="leading" id="7DG-7Y-3za"/>
-                        <constraint firstAttribute="bottom" secondItem="UHT-x7-YaX" secondAttribute="bottom" constant="40" id="7RI-NT-hEt"/>
+                        <constraint firstAttribute="bottom" secondItem="UHT-x7-YaX" secondAttribute="bottom" constant="30" id="7RI-NT-hEt"/>
                         <constraint firstItem="7e1-0a-lIa" firstAttribute="top" secondItem="o1i-fj-mmh" secondAttribute="top" id="9Ev-9c-lbu"/>
                         <constraint firstItem="UHT-x7-YaX" firstAttribute="leading" secondItem="o1i-fj-mmh" secondAttribute="leading" constant="28" id="BcI-36-UQC"/>
                         <constraint firstItem="Ilr-VF-w80" firstAttribute="top" secondItem="7e1-0a-lIa" secondAttribute="bottom" constant="20" id="Bto-dF-ZfC"/>

@@ -137,6 +137,12 @@
         [self.view makeToast:[LanguageService contentForKey:@"sendSelfWarning"]];
         return;
     }
+    
+    if (self.targetAddressTextView.text.length != 66) {
+        [self.view makeToast:[LanguageService contentForKey:@"addressFormatIncorrect"]];
+        return;
+    }
+    
     NSString* strAmount = self.amountField.text;
     if (![self isNumber:strAmount]) {
         [self.view makeToast:[LanguageService contentForKey:@"enterDigit"]];
@@ -156,7 +162,7 @@
                 [self sendTransactionWithUseId:self.targetAddressTextView.text slate:slate];
             }
             else{
-                [MBHudHelper showTextTips:[NSString stringWithFormat:@"SendFailed:%@", retData] onView:nil withDuration:1.5];
+                [MBHudHelper showTextTips:[NSString stringWithFormat:@"%@", retData] onView:nil withDuration:1.5];
             }
             
         }];
@@ -186,12 +192,12 @@
 - (void)sendTransactionWithUseId:(NSString *)useId slate:(VcashSlate *)slate{
     [WalletWrapper sendTransaction:slate forUser:useId withComplete:^(BOOL yesOrNo, id _Nullable data) {
         if (yesOrNo){
-            [MBHudHelper showTextTips:@"Send success!" onView:nil withDuration:1];
+            [MBHudHelper showTextTips:[LanguageService contentForKey:@"sendSuc"] onView:nil withDuration:1];
              VcashTxLog *txLog =  [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
             [self pushTranscactionDetailVcWith:txLog];
         }
         else{
-            [MBHudHelper showTextTips:[NSString stringWithFormat:@"Send failed:%@", data] onView:nil withDuration:1];
+            [MBHudHelper showTextTips:[LanguageService contentForKey:@"sendFailed"] onView:nil withDuration:1];
         }
     }];
 }

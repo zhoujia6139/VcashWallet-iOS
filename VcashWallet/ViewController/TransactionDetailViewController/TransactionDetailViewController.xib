@@ -94,10 +94,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qg3-JW-k0i">
-                            <rect key="frame" x="0.0" y="103.5" width="375" height="47"/>
+                            <rect key="frame" x="0.0" y="103.5" width="375" height="37"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sender:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4do-4s-YcH" customClass="VcashLabel">
-                                    <rect key="frame" x="0.0" y="20" width="101" height="17"/>
+                                    <rect key="frame" x="0.0" y="10" width="101" height="17"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="101" id="6ba-f6-Ofx"/>
                                     </constraints>
@@ -109,7 +109,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OtP-76-ta1">
-                                    <rect key="frame" x="115" y="20" width="224" height="17"/>
+                                    <rect key="frame" x="115" y="10" width="224" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -118,19 +118,19 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="OtP-76-ta1" secondAttribute="bottom" constant="10" id="2h2-PP-lhg"/>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="47" id="AfW-ZB-Jke"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="37" id="AfW-ZB-Jke"/>
                                 <constraint firstItem="4do-4s-YcH" firstAttribute="leading" secondItem="qg3-JW-k0i" secondAttribute="leading" id="KBv-cB-9db"/>
                                 <constraint firstItem="OtP-76-ta1" firstAttribute="leading" secondItem="4do-4s-YcH" secondAttribute="trailing" constant="14" id="ZLt-zC-SK3"/>
                                 <constraint firstItem="OtP-76-ta1" firstAttribute="top" secondItem="4do-4s-YcH" secondAttribute="top" id="coW-kp-6T6"/>
-                                <constraint firstItem="4do-4s-YcH" firstAttribute="top" secondItem="qg3-JW-k0i" secondAttribute="top" constant="20" id="eOD-ir-9kD"/>
+                                <constraint firstItem="4do-4s-YcH" firstAttribute="top" secondItem="qg3-JW-k0i" secondAttribute="top" constant="10" id="eOD-ir-9kD"/>
                                 <constraint firstAttribute="trailing" secondItem="OtP-76-ta1" secondAttribute="trailing" constant="36" id="l9H-6T-nPf"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="etB-Xb-nV0">
-                            <rect key="frame" x="0.0" y="150.5" width="375" height="47"/>
+                            <rect key="frame" x="0.0" y="140.5" width="375" height="37"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recipient:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EbB-Mq-9i8" customClass="VcashLabel">
-                                    <rect key="frame" x="0.0" y="20" width="101" height="17"/>
+                                    <rect key="frame" x="0.0" y="10" width="101" height="17"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="101" id="alJ-4E-Pn0"/>
                                     </constraints>
@@ -142,7 +142,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SDo-Oy-MPa">
-                                    <rect key="frame" x="115" y="20" width="224" height="17"/>
+                                    <rect key="frame" x="115" y="10" width="224" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -150,20 +150,20 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstItem="EbB-Mq-9i8" firstAttribute="top" secondItem="etB-Xb-nV0" secondAttribute="top" constant="20" id="G0b-xF-4ea"/>
+                                <constraint firstItem="EbB-Mq-9i8" firstAttribute="top" secondItem="etB-Xb-nV0" secondAttribute="top" constant="10" id="G0b-xF-4ea"/>
                                 <constraint firstItem="SDo-Oy-MPa" firstAttribute="top" secondItem="EbB-Mq-9i8" secondAttribute="top" id="PGZ-Ht-XK3"/>
                                 <constraint firstAttribute="trailing" secondItem="SDo-Oy-MPa" secondAttribute="trailing" constant="36" id="VxC-8l-iOF"/>
                                 <constraint firstItem="SDo-Oy-MPa" firstAttribute="leading" secondItem="EbB-Mq-9i8" secondAttribute="trailing" constant="14" id="XTn-GY-dhy"/>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="47" id="i9K-JR-6FR"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="37" id="i9K-JR-6FR"/>
                                 <constraint firstAttribute="bottom" secondItem="SDo-Oy-MPa" secondAttribute="bottom" constant="10" id="lJb-ea-S3b"/>
                                 <constraint firstItem="EbB-Mq-9i8" firstAttribute="leading" secondItem="etB-Xb-nV0" secondAttribute="leading" id="yhP-Pq-nij"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8sb-so-UKq">
-                            <rect key="frame" x="0.0" y="197.5" width="375" height="47"/>
+                            <rect key="frame" x="0.0" y="177.5" width="375" height="37"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TX amount:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7N-up-NyS" customClass="VcashLabel">
-                                    <rect key="frame" x="0.0" y="20" width="101" height="17"/>
+                                    <rect key="frame" x="0.0" y="10" width="101" height="17"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="101" id="jly-mJ-OfI"/>
                                     </constraints>
@@ -175,7 +175,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efA-ek-wA6">
-                                    <rect key="frame" x="115" y="20" width="224" height="17"/>
+                                    <rect key="frame" x="115" y="10" width="224" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -186,16 +186,16 @@
                                 <constraint firstItem="M7N-up-NyS" firstAttribute="leading" secondItem="8sb-so-UKq" secondAttribute="leading" id="C6n-Ap-HCe"/>
                                 <constraint firstAttribute="trailing" secondItem="efA-ek-wA6" secondAttribute="trailing" constant="36" id="IFm-M7-f4d"/>
                                 <constraint firstAttribute="bottom" secondItem="efA-ek-wA6" secondAttribute="bottom" constant="10" id="JHD-Ub-g74"/>
-                                <constraint firstItem="M7N-up-NyS" firstAttribute="top" secondItem="8sb-so-UKq" secondAttribute="top" constant="20" id="Pai-ya-i3N"/>
+                                <constraint firstItem="M7N-up-NyS" firstAttribute="top" secondItem="8sb-so-UKq" secondAttribute="top" constant="10" id="Pai-ya-i3N"/>
                                 <constraint firstItem="efA-ek-wA6" firstAttribute="top" secondItem="M7N-up-NyS" secondAttribute="top" id="ZOP-k8-egN"/>
                                 <constraint firstItem="efA-ek-wA6" firstAttribute="leading" secondItem="M7N-up-NyS" secondAttribute="trailing" constant="14" id="wwQ-35-Qpf"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iOo-BM-xoN">
-                            <rect key="frame" x="0.0" y="244.5" width="375" height="47"/>
+                            <rect key="frame" x="0.0" y="214.5" width="375" height="37"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TX fee:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tip-Vr-N3Q" customClass="VcashLabel">
-                                    <rect key="frame" x="0.0" y="20" width="101" height="17"/>
+                                    <rect key="frame" x="0.0" y="10" width="101" height="17"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="101" id="fhQ-qW-omv"/>
                                     </constraints>
@@ -207,7 +207,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkH-au-M1w">
-                                    <rect key="frame" x="115" y="20" width="224" height="17"/>
+                                    <rect key="frame" x="115" y="10" width="224" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -220,14 +220,14 @@
                                 <constraint firstAttribute="bottom" secondItem="qkH-au-M1w" secondAttribute="bottom" constant="10" id="JkG-vI-ETF"/>
                                 <constraint firstItem="qkH-au-M1w" firstAttribute="leading" secondItem="tip-Vr-N3Q" secondAttribute="trailing" constant="14" id="SiG-AZ-wcn"/>
                                 <constraint firstItem="qkH-au-M1w" firstAttribute="top" secondItem="tip-Vr-N3Q" secondAttribute="top" id="tFg-Q4-fo2"/>
-                                <constraint firstItem="tip-Vr-N3Q" firstAttribute="top" secondItem="iOo-BM-xoN" secondAttribute="top" constant="20" id="uw5-JJ-jkb"/>
+                                <constraint firstItem="tip-Vr-N3Q" firstAttribute="top" secondItem="iOo-BM-xoN" secondAttribute="top" constant="10" id="uw5-JJ-jkb"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dU1-tT-Dlh">
-                            <rect key="frame" x="0.0" y="291.5" width="375" height="47"/>
+                            <rect key="frame" x="0.0" y="251.5" width="375" height="37"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TX time:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iMZ-lC-qBo" customClass="VcashLabel">
-                                    <rect key="frame" x="0.0" y="20" width="101" height="17"/>
+                                    <rect key="frame" x="0.0" y="10" width="101" height="17"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="101" id="F8O-4M-Tod"/>
                                     </constraints>
@@ -239,7 +239,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2iZ-Fo-3jZ">
-                                    <rect key="frame" x="115" y="20" width="224" height="17"/>
+                                    <rect key="frame" x="115" y="10" width="224" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -252,7 +252,7 @@
                                 <constraint firstAttribute="trailing" secondItem="2iZ-Fo-3jZ" secondAttribute="trailing" constant="36" id="PIG-FN-oL5"/>
                                 <constraint firstAttribute="bottom" secondItem="2iZ-Fo-3jZ" secondAttribute="bottom" constant="10" id="iYd-XL-aGb"/>
                                 <constraint firstItem="2iZ-Fo-3jZ" firstAttribute="leading" secondItem="iMZ-lC-qBo" secondAttribute="trailing" constant="14" id="joh-1K-6P7"/>
-                                <constraint firstItem="iMZ-lC-qBo" firstAttribute="top" secondItem="dU1-tT-Dlh" secondAttribute="top" constant="20" id="tDa-p5-Q1F"/>
+                                <constraint firstItem="iMZ-lC-qBo" firstAttribute="top" secondItem="dU1-tT-Dlh" secondAttribute="top" constant="10" id="tDa-p5-Q1F"/>
                             </constraints>
                         </view>
                     </subviews>

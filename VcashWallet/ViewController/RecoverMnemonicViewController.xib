@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RecoverMnemonicViewController">
             <connections>
                 <outlet property="constraintPromptViewWidth" destination="Fmp-Pi-QnW" id="y5O-R1-t9f"/>
+                <outlet property="constraintRecoverBottom" destination="UwH-dP-wsg" id="OeD-6w-v77"/>
                 <outlet property="phraseView" destination="nKk-dw-JPs" id="esy-BJ-u7I"/>
                 <outlet property="promptView" destination="gem-0A-xWB" id="OF1-WK-wP3"/>
                 <outlet property="recoverBtn" destination="YLI-hd-uj4" id="DfU-lO-l47"/>
@@ -91,7 +92,7 @@
                 <constraint firstAttribute="trailing" secondItem="jfO-do-qEm" secondAttribute="trailing" id="ECy-sn-5ty"/>
                 <constraint firstItem="jfO-do-qEm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="PAt-3E-dCk"/>
                 <constraint firstItem="jfO-do-qEm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Rf8-Wm-uFp"/>
-                <constraint firstAttribute="bottom" secondItem="YLI-hd-uj4" secondAttribute="bottom" constant="40" id="UwH-dP-wsg"/>
+                <constraint firstAttribute="bottom" secondItem="YLI-hd-uj4" secondAttribute="bottom" constant="30" id="UwH-dP-wsg"/>
                 <constraint firstItem="YLI-hd-uj4" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="sUf-6d-eRp"/>
                 <constraint firstAttribute="bottom" secondItem="jfO-do-qEm" secondAttribute="bottom" id="xec-aQ-Idc"/>
             </constraints>

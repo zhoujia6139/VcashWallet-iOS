@@ -25,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6K-8B-ovB">
-                    <rect key="frame" x="12" y="30" width="351" height="86"/>
+                    <rect key="frame" x="12" y="32" width="351" height="86"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To ensure the seed phrase is written down correctly. please fill in the specific words below." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocj-W8-dHg" customClass="VcashLabel">
                             <rect key="frame" x="20" y="16" width="311" height="54"/>
@@ -49,14 +49,14 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IS1-B7-qAT">
-                    <rect key="frame" x="12" y="132" width="351" height="90"/>
+                    <rect key="frame" x="12" y="134" width="351" height="90"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="90" id="dYh-uP-hFe"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Match the words to their due sequences" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eZK-LT-2GT" customClass="VcashLabel">
-                    <rect key="frame" x="10" y="243" width="355" height="16"/>
+                    <rect key="frame" x="10" y="245" width="355" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -65,14 +65,14 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vbG-Kz-hSY">
-                    <rect key="frame" x="0.0" y="272" width="375" height="90"/>
+                    <rect key="frame" x="0.0" y="274" width="375" height="90"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="90" id="P5C-QG-Y74"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cgy-74-9hJ">
-                    <rect key="frame" x="25" y="556" width="325" height="44"/>
+                    <rect key="frame" x="25" y="593" width="325" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="tH2-Eb-pQ4"/>
                     </constraints>
@@ -93,9 +93,9 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="eZK-LT-2GT" secondAttribute="trailing" constant="10" id="K4l-ks-9a5"/>
                 <constraint firstItem="IS1-B7-qAT" firstAttribute="top" secondItem="h6K-8B-ovB" secondAttribute="bottom" constant="16" id="LeS-Xh-6GQ"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="h6K-8B-ovB" secondAttribute="trailing" constant="12" id="Nao-E1-a2Y"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="cgy-74-9hJ" secondAttribute="bottom" constant="67" id="Rrd-dJ-gcx"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="cgy-74-9hJ" secondAttribute="bottom" constant="30" id="Rrd-dJ-gcx"/>
                 <constraint firstAttribute="trailing" secondItem="vbG-Kz-hSY" secondAttribute="trailing" id="Wfb-cA-WJr"/>
-                <constraint firstItem="h6K-8B-ovB" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="10" id="Za8-gc-J6l"/>
+                <constraint firstItem="h6K-8B-ovB" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="12" id="Za8-gc-J6l"/>
                 <constraint firstItem="eZK-LT-2GT" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="10" id="a3e-fx-MPD"/>
                 <constraint firstItem="eZK-LT-2GT" firstAttribute="top" secondItem="IS1-B7-qAT" secondAttribute="bottom" constant="21" id="gY9-3U-Wuc"/>
                 <constraint firstItem="IS1-B7-qAT" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" constant="-12" id="ijQ-R8-NLq"/>

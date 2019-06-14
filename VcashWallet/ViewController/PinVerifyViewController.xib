@@ -13,6 +13,8 @@
             <connections>
                 <outlet property="btnOpenWallet" destination="8DH-ak-S48" id="Vj9-z9-3DX"/>
                 <outlet property="constraintImageBgTop" destination="Wuy-ob-35y" id="7gW-sV-QJI"/>
+                <outlet property="labelPasswordWrong" destination="97e-0u-jcO" id="7jh-T4-4xJ"/>
+                <outlet property="labelPrompt" destination="mJ8-7j-bBv" id="Uqm-eJ-Vwi"/>
                 <outlet property="textFieldPassword" destination="n9N-Va-7bp" id="KRn-Cz-2ZQ"/>
                 <outlet property="view" destination="iN0-l3-epB" id="pn2-Ut-DL7"/>
                 <outlet property="viewLine" destination="jAy-qY-FvC" id="LYi-eD-wZL"/>
@@ -23,21 +25,21 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="FAZ-Rn-ChE">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="399"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg2.png" translatesAutoresizingMaskIntoConstraints="NO" id="FAZ-Rn-ChE">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="451"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="399" id="Ehv-h0-XcH"/>
+                        <constraint firstAttribute="height" constant="451" id="Ehv-h0-XcH"/>
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="PQh-5U-aDO">
-                    <rect key="frame" x="37" y="77" width="301" height="156"/>
+                    <rect key="frame" x="37" y="95" width="301" height="156"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="301" id="L6u-L5-10V"/>
                         <constraint firstAttribute="height" constant="156" id="YDL-uL-B2B"/>
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ha-oY-4um">
-                    <rect key="frame" x="0.0" y="359" width="375" height="69"/>
+                    <rect key="frame" x="0.0" y="371" width="375" height="69"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your password to access the wallet" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJ8-7j-bBv" customClass="VcashLabel">
                             <rect key="frame" x="26" y="0.0" width="323" height="16"/>
@@ -49,12 +51,21 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jAy-qY-FvC">
-                            <rect key="frame" x="26" y="68" width="323" height="1"/>
+                            <rect key="frame" x="26" y="67" width="323" height="2"/>
                             <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="1" id="wer-JP-xcN"/>
+                                <constraint firstAttribute="height" constant="2" id="wer-JP-xcN"/>
                             </constraints>
                         </view>
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The password is wrong" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="97e-0u-jcO" customClass="VcashLabel">
+                            <rect key="frame" x="26" y="72" width="130.5" height="14.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" red="1" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localText" value="passwordIsWrong"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n9N-Va-7bp" customClass="VcashTextField">
                             <rect key="frame" x="26" y="26" width="323" height="40"/>
                             <constraints>
@@ -71,6 +82,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="jAy-qY-FvC" secondAttribute="bottom" id="4wS-XW-uLh"/>
+                        <constraint firstItem="97e-0u-jcO" firstAttribute="leading" secondItem="jAy-qY-FvC" secondAttribute="leading" id="Bo9-fS-HJo"/>
                         <constraint firstItem="jAy-qY-FvC" firstAttribute="leading" secondItem="1ha-oY-4um" secondAttribute="leading" constant="26" id="LkC-Bx-DmC"/>
                         <constraint firstAttribute="trailing" secondItem="mJ8-7j-bBv" secondAttribute="trailing" constant="26" id="PQm-JK-WE3"/>
                         <constraint firstAttribute="bottom" secondItem="n9N-Va-7bp" secondAttribute="bottom" constant="3" id="Qgu-ez-xXY"/>
@@ -78,12 +90,13 @@
                         <constraint firstAttribute="trailing" secondItem="jAy-qY-FvC" secondAttribute="trailing" constant="26" id="XTk-2p-6bf"/>
                         <constraint firstItem="n9N-Va-7bp" firstAttribute="top" secondItem="mJ8-7j-bBv" secondAttribute="bottom" constant="10" id="dac-PL-1rl"/>
                         <constraint firstAttribute="trailing" secondItem="n9N-Va-7bp" secondAttribute="trailing" constant="26" id="glk-sy-F16"/>
+                        <constraint firstItem="97e-0u-jcO" firstAttribute="top" secondItem="jAy-qY-FvC" secondAttribute="bottom" constant="3" id="jSk-mO-ic3"/>
                         <constraint firstItem="mJ8-7j-bBv" firstAttribute="top" secondItem="1ha-oY-4um" secondAttribute="top" id="rq4-6m-6H3"/>
                         <constraint firstItem="mJ8-7j-bBv" firstAttribute="leading" secondItem="1ha-oY-4um" secondAttribute="leading" constant="26" id="vhE-pA-04x"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8DH-ak-S48" customClass="VcashButton">
-                    <rect key="frame" x="33" y="461" width="309" height="44"/>
+                    <rect key="frame" x="33" y="473" width="309" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="GQJ-v5-bds"/>
                     </constraints>
@@ -99,7 +112,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b0Y-Wg-Eu3" customClass="VcashButton">
-                    <rect key="frame" x="103.5" y="545" width="168" height="27"/>
+                    <rect key="frame" x="103.5" y="620" width="168" height="27"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <state key="normal" title="Restore from recovery phrase">
                         <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -117,22 +130,22 @@
                 <constraint firstAttribute="trailing" secondItem="FAZ-Rn-ChE" secondAttribute="trailing" id="2sm-SR-k6g"/>
                 <constraint firstItem="b0Y-Wg-Eu3" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4r0-Vv-T7y"/>
                 <constraint firstItem="PQh-5U-aDO" firstAttribute="centerX" secondItem="FAZ-Rn-ChE" secondAttribute="centerX" id="70C-6s-d7d"/>
-                <constraint firstItem="PQh-5U-aDO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="77" id="D2P-IG-6C1"/>
                 <constraint firstItem="8DH-ak-S48" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="33" id="DhP-Fe-Who"/>
                 <constraint firstItem="8DH-ak-S48" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Klm-CE-U6j"/>
                 <constraint firstItem="1ha-oY-4um" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Mb1-UQ-ww2"/>
-                <constraint firstItem="1ha-oY-4um" firstAttribute="top" secondItem="FAZ-Rn-ChE" secondAttribute="bottom" constant="-40" id="NHc-ET-e9j"/>
+                <constraint firstItem="1ha-oY-4um" firstAttribute="top" secondItem="FAZ-Rn-ChE" secondAttribute="bottom" constant="-80" id="NHc-ET-e9j"/>
+                <constraint firstAttribute="bottom" secondItem="b0Y-Wg-Eu3" secondAttribute="bottom" constant="20" id="TUs-8X-3SC"/>
                 <constraint firstAttribute="trailing" secondItem="8DH-ak-S48" secondAttribute="trailing" constant="33" id="UQY-Mr-Sal"/>
                 <constraint firstItem="FAZ-Rn-ChE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Wuy-ob-35y"/>
                 <constraint firstAttribute="trailing" secondItem="1ha-oY-4um" secondAttribute="trailing" id="YAY-aH-myR"/>
                 <constraint firstItem="FAZ-Rn-ChE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Z0q-zk-PIC"/>
+                <constraint firstItem="PQh-5U-aDO" firstAttribute="top" secondItem="FAZ-Rn-ChE" secondAttribute="top" constant="95" id="ZBG-lt-IhC"/>
                 <constraint firstItem="8DH-ak-S48" firstAttribute="top" secondItem="1ha-oY-4um" secondAttribute="bottom" constant="33" id="gdh-Ta-rGj"/>
-                <constraint firstItem="b0Y-Wg-Eu3" firstAttribute="top" secondItem="8DH-ak-S48" secondAttribute="bottom" constant="40" id="mH0-u3-ofv"/>
             </constraints>
         </view>
     </objects>
     <resources>
-        <image name="bg.png" width="375" height="398"/>
+        <image name="bg2.png" width="375" height="451"/>
         <image name="logo.png" width="301" height="156"/>
     </resources>
 </document>
