@@ -102,7 +102,13 @@
     NSString *className = NSStringFromClass(VcashOutput.class);
     NSString *tableName = className;
     NSArray<VcashOutput *> *objects = [self.database getObjectsOfClass:VcashOutput.class fromTable:tableName where:(VcashOutput.status != Spent)];
-    return objects;
+    NSMutableArray* arr = [NSMutableArray new];
+    for (VcashOutput * item in objects){
+        if ([self getTxByTxId:item.tx_log_id]){
+            [arr addObject:item];
+        }
+    }
+    return arr;
 }
 
 -(BOOL)saveTxDataArr:(NSArray*)arr{
@@ -156,6 +162,14 @@
     NSString *tableName = className;
     NSArray<VcashTxLog *> *objects = [self.database getObjectsOfClass:VcashTxLog.class fromTable:tableName where:VcashTxLog.tx_slate_id == slate_id];
 
+    return objects.firstObject;
+}
+
+-(VcashTxLog*)getTxByTxId:(uint32_t)tx_id{
+    NSString *className = NSStringFromClass(VcashTxLog.class);
+    NSString *tableName = className;
+    NSArray<VcashTxLog *> *objects = [self.database getObjectsOfClass:VcashTxLog.class fromTable:tableName where:VcashTxLog.tx_id == tx_id];
+    
     return objects.firstObject;
 }
 

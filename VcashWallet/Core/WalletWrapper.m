@@ -66,7 +66,6 @@
     NSMutableArray* arr = [NSMutableArray new];
     [[NodeApi shareInstance] getOutputsByPmmrIndex:0 retArr:arr WithComplete:^(BOOL yesOrNo, id result) {
         if (yesOrNo){
-            [[VcashWallet shareInstance] setChainOutputs:(NSArray*)result];
             NSMutableArray* txArr = [NSMutableArray new];
             for (VcashOutput* item in (NSArray*)result){
                 VcashTxLog* tx = [VcashTxLog new];
@@ -79,6 +78,7 @@
                 
                 [txArr addObject:tx];
             }
+            [[VcashWallet shareInstance] setChainOutputs:(NSArray*)result];
             [[VcashDataManager shareInstance] saveTxDataArr:txArr];
             block?block(YES, txArr):nil;
         }

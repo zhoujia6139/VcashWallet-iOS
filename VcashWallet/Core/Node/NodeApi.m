@@ -36,6 +36,7 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NodeOutputs* outputs = [NodeOutputs modelWithJSON:responseObject];
+        DDLogWarn(@"-----------getOutputsByPmmrIndex:height = %lld, size = %lu", outputs.last_retrieved_index, (unsigned long)outputs.outputs.count);
         for (NodeOutput* item in outputs.outputs){
             VcashOutput* vcashOutput = [[VcashWallet shareInstance] identifyUtxoOutput:item];
             if (vcashOutput){
