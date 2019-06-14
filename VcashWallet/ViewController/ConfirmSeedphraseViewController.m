@@ -204,6 +204,12 @@
             
             return;
         }
+        
+        BOOL createSuc = [WalletWrapper createWalletWithPhrase:self.mnemonicWordsArr nickname:nil password:nil];
+        if (!createSuc) {
+            [self.view makeToast:[LanguageService contentForKey:@"checkSeedPhrase"]];
+            return;
+        }
         PinPasswordSetViewController *passwordSetVc = [[PinPasswordSetViewController alloc] init];
         passwordSetVc.mnemonicWordsArr = self.mnemonicWordsArr;
         [self.navigationController pushViewController:passwordSetVc animated:YES];

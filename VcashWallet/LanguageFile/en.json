@@ -113,7 +113,7 @@
     "passwordsNotmatch":"Passwords do not match",
     "recovering":"Restoring wallet...Please do not close wallet.",
     "successfulRecovery":"Successful recovery",
-    "recoveryFailure":"Recovery failure",
+    "recoveryFailure":"Restore failure",
     "waitProcess":"waiting for processing",
     "deleteTransaction":"delete transaction",
     "openFailure":"Open failure",
