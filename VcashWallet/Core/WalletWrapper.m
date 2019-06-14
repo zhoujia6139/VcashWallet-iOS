@@ -66,21 +66,26 @@
     NSMutableArray* arr = [NSMutableArray new];
     [[NodeApi shareInstance] getOutputsByPmmrIndex:0 retArr:arr WithComplete:^(BOOL yesOrNo, id result) {
         if (yesOrNo){
-            NSMutableArray* txArr = [NSMutableArray new];
-            for (VcashOutput* item in (NSArray*)result){
-                VcashTxLog* tx = [VcashTxLog new];
-                tx.tx_id = [[VcashWallet shareInstance] getNextLogId];
-                tx.create_time = [[NSDate date] timeIntervalSince1970];
-                tx.confirm_state = NetConfirmed;
-                tx.amount_credited = item.value;
-                tx.tx_type = item.is_coinbase?ConfirmedCoinbase:TxReceived;
-                item.tx_log_id = tx.tx_id;
-                
-                [txArr addObject:tx];
+            if ([result isKindOfClass:[NSArray class]]){
+                NSMutableArray* txArr = [NSMutableArray new];
+                for (VcashOutput* item in (NSArray*)result){
+                    VcashTxLog* tx = [VcashTxLog new];
+                    tx.tx_id = [[VcashWallet shareInstance] getNextLogId];
+                    tx.create_time = [[NSDate date] timeIntervalSince1970];
+                    tx.confirm_state = NetConfirmed;
+                    tx.amount_credited = item.value;
+                    tx.tx_type = item.is_coinbase?ConfirmedCoinbase:TxReceived;
+                    item.tx_log_id = tx.tx_id;
+                    
+                    [txArr addObject:tx];
+                }
+                [[VcashWallet shareInstance] setChainOutputs:(NSArray*)result];
+                [[VcashDataManager shareInstance] saveTxDataArr:txArr];
+                block?block(YES, txArr):nil;
             }
-            [[VcashWallet shareInstance] setChainOutputs:(NSArray*)result];
-            [[VcashDataManager shareInstance] saveTxDataArr:txArr];
-            block?block(YES, txArr):nil;
+            else{
+                block?block(YES, result):nil;
+            }
         }
         else{
             block?block(NO, result):nil;
