@@ -90,6 +90,11 @@
 
     if (wordsArr)
     {
+        BOOL createSuc = [WalletWrapper createWalletWithPhrase:wordsArr nickname:nil password:nil];
+        if (!createSuc) {
+            [self.view makeToast:[LanguageService contentForKey:@"checkSeedPhrase"]];
+            return;
+        }
         PinPasswordSetViewController*vc = [PinPasswordSetViewController new];
         vc.mnemonicWordsArr = wordsArr;
         vc.isRecover = YES;

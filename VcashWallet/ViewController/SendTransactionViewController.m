@@ -59,13 +59,18 @@
 
 
 - (void)setTextViewHeight{
-    CGFloat textViewHeight = [self.targetAddressTextView.text boundingRectWithSize:CGSizeMake(ScreenWidth - 114, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]} context:nil].size.height + 10;
+    [self.targetAddressTextView setContentInset:UIEdgeInsetsMake(0, 0, -15, 0)];
+    
+    [self.targetAddressTextView setTextAlignment:NSTextAlignmentLeft];
+    self.targetAddressTextView.layoutManager.allowsNonContiguousLayout = NO;
+    CGFloat textViewHeight = [self.targetAddressTextView.text boundingRectWithSize:CGSizeMake(ScreenWidth - 105, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]} context:nil].size.height + 15;
     if (textViewHeight > 40) {
         self.constraintTextViewHeight.constant = textViewHeight;
     }else{
         self.constraintTextViewHeight.constant = 40;
     }
-    [self.targetAddressTextView scrollRangeToVisible:NSMakeRange(self.targetAddressTextView.text.length, 1)];
+    self.targetAddressTextView.contentSize = CGSizeMake(ScreenWidth - 105, textViewHeight);
+    [self.targetAddressTextView scrollRangeToVisible:NSMakeRange(0, 0)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,6 +92,7 @@
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     self.viewLineSendto.backgroundColor = COrangeColor;
+    [self setTextViewHeight];
     return YES;
 }
 

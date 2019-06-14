@@ -40,6 +40,7 @@
             }
            
         }else{
+            [[UserCenter sharedInstance] clearWallet];
              [NavigationCenter showWelcomePage];
         }
     }

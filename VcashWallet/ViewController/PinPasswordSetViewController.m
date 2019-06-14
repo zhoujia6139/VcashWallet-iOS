@@ -162,30 +162,25 @@
         return;
     }
     
-    BOOL yesOrNo = [self extracted];
-    if (yesOrNo){
-        [WalletWrapper clearWallet];
-        NSString* wordStr = [self.mnemonicWordsArr componentsJoinedByString:@" "];
-        [[UserCenter sharedInstance] storeMnemonicWords:wordStr withKey:password];
-        if (self.isRecover) {
-            [MBHudHelper startWorkProcessWithTextTips:[LanguageService contentForKey:@"recovering"]];
-            [[UserCenter sharedInstance] writeRecoverStatusWithFailed:YES];
-            [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
-                if (yesOrNo) {
-                    [[UserCenter sharedInstance] writeRecoverStatusWithFailed:NO];
-                     [NavigationCenter showWalletPage:self.isRecover createNewWallet:NO];
-                }else{
-                     [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:[LanguageService contentForKey:@"recoveryFailure"]];
-                }
-                
-            }];
-            return;
-        }
-        [[UserCenter sharedInstance] writeRecoverStatusWithFailed:NO];
-        [NavigationCenter showWalletPage:self.isRecover createNewWallet:YES];
-    }else{
-        [self.view makeToast:[LanguageService contentForKey:@"checkSeedPhrase"]];
+    [WalletWrapper clearWallet];
+    NSString* wordStr = [self.mnemonicWordsArr componentsJoinedByString:@" "];
+    [[UserCenter sharedInstance] storeMnemonicWords:wordStr withKey:password];
+    if (self.isRecover) {
+        [MBHudHelper startWorkProcessWithTextTips:[LanguageService contentForKey:@"recovering"]];
+        [[UserCenter sharedInstance] writeRecoverStatusWithFailed:YES];
+        [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
+            if (yesOrNo) {
+                [[UserCenter sharedInstance] writeRecoverStatusWithFailed:NO];
+                 [NavigationCenter showWalletPage:self.isRecover createNewWallet:NO];
+            }else{
+                 [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:[LanguageService contentForKey:@"recoveryFailure"]];
+            }
+            
+        }];
+        return;
     }
+    [[UserCenter sharedInstance] writeRecoverStatusWithFailed:NO];
+    [NavigationCenter showWalletPage:self.isRecover createNewWallet:YES];
 }
 
 
