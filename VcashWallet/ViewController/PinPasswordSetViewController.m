@@ -9,6 +9,7 @@
 #import "PinPasswordSetViewController.h"
 #import "PinPasswordInputView.h"
 #import "AlertView.h"
+#import "ProgressView.h"
 
 #define CGrayColor [UIColor colorWithHexString:@"#EEEEEE"]
 #define COrangeColor  [UIColor colorWithHexString:@"#FF9502"]
@@ -35,6 +36,8 @@
 @property (weak, nonatomic) IBOutlet UIView *confirmPasLineView;
 
 @property (weak, nonatomic) IBOutlet VcashLabel *passwordNotmatchLabel;
+
+@property (nonatomic, strong) ProgressView *progressView;
 
 
 @end
@@ -166,14 +169,17 @@
     NSString* wordStr = [self.mnemonicWordsArr componentsJoinedByString:@" "];
     [[UserCenter sharedInstance] storeMnemonicWords:wordStr withKey:password];
     if (self.isRecover) {
-        [MBHudHelper startWorkProcessWithTextTips:[LanguageService contentForKey:@"recovering"]];
+        [self.progressView show];
         [[UserCenter sharedInstance] writeRecoverStatusWithFailed:YES];
         [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
-            if (yesOrNo) {
-                [[UserCenter sharedInstance] writeRecoverStatusWithFailed:NO];
+            if (yesOrNo && [ret isKindOfClass:[NSArray class]]) {
+                self.progressView.progress = 1;
+                 [[UserCenter sharedInstance] writeRecoverStatusWithFailed:NO];
                  [NavigationCenter showWalletPage:self.isRecover createNewWallet:NO];
+            }else if(yesOrNo && [ret isKindOfClass:[NSNumber class]]){
+                self.progressView.progress = [ret floatValue];
             }else{
-                 [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:[LanguageService contentForKey:@"recoveryFailure"]];
+                [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:[LanguageService contentForKey:@"recoveryFailure"]];;
             }
             
         }];
@@ -183,6 +189,13 @@
     [NavigationCenter showWalletPage:self.isRecover createNewWallet:YES];
 }
 
+
+- (ProgressView *)progressView{
+    if (!_progressView) {
+        _progressView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([ProgressView class]) owner:nil options:nil] firstObject];
+    }
+    return _progressView;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -154,6 +154,8 @@
 		A27269A122AF984600E76E0A /* canceled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A272699F22AF984600E76E0A /* canceled@2x.png */; };
 		A27269AB22B3AB8B00E76E0A /* bg2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A27269A922B3AB8A00E76E0A /* bg2@3x.png */; };
 		A27269AC22B3AB8B00E76E0A /* bg2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A27269AA22B3AB8B00E76E0A /* bg2@2x.png */; };
+		A27269AF22B3B22F00E76E0A /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = A27269AE22B3B22F00E76E0A /* ProgressView.m */; };
+		A27269B122B3B25B00E76E0A /* ProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A27269B022B3B25B00E76E0A /* ProgressView.xib */; };
 		A2B3A11722A0D8EF000F7495 /* ServerTransactionBlackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */; };
 		A2E5602022A8DBE7002E8E2D /* leftmenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E5601E22A8DBE6002E8E2D /* leftmenu@2x.png */; };
 		A2E5602122A8DBE7002E8E2D /* leftmenu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E5601F22A8DBE6002E8E2D /* leftmenu@3x.png */; };
@@ -447,6 +449,9 @@
 		A272699F22AF984600E76E0A /* canceled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "canceled@2x.png"; sourceTree = "<group>"; };
 		A27269A922B3AB8A00E76E0A /* bg2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg2@3x.png"; sourceTree = "<group>"; };
 		A27269AA22B3AB8B00E76E0A /* bg2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg2@2x.png"; sourceTree = "<group>"; };
+		A27269AD22B3B22F00E76E0A /* ProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProgressView.h; sourceTree = "<group>"; };
+		A27269AE22B3B22F00E76E0A /* ProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProgressView.m; sourceTree = "<group>"; };
+		A27269B022B3B25B00E76E0A /* ProgressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgressView.xib; sourceTree = "<group>"; };
 		A2B3A11522A0D8EF000F7495 /* ServerTransactionBlackManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerTransactionBlackManager.h; sourceTree = "<group>"; };
 		A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerTransactionBlackManager.m; sourceTree = "<group>"; };
 		A2E5601E22A8DBE6002E8E2D /* leftmenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftmenu@2x.png"; sourceTree = "<group>"; };
@@ -797,6 +802,9 @@
 				A26FEBAC229F7DE0003CCD7C /* AlertView.xib */,
 				A26FEBAD229F7DE0003CCD7C /* PhraseWordShowViewCreator.h */,
 				A26FEBA1229F7DE0003CCD7C /* PhraseWordShowViewCreator.m */,
+				A27269AD22B3B22F00E76E0A /* ProgressView.h */,
+				A27269AE22B3B22F00E76E0A /* ProgressView.m */,
+				A27269B022B3B25B00E76E0A /* ProgressView.xib */,
 				A26FEBAB229F7DE0003CCD7C /* ServerTxPopView.h */,
 				A26FEBA3229F7DE0003CCD7C /* ServerTxPopView.m */,
 				A26FEBA2229F7DE0003CCD7C /* ServerTxPopView.xib */,
@@ -1409,6 +1417,7 @@
 				A26FEBDF229F7DE0003CCD7C /* MessageNotificationView.xib in Resources */,
 				A26FEC91229F805B003CCD7C /* wallet@3x.png in Resources */,
 				A26FEC7B229F805B003CCD7C /* balancelogo@3x.png in Resources */,
+				A27269B122B3B25B00E76E0A /* ProgressView.xib in Resources */,
 				A26FEC7E229F805B003CCD7C /* bg@2x.png in Resources */,
 				A26FEC57229F805A003CCD7C /* send@2x.png in Resources */,
 				A26FEC6D229F805B003CCD7C /* restore@3x.png in Resources */,
@@ -1550,6 +1559,7 @@
 				ED44BF7F22696CF50042928E /* BTCBigNumber+Tests.m in Sources */,
 				ED44BFB222696CF50042928E /* BTCKey.m in Sources */,
 				ED44BF7522696CF50042928E /* BTCTransactionBuilder.m in Sources */,
+				A27269AF22B3B22F00E76E0A /* ProgressView.m in Sources */,
 				ED44BFAC22696CF50042928E /* BTCPaymentProtocol.m in Sources */,
 				ED44BFCC226979DA0042928E /* NSNumber+Utils.m in Sources */,
 				ED44BF9122696CF50042928E /* BTCEncryptedMessage+Tests.m in Sources */,
