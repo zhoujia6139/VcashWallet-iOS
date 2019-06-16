@@ -17,11 +17,11 @@
 
 #define COrangeColor  [UIColor colorWithHexString:@"#FF9502"]
 
-@interface SendTransactionViewController ()<UITextFieldDelegate,YYTextViewDelegate,ScanViewControllerDelegate>
+@interface SendTransactionViewController ()<UITextFieldDelegate,UITextViewDelegate,ScanViewControllerDelegate>
 
 
 
-@property (weak, nonatomic) IBOutlet YYTextView *targetAddressTextView;
+@property (weak, nonatomic) IBOutlet UITextView *targetAddressTextView;
 
 @property (weak, nonatomic) IBOutlet VcashLabel *labelPlaceHolder;
 
@@ -47,11 +47,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = [LanguageService contentForKey:@"sendVcash"];
-    self.constraintContentViewWidth.constant = ScreenWidth - 25 - 85;
-    self.targetAddressTextView.textColor = [UIColor darkTextColor];
-    self.targetAddressTextView.font = [UIFont systemFontOfSize:15];
-    self.targetAddressTextView.placeholderTextColor = [UIColor lightGrayColor];
-    self.targetAddressTextView.placeholderText = [LanguageService contentForKey:@"enterOrScan"];
+    self.targetAddressTextView.scrollEnabled  = NO;
+    self.targetAddressTextView.contentInset = UIEdgeInsetsMake(0, 0, 3, 0);
+    self.targetAddressTextView.textContainerInset = UIEdgeInsetsMake(10, 0, 0, 0);
+    self.constraintContentViewWidth.constant = ScreenWidth - 20 - 85;
     self.targetAddressTextView.delegate = self;
     [self setTextViewHeight];
     [self.amountField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
@@ -64,15 +63,15 @@
 
 - (void)setTextViewHeight{
     
-    CGFloat textViewHeight = [self.targetAddressTextView.text boundingRectWithSize:CGSizeMake(ScreenWidth - 110, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]} context:nil].size.height;
-    if (textViewHeight > 30) {
-        self.constraintTextViewHeight.constant = textViewHeight + 10;
+    CGSize size = [self.targetAddressTextView sizeThatFits:CGSizeMake(ScreenWidth - 105, 1000)];
+    CGFloat textViewHeight = size.height +13;
+    if (textViewHeight > 40) {
+        self.constraintTextViewHeight.constant = textViewHeight;
     }else{
-        textViewHeight = 30;
-        self.constraintTextViewHeight.constant = 30;
+        textViewHeight = 40;
+        self.constraintTextViewHeight.constant = 40;
     }
-    self.targetAddressTextView.contentSize = CGSizeMake(ScreenWidth - 110, textViewHeight);
-    [self.targetAddressTextView scrollRangeToVisible:NSMakeRange(0, 0)];
+    self.targetAddressTextView.contentSize = CGSizeMake(ScreenWidth - 105, textViewHeight);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -90,15 +89,15 @@
     self.viewLineAmount.backgroundColor = CGrayColor;
 }
 
-#pragma mark - YYTextViewDelegate
+#pragma mark - UITextViewDelegate
 
-- (BOOL)textViewShouldBeginEditing:(YYTextView *)textView{
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     self.viewLineSendto.backgroundColor = COrangeColor;
     [self setTextViewHeight];
     return YES;
 }
 
-- (void)textViewDidEndEditing:(YYTextView *)textView{
+- (void)textViewDidEndEditing:(UITextView *)textView{
      self.viewLineSendto.backgroundColor = CGrayColor;
 }
 
