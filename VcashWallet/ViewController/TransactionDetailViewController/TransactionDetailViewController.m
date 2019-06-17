@@ -324,7 +324,7 @@
                 case TxSent:{
                     //sent
                     if (self.txLog.confirm_state == DefaultState) {
-                          [self cancleTxWith:self.txLog];
+                          [self cancleTxWith:self.serverTx.tx_id];
                     }
                 }
                     break;
@@ -342,8 +342,7 @@
     
     if(self.serverTx){
         if (self.serverTx.status == TxReceived) {
-            VcashTxLog *txLog =  [WalletWrapper getTxByTxid:self.serverTx.tx_id];
-            [self cancleTxWith:txLog];
+            [self cancleTxWith:self.serverTx.tx_id];
         }
     }
     
@@ -361,10 +360,10 @@
 }
 
 
-- (void)cancleTxWith:(VcashTxLog *)txlog{
-    if ([WalletWrapper cancelTransaction:txlog]){
-        if (txlog.tx_slate_id) {
-            [[ServerTxManager shareInstance] removeServerTxByTx_id:txlog.tx_slate_id];
+- (void)cancleTxWith:(NSString *)tx_id{
+    if ([WalletWrapper cancelTransaction:tx_id]){
+        if (tx_id) {
+            [[ServerTxManager shareInstance] removeServerTxByTx_id:tx_id];
         }
         [MBHudHelper showTextTips:[LanguageService contentForKey:@"txCancelSuc"] onView:nil withDuration:1];
         [self.navigationController popViewControllerAnimated:YES];

@@ -245,13 +245,14 @@
     return;
 }
 
-+(BOOL)cancelTransaction:(VcashTxLog*)txLog{
-    if ([txLog isCanBeCanneled]){
++(BOOL)cancelTransaction:(NSString*)tx_id{
+    VcashTxLog *txLog =  [self getTxByTxid:tx_id];
+    if ([txLog isCanBeCanneled] || txLog == nil){
         [txLog cancelTxlog];
         [[VcashDataManager shareInstance] saveTx:txLog];
         [[VcashWallet shareInstance] syncOutputInfo];
         
-        [[ServerApi shareInstance] cancelTransaction:txLog.tx_slate_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
+        [[ServerApi shareInstance] cancelTransaction:tx_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
             if (!yesOrNo){
                 DDLogError(@"cancel tx to Server failed");
             }
