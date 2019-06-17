@@ -324,7 +324,7 @@
                 case TxSent:{
                     //sent
                     if (self.txLog.confirm_state == DefaultState) {
-                          [self cancleTxWith:self.serverTx.tx_id];
+                          [self cancleTxWith:self.txLog.tx_slate_id];
                     }
                 }
                     break;
