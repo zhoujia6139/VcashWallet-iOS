@@ -55,17 +55,14 @@
     }
     return _output;
 }
+
 - (CGRect)rectOfInterestByScanViewRect:(CGRect)rect {
     CGFloat width = CGRectGetWidth(self.view.frame);
     CGFloat height = CGRectGetHeight(self.view.frame);
-    
-    CGFloat x = (height - CGRectGetHeight(rect)) / 2 / height;
-    CGFloat y = (width - CGRectGetWidth(rect)) / 2 / width;
-    
-    CGFloat w = CGRectGetHeight(rect) / height;
-    CGFloat h = CGRectGetWidth(rect) / width;
-    
-    return CGRectMake(x, y, w, h);
+    return CGRectMake(rect.origin.y/height,
+                      rect.origin.x/height,
+                      rect.size.height/height,
+                      rect.size.width/width);
 }
 
 //session
@@ -136,7 +133,7 @@
 
 - (void)addImageView
 {
-    _imageView = [[UIImageView alloc]initWithFrame:CGRectMake((Width-SWidth)/2, (Height-SWidth)/2, SWidth, SWidth)];
+    _imageView = [[UIImageView alloc]initWithFrame:CGRectMake((Width-SWidth)/2, (Height-SWidth)/2 - (iPhoneX ? 88 : 0), SWidth, SWidth)];
     
     _imageView.image = [UIImage imageNamed:@"scanscanBg.png"];
     [self.view addSubview:_imageView];
