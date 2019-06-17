@@ -88,6 +88,7 @@
 - (void)showPasswordVerifyVc{
     if ([[UserCenter sharedInstance] checkUserHaveWallet]){
         [NavigationCenter showPasswordVerifyPage];
+        [[LeftMenuManager shareInstance] removeGestures];
         [[[LeftMenuManager shareInstance] leftMenuView] refreshData];
     }
 }

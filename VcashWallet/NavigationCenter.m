@@ -16,7 +16,24 @@
 
 static UINavigationController* curNavVC;
 
+@interface NavigationCenter ()
+
+@property (nonatomic, strong) WalletViewController *walletVc;
+
+@property (nonatomic, strong) SettingViewController *settingVc;
+
+@end
+
 @implementation NavigationCenter
+
++ (id)shareInstance{
+    static NavigationCenter *center = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        center = [[NavigationCenter alloc] init];
+    });
+    return center;
+}
 
 +(void)showWelcomePage
 {
@@ -28,9 +45,16 @@ static UINavigationController* curNavVC;
     curNavVC = nav;
 }
 
+- (void)leftMenuSwitchWalltetPage{
+    curNavVC.viewControllers = @[self.walletVc];
+    UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
+    keyWindow.rootViewController = curNavVC;
+}
+
 +(void)showWalletPage:(BOOL)isRecover createNewWallet:(BOOL)createNewWallet
 {
    WalletViewController* welcomeVc = [[WalletViewController alloc] init];
+    [[NavigationCenter shareInstance] setWalletVc:welcomeVc];
    VcashNavigationViewController* nav = [[VcashNavigationViewController alloc] init];
    welcomeVc.enterInRecoverMode = isRecover;
     welcomeVc.createNewWallet = createNewWallet;
@@ -56,15 +80,24 @@ static UINavigationController* curNavVC;
 }
 
 + (void)showSettingVcPage{
-      SettingViewController *settingVc = [[SettingViewController alloc] init];
-    if (curNavVC) {
-        curNavVC.viewControllers = @[settingVc];
+    SettingViewController *settingVc = [[SettingViewController alloc] init];
+    if (![[NavigationCenter shareInstance] settingVc]) {
+        if (curNavVC) {
+            curNavVC.viewControllers = @[settingVc];
+        }else{
+            VcashNavigationViewController* nav = [[VcashNavigationViewController alloc] initWithRootViewController:settingVc];
+            UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
+            keyWindow.rootViewController = nav;
+            curNavVC = nav;
+        }
     }else{
-        VcashNavigationViewController* nav = [[VcashNavigationViewController alloc] initWithRootViewController:settingVc];
+        curNavVC.viewControllers = @[[[NavigationCenter shareInstance] settingVc]];
         UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
-        keyWindow.rootViewController = nav;
-        curNavVC = nav;
+        keyWindow.rootViewController = curNavVC;
     }
+   
+    
+   
    
 }
 

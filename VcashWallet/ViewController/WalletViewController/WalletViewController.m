@@ -126,10 +126,8 @@ static NSString *const identifier = @"WalletCell";
     
     UIView *tableViewHeader = [[UIView alloc] init];
     tableViewHeader.frame = CGRectMake(0, 0, ScreenWidth, 265);
+    self.viewHeader.frame = tableViewHeader.bounds;
     [tableViewHeader addSubview:self.viewHeader];
-    [self.viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(tableViewHeader);
-    }];
     self.tableViewContainer.tableHeaderView = tableViewHeader;
     self.tableViewContainer.dataSource = self;
     self.tableViewContainer.delegate = self;

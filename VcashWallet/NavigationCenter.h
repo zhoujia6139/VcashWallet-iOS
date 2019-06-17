@@ -10,6 +10,8 @@
 
 @interface NavigationCenter : NSObject
 
++ (id)shareInstance;
+
 +(void)showWelcomePage;
 
 +(void)showWalletPage:(BOOL)isRecover createNewWallet:(BOOL)createNewWallet;
@@ -17,5 +19,7 @@
 +(void)showPasswordVerifyPage;
 
 +(void)showSettingVcPage;
+
+- (void)leftMenuSwitchWalltetPage;
 
 @end
