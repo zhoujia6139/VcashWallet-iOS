@@ -256,12 +256,15 @@
 }
 
 - (void)enterPhrase:(UITextField *)textField{
-    _phrase = textField.text;
+   
     if (textField.text.length == 0) {
         self.textField.textColor = [UIColor darkTextColor];
         self.tagBtn.backgroundColor = [UIColor colorWithRed:194 / 255.0 green:194 / 255.0 blue:194 / 255.0 alpha:1];
         return;
     }
+    textField.text = [textField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    textField.text = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+     _phrase = textField.text;
     self.tagColor = [self checkWordIsValid:textField.text] ?  [UIColor colorWithHexString:@"#66CC33"] : [UIColor colorWithHexString:@"#FF3333"];
 }
 
