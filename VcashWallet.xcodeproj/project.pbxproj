@@ -792,8 +792,8 @@
 		A26FEB9C229F7DE0003CCD7C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A26FEB9D229F7DE0003CCD7C /* LeftMenuModel.m */,
 				A26FEB9E229F7DE0003CCD7C /* LeftMenuModel.h */,
+				A26FEB9D229F7DE0003CCD7C /* LeftMenuModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
