@@ -70,7 +70,20 @@
     self.labelTime.text = [[NSDate date] stringWithFormat:@"yyyy-MM-dd"];
     [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
     self.stateLabel.textColor = [UIColor colorWithHexString:@"#FF3333"];
-    self.stateLabel.text = [LanguageService contentForKey:@"waitProcess"];
+    switch (serverTx.status) {
+        case TxDefaultStatus:{
+            self.stateLabel.text = serverTx.isSend ? [LanguageService contentForKey:@"waitRecipientSignature"] : [LanguageService contentForKey:@"waitProcess"];
+        }
+            break;
+        case TxReceived:{
+            self.stateLabel.text = serverTx.isSend ? [LanguageService contentForKey:@"waitProcess"] : [LanguageService contentForKey:@"waitSenderSignature"];
+        }
+            break;
+            
+        default:
+            break;
+    }
+
 }
 
 -(void)setTxLog:(VcashTxLog *)txLog{
@@ -102,15 +115,19 @@
     self.stateLabel.textColor = [UIColor colorWithHexString:@"#AEAEAE"];
     switch (txLog.confirm_state){
         case DefaultState:
-        case LoalConfirmed://waiting confirm
             if(txLog.tx_type == TxSentCancelled || txLog.tx_type == TxReceivedCancelled){
                 //sender canceled
                 self.stateLabel.text = [LanguageService contentForKey:@"canceled"];
                 [self.imageViewState setImage:[UIImage imageNamed:@"canceled.png"]];
-            }else{
-                self.stateLabel.text = [LanguageService contentForKey:@"ongoing"];
+            }else if(txLog.tx_type == TxSent || txLog.tx_type == TxReceived){
+                //                self.stateLabel.text = [LanguageService contentForKey:@"ongoing"];
+                self.stateLabel.text = (txLog.tx_type == TxSent)  ? [LanguageService contentForKey:@"waitRecipientSignature"] : [LanguageService contentForKey:@"waitSenderSignature"];
                 [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
             }
+            break;
+        case LoalConfirmed://waiting confirm
+                self.stateLabel.text = [LanguageService contentForKey:@"waitingForConfirming"];
+                [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
             break;
         case NetConfirmed:
             self.stateLabel.text = [LanguageService contentForKey:@"confirmed"];

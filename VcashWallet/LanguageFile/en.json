@@ -138,4 +138,8 @@
     "txCancelSuc":"Cancelled successully.",
     "txCancelFailed":"Failed to cancel the transaction.",
     "fillPasswordWarning":"Please fill in password",
+    "networkRequestFailed":"Network request failed",
+    "waitRecipientSignature":"recipient processing now",
+    "waitSenderSignature":"sender processing now",
+    "waitingForConfirming":"waiting for confirming",
 }

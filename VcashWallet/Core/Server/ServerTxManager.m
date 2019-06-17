@@ -141,20 +141,23 @@
                 }
                 [self handleServerTx];
                 [[NSNotificationCenter defaultCenter] postNotificationName:kServerTxChange object:nil];
-                if (force) {
-                    if (block) {
-                        block(yesOrNo,nil);
-                    }
-                }
-            }
-            else{
+               
+               
+                
+            }else{
                 lastFetch = 0;
+            }
+            if (block) {
+                block(yesOrNo,nil);
             }
         }];
     }
 }
 
 -(void)handleServerTx{
+    if (![[[AppHelper shareInstance] visibleViewController] isKindOfClass:NSClassFromString(@"WalletViewController")]) {
+        return;
+    }
     NSMutableArray *txArr = [NSMutableArray array];
     for (ServerTransaction *item in self.dicTx.allValues) {
         BOOL isBlack =  [[ServerTransactionBlackManager shareInstance] isBlackWithServerTransaction:item];

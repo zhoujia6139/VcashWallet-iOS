@@ -76,6 +76,7 @@ static NSString *const identifier = @"WalletCell";
             [self.tableViewContainer.mj_header beginRefreshing];
         }
     });
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kWalletChainHeightChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kServerTxChange object:nil];
 }
@@ -172,7 +173,12 @@ static NSString *const identifier = @"WalletCell";
 }
 
 -(void)refreshWalletStatus{
+    __weak typeof(self) weakSelf = self;
     [[ServerTxManager shareInstance] fetchTxStatus:YES WithComplete:^(BOOL yesOrNo, id _Nullable result) {
+        if (!yesOrNo) {
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            [strongSelf.view makeToast:[LanguageService contentForKey:@"networkRequestFailed"]];
+        }
         [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
             [self.tableViewContainer.mj_header endRefreshing];
             [self refreshMainView];
