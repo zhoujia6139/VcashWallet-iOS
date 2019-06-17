@@ -250,7 +250,6 @@
     if ([txLog isCanBeCanneled] || txLog == nil){
         [txLog cancelTxlog];
         [[VcashDataManager shareInstance] saveTx:txLog];
-        [[VcashWallet shareInstance] syncOutputInfo];
         
         [[ServerApi shareInstance] cancelTransaction:tx_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
             if (!yesOrNo){

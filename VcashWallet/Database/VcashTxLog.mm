@@ -74,6 +74,7 @@ WCDB_PRIMARY(VcashTxLog, tx_id)
             }
         }
     }
+    [[VcashWallet shareInstance] syncOutputInfo];
     
     self.tx_type = (self.tx_type == TxSent?TxSentCancelled:TxReceivedCancelled);
     self.status = TxCanceled;
