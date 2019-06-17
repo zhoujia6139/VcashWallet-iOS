@@ -9,9 +9,6 @@
 #import "NodeApi.h"
 #import "VcashWallet.h"
 
-#define NODE_URL @"http://47.75.163.56:13513"
-//#define NODE_URL @"http://127.0.0.1:13513"
-
 @implementation NodeApi
 {
     AFHTTPSessionManager *_sessionManager;
@@ -26,11 +23,19 @@
     return config;
 }
 
+-(NSString*)NodeUrl{
+#ifdef isInTestNet
+    return @"http://47.75.163.56:13513";
+#else
+    return @"https://api-node.vcashwallet.app";
+#endif
+}
+
 -(void)getOutputsByPmmrIndex:(uint64_t)startheight retArr:(NSMutableArray*)retArr WithComplete:(RequestCompleteBlock)completeblock{
     if (!retArr){
         return;
     }
-    NSString* url = [NSString stringWithFormat:@"%@/v1/txhashset/outputs?start_index=%lld&max=500", NODE_URL, startheight];
+    NSString* url = [NSString stringWithFormat:@"%@/v1/txhashset/outputs?start_index=%lld&max=500", [self NodeUrl], startheight];
     
     [[self sessionManager] GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -62,7 +67,7 @@
         return;
     }
     NSString* param = [commitArr componentsJoinedByString:@","];
-    NSString* url = [NSString stringWithFormat:@"%@/v1/chain/outputs/byids?id=%@", NODE_URL, param];
+    NSString* url = [NSString stringWithFormat:@"%@/v1/chain/outputs/byids?id=%@", [self NodeUrl], param];
     
     [[self sessionManager] GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -78,8 +83,8 @@
 -(uint64_t)getChainHeightWithComplete:(RequestCompleteBlock)completeblock{
     static uint64_t curHeight = 0;
     static NSTimeInterval lastFetch = 0;
-    if ([[NSDate date] timeIntervalSince1970] - lastFetch  > 30){
-        NSString* url = [NSString stringWithFormat:@"%@/v1/chain", NODE_URL];
+    if ([[NSDate date] timeIntervalSince1970] - lastFetch  > 10){
+        NSString* url = [NSString stringWithFormat:@"%@/v1/chain", [self NodeUrl]];
         [[self sessionManager] GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -102,7 +107,7 @@
         return;
     }
     
-    NSString* url = [NSString stringWithFormat:@"%@/v1/pool/push?fluff", NODE_URL];
+    NSString* url = [NSString stringWithFormat:@"%@/v1/pool/push?fluff", [self NodeUrl]];
     NSDictionary* param = [NSDictionary dictionaryWithObject:txHex forKey:@"tx_hex"];
     [[self sessionManager] POST:url parameters:param progress:^(NSProgress * _Nonnull uploadProgress) {
         
