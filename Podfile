@@ -1,6 +1,7 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
-
+platform :ios, '9.0'
+# ignore all warnings from all pods
+inhibit_all_warnings!
 target 'VcashWallet' do
  pod 'OpenSSL-Universal', '1.0.2.13'
  pod 'ISO8601DateFormatter', '0.8'
