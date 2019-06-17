@@ -62,6 +62,7 @@ static NSString *const identifier = @"WalletCell";
 
 @property (nonatomic, strong) NSMutableArray *arrSections;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintViewBottomHeight;
 
 @end
 
@@ -142,6 +143,7 @@ static NSString *const identifier = @"WalletCell";
         [self refreshWalletStatus];
     }];
     
+    self.constraintViewBottomHeight.constant = 59 + (iPhoneX ? 34 : 0);
     ViewRadius(self.receiveVcashBtn, 4.0);
     ViewRadius(self.sendVcashBtn, 4.0);
     

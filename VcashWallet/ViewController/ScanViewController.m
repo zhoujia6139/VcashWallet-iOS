@@ -136,7 +136,7 @@
 
 - (void)addImageView
 {
-    _imageView = [[UIImageView alloc]initWithFrame:CGRectMake((Width-SWidth)/2, (Height-SWidth)/2, SWidth, SWidth)];
+    _imageView = [[UIImageView alloc]initWithFrame:CGRectMake((Width-SWidth)/2, (Height-SWidth)/2 - (iPhoneX ? 88 : 0), SWidth, SWidth)];
     
     _imageView.image = [UIImage imageNamed:@"scanscanBg.png"];
     [self.view addSubview:_imageView];
