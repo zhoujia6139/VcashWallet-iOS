@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		111D98D7603A8F1579E12602 /* libPods-VcashWallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38B93DB289A56D999A4C8C7C /* libPods-VcashWallet.a */; };
+		A231645822B7470C00E690D1 /* cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A231645622B7470C00E690D1 /* cancel@3x.png */; };
+		A231645922B7470C00E690D1 /* cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A231645722B7470C00E690D1 /* cancel@2x.png */; };
 		A241822722A50A7F00519F7D /* LockScreenSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A241822522A50A7F00519F7D /* LockScreenSetViewController.m */; };
 		A241822B22A510D400519F7D /* LockScreenTimeService.m in Sources */ = {isa = PBXBuildFile; fileRef = A241822A22A510D400519F7D /* LockScreenTimeService.m */; };
 		A241822E22A6367C00519F7D /* RefreshStateHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A241822D22A6367C00519F7D /* RefreshStateHeader.m */; };
@@ -266,6 +268,8 @@
 		2B42695A9EB50E631A668976 /* Pods-VcashWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VcashWallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VcashWallet/Pods-VcashWallet.debug.xcconfig"; sourceTree = "<group>"; };
 		32DD39C5EA5AAED2839B1728 /* Pods-VcashWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VcashWallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-VcashWallet/Pods-VcashWallet.release.xcconfig"; sourceTree = "<group>"; };
 		38B93DB289A56D999A4C8C7C /* libPods-VcashWallet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VcashWallet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A231645622B7470C00E690D1 /* cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@3x.png"; sourceTree = "<group>"; };
+		A231645722B7470C00E690D1 /* cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@2x.png"; sourceTree = "<group>"; };
 		A241822422A50A7F00519F7D /* LockScreenSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockScreenSetViewController.h; sourceTree = "<group>"; };
 		A241822522A50A7F00519F7D /* LockScreenSetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockScreenSetViewController.m; sourceTree = "<group>"; };
 		A241822922A510D400519F7D /* LockScreenTimeService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockScreenTimeService.h; sourceTree = "<group>"; };
@@ -853,6 +857,8 @@
 				A26FECB1229FEC33003CCD7C /* process_fail_icon@2x.png */,
 				A27269AA22B3AB8B00E76E0A /* bg2@2x.png */,
 				A27269A922B3AB8A00E76E0A /* bg2@3x.png */,
+				A231645722B7470C00E690D1 /* cancel@2x.png */,
+				A231645622B7470C00E690D1 /* cancel@3x.png */,
 				A272699522AE3C6900E76E0A /* canceldetail@2x.png */,
 				A272699622AE3C6A00E76E0A /* canceldetail@3x.png */,
 				A2E5601E22A8DBE6002E8E2D /* leftmenu@2x.png */,
@@ -1356,6 +1362,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A26FEC68229F805B003CCD7C /* copy@3x.png in Resources */,
+				A231645822B7470C00E690D1 /* cancel@3x.png in Resources */,
 				A26FEBE2229F7DE0003CCD7C /* AlertView.xib in Resources */,
 				A26FEC9A229F805B003CCD7C /* tip@2x.png in Resources */,
 				A26FECA0229F805B003CCD7C /* bottomradius.9.png in Resources */,
@@ -1400,6 +1407,7 @@
 				A26FEC64229F805B003CCD7C /* receivechose@3x.png in Resources */,
 				A26FEBCC229F7DE0003CCD7C /* WalletCell.xib in Resources */,
 				A26FEBE0229F7DE0003CCD7C /* LeftMenuView.xib in Resources */,
+				A231645922B7470C00E690D1 /* cancel@2x.png in Resources */,
 				A241824622A7B15C00519F7D /* circle@2x.png in Resources */,
 				A26FEBC1229F7DE0003CCD7C /* WelcomePageViewController.xib in Resources */,
 				A26FEC71229F805B003CCD7C /* dottedline@3x.png in Resources */,

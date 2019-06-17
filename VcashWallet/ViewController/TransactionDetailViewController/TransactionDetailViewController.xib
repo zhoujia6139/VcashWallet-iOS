@@ -13,6 +13,8 @@
             <connections>
                 <outlet property="btnCancelTx" destination="7o8-hg-Bz5" id="ti1-Vl-QIA"/>
                 <outlet property="btnSignature" destination="jfG-Mg-Nj0" id="2gW-41-UbQ"/>
+                <outlet property="constraintBtnSignatureBottomWithBtnCancel" destination="dL1-UV-0LV" id="FHo-q3-pIv"/>
+                <outlet property="constraintBtnSignatureBottomWithSuperView" destination="RFV-bR-c9E" id="z7i-HR-fCB"/>
                 <outlet property="constraintViewStatusWidth" destination="irL-7f-9NS" id="0M7-Gu-3un"/>
                 <outlet property="imageViewTxStatus" destination="2wy-ea-ttV" id="Fji-AM-Ykb"/>
                 <outlet property="labelAmount" destination="efA-ek-wA6" id="rTg-87-0c4"/>
@@ -317,13 +319,14 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="jfG-Mg-Nj0" firstAttribute="top" secondItem="2di-2R-5ym" secondAttribute="top" id="3ob-k4-QyX"/>
                         <constraint firstAttribute="height" constant="144" id="4Hl-EV-dol"/>
                         <constraint firstAttribute="trailing" secondItem="7o8-hg-Bz5" secondAttribute="trailing" constant="30" id="AHs-tV-iPD"/>
+                        <constraint firstAttribute="bottom" secondItem="jfG-Mg-Nj0" secondAttribute="bottom" priority="250" constant="40" id="RFV-bR-c9E"/>
                         <constraint firstItem="7o8-hg-Bz5" firstAttribute="leading" secondItem="2di-2R-5ym" secondAttribute="leading" constant="30" id="YTk-kW-rSO"/>
                         <constraint firstItem="jfG-Mg-Nj0" firstAttribute="leading" secondItem="2di-2R-5ym" secondAttribute="leading" constant="30" id="aSH-7c-jyD"/>
                         <constraint firstItem="7o8-hg-Bz5" firstAttribute="top" secondItem="jfG-Mg-Nj0" secondAttribute="bottom" constant="16" id="dL1-UV-0LV"/>
                         <constraint firstAttribute="trailing" secondItem="jfG-Mg-Nj0" secondAttribute="trailing" constant="30" id="ihL-5n-GBL"/>
+                        <constraint firstAttribute="bottom" secondItem="7o8-hg-Bz5" secondAttribute="bottom" constant="40" id="jeo-lE-D7E"/>
                     </constraints>
                 </view>
             </subviews>

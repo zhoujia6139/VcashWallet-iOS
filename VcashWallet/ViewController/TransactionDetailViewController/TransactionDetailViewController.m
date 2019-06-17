@@ -37,6 +37,10 @@
 
 @property (weak, nonatomic) IBOutlet VcashButton *btnCancelTx;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintBtnSignatureBottomWithSuperView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintBtnSignatureBottomWithBtnCancel;
+
 @end
 
 @implementation TransactionDetailViewController{
@@ -59,7 +63,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if (self.isFromSendTxVc) {
-        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+       self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
 //    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#EEEEEE"]] forBarMetrics:UIBarMetricsDefault];
     NSMutableArray *arrVcs = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
@@ -105,6 +109,7 @@
     self.constraintViewStatusWidth.constant = ScreenWidth;
     [self configDataFromServerTransaction];
     [self configDataFromVcashTxLog];
+    [self modifyBtnConstraint];
     
     self.labelTxStatus.text = txStatus;
     self.imageViewTxStatus.image = imageTxStatus;
@@ -260,6 +265,19 @@
 
 - (void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)modifyBtnConstraint{
+    if (self.btnCancelTx.hidden && !self.btnSignature.hidden) {
+        self.constraintBtnSignatureBottomWithBtnCancel.active = NO;
+        self.constraintBtnSignatureBottomWithSuperView.active = YES;
+        [[self.btnCancelTx superview] layoutIfNeeded];
+        return;
+    }
+    self.constraintBtnSignatureBottomWithSuperView.active = NO;
+    self.constraintBtnSignatureBottomWithBtnCancel.active = YES;
+    [[self.btnCancelTx superview] layoutIfNeeded];
+    
 }
 
 

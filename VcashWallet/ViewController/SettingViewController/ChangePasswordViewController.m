@@ -42,6 +42,11 @@
     return YES;
 }
 
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    self.viewLine.backgroundColor = CGrayColor;
+}
+
 - (void)enterCurrentPassword:(UITextField *)textField{
     if (textField.text.length > 0) {
         self.btnNext.userInteractionEnabled = YES;
