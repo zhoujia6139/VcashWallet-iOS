@@ -44,7 +44,7 @@
 
 +(void)finalizeTransaction:(ServerTransaction*)tx withComplete:(RequestCompleteBlock)block;
 
-+(BOOL)cancelTransaction:(VcashTxLog*)txLog;
++(BOOL)cancelTransaction:(NSString*)tx_id;
 
 //refresh Transaction
 +(NSArray*)getTransationArr;
