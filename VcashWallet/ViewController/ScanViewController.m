@@ -215,6 +215,12 @@
     }];
     
 }
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [picker dismissViewControllerAnimated:YES completion:^{
+        [self starScan];
+    }];
+    
+}
 
 
 - (void)startButtonClick{
