@@ -8,8 +8,7 @@
 
 #import "ServerApi.h"
 
-#define SERVER_URL @"http://47.75.163.56:13515"
-//#define SERVER_URL @"http://127.0.0.1:13500"
+
 
 @implementation ServerApi
 {
@@ -25,8 +24,16 @@
     return config;
 }
 
+-(NSString*)ServerUrl{
+#ifdef isInTestNet
+    return @"http://47.75.163.56:13515";
+#else
+    return @"https://api.vcashwallet.app";
+#endif
+}
+
 -(void)checkStatusForUser:(NSString*)userId WithComplete:(RequestCompleteBlock)block{
-    NSString* url = [NSString stringWithFormat:@"%@/statecheck/%@", SERVER_URL, userId];
+    NSString* url = [NSString stringWithFormat:@"%@/statecheck/%@",[self ServerUrl], userId];
     
     [[self sessionManager] GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -45,7 +52,7 @@
 }
 
 -(void)sendTransaction:(ServerTransaction*)tx WithComplete:(RequestCompleteBlock)block{
-    NSString* url = [NSString stringWithFormat:@"%@/sendvcash", SERVER_URL];
+    NSString* url = [NSString stringWithFormat:@"%@/sendvcash", [self ServerUrl]];
     VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
     NSData* signature = [secp ecdsaSign:[tx msgToSign] seckey:[[VcashWallet shareInstance] getSignerKey]];
     tx.msg_sig = BTCHexFromData(signature);
@@ -61,7 +68,7 @@
 }
 
 -(void)receiveTransaction:(ServerTransaction*)tx WithComplete:(RequestCompleteBlock)block{
-    NSString* url = [NSString stringWithFormat:@"%@/receivevcash", SERVER_URL];
+    NSString* url = [NSString stringWithFormat:@"%@/receivevcash", [self ServerUrl]];
     VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
     NSData* msgsignature = [secp ecdsaSign:[tx msgToSign] seckey:[[VcashWallet shareInstance] getSignerKey]];
     tx.msg_sig = BTCHexFromData(msgsignature);
@@ -79,7 +86,7 @@
 }
 
 -(void)filanizeTransaction:(NSString*)tx_id WithComplete:(RequestCompleteBlock)block{
-    NSString* url = [NSString stringWithFormat:@"%@/finalizevcash", SERVER_URL];
+    NSString* url = [NSString stringWithFormat:@"%@/finalizevcash", [self ServerUrl]];
     FinalizeTxInfo* info = [FinalizeTxInfo new];
     info.tx_id = tx_id;
     info.code = TxFinalized;
@@ -98,7 +105,10 @@
 }
 
 -(void)cancelTransaction:(NSString*)tx_id WithComplete:(RequestCompleteBlock)block{
-    NSString* url = [NSString stringWithFormat:@"%@/finalizevcash", SERVER_URL];
+    if (!tx_id){
+        return;
+    }
+    NSString* url = [NSString stringWithFormat:@"%@/finalizevcash", [self ServerUrl]];
     FinalizeTxInfo* info = [FinalizeTxInfo new];
     info.tx_id = tx_id;
     info.code = TxCanceled;
@@ -117,7 +127,7 @@
 }
 
 -(void)closeTransaction:(NSString*)tx_id{
-    NSString* url = [NSString stringWithFormat:@"%@/finalizevcash", SERVER_URL];
+    NSString* url = [NSString stringWithFormat:@"%@/finalizevcash", [self ServerUrl]];
     FinalizeTxInfo* info = [FinalizeTxInfo new];
     info.tx_id = tx_id;
     info.code = TxClosed;
