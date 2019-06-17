@@ -30,6 +30,9 @@
 
 @property (weak, nonatomic) IBOutlet VcashLabel *labelPasswordWrong;
 
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewEye;
+
+@property (nonatomic, assign) BOOL openEye;
 
 @end
 
@@ -40,11 +43,23 @@
     // Do any additional setup after loading the view.
     [self.textFieldPassword setValue:[UIColor colorWithHexString:@"#666666"] forKeyPath:@"_placeholderLabel.textColor"];
     self.textFieldPassword.tintColor = [UIColor whiteColor];
+    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 40)];
+    self.textFieldPassword.rightView = rightView;
+    self.textFieldPassword.rightViewMode = UITextFieldViewModeAlways;
     [self.btnOpenWallet setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
     [self.btnOpenWallet setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
     ViewRadius(self.btnOpenWallet, 4.0);
     self.textFieldPassword.delegate  = self;
     self.constraintImageBgTop.constant = kTopHeight;
+    self.imageViewEye.userInteractionEnabled = YES;
+    __weak typeof(self) weakSelf  = self;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithActionBlock:^(id  _Nonnull sender) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        strongSelf.openEye = !strongSelf.openEye;
+        strongSelf.imageViewEye.image = strongSelf.openEye ? [UIImage imageNamed:@"eyeclose.png"] : [UIImage imageNamed:@"eyeopen.png"];
+        strongSelf.textFieldPassword.secureTextEntry = !strongSelf.openEye;
+    }];
+    [self.imageViewEye addGestureRecognizer:tap];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

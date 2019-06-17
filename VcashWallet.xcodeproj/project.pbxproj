@@ -19,6 +19,8 @@
 		A241824F22A7C1A600519F7D /* indicator@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A241824D22A7C1A600519F7D /* indicator@3x.png */; };
 		A241825222A7C49900519F7D /* seletedindicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A241825022A7C49800519F7D /* seletedindicator@2x.png */; };
 		A241825322A7C49900519F7D /* seletedindicator@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A241825122A7C49900519F7D /* seletedindicator@3x.png */; };
+		A242179222B7A356004F815E /* eyeopen.png in Resources */ = {isa = PBXBuildFile; fileRef = A242179022B7A356004F815E /* eyeopen.png */; };
+		A242179322B7A356004F815E /* eyeclose.png in Resources */ = {isa = PBXBuildFile; fileRef = A242179122B7A356004F815E /* eyeclose.png */; };
 		A26FEBBD229F7DE0003CCD7C /* WalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB70229F7DE0003CCD7C /* WalletViewController.xib */; };
 		A26FEBBE229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB71229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m */; };
 		A26FEBBF229F7DE0003CCD7C /* HandleSlateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB73229F7DE0003CCD7C /* HandleSlateViewController.xib */; };
@@ -282,6 +284,8 @@
 		A241824D22A7C1A600519F7D /* indicator@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator@3x.png"; sourceTree = "<group>"; };
 		A241825022A7C49800519F7D /* seletedindicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seletedindicator@2x.png"; sourceTree = "<group>"; };
 		A241825122A7C49900519F7D /* seletedindicator@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seletedindicator@3x.png"; sourceTree = "<group>"; };
+		A242179022B7A356004F815E /* eyeopen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyeopen.png; sourceTree = "<group>"; };
+		A242179122B7A356004F815E /* eyeclose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyeclose.png; sourceTree = "<group>"; };
 		A26FEB70229F7DE0003CCD7C /* WalletViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletViewController.xib; sourceTree = "<group>"; };
 		A26FEB71229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmSeedphraseViewController.m; sourceTree = "<group>"; };
 		A26FEB72229F7DE0003CCD7C /* CreateWalletNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateWalletNoteViewController.h; sourceTree = "<group>"; };
@@ -855,6 +859,8 @@
 			children = (
 				A26FECAF229FEC26003CCD7C /* process_suc_icon@2x.png */,
 				A26FECB1229FEC33003CCD7C /* process_fail_icon@2x.png */,
+				A242179122B7A356004F815E /* eyeclose.png */,
+				A242179022B7A356004F815E /* eyeopen.png */,
 				A27269AA22B3AB8B00E76E0A /* bg2@2x.png */,
 				A27269A922B3AB8A00E76E0A /* bg2@3x.png */,
 				A231645722B7470C00E690D1 /* cancel@2x.png */,
@@ -1377,6 +1383,7 @@
 				A26FEC73229F805B003CCD7C /* eye@2x.png in Resources */,
 				A26FEC9C229F805B003CCD7C /* normal.9.png in Resources */,
 				A2E5602122A8DBE7002E8E2D /* leftmenu@3x.png in Resources */,
+				A242179322B7A356004F815E /* eyeclose.png in Resources */,
 				A26FEC8C229F805B003CCD7C /* rightindicator@2x.png in Resources */,
 				A26FEC8F229F805B003CCD7C /* confirmdetail@3x.png in Resources */,
 				A26FEC7D229F805B003CCD7C /* copywalletid@2x.png in Resources */,
@@ -1402,6 +1409,7 @@
 				A26FEBC3229F7DE0003CCD7C /* TransactionDetailViewController.xib in Resources */,
 				EDA5149A22686DEE0011138F /* LaunchScreen.storyboard in Resources */,
 				A26FEC78229F805B003CCD7C /* topradius.9.png in Resources */,
+				A242179222B7A356004F815E /* eyeopen.png in Resources */,
 				A26FEBD7229F7DE0003CCD7C /* CreateMnemonicViewController.xib in Resources */,
 				A26FEC99229F805B003CCD7C /* wallet@2x.png in Resources */,
 				A26FEC64229F805B003CCD7C /* receivechose@3x.png in Resources */,
