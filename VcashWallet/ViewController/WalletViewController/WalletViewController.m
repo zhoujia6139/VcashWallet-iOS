@@ -180,13 +180,13 @@ static NSString *const identifier = @"WalletCell";
 -(void)refreshWalletStatus{
     __weak typeof(self) weakSelf = self;
     [[ServerTxManager shareInstance] fetchTxStatus:YES WithComplete:^(BOOL yesOrNo, id _Nullable result) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
         if (!yesOrNo) {
-            __strong typeof(weakSelf) strongSelf = weakSelf;
             [strongSelf.view makeToast:[LanguageService contentForKey:@"networkRequestFailed"]];
         }
         [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
-            [self.tableViewContainer.mj_header endRefreshing];
-            [self refreshMainView];
+            [strongSelf.tableViewContainer.mj_header endRefreshing];
+            [strongSelf refreshMainView];
         }];
     }];
 }
