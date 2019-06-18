@@ -14,7 +14,9 @@
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
 
+@property (weak, nonatomic) IBOutlet UILabel *labelProgress;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintLabelProgressLeading;
 @end
 
 @implementation ProgressView
@@ -45,6 +47,8 @@
 
 - (void)setProgress:(float)progress{
     self.progressBar.progress = progress;
+    self.constraintLabelProgressLeading.constant = (ScreenWidth - 60 - 34) * progress;
+    self.labelProgress.text = [NSString stringWithFormat:@"%.0f%%",progress * 100];
     if (progress == 1) {
         self.hidden = YES;
         if (self.restoreSuccessCallBack) {

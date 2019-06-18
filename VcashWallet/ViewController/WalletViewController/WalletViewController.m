@@ -66,17 +66,17 @@ static NSString *const identifier = @"WalletCell";
 
 @end
 
-@implementation WalletViewController
+@implementation WalletViewController{
+    BOOL first;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    first = YES;
     [self initSubviews];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (!self.enterInRecoverMode){
-            [self.tableViewContainer.mj_header beginRefreshing];
-        }
-    });
-    
+    if (!self.enterInRecoverMode){
+        [self.tableViewContainer.mj_header beginRefreshing];
+    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kWalletChainHeightChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kServerTxChange object:nil];
 }
@@ -84,10 +84,14 @@ static NSString *const identifier = @"WalletCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
-        [self.tableViewContainer.mj_header endRefreshing];
-        [self refreshMainView];
-    }];
+    if (!first) {
+        [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
+            [self refreshMainView];
+        }];
+    }else{
+        first = NO;
+    }
+   
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -125,9 +129,11 @@ static NSString *const identifier = @"WalletCell";
     [AppHelper addLineWithParentView:self.transactionTitleView];
     
     UIView *tableViewHeader = [[UIView alloc] init];
-    tableViewHeader.frame = CGRectMake(0, 0, ScreenWidth, 265);
-    self.viewHeader.frame = tableViewHeader.bounds;
+    tableViewHeader.frame = CGRectMake(0, 0, ScreenWidth, 231);
     [tableViewHeader addSubview:self.viewHeader];
+    [self.viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(tableViewHeader);
+    }];
     self.tableViewContainer.tableHeaderView = tableViewHeader;
     self.tableViewContainer.dataSource = self;
     self.tableViewContainer.delegate = self;
@@ -151,6 +157,7 @@ static NSString *const identifier = @"WalletCell";
     
     [self.sendVcashBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
     [self.sendVcashBtn setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
+    [self refreshMainView];
     
     
 }
@@ -173,13 +180,13 @@ static NSString *const identifier = @"WalletCell";
 -(void)refreshWalletStatus{
     __weak typeof(self) weakSelf = self;
     [[ServerTxManager shareInstance] fetchTxStatus:YES WithComplete:^(BOOL yesOrNo, id _Nullable result) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
         if (!yesOrNo) {
-            __strong typeof(weakSelf) strongSelf = weakSelf;
             [strongSelf.view makeToast:[LanguageService contentForKey:@"networkRequestFailed"]];
         }
         [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
-            [self.tableViewContainer.mj_header endRefreshing];
-            [self refreshMainView];
+            [strongSelf.tableViewContainer.mj_header endRefreshing];
+            [strongSelf refreshMainView];
         }];
     }];
 }

@@ -111,7 +111,11 @@
     [self configDataFromVcashTxLog];
     [self modifyBtnConstraint];
     
-    self.labelTxStatus.text = txStatus;
+    NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc] initWithString:txStatus];
+    NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc] init];
+    para.lineSpacing = -4;
+    [attributeStr addAttribute:NSParagraphStyleAttributeName value:para range:NSMakeRange(0, txStatus.length)];
+    self.labelTxStatus.attributedText = attributeStr;
     self.imageViewTxStatus.image = imageTxStatus;
     self.labelTxid.text = tx_id;
     self.labelSender.text = sender_id;
@@ -132,14 +136,14 @@
     switch (self.serverTx.status) {
         case TxDefaultStatus:{
             //default status
-            txStatus = self.serverTx.isSend ? [LanguageService contentForKey:@"waitingSenderSign"] : [LanguageService contentForKey:@"waitingRecipientSign"];
+            txStatus = self.serverTx.isSend ? [LanguageService contentForKey:@"waitingSenderSign"] : [LanguageService contentForKey:@"waitingOwnerSign"];
             self.btnSignature.hidden = NO;
         }
             break;
             
         case TxReceiverd:{
             //The recipient has already signed, waiting for the sender to broadcast
-            txStatus = self.serverTx.isSend ? [LanguageService contentForKey:@"waitingSenderSign"] : [LanguageService contentForKey:@"waitingRecipientSign"];
+            txStatus = self.serverTx.isSend ? [LanguageService contentForKey:@"waitingOwnerSign"] : [LanguageService contentForKey:@"waitingRecipientSign"];
         }
             break;
             

@@ -21,6 +21,7 @@
 - (void)prepare{
     [super prepare];
     self.lastUpdatedTimeLabel.hidden = YES;
+    [self.arrowView setImage:nil];
     [self setTitle:[LanguageService contentForKey:@"MJRefreshHeaderIdleText"] forState:MJRefreshStateIdle];
     [self setTitle:[LanguageService contentForKey:@"MJRefreshHeaderPullingText"] forState:MJRefreshStatePulling];
     [self setTitle:[LanguageService contentForKey:@"MJRefreshHeaderRefreshingText"] forState:MJRefreshStateRefreshing];

@@ -79,7 +79,8 @@
 }
 
 - (IBAction)clickRestore:(id)sender {
-    if ([[UserCenter sharedInstance] checkUserHaveWallet]) {
+    NSArray *txData = [[VcashDataManager shareInstance] getTxData];
+    if (txData && txData.count > 0) {
         AlertView *alterView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([AlertView class]) owner:nil options:nil] firstObject];
         alterView.title =  [LanguageService contentForKey:@"warning"];
         alterView.msg = [LanguageService contentForKey:@"recoverWalletWarning"];

@@ -224,20 +224,18 @@
         int r = arc4random() % [array count];
         [randomSet addObject:[array objectAtIndex:r]];
     }
-    NSArray *randomArray = [randomSet allObjects];
-    return randomArray;
+    NSArray *randomArr = [randomSet allObjects];
+    return randomArr;
 }
 
 - (NSArray *)getNeedConfimPhraseArray:(NSArray *)arr{
-    arr = [arr sortedArrayUsingComparator:^NSComparisonResult(NSString *str1, NSString *str2) {
-        int seed = arc4random_uniform(2);
-        if (seed) {
-            return [str1 compare:str2];
-        } else {
-            return [str2 compare:str1];
+    NSMutableArray *sortArray = [NSMutableArray array];
+    for (NSString *phrase in self.mnemonicWordsArr) {
+        if ([arr containsObject:phrase]) {
+            [sortArray addObject:phrase];
         }
-    }];
-    return arr;
+    }
+    return sortArray;
 }
 
 

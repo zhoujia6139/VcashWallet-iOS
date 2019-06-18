@@ -112,25 +112,27 @@
     self.labelTxId.text = txId;
     self.labelAmount.text = [NSString stringWithFormat:@"%@",amountStr];
     self.labelTime.text = [[NSDate dateWithTimeIntervalSince1970:txLog.create_time] stringWithFormat:@"yyyy-MM-dd"];
-    self.stateLabel.textColor = [UIColor colorWithHexString:@"#AEAEAE"];
     switch (txLog.confirm_state){
         case DefaultState:
             if(txLog.tx_type == TxSentCancelled || txLog.tx_type == TxReceivedCancelled){
                 //sender canceled
                 self.stateLabel.text = [LanguageService contentForKey:@"canceled"];
+                self.stateLabel.textColor = [UIColor colorWithHexString:@"#AEAEAE"];
                 [self.imageViewState setImage:[UIImage imageNamed:@"canceled.png"]];
             }else if(txLog.tx_type == TxSent || txLog.tx_type == TxReceived){
-                //                self.stateLabel.text = [LanguageService contentForKey:@"ongoing"];
                 self.stateLabel.text = (txLog.tx_type == TxSent)  ? [LanguageService contentForKey:@"waitRecipientSignature"] : [LanguageService contentForKey:@"waitSenderSignature"];
+                self.stateLabel.textColor = [UIColor colorWithHexString:@"#FF3333"];
                 [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
             }
             break;
         case LoalConfirmed://waiting confirm
                 self.stateLabel.text = [LanguageService contentForKey:@"waitingForConfirming"];
+                self.stateLabel.textColor = [UIColor colorWithHexString:@"#FF3333"];
                 [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
             break;
         case NetConfirmed:
             self.stateLabel.text = [LanguageService contentForKey:@"confirmed"];
+            self.stateLabel.textColor = [UIColor colorWithHexString:@"#AEAEAE"];
             [self.imageViewState setImage:[UIImage imageNamed:@"confirmed.png"]];
             break;
     }
