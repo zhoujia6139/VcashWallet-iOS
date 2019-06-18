@@ -66,10 +66,13 @@ static NSString *const identifier = @"WalletCell";
 
 @end
 
-@implementation WalletViewController
+@implementation WalletViewController{
+    BOOL first;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    first = YES;
     [self initSubviews];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (!self.enterInRecoverMode){
@@ -84,6 +87,10 @@ static NSString *const identifier = @"WalletCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+    if (first) {
+       [self refreshMainView];
+        first = NO;
+    }
     [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
         [self.tableViewContainer.mj_header endRefreshing];
         [self refreshMainView];
