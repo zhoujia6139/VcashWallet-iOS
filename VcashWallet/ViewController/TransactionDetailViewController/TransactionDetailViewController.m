@@ -132,14 +132,14 @@
     switch (self.serverTx.status) {
         case TxDefaultStatus:{
             //default status
-            txStatus = self.serverTx.isSend ? [LanguageService contentForKey:@"waitingSenderSign"] : [LanguageService contentForKey:@"waitingRecipientSign"];
+            txStatus = self.serverTx.isSend ? [LanguageService contentForKey:@"waitingSenderSign"] : [LanguageService contentForKey:@"waitingOwnerSign"];
             self.btnSignature.hidden = NO;
         }
             break;
             
         case TxReceiverd:{
             //The recipient has already signed, waiting for the sender to broadcast
-            txStatus = self.serverTx.isSend ? [LanguageService contentForKey:@"waitingSenderSign"] : [LanguageService contentForKey:@"waitingRecipientSign"];
+            txStatus = self.serverTx.isSend ? [LanguageService contentForKey:@"waitingOwnerSign"] : [LanguageService contentForKey:@"waitingRecipientSign"];
         }
             break;
             

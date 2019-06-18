@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,7 +27,7 @@
                             </constraints>
                             <color key="trackTintColor" red="0.8666666666666667" green="0.8666666666666667" blue="0.8666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                         </progressView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restoring wallet...Please do not close wallet." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXa-kC-cPg" customClass="VcashLabel">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restoring wallet...Please do not close wallet." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXa-kC-cPg" customClass="VcashLabel">
                             <rect key="frame" x="10" y="71" width="321" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -36,15 +36,23 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="localText" value="recovering"/>
                             </userDefinedRuntimeAttributes>
                         </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6O6-xS-Ahh">
+                            <rect key="frame" x="30" y="21" width="17" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="1" green="0.58431372550000005" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="fXa-kC-cPg" firstAttribute="top" secondItem="mBq-sc-JB3" secondAttribute="bottom" constant="18" id="B4Y-8G-nsa"/>
                         <constraint firstAttribute="trailing" secondItem="fXa-kC-cPg" secondAttribute="trailing" constant="10" id="Cs1-xW-gAP"/>
                         <constraint firstItem="fXa-kC-cPg" firstAttribute="leading" secondItem="tSS-7b-IgZ" secondAttribute="leading" constant="10" id="JfS-g4-vsQ"/>
+                        <constraint firstItem="mBq-sc-JB3" firstAttribute="top" secondItem="6O6-xS-Ahh" secondAttribute="bottom" constant="8" id="WUX-4A-5pc"/>
                         <constraint firstItem="mBq-sc-JB3" firstAttribute="top" secondItem="tSS-7b-IgZ" secondAttribute="top" constant="45" id="YAH-uW-cNz"/>
                         <constraint firstAttribute="height" constant="101" id="eIn-b4-cVi"/>
                         <constraint firstAttribute="trailing" secondItem="mBq-sc-JB3" secondAttribute="trailing" constant="30" id="hqb-w9-VZB"/>
+                        <constraint firstItem="6O6-xS-Ahh" firstAttribute="leading" secondItem="mBq-sc-JB3" secondAttribute="leading" id="mHc-Zh-vF9"/>
                         <constraint firstItem="mBq-sc-JB3" firstAttribute="leading" secondItem="tSS-7b-IgZ" secondAttribute="leading" constant="30" id="wns-Ki-IWd"/>
                     </constraints>
                 </view>
@@ -57,6 +65,8 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="constraintLabelProgressLeading" destination="mHc-Zh-vF9" id="CPf-Jg-WtW"/>
+                <outlet property="labelProgress" destination="6O6-xS-Ahh" id="yyY-po-HK0"/>
                 <outlet property="progressBar" destination="mBq-sc-JB3" id="lTr-Ap-rOD"/>
                 <outlet property="viewContent" destination="tSS-7b-IgZ" id="SLx-o5-XeE"/>
             </connections>
