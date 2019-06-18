@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		111D98D7603A8F1579E12602 /* libPods-VcashWallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38B93DB289A56D999A4C8C7C /* libPods-VcashWallet.a */; };
+		A21189B622B8C5E700B88179 /* scan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A21189B422B8C5E600B88179 /* scan@2x.png */; };
+		A21189B722B8C5E700B88179 /* scan@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A21189B522B8C5E700B88179 /* scan@3x.png */; };
 		A231645822B7470C00E690D1 /* cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A231645622B7470C00E690D1 /* cancel@3x.png */; };
 		A231645922B7470C00E690D1 /* cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A231645722B7470C00E690D1 /* cancel@2x.png */; };
 		A241822722A50A7F00519F7D /* LockScreenSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A241822522A50A7F00519F7D /* LockScreenSetViewController.m */; };
@@ -112,10 +114,8 @@
 		A26FEC7C229F805B003CCD7C /* adressbook@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC2A229F805A003CCD7C /* adressbook@3x.png */; };
 		A26FEC7D229F805B003CCD7C /* copywalletid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC2B229F805A003CCD7C /* copywalletid@2x.png */; };
 		A26FEC7E229F805B003CCD7C /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC2C229F805A003CCD7C /* bg@2x.png */; };
-		A26FEC7F229F805B003CCD7C /* scan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC2D229F805A003CCD7C /* scan@2x.png */; };
 		A26FEC80229F805B003CCD7C /* ongoing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC2E229F805A003CCD7C /* ongoing@2x.png */; };
 		A26FEC81229F805B003CCD7C /* ongoing@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC2F229F805A003CCD7C /* ongoing@3x.png */; };
-		A26FEC82229F805B003CCD7C /* scan@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC30229F805A003CCD7C /* scan@3x.png */; };
 		A26FEC83229F805B003CCD7C /* bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC31229F805A003CCD7C /* bg@3x.png */; };
 		A26FEC84229F805B003CCD7C /* adressbook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC32229F805A003CCD7C /* adressbook@2x.png */; };
 		A26FEC85229F805B003CCD7C /* copywalletid@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26FEC33229F805A003CCD7C /* copywalletid@3x.png */; };
@@ -270,6 +270,8 @@
 		2B42695A9EB50E631A668976 /* Pods-VcashWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VcashWallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VcashWallet/Pods-VcashWallet.debug.xcconfig"; sourceTree = "<group>"; };
 		32DD39C5EA5AAED2839B1728 /* Pods-VcashWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VcashWallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-VcashWallet/Pods-VcashWallet.release.xcconfig"; sourceTree = "<group>"; };
 		38B93DB289A56D999A4C8C7C /* libPods-VcashWallet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VcashWallet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A21189B422B8C5E600B88179 /* scan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan@2x.png"; sourceTree = "<group>"; };
+		A21189B522B8C5E700B88179 /* scan@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan@3x.png"; sourceTree = "<group>"; };
 		A231645622B7470C00E690D1 /* cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@3x.png"; sourceTree = "<group>"; };
 		A231645722B7470C00E690D1 /* cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@2x.png"; sourceTree = "<group>"; };
 		A241822422A50A7F00519F7D /* LockScreenSetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockScreenSetViewController.h; sourceTree = "<group>"; };
@@ -408,10 +410,8 @@
 		A26FEC2A229F805A003CCD7C /* adressbook@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adressbook@3x.png"; sourceTree = "<group>"; };
 		A26FEC2B229F805A003CCD7C /* copywalletid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "copywalletid@2x.png"; sourceTree = "<group>"; };
 		A26FEC2C229F805A003CCD7C /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
-		A26FEC2D229F805A003CCD7C /* scan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan@2x.png"; sourceTree = "<group>"; };
 		A26FEC2E229F805A003CCD7C /* ongoing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ongoing@2x.png"; sourceTree = "<group>"; };
 		A26FEC2F229F805A003CCD7C /* ongoing@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ongoing@3x.png"; sourceTree = "<group>"; };
-		A26FEC30229F805A003CCD7C /* scan@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan@3x.png"; sourceTree = "<group>"; };
 		A26FEC31229F805A003CCD7C /* bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@3x.png"; sourceTree = "<group>"; };
 		A26FEC32229F805A003CCD7C /* adressbook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adressbook@2x.png"; sourceTree = "<group>"; };
 		A26FEC33229F805A003CCD7C /* copywalletid@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "copywalletid@3x.png"; sourceTree = "<group>"; };
@@ -859,6 +859,8 @@
 			children = (
 				A26FECAF229FEC26003CCD7C /* process_suc_icon@2x.png */,
 				A26FECB1229FEC33003CCD7C /* process_fail_icon@2x.png */,
+				A21189B422B8C5E600B88179 /* scan@2x.png */,
+				A21189B522B8C5E700B88179 /* scan@3x.png */,
 				A242179122B7A356004F815E /* eyeclose.png */,
 				A242179022B7A356004F815E /* eyeopen.png */,
 				A27269AA22B3AB8B00E76E0A /* bg2@2x.png */,
@@ -919,10 +921,8 @@
 				A26FEC2A229F805A003CCD7C /* adressbook@3x.png */,
 				A26FEC2B229F805A003CCD7C /* copywalletid@2x.png */,
 				A26FEC2C229F805A003CCD7C /* bg@2x.png */,
-				A26FEC2D229F805A003CCD7C /* scan@2x.png */,
 				A26FEC2E229F805A003CCD7C /* ongoing@2x.png */,
 				A26FEC2F229F805A003CCD7C /* ongoing@3x.png */,
-				A26FEC30229F805A003CCD7C /* scan@3x.png */,
 				A26FEC31229F805A003CCD7C /* bg@3x.png */,
 				A26FEC32229F805A003CCD7C /* adressbook@2x.png */,
 				A26FEC33229F805A003CCD7C /* copywalletid@3x.png */,
@@ -1437,6 +1437,7 @@
 				A26FEC7E229F805B003CCD7C /* bg@2x.png in Resources */,
 				A26FEC57229F805A003CCD7C /* send@2x.png in Resources */,
 				A26FEC6D229F805B003CCD7C /* restore@3x.png in Resources */,
+				A21189B722B8C5E700B88179 /* scan@3x.png in Resources */,
 				A26FEC75229F805B003CCD7C /* receive@3x.png in Resources */,
 				A26FEC84229F805B003CCD7C /* adressbook@2x.png in Resources */,
 				A26FEC85229F805B003CCD7C /* copywalletid@3x.png in Resources */,
@@ -1454,10 +1455,10 @@
 				A26FEC5B229F805A003CCD7C /* confirmed@3x.png in Resources */,
 				A26FEC97229F805B003CCD7C /* vcash@2x.png in Resources */,
 				A26FEC86229F805B003CCD7C /* balancelogo@2x.png in Resources */,
+				A21189B622B8C5E700B88179 /* scan@2x.png in Resources */,
 				A26FEC96229F805B003CCD7C /* ongoingdetail@3x.png in Resources */,
 				A26FECB2229FEC33003CCD7C /* process_fail_icon@2x.png in Resources */,
 				A26FEBC2229F7DE0003CCD7C /* ConfirmSeedphraseViewController.xib in Resources */,
-				A26FEC7F229F805B003CCD7C /* scan@2x.png in Resources */,
 				A26FEC80229F805B003CCD7C /* ongoing@2x.png in Resources */,
 				A241824F22A7C1A600519F7D /* indicator@3x.png in Resources */,
 				A26FEC58229F805A003CCD7C /* send@3x.png in Resources */,
@@ -1484,7 +1485,6 @@
 				A26FEC7A229F805B003CCD7C /* logo@3x.png in Resources */,
 				A26FEC74229F805B003CCD7C /* rightindicator@3x.png in Resources */,
 				A26FECB0229FEC26003CCD7C /* process_suc_icon@2x.png in Resources */,
-				A26FEC82229F805B003CCD7C /* scan@3x.png in Resources */,
 				A26FEC95229F805B003CCD7C /* ongoingdetail@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
