@@ -63,13 +63,14 @@
         self.startUseWalletBtn.localTitle = @"saveNewPassword";
     }
     
+    [self.passwordTextField addTarget:self action:@selector(fillConfirmPassword:) forControlEvents:UIControlEventEditingChanged];
     [self.confirmPasTextField addTarget:self action:@selector(fillConfirmPassword:) forControlEvents:UIControlEventEditingChanged];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    if (!self.isRecover) {
+    if (!self.isRecover && !self.isChangePassword) {
         NSMutableArray *vcs = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
         NSInteger count = vcs.count;
         for (NSInteger i = count - 1; i >= 0; i--) {
@@ -133,7 +134,7 @@
 }
 
 - (void)fillConfirmPassword:(UITextField *)textField{
-    if (textField.text.length > 0 && self.passwordTextField.text.length > 0) {
+    if (self.confirmPasTextField.text.length > 0 && self.passwordTextField.text.length > 0) {
         self.startUseWalletBtn.userInteractionEnabled = YES;
         self.startUseWalletBtn.backgroundColor = COrangeColor;
     }else{
