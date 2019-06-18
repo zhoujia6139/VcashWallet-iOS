@@ -111,7 +111,11 @@
     [self configDataFromVcashTxLog];
     [self modifyBtnConstraint];
     
-    self.labelTxStatus.text = txStatus;
+    NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc] initWithString:txStatus];
+    NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc] init];
+    para.lineSpacing = -4;
+    [attributeStr addAttribute:NSParagraphStyleAttributeName value:para range:NSMakeRange(0, txStatus.length)];
+    self.labelTxStatus.attributedText = attributeStr;
     self.imageViewTxStatus.image = imageTxStatus;
     self.labelTxid.text = tx_id;
     self.labelSender.text = sender_id;

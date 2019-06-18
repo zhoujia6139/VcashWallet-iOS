@@ -86,7 +86,7 @@
 
 - (IBAction)clickedWalletBtn:(id)sender {
     
-//    AlertView *alertView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([AlertView class]) owner:nil options:nil] firstObject];
+//    AlertView *alertView = [[[NSBundle mainBun dle] loadNibNamed:NSStringFromClass([AlertView class]) owner:nil options:nil] firstObject];
     __weak typeof(self) weakSelf = self;
 //    alertView.doneCallBack = ^{
 //        __strong typeof(weakSelf) strongSelf = weakSelf;
@@ -100,7 +100,7 @@
         
     }]];
     
-    [alterVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"done"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [alterVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"ok"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         [strongSelf pushConfirmPhraseVc];
     }]];

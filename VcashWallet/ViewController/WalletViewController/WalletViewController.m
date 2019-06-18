@@ -129,7 +129,7 @@ static NSString *const identifier = @"WalletCell";
     [AppHelper addLineWithParentView:self.transactionTitleView];
     
     UIView *tableViewHeader = [[UIView alloc] init];
-    tableViewHeader.frame = CGRectMake(0, 0, ScreenWidth, 265);
+    tableViewHeader.frame = CGRectMake(0, 0, ScreenWidth, 231);
     [tableViewHeader addSubview:self.viewHeader];
     [self.viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(tableViewHeader);

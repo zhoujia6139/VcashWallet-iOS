@@ -21,7 +21,7 @@
     "receive":"Receive",
     "send":"Send",
     "setting":"Setting",
-    "addressBook":"Address bokk",
+    "addressBook":"Address book",
     "available":"Available",
     "unconfirmed":"Unconfirmed",
     "sendVcash":"Send VCash",
@@ -109,7 +109,7 @@
     "after1Minute":"After 1 minute",
     "after3Minute":"After 3 minutes",
     "seedPhrase":"Seed phrase",
-    "mnemonicChangeedBackup":"The mnemonic has been changed, please re-back up",
+    "mnemonicChangeedBackup":"Seed phrase has been changed because of screenshot. Please back up new seed phrase",
     "passwordsNotmatch":"Passwords do not match",
     "recovering":"Restoring wallet...Please do not close wallet.",
     "successfulRecovery":"Successful recovery",
@@ -145,4 +145,5 @@
     "noTransactions":"No  transactions",
     "processLater":"Process later",
     "goAndsee":"Go and see",
+    "ok":"ok",
 }
