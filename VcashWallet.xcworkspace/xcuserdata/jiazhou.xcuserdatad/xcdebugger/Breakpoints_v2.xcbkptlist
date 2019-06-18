@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Core/CoreBitcoin/BTCKeychain.m"
-            timestampString = "580296023.4468369"
+            timestampString = "582461116.272603"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "112"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Core/CoreBitcoin/BTCKeychain.m"
-            timestampString = "580296023.4481519"
+            timestampString = "582461116.272671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "135"
@@ -105,13 +105,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VcashWallet/Core/VcashSecp256k1.m"
-            timestampString = "582028474.5352629"
+            filePath = "VcashWallet/Core/Node/NodeApi.m"
+            timestampString = "582465842.131947"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "332"
-            endingLineNumber = "332"
-            landmarkName = "-ecdsaVerify:sigData:pubkey:"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "-getOutputsByPmmrIndex:retArr:WithComplete:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,12 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Core/Server/ServerApi.m"
-            timestampString = "582196072.484251"
+            timestampString = "582465842.131994"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "-receiveTransaction:WithComplete:"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "-cancelTransaction:WithComplete:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -137,13 +137,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VcashWallet/Database/VcashDataManager.mm"
-            timestampString = "582200349.3674999"
+            filePath = "VcashWallet/Core/Server/ServerApi.m"
+            timestampString = "582465842.132036"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
-            landmarkName = "-saveTx:"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "-cancelTransaction:WithComplete:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -153,13 +153,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VcashWallet/Database/VcashDataManager.mm"
-            timestampString = "582200349.367555"
+            filePath = "VcashWallet/ViewController/PinPasswordSetViewController.m"
+            timestampString = "582461786.792946"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "-saveOutputData:"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "-clickedStartUseWallet:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VcashWallet/Core/WalletWrapper.m"
+            timestampString = "582551509.777804"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
+            landmarkName = "+updateOutputStatusWithComplete:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

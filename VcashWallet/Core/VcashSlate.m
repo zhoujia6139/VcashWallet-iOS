@@ -223,7 +223,6 @@
         [strong_self.txLog appendOutput:output.commitment];
         
         [[VcashWallet shareInstance] addNewTxChangeOutput:output];
-        [[VcashWallet shareInstance] syncOutputInfo];
     };
     
     return secKey;

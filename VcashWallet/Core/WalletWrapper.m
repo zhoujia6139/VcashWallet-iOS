@@ -122,6 +122,10 @@
         block?block(NO, @"Db error"):nil;
         return;
     }
+    
+    //save output status
+    [[VcashWallet shareInstance] syncOutputInfo];
+    
     //save context
     ret = [[VcashDataManager shareInstance] saveContext:slate.context];
     if (!ret){
@@ -180,6 +184,9 @@
         block?block(NO, @"Db error"):nil;
         return;
     }
+    
+    //save output status
+    [[VcashWallet shareInstance] syncOutputInfo];
     
     tx.slate  = [tx.slateObj modelToJSONString];
     tx.status = TxReceiverd;
@@ -324,6 +331,24 @@
                 }
                 else{
                     if (item.status == Locked || item.status == Unspent){
+                        VcashTxLog* tx = nil;
+                        for (VcashTxLog* txlog in txs){
+                            if (txlog.confirm_state == LoalConfirmed){
+                                for (NSString* commitStr in txlog.inputs){
+                                    if ([commitStr isEqualToString:item.commitment]){
+                                        tx = txlog;
+                                    }
+                                }
+                            }
+                            if (tx != nil){
+                                break;
+                            }
+                        }
+                        if (tx){
+                            tx.confirm_state = NetConfirmed;
+                            tx.confirm_time = [[NSDate date] timeIntervalSince1970];
+                            tx.status = TxFinalized;
+                        }
                         item.status = Spent;
                         hasChange = YES;
                     }
