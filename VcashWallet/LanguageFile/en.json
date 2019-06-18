@@ -91,7 +91,7 @@
     "waitingSenderSign":"TX Status: waiting for the sender to sign",
     "waitingOwnerSign":"TX Status: waiting for your signature",
     "waitingRecipientSign":"TX Status: waiting for recipient to sign",
-    "waitingConfirming":"TX Status: waiting for confirming",
+    "waitingConfirming":"TX Status: waiting for confirmation",
     "transactionCanceled":"TX Status: transaction canceled",
     "transactionCompleted":"TX Status: transaction completed",
     "unreachable":"unreachable",
