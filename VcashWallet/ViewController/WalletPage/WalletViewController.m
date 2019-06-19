@@ -198,7 +198,9 @@ static NSString *const identifier = @"WalletCell";
 }
 
 - (void)serverTxStarWork{
-    [[ServerTxManager shareInstance] startWork];
+    if ([WalletWrapper getWalletUserId]) {
+        [[ServerTxManager shareInstance] startWork];
+    }
 }
 
 - (void)serverTxStopWork{
