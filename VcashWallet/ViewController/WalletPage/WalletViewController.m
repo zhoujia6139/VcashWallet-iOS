@@ -82,7 +82,7 @@ static NSString *const identifier = @"WalletCell";
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kWalletChainHeightChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kServerTxChange object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(serverTxStarWork) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(serverTxStartWork) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(serverTxStopWork) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
@@ -101,7 +101,7 @@ static NSString *const identifier = @"WalletCell";
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self serverTxStarWork];
+    [self serverTxStartWork];
     if (self.createNewWallet || self.enterInRecoverMode) {
         [MBHudHelper startWorkProcessWithTextTips:@""];
         [MBHudHelper endWorkProcessWithSuc:YES andTextTips:[LanguageService contentForKey:@"usableWallet"]];
@@ -197,7 +197,7 @@ static NSString *const identifier = @"WalletCell";
     }];
 }
 
-- (void)serverTxStarWork{
+- (void)serverTxStartWork{
     if ([WalletWrapper getWalletUserId]) {
         [[ServerTxManager shareInstance] startWork];
     }
