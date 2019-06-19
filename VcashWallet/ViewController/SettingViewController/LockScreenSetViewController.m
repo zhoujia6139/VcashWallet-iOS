@@ -25,7 +25,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     NSArray *arrTitle= @[[LanguageService contentForKey:@"never"],[LanguageService contentForKey:@"after30Seconds"],[LanguageService contentForKey:@"after1Minute"],[LanguageService contentForKey:@"after3Minute"]];
-    NSArray *arrLockScreenType = @[@(LockScreenTypeNever),@(LockScreenType30Seonds),@(LockScreenType1Minute),@(LockScreenType3Minute)];
+    NSArray *arrLockScreenType = @[@(LockScreenTypeNever),@(LockScreenType30Seonds),@(LockScreenType1Minute),@(LockScreenType3Minutes)];
     
     LockScreenSetItemView *priItem = nil;
     LockScreenType userLockScreenType =  [[LockScreenTimeService shareInstance] readLockScreenType];

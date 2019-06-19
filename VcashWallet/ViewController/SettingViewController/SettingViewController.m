@@ -46,7 +46,7 @@
     LockScreenType lockScreenType = [[LockScreenTimeService shareInstance] readLockScreenType];
     NSString *lockScreenTitle;
     switch (lockScreenType) {
-        case LockScreenType3Minute:
+        case LockScreenType3Minutes:
             lockScreenTitle = [LanguageService contentForKey:@"after3Minute"];
             break;
         case LockScreenTypeNever:
