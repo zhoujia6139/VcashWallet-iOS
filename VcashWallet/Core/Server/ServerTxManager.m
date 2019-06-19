@@ -39,21 +39,21 @@
 
 -(void)startWork{
     if (!_timer){
-        __weak typeof (self) weak_self = self;
-        _timer = [NSTimer scheduledTimerWithTimeInterval:TimerInterval repeats:YES block:^(NSTimer * _Nonnull timer) {
-            __strong typeof (weak_self) strong_self = weak_self;
-            [strong_self fetchTxStatus:NO WithComplete:^(BOOL yesOrNo, id _Nullable result) {
-                
-            }];
-        }];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:TimerInterval target:self selector:@selector(fetchServerTxStatus) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
     }
-    
     [_timer setFireDate:[NSDate date]];
 }
 
 -(void)stopWork{
     [_timer invalidate];
     _timer = nil;
+}
+
+- (void)fetchServerTxStatus{
+    [self fetchTxStatus:NO WithComplete:^(BOOL yesOrNo, id _Nullable result) {
+        
+    }];
 }
 
 -(void)fetchTxStatus:(BOOL)force WithComplete:(RequestCompleteBlock)block{

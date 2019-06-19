@@ -161,7 +161,10 @@
                 [self sendTransactionWithUseId:self.targetAddressTextView.text slate:slate];
             }
             else{
-                [MBHudHelper showTextTips:[NSString stringWithFormat:@"%@", retData] onView:nil withDuration:1.5];
+//                [MBHudHelper showTextTips:[NSString stringWithFormat:@"%@", retData] onView:nil withDuration:1.5];
+                UIAlertController *alterVc = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@", retData] message:@"" preferredStyle:UIAlertControllerStyleAlert];
+                [alterVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"ok"] style:UIAlertActionStyleDefault handler:nil]];
+                [self.navigationController presentViewController:alterVc animated:YES completion:nil];
             }
             
         }];

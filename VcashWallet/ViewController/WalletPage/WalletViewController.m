@@ -43,6 +43,9 @@ static NSString *const identifier = @"WalletCell";
 @property (weak, nonatomic) IBOutlet UILabel *netName;
 
 @property (weak, nonatomic) IBOutlet UILabel *chainHeight;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintChainHeightWidth;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableViewContainer;
 @property (weak, nonatomic) IBOutlet UITextView *userIdView;
 
@@ -79,6 +82,8 @@ static NSString *const identifier = @"WalletCell";
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kWalletChainHeightChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kServerTxChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(serverTxStarWork) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(serverTxStopWork) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -96,7 +101,7 @@ static NSString *const identifier = @"WalletCell";
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [[ServerTxManager shareInstance] startWork];
+    [self serverTxStarWork];
     if (self.createNewWallet || self.enterInRecoverMode) {
         [MBHudHelper startWorkProcessWithTextTips:@""];
         [MBHudHelper endWorkProcessWithSuc:YES andTextTips:[LanguageService contentForKey:@"usableWallet"]];
@@ -109,8 +114,13 @@ static NSString *const identifier = @"WalletCell";
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[ServerTxManager shareInstance] hiddenMsgNotificationView];
-    [[ServerTxManager shareInstance] stopWork];
+    [self serverTxStopWork];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)initSubviews{
@@ -123,6 +133,7 @@ static NSString *const identifier = @"WalletCell";
         }
     }
     self.constraintNaviHeight.constant = kTopHeight;
+    self.constraintChainHeightWidth.constant = ScreenWidth - 210;
     [[[LeftMenuManager shareInstance] leftMenuView] addInView];
     
     self.maskView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1];
@@ -158,8 +169,7 @@ static NSString *const identifier = @"WalletCell";
     [self.sendVcashBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
     [self.sendVcashBtn setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
     [self refreshMainView];
-    
-    
+
 }
 
 
@@ -171,10 +181,6 @@ static NSString *const identifier = @"WalletCell";
     maskLayer.frame = self.transactionTitleView.bounds;
     maskLayer.path = bezierPath.CGPath;
     self.transactionTitleView.layer.mask = maskLayer;
-}
-
--(void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)refreshWalletStatus{
@@ -191,6 +197,14 @@ static NSString *const identifier = @"WalletCell";
     }];
 }
 
+- (void)serverTxStarWork{
+    [[ServerTxManager shareInstance] startWork];
+}
+
+- (void)serverTxStopWork{
+    [[ServerTxManager shareInstance] stopWork];
+}
+
 -(void)refreshMainView{
     self.userIdView.text = [WalletWrapper getWalletUserId];
     WalletBalanceInfo* info = [WalletWrapper getWalletBalanceInfo];
@@ -204,7 +218,6 @@ static NSString *const identifier = @"WalletCell";
     self.balanceUnconfirmed.text = [NSString stringWithFormat:@"%@",unconfirm];
     
     self.chainHeight.text = [NSString stringWithFormat:@"Height:%@", @([WalletWrapper getCurChainHeight])];
-    
     
     NSArray *arrTransaction = [WalletWrapper getTransationArr];
     if (arrTransaction) {
