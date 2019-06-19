@@ -10,7 +10,7 @@
 #import "WalletWrapper.h"
 #import "SendTransactionConfirmView.h"
 #import "ScanViewController.h"
-#import "TransactionDetailViewController/TransactionDetailViewController.h"
+#import "TransactionDetailViewController.h"
 
 
 #define CGrayColor [UIColor colorWithHexString:@"#EEEEEE"]
