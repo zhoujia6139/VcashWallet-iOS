@@ -33,7 +33,7 @@
 */
 - (void)awakeFromNib{
    [super awakeFromNib];
-    self.messageLabel.preferredMaxLayoutWidth = ScreenWidth - 46 - 24;
+    self.messageLabel.preferredMaxLayoutWidth = ScreenWidth - 40 - 24;
 }
 
 - (void)setServerTx:(ServerTransaction *)serverTx{
