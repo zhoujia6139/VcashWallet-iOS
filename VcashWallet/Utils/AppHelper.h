@@ -24,9 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIView *)addLineWithParentViewLeftMargin15:(UIView *)iv;
 
-+ (UIView *)addLineWithParentView:(UIView *)iv leftMargin:(CGFloat)leftMargin rightMargin:(CGFloat)rightMargin;
++ (UIView *)addLineTopWithParentView:(UIView *)iv leftMargin:(CGFloat)leftMargin rightMargin:(CGFloat)rightMargin lineHeight:(CGFloat)lineHeight;
 
-+ (UIView *)addLineWithParentView:(UIView *)iv leftMargin:(CGFloat)leftMargin rightMargin:(CGFloat)rightMargin lineHeight:(CGFloat)lineHeight;
++ (UIView *)addLineBottomWithParentView:(UIView *)iv leftMargin:(CGFloat)leftMargin rightMargin:(CGFloat)rightMargin;
+
++ (UIView *)addLineBottomWithParentView:(UIView *)iv leftMargin:(CGFloat)leftMargin rightMargin:(CGFloat)rightMargin lineHeight:(CGFloat)lineHeight;
 
 + (UIView *)addLineRightWithParentView:(UIView *)iv;
 

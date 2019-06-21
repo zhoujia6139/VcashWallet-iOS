@@ -146,4 +146,12 @@
     "processLater":"Process later",
     "goAndsee":"Go and see",
     "ok":"ok",
+    "sendVCashPrompt":"Sending VCash is an interactive process that the sender and the receiver need to interact back and forth to ensure the transaction is implemented.",
+    "receiveTransactionFile":"Receive from transaction file",
+    "receiveTransactionFilePrompt":"You can receive vcash through the transaction file. When you receive a transaction file frome sender, you can copy it into the form below.",
+    "enterTransactionFileContent":"Enter the received transaction file",
+    "readTxDetails":"Read transaction details",
+    "signTransactionFilePrompt":"After generating the signed transaction file, copy the contents and send it to the sender.",
+    "copy":"Copy",
+    "signTxFile":"Signed transaction file",
 }
