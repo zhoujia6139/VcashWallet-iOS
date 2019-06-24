@@ -293,7 +293,7 @@
     
     
     if (isSend){
-        [WalletWrapper finalizeTransaction:self.serverTx withComplete:^(BOOL yesOrNo, id _Nullable data){
+        [WalletWrapper finalizeServerTx:self.serverTx withComplete:^(BOOL yesOrNo, id _Nullable data){
             NSString *tip = yesOrNo ? [LanguageService contentForKey:@"successfulBroadcast"] : [LanguageService contentForKey:@"broadcastFailure"];
             [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:tip];
             if (yesOrNo) {

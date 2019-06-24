@@ -155,7 +155,7 @@
     }
     if (self.targetAddressTextView.text && amount > 0)
     {
-        [WalletWrapper createSendTransaction:self.targetAddressTextView.text amount:[WalletWrapper vcashToNano:amount] fee:0 withComplete:^(BOOL yesOrNo, id retData) {
+        [WalletWrapper createSendTransaction:[WalletWrapper vcashToNano:amount] fee:0 withComplete:^(BOOL yesOrNo, id retData) {
             if (yesOrNo){
                 VcashSlate* slate = (VcashSlate*)retData;
                 [self sendTransactionWithUseId:self.targetAddressTextView.text slate:slate];

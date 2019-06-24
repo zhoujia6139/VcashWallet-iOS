@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Core/Node/NodeApi.m"
-            timestampString = "583055333.286097"
+            timestampString = "583062607.518785"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "60"
@@ -122,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Core/WalletWrapper.m"
-            timestampString = "583055333.286162"
+            timestampString = "583062607.51888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "234"
@@ -138,12 +138,12 @@
                   moduleName = "VcashWallet"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jiazhou/Downloads/VcashWallet/VcashWallet/Core/WalletWrapper.m"
-                  timestampString = "583055333.786394"
+                  timestampString = "583062607.8083839"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "234"
                   endingLineNumber = "234"
-                  offsetFromSymbolStart = "164">
+                  offsetFromSymbolStart = "137">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -153,12 +153,12 @@
                   moduleName = "VcashWallet"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jiazhou/Downloads/VcashWallet/VcashWallet/Core/WalletWrapper.m"
-                  timestampString = "583055333.78935"
+                  timestampString = "583062607.8102289"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "234"
                   endingLineNumber = "234"
-                  offsetFromSymbolStart = "24">
+                  offsetFromSymbolStart = "19">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -168,12 +168,12 @@
                   moduleName = "VcashWallet"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jiazhou/Downloads/VcashWallet/VcashWallet/Core/WalletWrapper.m"
-                  timestampString = "583055333.792304"
+                  timestampString = "583062607.812079"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "234"
                   endingLineNumber = "234"
-                  offsetFromSymbolStart = "20">
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -185,7 +185,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Core/WalletWrapper.m"
-            timestampString = "583055333.286849"
+            timestampString = "583062607.518945"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "308"
@@ -201,7 +201,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Core/Node/NodeApi.m"
-            timestampString = "583055333.287328"
+            timestampString = "583062607.518996"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "118"
@@ -217,7 +217,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Core/WalletWrapper.m"
-            timestampString = "583055333.287375"
+            timestampString = "583062607.519031"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "132"
@@ -233,7 +233,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Core/WalletWrapper.m"
-            timestampString = "583055333.287835"
+            timestampString = "583062607.51908"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "152"
@@ -249,7 +249,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Core/WalletWrapper.m"
-            timestampString = "583055333.2883019"
+            timestampString = "583062607.5191261"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "104"
@@ -265,7 +265,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Core/WalletWrapper.m"
-            timestampString = "583055333.288756"
+            timestampString = "583062607.519172"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "140"
