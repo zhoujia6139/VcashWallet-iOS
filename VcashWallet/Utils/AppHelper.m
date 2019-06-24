@@ -37,7 +37,6 @@
     if (iv) {
         UIView *ivLine = [UIView new];
         ivLine.backgroundColor = CLineColor;
-        ivLine.tag = 369;
         [iv addSubview:ivLine];
         [ivLine mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(iv);
@@ -51,7 +50,6 @@
     if (iv) {
         UIView *ivLine = [UIView new];
         ivLine.backgroundColor = CLineColor;
-        ivLine.tag = 398;
         [iv addSubview:ivLine];
         [ivLine mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(iv).offset(15);
@@ -64,11 +62,10 @@
     return nil;
 }
 
-+ (UIView *)addLineWithParentView:(UIView *)iv leftMargin:(CGFloat)leftMargin rightMargin:(CGFloat)rightMargin{
++ (UIView *)addLineBottomWithParentView:(UIView *)iv leftMargin:(CGFloat)leftMargin rightMargin:(CGFloat)rightMargin{
     if (iv) {
         UIView *ivLine = [UIView new];
         ivLine.backgroundColor = CLineColor;
-        ivLine.tag = 369;
         [iv addSubview:ivLine];
         [ivLine mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(iv);
@@ -81,12 +78,28 @@
     return nil;
 }
 
-
-+ (UIView *)addLineWithParentView:(UIView *)iv leftMargin:(CGFloat)leftMargin rightMargin:(CGFloat)rightMargin lineHeight:(CGFloat)lineHeight{
++ (UIView *)addLineTopWithParentView:(UIView *)iv leftMargin:(CGFloat)leftMargin rightMargin:(CGFloat)rightMargin lineHeight:(CGFloat)lineHeight{
     if (iv) {
         UIView *ivLine = [UIView new];
         ivLine.backgroundColor = CLineColor;
-        ivLine.tag = 369;
+        [iv addSubview:ivLine];
+        [ivLine mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(iv);
+            make.left.equalTo(iv).offset(leftMargin);
+            make.right.equalTo(iv).offset(-rightMargin);
+            make.height.mas_equalTo(lineHeight);
+        }];
+        return ivLine;
+    }
+    return nil;
+}
+
+
++ (UIView *)addLineBottomWithParentView:(UIView *)iv leftMargin:(CGFloat)leftMargin rightMargin:(CGFloat)rightMargin lineHeight:(CGFloat)lineHeight{
+    if (iv) {
+        UIView *ivLine = [UIView new];
+        ivLine.backgroundColor = CLineColor;
+        ivLine.backgroundColor = [UIColor redColor];
         [iv addSubview:ivLine];
         [ivLine mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(iv);

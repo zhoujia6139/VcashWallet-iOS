@@ -18,11 +18,11 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *btnLockScreen;
 
-
 @property (weak, nonatomic) IBOutlet UILabel *labelLockScreenTitle;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnChangePassword;
 
+@property (weak, nonatomic) IBOutlet UILabel *labelVersion;
 
 @end
 
@@ -35,6 +35,7 @@
     [AppHelper addLineWithParentView:self.viewLockScreen];
     [self.btnLockScreen setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#9C9D9D"]] forState:UIControlStateHighlighted];
     [self.btnChangePassword setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#9C9D9D"]] forState:UIControlStateHighlighted];
+    self.labelVersion.text = [NSString stringWithFormat:@"App Version:%@",AppVersion];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -45,7 +46,7 @@
     LockScreenType lockScreenType = [[LockScreenTimeService shareInstance] readLockScreenType];
     NSString *lockScreenTitle;
     switch (lockScreenType) {
-        case LockScreenType3Minute:
+        case LockScreenType3Minutes:
             lockScreenTitle = [LanguageService contentForKey:@"after3Minute"];
             break;
         case LockScreenTypeNever:

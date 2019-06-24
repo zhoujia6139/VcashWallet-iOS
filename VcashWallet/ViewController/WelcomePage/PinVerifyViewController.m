@@ -99,6 +99,11 @@
     self.viewLine.backgroundColor = [UIColor colorWithHexString:@"#666666"];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 
 - (IBAction)clickedEnterWallet:(id)sender {
     [self checkPassword:self.textFieldPassword.text];

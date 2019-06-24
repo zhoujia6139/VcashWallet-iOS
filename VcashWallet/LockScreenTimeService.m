@@ -68,7 +68,7 @@
             }
         }
             break;
-        case LockScreenType3Minute:{
+        case LockScreenType3Minutes:{
             if (seconds > 3 * 60) {
                 [self showPasswordVerifyVc];
             }

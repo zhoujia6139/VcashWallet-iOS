@@ -9,6 +9,7 @@
 #import "HandleSlateViewController.h"
 #import "VcashSlate.h"
 #import "WalletWrapper.h"
+#import "ReceiveTransactionFileViewController.h"
 
 
 @interface HandleSlateViewController ()
@@ -77,24 +78,15 @@
 }
 
 
-
-
-- (IBAction)clickReceive:(id)sender {
-//    NSString* text = self.textView.text;
-//    VcashSlate* slate = [VcashSlate modelWithJSON:text];
-//    if (slate){
-//        //[WalletWrapper receiveTransaction:slate];
-//    }
+- (IBAction)clickedBtnReceiveTransactionFile:(id)sender {
+    [self pushReceiveTransactionFileVc];
 }
 
-- (IBAction)clickSend:(id)sender {
-//    NSString* text = self.textView.text;
-//    VcashSlate* slate = [VcashSlate modelWithJSON:text];
-//    if (slate){
-//        //[WalletWrapper finalizeTransaction:slate];
-//    }
-}
 
+- (void)pushReceiveTransactionFileVc{
+    ReceiveTransactionFileViewController *receiveFileVc = [[ReceiveTransactionFileViewController alloc] init];
+    [self.navigationController pushViewController:receiveFileVc animated:YES];
+}
 /*
 #pragma mark - Navigation
 

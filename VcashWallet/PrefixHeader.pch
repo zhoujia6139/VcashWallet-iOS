@@ -41,7 +41,7 @@
 static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 typedef NS_ENUM(NSInteger,LockScreenType) {
-    LockScreenType3Minute,//default
+    LockScreenType3Minutes,//default
     LockScreenTypeNever ,
     LockScreenType30Seonds,
     LockScreenType1Minute,

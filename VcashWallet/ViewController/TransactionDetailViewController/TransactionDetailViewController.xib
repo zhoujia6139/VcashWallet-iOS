@@ -35,18 +35,18 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fvj-aZ-hDz">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="523"/>
                     <subviews>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GrY-Zo-j3K">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GrY-Zo-j3K">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2wy-ea-ttV">
-                                    <rect key="frame" x="18" y="15" width="18" height="18"/>
+                                    <rect key="frame" x="18" y="24.5" width="18" height="18"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="18" id="2zO-LR-hgn"/>
                                         <constraint firstAttribute="height" constant="18" id="wLf-en-BZS"/>
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGG-L4-qj4">
-                                    <rect key="frame" x="46" y="10" width="319" height="31.5"/>
+                                    <rect key="frame" x="46" y="19" width="319" height="31.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -64,7 +64,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gkQ-A0-7BR">
-                            <rect key="frame" x="0.0" y="56.5" width="375" height="47"/>
+                            <rect key="frame" x="0.0" y="69.5" width="375" height="47"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TXID:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C7Y-N2-Iqw" customClass="VcashLabel">
                                     <rect key="frame" x="0.0" y="20" width="101" height="17"/>
@@ -96,7 +96,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qg3-JW-k0i">
-                            <rect key="frame" x="0.0" y="103.5" width="375" height="37"/>
+                            <rect key="frame" x="0.0" y="116.5" width="375" height="37"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sender:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4do-4s-YcH" customClass="VcashLabel">
                                     <rect key="frame" x="0.0" y="10" width="101" height="17"/>
@@ -129,7 +129,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="etB-Xb-nV0">
-                            <rect key="frame" x="0.0" y="140.5" width="375" height="37"/>
+                            <rect key="frame" x="0.0" y="153.5" width="375" height="37"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recipient:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EbB-Mq-9i8" customClass="VcashLabel">
                                     <rect key="frame" x="0.0" y="10" width="101" height="17"/>
@@ -162,7 +162,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8sb-so-UKq">
-                            <rect key="frame" x="0.0" y="177.5" width="375" height="37"/>
+                            <rect key="frame" x="0.0" y="190.5" width="375" height="37"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TX amount:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7N-up-NyS" customClass="VcashLabel">
                                     <rect key="frame" x="0.0" y="10" width="101" height="17"/>
@@ -194,7 +194,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iOo-BM-xoN">
-                            <rect key="frame" x="0.0" y="214.5" width="375" height="37"/>
+                            <rect key="frame" x="0.0" y="227.5" width="375" height="37"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TX fee:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tip-Vr-N3Q" customClass="VcashLabel">
                                     <rect key="frame" x="0.0" y="10" width="101" height="17"/>
@@ -226,7 +226,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dU1-tT-Dlh">
-                            <rect key="frame" x="0.0" y="251.5" width="375" height="37"/>
+                            <rect key="frame" x="0.0" y="264.5" width="375" height="37"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TX time:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iMZ-lC-qBo" customClass="VcashLabel">
                                     <rect key="frame" x="0.0" y="10" width="101" height="17"/>
@@ -299,7 +299,7 @@
                                 <action selector="clickedBtnSignature:" destination="-1" eventType="touchUpInside" id="j6g-aI-WQx"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7o8-hg-Bz5" customClass="VcashButton">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7o8-hg-Bz5" customClass="VcashButton">
                             <rect key="frame" x="30" y="60" width="315" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="5ID-7g-lUL"/>

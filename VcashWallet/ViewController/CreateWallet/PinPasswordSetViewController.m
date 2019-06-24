@@ -69,8 +69,8 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     if (!self.isRecover && !self.isChangePassword) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
         NSMutableArray *vcs = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
         NSInteger count = vcs.count;
         for (NSInteger i = count - 1; i >= 0; i--) {
@@ -96,7 +96,7 @@
 }
 
 - (void)backBtnClicked{
-    if (!self.isRecover) {
+    if (!self.isRecover && !self.isChangePassword) {
         [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
         AlertView *alertView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([AlertView class]) owner:nil options:nil] firstObject];
         alertView.title = [LanguageService contentForKey:@"returnTitle"];

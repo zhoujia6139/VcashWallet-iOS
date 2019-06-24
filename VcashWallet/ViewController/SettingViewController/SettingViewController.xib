@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,6 +15,7 @@
                 <outlet property="btnChangePassword" destination="cSB-fu-lPQ" id="Qix-2q-Beo"/>
                 <outlet property="btnLockScreen" destination="F2o-mV-oOS" id="gSI-mD-95o"/>
                 <outlet property="labelLockScreenTitle" destination="Pi1-Fg-e79" id="MOW-TH-mZI"/>
+                <outlet property="labelVersion" destination="2fp-MS-bYM" id="4ih-rX-d8d"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewLockScreen" destination="vL8-mY-7OQ" id="IhZ-Vi-EjP"/>
             </connections>
@@ -121,18 +122,27 @@
                         <constraint firstItem="Ne4-HN-W4P" firstAttribute="centerY" secondItem="eTr-Rh-DAP" secondAttribute="centerY" id="wwW-Wc-Vt9"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fp-MS-bYM">
+                    <rect key="frame" x="10" y="580" width="355" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vL8-mY-7OQ" firstAttribute="top" secondItem="jVo-wk-4Vh" secondAttribute="bottom" id="0gW-Nx-6La"/>
+                <constraint firstItem="2fp-MS-bYM" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="10" id="2f8-xW-Z6u"/>
                 <constraint firstItem="vL8-mY-7OQ" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="BNm-uT-pDY"/>
                 <constraint firstItem="eTr-Rh-DAP" firstAttribute="top" secondItem="vL8-mY-7OQ" secondAttribute="bottom" id="DA1-14-C60"/>
                 <constraint firstItem="eTr-Rh-DAP" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Gis-7i-tP2"/>
                 <constraint firstItem="jVo-wk-4Vh" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Kn9-0N-TI6"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="vL8-mY-7OQ" secondAttribute="trailing" id="PEf-o0-JxK"/>
                 <constraint firstAttribute="trailing" secondItem="eTr-Rh-DAP" secondAttribute="trailing" id="PYP-OB-0dg"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="2fp-MS-bYM" secondAttribute="trailing" constant="10" id="cxp-EQ-HQR"/>
                 <constraint firstItem="jVo-wk-4Vh" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="k2Y-5k-hcX"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="jVo-wk-4Vh" secondAttribute="trailing" id="rqi-f4-h11"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="2fp-MS-bYM" secondAttribute="bottom" constant="70" id="wlh-K0-nBp"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <point key="canvasLocation" x="55.200000000000003" y="48.125937031484263"/>
