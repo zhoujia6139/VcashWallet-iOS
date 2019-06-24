@@ -41,7 +41,7 @@
 }
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-    self.commit = [PublicTool getDataFromArray:dic[@"commit"]];
+    self.commit = BTCDataFromHex(dic[@"commit"]);
     
     NSString* fea = dic[@"features"];
     if ([fea isEqualToString:@"Plain"]){
@@ -55,7 +55,7 @@
 }
 
 - (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
-    dic[@"commit"] = [PublicTool getArrFromData:self.commit];
+    dic[@"commit"] = BTCHexFromData(self.commit);
     
     if (self.features == OutputFeaturePlain){
         dic[@"features"] = @"Plain";
@@ -87,8 +87,8 @@
 }
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-    self.commit = [PublicTool getDataFromArray:dic[@"commit"]];
-    self.proof = [PublicTool getDataFromArray:dic[@"proof"]];
+    self.commit = BTCDataFromHex(dic[@"commit"]);
+    self.proof = BTCDataFromHex(dic[@"proof"]);
     
     NSString* fea = dic[@"features"];
     if ([fea isEqualToString:@"Plain"]){
@@ -102,9 +102,9 @@
 }
 
 - (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
-    dic[@"commit"] = [PublicTool getArrFromData:self.commit];
+    dic[@"commit"] = BTCHexFromData(self.commit);
     
-    dic[@"proof"] = [PublicTool getArrFromData:self.proof];
+    dic[@"proof"] = BTCHexFromData(self.proof);
     
     if (self.features == OutputFeaturePlain){
         dic[@"features"] = @"Plain";
@@ -134,9 +134,9 @@
 }
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-    self.excess = [PublicTool getDataFromArray:dic[@"excess"]];
+    self.excess = BTCDataFromHex(dic[@"excess"]);
     
-    NSData* compactExessSig = [PublicTool getDataFromArray:dic[@"excess_sig"]];
+    NSData* compactExessSig = BTCDataFromHex(dic[@"excess_sig"]);
     self.excess_sig = [[VcashSignature alloc] initWithCompactData:compactExessSig];
     
     NSString* fea = dic[@"features"];
@@ -154,9 +154,9 @@
 }
 
 - (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
-    dic[@"excess"] = [PublicTool getArrFromData:self.excess];
+    dic[@"excess"] = BTCHexFromData(self.excess);
 
-    dic[@"excess_sig"] = [PublicTool getArrFromData:[self.excess_sig getCompactData]];
+    dic[@"excess_sig"] = BTCHexFromData([self.excess_sig getCompactData]);
     
     if (self.features == KernelFeaturePlain){
         dic[@"features"] = @"Plain";
@@ -311,13 +311,13 @@
 }
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-    self.offset = [PublicTool getDataFromArray:dic[@"offset"]];
+    self.offset = BTCDataFromHex(dic[@"offset"]);
     
     return YES;
 }
 
 - (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
-    dic[@"offset"] = [PublicTool getArrFromData:self.offset];
+    dic[@"offset"] = BTCHexFromData(self.offset);
     
     return YES;
 }
@@ -410,8 +410,9 @@
 -(instancetype)initWithCompactData:(NSData*)compactData{
     self = [super init];
     if (self) {
-        VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
-        self.sig_data = [secp compactDataToSignature:compactData];
+//        VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+//        self.sig_data = [secp compactDataToSignature:compactData];
+        self.sig_data = compactData;
         if (self.sig_data){
             return self;
         }

@@ -10,9 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class VcashContext, ParticipantData, VcashTransaction, VcashTxLog, VcashSignature;
+@class VcashContext, VersionCompatInfo, ParticipantData, VcashTransaction, VcashTxLog, VcashSignature;
 
 @interface VcashSlate : NSObject
+
+@property(strong, nonatomic)VersionCompatInfo* version_info;
 
 @property(strong, nonatomic)NSString* uuid;
 
@@ -25,8 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(assign, nonatomic)uint64_t height;
 
 @property(assign, nonatomic)uint64_t lock_height;
-
-@property(assign, nonatomic)uint64_t version;
 
 @property(strong, nonatomic)VcashTransaction* tx;
 
@@ -54,6 +54,18 @@ NS_ASSUME_NONNULL_BEGIN
 -(VcashSignature*)finalizeSignature;
 
 -(BOOL)finalizeTx:(VcashSignature*)finalSig;
+
+@end
+
+@interface VersionCompatInfo : NSObject
+
+@property(assign, nonatomic)uint16_t version;
+
+@property(assign, nonatomic)uint16_t orig_version;
+
+@property(assign, nonatomic)uint16_t min_compat_version;
+
++(instancetype)createVersionInfo;
 
 @end
 

@@ -12,14 +12,18 @@
 #import "VcashContext.h"
 #import "VcashSecp256k1.h"
 #import "VcashTypes.h"
+#include "uuid4.h"
 
 @implementation VcashSlate
 
 -(id)init{
     self = [super init];
     if (self){
-        _uuid = BTCHexFromData(BTCRandomDataWithLength(16));
-        _version = 1;
+        char buf[UUID4_LEN];
+        uuid4_init();
+        uuid4_generate(buf);
+        _uuid = [NSString stringWithCString:buf encoding:NSUTF8StringEncoding];
+        _version_info = [VersionCompatInfo createVersionInfo];
         _tx = [VcashTransaction new];
         _participant_data = [NSMutableArray new];
     }
@@ -38,14 +42,6 @@
 
 + (NSArray *)modelPropertyBlacklist {
     return @[@"txLog", @"lockOutputsFn", @"createNewOutputsFn", @"context"];
-}
-
-- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-    NSString* text = dic[@"id"];
-    self.uuid = [text stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    //self.uuid = text;
-    
-    return YES;
 }
 
 -(VcashSecretKey*)addTxElement:(NSArray*)outputs change:(uint64_t)change{
@@ -262,6 +258,18 @@
 
 @end
 
+@implementation VersionCompatInfo
+
++(instancetype)createVersionInfo{
+    VersionCompatInfo* info = [VersionCompatInfo new];
+    info.version= 2;
+    info.orig_version = 2;
+    info.min_compat_version = 2;
+    return info;
+}
+
+@end
+
 @implementation ParticipantData
 
 + (NSDictionary *)modelCustomPropertyMapper {
@@ -272,17 +280,26 @@
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
-    NSData* compressBlind_excess = [PublicTool getDataFromArray:dic[@"public_blind_excess"]];
-    self.public_blind_excess = [secp pubkeyFromCompressedKey:compressBlind_excess];
+    if ([dic[@"public_blind_excess"] isKindOfClass:[NSString class]]){
+        NSData* compressBlind_excess = BTCDataFromHex(dic[@"public_blind_excess"]);
+        self.public_blind_excess = [secp pubkeyFromCompressedKey:compressBlind_excess];
+        
+    }
     
-    NSData* compressNounce = [PublicTool getDataFromArray:dic[@"public_nonce"]];
-    self.public_nonce = [secp pubkeyFromCompressedKey:compressNounce];
+    if ([dic[@"public_nonce"] isKindOfClass:[NSString class]]){
+        NSData* compressNounce = BTCDataFromHex(dic[@"public_nonce"]);
+        self.public_nonce = [secp pubkeyFromCompressedKey:compressNounce];
+    }
     
-    NSData* compactPartSig = [PublicTool getDataFromArray:dic[@"part_sig"]];
-    self.part_sig = [[VcashSignature alloc] initWithCompactData:compactPartSig];
-    
-    NSData* compactMsgSig = [PublicTool getDataFromArray:dic[@"message_sig"]];
-    self.message_sig = [[VcashSignature alloc] initWithCompactData:compactMsgSig];
+    if ([dic[@"part_sig"] isKindOfClass:[NSString class]]){
+        NSData* compactPartSig = BTCDataFromHex(dic[@"part_sig"]);
+        self.part_sig = [[VcashSignature alloc] initWithCompactData:compactPartSig];
+    }
+
+    if ([dic[@"message_sig"] isKindOfClass:[NSString class]]){
+        NSData* compactMsgSig = BTCDataFromHex(dic[@"message_sig"]);
+        self.message_sig = [[VcashSignature alloc] initWithCompactData:compactMsgSig];
+    }
     
     return YES;
 }
@@ -290,17 +307,41 @@
 - (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
     VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
     
-    NSData* compressed = [secp getCompressedPubkey:self.public_blind_excess];
-    dic[@"public_blind_excess"] = [PublicTool getArrFromData:compressed];
+    if (self.public_blind_excess){
+        NSData* compressed = [secp getCompressedPubkey:self.public_blind_excess];
+        dic[@"public_blind_excess"] = BTCHexFromData(compressed);
+    }
+    else{
+        dic[@"public_blind_excess"] = [NSNull null];
+    }
 
-    NSData* noncecompressed = [secp getCompressedPubkey:self.public_nonce];
-    dic[@"public_nonce"] = [PublicTool getArrFromData:noncecompressed];
+    if (self.public_nonce){
+        NSData* noncecompressed = [secp getCompressedPubkey:self.public_nonce];
+        dic[@"public_nonce"] = BTCHexFromData(noncecompressed);
+    }
+    else{
+        dic[@"public_nonce"] = [NSNull null];
+    }
     
-    NSData* compactPartSig = [self.part_sig getCompactData];
-    dic[@"part_sig"] = [PublicTool getArrFromData:compactPartSig];
+    if (self.part_sig) {
+        //NSData* compactPartSig = [self.part_sig getCompactData];
+        dic[@"part_sig"] = BTCHexFromData(self.part_sig.sig_data);
+    }
+    else{
+        dic[@"part_sig"] = [NSNull null];
+    }
     
-    NSData* messageSig = [self.message_sig getCompactData];
-    dic[@"message_sig"] = [PublicTool getArrFromData:messageSig];
+    if (self.message_sig){
+        NSData* messageSig = [self.message_sig getCompactData];
+        dic[@"message_sig"] = BTCHexFromData(messageSig);
+    }
+    else{
+        dic[@"message_sig"] = [NSNull null];
+    }
+    
+    if (!self.message){
+        dic[@"message"] = [NSNull null];
+    }
     
     return YES;
 }

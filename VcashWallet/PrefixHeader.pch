@@ -9,6 +9,7 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
+#ifdef __OBJC__
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <CoreGraphics/CoreGraphics.h>
 #import <AFNetworking.h>
@@ -31,7 +32,7 @@
 #import "WalletWrapper.h"
 #import "LanguageManager.h"
 
-//#define isInTestNet 1
+#define isInTestNet 1
 
 
 // Include any system framework and library headers here that should be included in all compilation units.
@@ -46,5 +47,7 @@ typedef NS_ENUM(NSInteger,LockScreenType) {
     LockScreenType1Minute,
     
 };
+
+#endif
 
 #endif /* PrefixHeader_pch */

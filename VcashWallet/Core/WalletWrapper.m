@@ -93,14 +93,15 @@
     }];
 }
 
-+(void)createSendTransaction:(NSString*)targetUserId amount:(uint64_t)amount fee:(uint64_t)fee withComplete:(RequestCompleteBlock)block{
++(void)createSendTransaction:(uint64_t)amount fee:(uint64_t)fee withComplete:(RequestCompleteBlock)block{
     return [[VcashWallet shareInstance] sendTransaction:amount andFee:fee withComplete:^(BOOL yesOrNO, id data) {
         block?block(yesOrNO, data):nil;
     }];
 
 }
 
-+(void)sendTransaction:(VcashSlate*)slate forUser:(NSString*)user withComplete:(RequestCompleteBlock)block{
++(void)sendTransaction:(VcashSlate*)slate forUrl:(NSString*)url withComplete:(RequestCompleteBlock)block{
+    DDLogWarn(@"sendTransaction for url:%@", url);
     BOOL ret = [[VcashDataManager shareInstance] beginDatabaseTransaction];
     if (!ret){
         DDLogError(@"beginDatabaseTransaction failed");
@@ -111,15 +112,106 @@
         [[VcashDataManager shareInstance] rollbackDataTransaction];
         [[VcashWallet shareInstance] reloadOutputInfo];
     };
+    
+    [self sendTx:slate withComplete:^(BOOL yesOrNO, id _Nullable data) {
+        if (yesOrNO){
+            static AFHTTPSessionManager *sessionManager;
+            if (!sessionManager){
+                sessionManager = [AFHTTPSessionManager manager];
+                sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+                sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+                sessionManager.securityPolicy.allowInvalidCertificates = YES;
+                sessionManager.securityPolicy.validatesDomainName = NO;
+            }
+            NSString* postUrl = [NSString stringWithFormat:@"%@/v1/wallet/foreign/receive_tx", url];
+            NSString* param = [slate modelToJSONObject];
+            [sessionManager POST:postUrl parameters:param progress:^(NSProgress * _Nonnull uploadProgress) {
+                
+            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                DDLogWarn(@"sendTransaction post to %@ suc!", postUrl);
+                NSString*slateStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+                if ([slateStr hasPrefix:@"\""]){
+                    slateStr = [slateStr stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@""];
+                    slateStr = [slateStr stringByReplacingCharactersInRange:NSMakeRange(slateStr.length-1, 1) withString:@""];
+                    slateStr = [slateStr stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+                }
+                VcashSlate* resSlate = [VcashSlate modelWithJSON:slateStr];
+                [self finalizeTransaction:resSlate withComplete:^(BOOL yesOrNO, id _Nullable data) {
+                    if (yesOrNO){
+                        DDLogWarn(@"finalizeTransaction sec!");
+                        [[VcashDataManager shareInstance] commitDatabaseTransaction];
+                        block?block(YES, nil):nil;
+                    }
+                    else{
+                        DDLogError(@"finalizeTransaction failed!");
+                        rollbackBlock();
+                        block?block(NO, data):nil;
+                    }
+                }];
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                DDLogError(@"sendTx to url failed! url = %@ error = %@", postUrl, error);
+                rollbackBlock();
+                block?block(NO, nil):nil;
+            }];
+        }
+        else{
+            DDLogError(@"sendTx error!");
+            rollbackBlock();
+            block?block(NO, data):nil;
+        }
+    }];
+}
+
++(void)sendTransaction:(VcashSlate*)slate forUser:(NSString*)user withComplete:(RequestCompleteBlock)block{
+    DDLogWarn(@"sendTransaction for userid:%@", user);
+    BOOL ret = [[VcashDataManager shareInstance] beginDatabaseTransaction];
+    if (!ret){
+        DDLogError(@"beginDatabaseTransaction failed");
+        block?block(NO, @"Db error"):nil;
+        return;
+    }
+    dispatch_block_t rollbackBlock = ^{
+        [[VcashDataManager shareInstance] rollbackDataTransaction];
+        [[VcashWallet shareInstance] reloadOutputInfo];
+    };
+    
+    slate.txLog.parter_id = user;
+    [self sendTx:slate withComplete:^(BOOL yesOrNO, id _Nullable data) {
+        if (yesOrNO){
+            ServerTransaction* server_tx = [[ServerTransaction alloc] initWithSlate:slate];
+            server_tx.sender_id = [VcashWallet shareInstance].userId;
+            server_tx.receiver_id = user;
+            server_tx.status = TxDefaultStatus;
+            [[ServerApi shareInstance] sendTransaction:server_tx WithComplete:^(BOOL yesOrNO, id _Nullable data) {
+                if (yesOrNO){
+                    DDLogInfo(@"-----sendTransaction to server suc");
+                    [[VcashDataManager shareInstance] commitDatabaseTransaction];
+                    block?block(YES, nil):nil;
+                }
+                else{
+                    DDLogError(@"-----sendTransaction to server failed! roll back database");
+                    rollbackBlock();
+                    block?block(NO, @"Tx send to server failed"):nil;
+                }
+            }];
+        }
+        else{
+            DDLogError(@"sendTx error!");
+            rollbackBlock();
+            block?block(NO, data):nil;
+        }
+    }];
+    
+}
+
++(void)sendTx:(VcashSlate*)slate withComplete:(RequestCompleteBlock)block{
     slate.lockOutputsFn?slate.lockOutputsFn():nil;
     slate.createNewOutputsFn?slate.createNewOutputsFn():nil;
     //save txLog
-    slate.txLog.parter_id = user;
     slate.txLog.status = TxDefaultStatus;
-    ret = [[VcashDataManager shareInstance] saveTx:slate.txLog];
+    int ret = [[VcashDataManager shareInstance] saveTx:slate.txLog];
     if (!ret){
-        rollbackBlock();
-        block?block(NO, @"Db error"):nil;
+        block?block(NO, @"Db error:saveTx failed"):nil;
         return;
     }
     
@@ -129,33 +221,39 @@
     //save context
     ret = [[VcashDataManager shareInstance] saveContext:slate.context];
     if (!ret){
-        rollbackBlock();
-        block?block(NO, @"Db error"):nil;
+        block?block(NO, @"Db error:save context failed"):nil;
         return;
     }
     
-    ServerTransaction* server_tx = [[ServerTransaction alloc] initWithSlate:slate];
-    server_tx.sender_id = [VcashWallet shareInstance].userId;
-    server_tx.receiver_id = user;
-    server_tx.status = TxDefaultStatus;
-    [[ServerApi shareInstance] sendTransaction:server_tx WithComplete:^(BOOL yesOrNO, id _Nullable data) {
-        if (yesOrNO){
-            DDLogInfo(@"-----sendTransaction to server suc");
-            [[VcashDataManager shareInstance] commitDatabaseTransaction];
-            block?block(YES, nil):nil;
-        }
-        else{
-            DDLogError(@"-----sendTransaction to server failed! roll back database");
-            rollbackBlock();
-            block?block(NO, @"Tx send to server failed"):nil;
-        }
-    }];
-    
+    block?block(YES, nil):nil;
     return;
 }
 
++(void)receiveTransactionByFileContent:(NSString*)slateStr withComplete:(RequestCompleteBlock)block{
+    VcashSlate* slate = [VcashSlate modelWithJSON:slateStr];
+    [self receiveTx:slate withComplete:^(BOOL yesOrNO, id _Nullable data) {
+        block?block(yesOrNO, data):nil;
+    }];
+}
+
 +(void)receiveTransaction:(ServerTransaction*)tx withComplete:(RequestCompleteBlock)block{
-    BOOL ret = [[VcashWallet shareInstance] receiveTransaction:tx.slateObj];
+    [self receiveTx:tx withComplete:^(BOOL yesOrNO, id _Nullable data) {
+        block?block(yesOrNO, data):nil;
+    }];
+}
+
++(void)receiveTx:(NSObject*)obj withComplete:(RequestCompleteBlock)block{
+    VcashSlate* slate;
+    ServerTransaction* serverTx;
+    if ([obj isKindOfClass:[VcashSlate class]]){
+        slate = (VcashSlate*)obj;
+    }
+    else if ([obj isKindOfClass:[ServerTransaction class]]){
+        serverTx = (ServerTransaction*)obj;
+        slate = serverTx.slateObj;
+    }
+    
+    BOOL ret = [[VcashWallet shareInstance] receiveTransaction:slate];
     if (!ret){
         DDLogError(@"VcashWallet receiveTransaction failed");
         block?block(NO, nil):nil;
@@ -173,11 +271,11 @@
         [[VcashWallet shareInstance] reloadOutputInfo];
     };
     
-    tx.slateObj.createNewOutputsFn?tx.slateObj.createNewOutputsFn():nil;
+    slate.createNewOutputsFn?slate.createNewOutputsFn():nil;
     //save txLog
-    tx.slateObj.txLog.parter_id = tx.sender_id;
-    tx.slateObj.txLog.status = TxReceiverd;
-    ret = [[VcashDataManager shareInstance] saveTx:tx.slateObj.txLog];
+    slate.txLog.parter_id = serverTx.sender_id;
+    slate.txLog.status = TxReceiverd;
+    ret = [[VcashDataManager shareInstance] saveTx:slate.txLog];
     if (!ret){
         rollbackBlock();
         DDLogError(@"VcashDataManager saveAppendTx failed");
@@ -188,61 +286,81 @@
     //save output status
     [[VcashWallet shareInstance] syncOutputInfo];
     
-    tx.slate  = [tx.slateObj modelToJSONString];
-    tx.status = TxReceiverd;
-    [[ServerApi shareInstance] receiveTransaction:tx WithComplete:^(BOOL yesOrNO, id _Nullable data) {
-        if (yesOrNO){
-            DDLogInfo(@"-----send receiveTransaction suc");
-            [[VcashDataManager shareInstance] commitDatabaseTransaction];
-            block?block(YES, nil):nil;
-        }
-        else{
-            DDLogError(@"-----send receiveTransaction to server failed! roll back database");
-            rollbackBlock();
-            block?block(NO, nil):nil;
-        }
-    }];
+    if (serverTx){
+        serverTx.slate  = [slate modelToJSONString];
+        serverTx.status = TxReceiverd;
+        [[ServerApi shareInstance] receiveTransaction:serverTx WithComplete:^(BOOL yesOrNO, id _Nullable data) {
+            if (yesOrNO){
+                DDLogInfo(@"-----send receiveTransaction suc");
+                [[VcashDataManager shareInstance] commitDatabaseTransaction];
+                block?block(YES, nil):nil;
+            }
+            else{
+                DDLogError(@"-----send receiveTransaction to server failed! roll back database");
+                rollbackBlock();
+                block?block(NO, nil):nil;
+            }
+        }];
+    }
+    else{
+        NSString* slateStr = [slate modelToJSONString];
+        [[VcashDataManager shareInstance] commitDatabaseTransaction];
+        block?block(YES, slateStr):nil;
+    }
     
     return;
 }
 
-+(void)finalizeTransaction:(ServerTransaction*)tx withComplete:(RequestCompleteBlock)block{
-    VcashContext* context = [[VcashDataManager shareInstance] getContextBySlateId:tx.slateObj.uuid];
++(void)finalizeTransactionByFileContent:(NSString*)slateStr withComplete:(RequestCompleteBlock)block{
+    
+}
+
++(void)finalizeServerTx:(ServerTransaction*)tx withComplete:(RequestCompleteBlock)block{
+    [self finalizeTransaction:tx.slateObj withComplete:^(BOOL yesOrNo, id _Nullable data) {
+        if (yesOrNo){
+            tx.slate  = [tx.slateObj modelToJSONString];
+            tx.status = TxFinalized;
+            [[ServerApi shareInstance] filanizeTransaction:tx.tx_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
+                if (!yesOrNo){
+                    DDLogError(@"filalize tx to Server failed, cache tx state");
+                }
+            }];
+            block?block(YES, nil):nil;
+        }
+        else{
+            block?block(NO, data):nil;
+        }
+    }];
+}
+
++(void)finalizeTransaction:(VcashSlate*)slate withComplete:(RequestCompleteBlock)block{
+    VcashContext* context = [[VcashDataManager shareInstance] getContextBySlateId:slate.uuid];
     if (!context){
         DDLogError(@"--------database record is broke, cannot finalize tx");
         block?block(NO, @""):nil;
         return;
     }
-    tx.slateObj.context = context;
-    if (![[VcashWallet shareInstance] finalizeTransaction:tx.slateObj]){
+    slate.context = context;
+    if (![[VcashWallet shareInstance] finalizeTransaction:slate]){
         DDLogError(@"--------finalizeTransaction failed");
         block?block(NO, @""):nil;
         return;
     }
     
-    [tx.slateObj.tx sortTx];
-    NSData* txPayload = [tx.slateObj.tx computePayloadForHash:NO];
+    [slate.tx sortTx];
+    NSData* txPayload = [slate.tx computePayloadForHash:NO];
     [[NodeApi shareInstance] postTx:BTCHexFromData(txPayload) WithComplete:^(BOOL yesOrNo, id _Nullable data) {
         if (yesOrNo){
             block?block(YES, nil):nil;
-            VcashTxLog *txLog = [[VcashDataManager shareInstance] getTxBySlateId:tx.slateObj.uuid];
+            VcashTxLog *txLog = [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
             if (txLog){
                 txLog.confirm_state = LoalConfirmed;
                 txLog.status = TxFinalized;
                 [[VcashDataManager shareInstance] saveTx:txLog];
             }
             else{
-                DDLogError(@"impossible things happened!can not find tx:%@", tx.slateObj.uuid);
+                DDLogError(@"impossible things happened!can not find tx:%@", slate.uuid);
             }
-            
-            tx.slate  = [tx.slateObj modelToJSONString];
-            tx.status = TxFinalized;
-            [[ServerApi shareInstance] filanizeTransaction:tx.tx_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
-                if (!yesOrNo){
-                    DDLogError(@"filalize tx to Server failed, cache tx state");
-                    
-                }
-            }];
         }
         else{
             block?block(NO, @"post tx to node failed"):nil;

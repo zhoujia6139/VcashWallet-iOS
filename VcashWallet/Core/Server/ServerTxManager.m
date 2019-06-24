@@ -9,7 +9,6 @@
 #import "ServerTxManager.h"
 #import "ServerApi.h"
 #import "VcashSlate.h"
-#import "ServerTxPopView.h"
 #import "MessageNotificationView.h"
 #import "ServerTransactionBlackManager.h"
 

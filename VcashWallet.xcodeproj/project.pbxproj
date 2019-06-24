@@ -54,8 +54,6 @@
 		A26FEBD7229F7DE0003CCD7C /* CreateMnemonicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB9B229F7DE0003CCD7C /* CreateMnemonicViewController.xib */; };
 		A26FEBD8229F7DE0003CCD7C /* LeftMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB9D229F7DE0003CCD7C /* LeftMenuModel.m */; };
 		A26FEBD9229F7DE0003CCD7C /* PhraseWordShowViewCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBA1229F7DE0003CCD7C /* PhraseWordShowViewCreator.m */; };
-		A26FEBDA229F7DE0003CCD7C /* ServerTxPopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBA2229F7DE0003CCD7C /* ServerTxPopView.xib */; };
-		A26FEBDB229F7DE0003CCD7C /* ServerTxPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBA3229F7DE0003CCD7C /* ServerTxPopView.m */; };
 		A26FEBDC229F7DE0003CCD7C /* SendTransactionConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBA4229F7DE0003CCD7C /* SendTransactionConfirmView.xib */; };
 		A26FEBDD229F7DE0003CCD7C /* MessageNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBA5229F7DE0003CCD7C /* MessageNotificationView.m */; };
 		A26FEBDE229F7DE0003CCD7C /* PinPasswordInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBA7229F7DE0003CCD7C /* PinPasswordInputView.m */; };
@@ -256,6 +254,7 @@
 		ED44C009226D9D8D0042928E /* NodeApi.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C008226D9D8D0042928E /* NodeApi.m */; };
 		ED44C00C226D9FF50042928E /* NodeType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C00B226D9FF50042928E /* NodeType.m */; };
 		ED44C00F226DAFB30042928E /* VcashTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C00E226DAFB30042928E /* VcashTypes.m */; };
+		ED6F77A222BB273B00C322D9 /* uuid4.c in Sources */ = {isa = PBXBuildFile; fileRef = ED6F77A022BB273B00C322D9 /* uuid4.c */; };
 		EDA5148F22686DEC0011138F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA5148E22686DEC0011138F /* AppDelegate.m */; };
 		EDA5149222686DEC0011138F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA5149122686DEC0011138F /* ViewController.m */; };
 		EDA5149522686DEC0011138F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDA5149322686DEC0011138F /* Main.storyboard */; };
@@ -335,8 +334,6 @@
 		A26FEB9E229F7DE0003CCD7C /* LeftMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuModel.h; sourceTree = "<group>"; };
 		A26FEBA0229F7DE0003CCD7C /* AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertView.h; sourceTree = "<group>"; };
 		A26FEBA1229F7DE0003CCD7C /* PhraseWordShowViewCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhraseWordShowViewCreator.m; sourceTree = "<group>"; };
-		A26FEBA2229F7DE0003CCD7C /* ServerTxPopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerTxPopView.xib; sourceTree = "<group>"; };
-		A26FEBA3229F7DE0003CCD7C /* ServerTxPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerTxPopView.m; sourceTree = "<group>"; };
 		A26FEBA4229F7DE0003CCD7C /* SendTransactionConfirmView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendTransactionConfirmView.xib; sourceTree = "<group>"; };
 		A26FEBA5229F7DE0003CCD7C /* MessageNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageNotificationView.m; sourceTree = "<group>"; };
 		A26FEBA6229F7DE0003CCD7C /* LeftMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuView.h; sourceTree = "<group>"; };
@@ -344,7 +341,6 @@
 		A26FEBA8229F7DE0003CCD7C /* MessageNotificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageNotificationView.xib; sourceTree = "<group>"; };
 		A26FEBA9229F7DE0003CCD7C /* LeftMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftMenuView.xib; sourceTree = "<group>"; };
 		A26FEBAA229F7DE0003CCD7C /* SendTransactionConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendTransactionConfirmView.m; sourceTree = "<group>"; };
-		A26FEBAB229F7DE0003CCD7C /* ServerTxPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerTxPopView.h; sourceTree = "<group>"; };
 		A26FEBAC229F7DE0003CCD7C /* AlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertView.xib; sourceTree = "<group>"; };
 		A26FEBAD229F7DE0003CCD7C /* PhraseWordShowViewCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhraseWordShowViewCreator.h; sourceTree = "<group>"; };
 		A26FEBAE229F7DE0003CCD7C /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
@@ -663,6 +659,8 @@
 		ED44C00B226D9FF50042928E /* NodeType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeType.m; sourceTree = "<group>"; };
 		ED44C00D226DAFB30042928E /* VcashTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashTypes.h; sourceTree = "<group>"; };
 		ED44C00E226DAFB30042928E /* VcashTypes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashTypes.m; sourceTree = "<group>"; };
+		ED6F77A022BB273B00C322D9 /* uuid4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uuid4.c; sourceTree = "<group>"; };
+		ED6F77A122BB273B00C322D9 /* uuid4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uuid4.h; sourceTree = "<group>"; };
 		EDA5148A22686DEC0011138F /* VcashWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VcashWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDA5148D22686DEC0011138F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EDA5148E22686DEC0011138F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -813,9 +811,6 @@
 				A27269AD22B3B22F00E76E0A /* ProgressView.h */,
 				A27269AE22B3B22F00E76E0A /* ProgressView.m */,
 				A27269B022B3B25B00E76E0A /* ProgressView.xib */,
-				A26FEBAB229F7DE0003CCD7C /* ServerTxPopView.h */,
-				A26FEBA3229F7DE0003CCD7C /* ServerTxPopView.m */,
-				A26FEBA2229F7DE0003CCD7C /* ServerTxPopView.xib */,
 				A26FEBB0229F7DE0003CCD7C /* SendTransactionConfirmView.h */,
 				A26FEBAA229F7DE0003CCD7C /* SendTransactionConfirmView.m */,
 				A26FEBA4229F7DE0003CCD7C /* SendTransactionConfirmView.xib */,
@@ -1189,6 +1184,15 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		ED6F779F22BB272200C322D9 /* uuid */ = {
+			isa = PBXGroup;
+			children = (
+				ED6F77A022BB273B00C322D9 /* uuid4.c */,
+				ED6F77A122BB273B00C322D9 /* uuid4.h */,
+			);
+			path = uuid;
+			sourceTree = "<group>";
+		};
 		EDA5148122686DEC0011138F = {
 			isa = PBXGroup;
 			children = (
@@ -1284,6 +1288,7 @@
 		EDA514B4226891050011138F /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				ED6F779F22BB272200C322D9 /* uuid */,
 				ED24988C2280297100D94EBE /* Server */,
 				ED3C75672270603B00B42555 /* Node */,
 				ED44BEDF22696CF50042928E /* CoreBitcoin */,
@@ -1394,7 +1399,6 @@
 				A26FEC50229F805A003CCD7C /* lock@2x.png in Resources */,
 				A26FEC54229F805A003CCD7C /* add@2x.png in Resources */,
 				A26FEC8D229F805B003CCD7C /* delete@2x.png in Resources */,
-				A26FEBDA229F7DE0003CCD7C /* ServerTxPopView.xib in Resources */,
 				A27269A122AF984600E76E0A /* canceled@2x.png in Resources */,
 				A26FEBDC229F7DE0003CCD7C /* SendTransactionConfirmView.xib in Resources */,
 				A26FEC5F229F805B003CCD7C /* lock@3x.png in Resources */,
@@ -1675,7 +1679,6 @@
 				A26FEBD6229F7DE0003CCD7C /* VcashNavigationViewController.m in Sources */,
 				ED44BFF62269D0540042928E /* VcashSecp256k1.m in Sources */,
 				A26FEBE7229F7DE0003CCD7C /* SendTransactionViewController.m in Sources */,
-				A26FEBDB229F7DE0003CCD7C /* ServerTxPopView.m in Sources */,
 				ED44C009226D9D8D0042928E /* NodeApi.m in Sources */,
 				ED44BF9622696CF50042928E /* BTCTransactionInput.m in Sources */,
 				A241822B22A510D400519F7D /* LockScreenTimeService.m in Sources */,
@@ -1695,6 +1698,7 @@
 				ED44BF7B22696CF50042928E /* BTCQRCode.m in Sources */,
 				ED44BF8F22696CF50042928E /* BTCCurvePoint+Tests.m in Sources */,
 				A26FEBF8229F7E39003CCD7C /* VcashLabel.m in Sources */,
+				ED6F77A222BB273B00C322D9 /* uuid4.c in Sources */,
 				ED44BF8322696CF50042928E /* BTCBlockchainInfo.m in Sources */,
 				A2B3A11722A0D8EF000F7495 /* ServerTransactionBlackManager.m in Sources */,
 				A26FEBC9229F7DE0003CCD7C /* WelcomePageViewController.m in Sources */,

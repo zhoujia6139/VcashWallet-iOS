@@ -46,7 +46,8 @@
 }
 
 -(NSData*)msgToSign{
-    NSData* tx = BTCDataFromHex(self.tx_id);
+    NSString* textId = [self.tx_id stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    NSData* tx = BTCDataFromHex(textId);
     NSData* sender = BTCDataFromHex(self.sender_id);
     NSData* receiver = BTCDataFromHex(self.receiver_id);
     NSMutableData* data = [[NSMutableData alloc] initWithData:tx];
@@ -56,7 +57,8 @@
 }
 
 -(NSData*)txDataToSign{
-    NSData* tx = BTCDataFromHex(self.tx_id);
+    NSString* textId = [self.tx_id stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    NSData* tx = BTCDataFromHex(textId);
     NSData* sender = BTCDataFromHex(self.sender_id);
     NSData* receiver = BTCDataFromHex(self.receiver_id);
     NSData* txData = [self.slateObj.tx computePayloadForHash:YES];
@@ -72,7 +74,8 @@
 @implementation FinalizeTxInfo
 
 -(NSData*)msgToSign{
-    NSData* tx = BTCDataFromHex(self.tx_id);
+    NSString* textId = [self.tx_id stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    NSData* tx = BTCDataFromHex(textId);
     NSMutableData* data = [[NSMutableData alloc] initWithData:tx];
     uint8_t byte = self.code;
     [data appendBytes:&byte length:1];
