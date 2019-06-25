@@ -43,7 +43,9 @@
 +(void)sendTransaction:(VcashSlate*)slate forUrl:(NSString*)url withComplete:(RequestCompleteBlock)block;
 
 //receive Transaction
-+(void)receiveTransactionByFileContent:(NSString*)slateStr withComplete:(RequestCompleteBlock)block;
++(void)isValidSlateConent:(NSString*)slateStr withComplete:(RequestCompleteBlock)block;
+
++(void)receiveTransactionBySlate:(VcashSlate*)slate withComplete:(RequestCompleteBlock)block;
 
 +(void)receiveTransaction:(ServerTransaction*)tx withComplete:(RequestCompleteBlock)block;
 

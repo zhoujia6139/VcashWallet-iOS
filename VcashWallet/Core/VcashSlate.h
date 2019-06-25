@@ -55,6 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(BOOL)finalizeTx:(VcashSignature*)finalSig;
 
+-(BOOL)isValidForReceive;
+
 @end
 
 @interface VersionCompatInfo : NSObject

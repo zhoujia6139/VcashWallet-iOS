@@ -229,8 +229,21 @@
     return;
 }
 
-+(void)receiveTransactionByFileContent:(NSString*)slateStr withComplete:(RequestCompleteBlock)block{
++(void)isValidSlateConent:(NSString*)slateStr withComplete:(RequestCompleteBlock)block{
     VcashSlate* slate = [VcashSlate modelWithJSON:slateStr];
+    if (!slate || ![slate isValidForReceive]){
+        block?block(NO, @"Wrong Data Format"):nil;
+    }
+    
+    VcashTxLog* txLog = [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
+    if (txLog){
+        block?block(NO, @"Duplicate Tx"):nil;
+    }
+    
+    block?block(YES, slate):nil;
+}
+
++(void)receiveTransactionBySlate:(VcashSlate*)slate withComplete:(RequestCompleteBlock)block{
     [self receiveTx:slate withComplete:^(BOOL yesOrNO, id _Nullable data) {
         block?block(yesOrNO, data):nil;
     }];
@@ -318,7 +331,7 @@
 +(void)finalizeServerTx:(ServerTransaction*)tx withComplete:(RequestCompleteBlock)block{
     [self finalizeTransaction:tx.slateObj withComplete:^(BOOL yesOrNo, id _Nullable data) {
         if (yesOrNo){
-            tx.slate  = [tx.slateObj modelToJSONString];
+            //tx.slate  = [tx.slateObj modelToJSONString];
             tx.status = TxFinalized;
             [[ServerApi shareInstance] filanizeTransaction:tx.tx_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
                 if (!yesOrNo){

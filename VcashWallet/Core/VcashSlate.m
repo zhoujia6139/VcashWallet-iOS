@@ -254,7 +254,17 @@
     return [kernel kernelMsgToSign];
 }
 
-
+-(BOOL)isValidForReceive{
+    if (self.participant_data.count != 1){
+        return NO;
+    }
+    
+    if (self.tx.body.inputs.count == 0 || self.tx.body.kernels.count == 0){
+        return NO;
+    }
+    
+    return YES;
+}
 
 @end
 
