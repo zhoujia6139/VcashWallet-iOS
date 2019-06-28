@@ -85,11 +85,12 @@
     
     _fileContentTextView = [[UITextView alloc] init];
     _fileContentTextView.font = [UIFont systemFontOfSize:14];
+    _fileContentTextView.delegate = self;
     [_scrollView addSubview:_fileContentTextView];
     [_fileContentTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lineView.mas_bottom);
         make.left.right.equalTo(self.scrollView);
-        make.height.mas_equalTo(100);
+        make.height.mas_equalTo(200);
     }];
     
     UIView *bottomlineView = [[UIView alloc] init];
@@ -118,32 +119,55 @@
     
     self.fileContentTextView.contentInset = UIEdgeInsetsMake(10, 10, 0, 10);
     self.fileContentTextView.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
-    self.fileContentTextView.text = @"某些研究需要敏感的数据集，比如学校营养午餐与学生健康之间的关系、企业薪资股权激励的有效性等，这些有价值的数据通常会涉及隐私信息。在经过多年努力之后，谷歌密码学家和数据科学家提出了一种全新的技术来实现这种“多方计算”（multiparty computation），而不会向任何无关的人公开信息 某些研究需要敏感的数据集，比如学校营养午餐与学生健康之间的关系、企业薪资股权激励的有效性等，这些有价值的数据通常会涉及隐私信息。在经过多年努力之后，谷歌密码学家和数据科学家提出了一种全新的技术来实现这种“多方计算”（multiparty computation），而不会向任何无关的人公开信息";
-    self.fileContentTextView.delegate = self;
-    [self setTextViewHeight];
+    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+    
+    self.fileContentTextView.text = pasteBoard.string.length > 0 ? pasteBoard.string : @"";
+    if (self.fileContentTextView.text.length > 0) {
+        readTxDetailBtn.backgroundColor = COrangeColor;
+        readTxDetailBtn.userInteractionEnabled = YES;
+    }else{
+        readTxDetailBtn.backgroundColor = COrangeEnableColor;
+        readTxDetailBtn.userInteractionEnabled = NO;
+    }
+    
+//    [self setTextViewHeight];
 }
 
 - (void)readTransactionDetail{
     //Transaction details
+    [WalletWrapper isValidSlateConent:self.fileContentTextView.text withComplete:^(BOOL yesOrNo, id _Nullable data) {
+        if (yesOrNo) {
+            VcashSlate *slate = (VcashSlate *)data;
+            [self showTxDetailViewWithSlate:slate];
+        }else{
+            [self.view makeToast:data];
+        }
+    }];
+    
+}
+
+- (void)showTxDetailViewWithSlate:(VcashSlate *)slate{
     TransactionDetailView *txDetailView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([TransactionDetailView class]) owner:nil options:nil] firstObject];
-    txDetailView.signCallBack = ^{
-        [self pushReceiverSignTxFileVc];
+    txDetailView.slate = slate;
+    txDetailView.signCallBack = ^(VcashSlate * _Nonnull slate) {
+        [self pushReceiverSignTxFileVcWithSlate:slate];
     };
     [txDetailView show];
 }
 
-- (void)pushReceiverSignTxFileVc{
+- (void)pushReceiverSignTxFileVcWithSlate:(VcashSlate *)salte{
     ReceiverSignTransactionFileViewController *signTxFileVc = [[ReceiverSignTransactionFileViewController alloc] init];
+    signTxFileVc.slate = salte;
     [self.navigationController pushViewController:signTxFileVc animated:YES];
 }
 
 - (void)setTextViewHeight{
-    CGSize size = [self.fileContentTextView sizeThatFits:CGSizeMake(ScreenWidth - 40, 1000)];
-    CGFloat textViewHeight = size.height;
-    [self.fileContentTextView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(textViewHeight);
-    }];
-    self.fileContentTextView.contentSize = CGSizeMake(ScreenWidth - 40, textViewHeight);
+//    CGSize size = [self.fileContentTextView sizeThatFits:CGSizeMake(ScreenWidth - 40, 1000)];
+//    CGFloat textViewHeight = size.height;
+//    [self.fileContentTextView mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.height.mas_equalTo(textViewHeight);
+//    }];
+//    self.fileContentTextView.contentSize = CGSizeMake(ScreenWidth - 40, textViewHeight);
 }
 
 #pragma mark - UITextViewDelegate

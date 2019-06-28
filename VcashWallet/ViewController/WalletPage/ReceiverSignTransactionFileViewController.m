@@ -10,16 +10,17 @@
 
 @interface ReceiverSignTransactionFileViewController ()
 
+@property (nonatomic, strong) UITextView *signTxFileContontTexView;
+
 @end
 
-@implementation ReceiverSignTransactionFileViewController{
-    UILabel *signTxFileContontLabel;
-}
+@implementation ReceiverSignTransactionFileViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self initView];
+    [self getSignTxFileContent];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -107,23 +108,36 @@
         make.right.offset(-28);
     }];
     
-    signTxFileContontLabel = [[UILabel alloc] init];
-    signTxFileContontLabel.font = [UIFont systemFontOfSize:14];
-    signTxFileContontLabel.textColor = [UIColor colorWithHexString:@"#1F1F1F"];
-    signTxFileContontLabel.numberOfLines = 0;
-    signTxFileContontLabel.text = @"某些研究需要敏感的数据集，比如学校营养午餐与学生健康之间的关系、企业薪资股权激励的有效性等，这些有价值的数据通常会涉及隐私信息。在经过多年努力之后，谷歌密码学家和数据科学家提出了一种全新的技术来实现这种“多方计算”（multiparty computation），而不会向任何无关的人公开信息 某些研究需要敏感的数据集，比如学校营养午餐与学生健康之间的关系、企业薪资股权激励的有效性等，这些有价值的数据通常会涉及隐私信息。在经过多年努力之后，谷歌密码学家和数据科学家提出了一种全新的技术来实现这种“多方计算”（multiparty computation），而不会向任何无关的人公开信息";
-    [signTxFileContentView addSubview:signTxFileContontLabel];
-    [signTxFileContontLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _signTxFileContontTexView = [[UITextView alloc] init];
+    _signTxFileContontTexView.font = [UIFont systemFontOfSize:14];
+    _signTxFileContontTexView.textColor = [UIColor colorWithHexString:@"#1F1F1F"];
+//    _signTxFileContontLabel = @"某些研究需要敏感的数据集，比如学校营养午餐与学生健康之间的关系、企业薪资股权激励的有效性等，这些有价值的数据通常会涉及隐私信息。在经过多年努力之后，谷歌密码学家和数据科学家提出了一种全新的技术来实现这种“多方计算”（multiparty computation），而不会向任何无关的人公开信息 某些研究需要敏感的数据集，比如学校营养午餐与学生健康之间的关系、企业薪资股权激励的有效性等，这些有价值的数据通常会涉及隐私信息。在经过多年努力之后，谷歌密码学家和数据科学家提出了一种全新的技术来实现这种“多方计算”（multiparty computation），而不会向任何无关的人公开信息";
+    [signTxFileContentView addSubview:_signTxFileContontTexView];
+    [_signTxFileContontTexView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.offset(16);
+        make.height.mas_equalTo(200);
         make.right.bottom.offset(-16);
     }];
     
 }
 
+- (void)getSignTxFileContent{
+    if (!self.slate) {
+        return;
+    }
+    [WalletWrapper receiveTransactionBySlate:self.slate withComplete:^(BOOL yesOrNo, id _Nullable data) {
+        if (yesOrNo) {
+            self.signTxFileContontTexView.text = data;
+        }else{
+            [self.view makeToast:data];
+        }
+    }];
+}
+
 - (void)copyFileContent{
-    if (signTxFileContontLabel.text.length > 0) {
+    if (self.signTxFileContontTexView.text.length > 0) {
         UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-        [pasteBoard setString:signTxFileContontLabel.text];
+        [pasteBoard setString:self.signTxFileContontTexView.text];
         [self.view makeToast:[LanguageService contentForKey:@"copySuc"]];
     }
 }

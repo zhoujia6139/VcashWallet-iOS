@@ -233,11 +233,13 @@
     VcashSlate* slate = [VcashSlate modelWithJSON:slateStr];
     if (!slate || ![slate isValidForReceive]){
         block?block(NO, @"Wrong Data Format"):nil;
+        return;
     }
     
     VcashTxLog* txLog = [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
     if (txLog){
         block?block(NO, @"Duplicate Tx"):nil;
+        return;
     }
     
     block?block(YES, slate):nil;

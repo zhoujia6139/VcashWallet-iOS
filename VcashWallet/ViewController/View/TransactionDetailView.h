@@ -10,11 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^SignCallBack)(void);
+typedef void(^SignCallBack)(VcashSlate *slate);
 
 @interface TransactionDetailView : UIView
 
 @property (nonatomic, copy) SignCallBack signCallBack;
+
+@property (nonatomic, strong) VcashSlate *slate;
 
 
 - (void)show;

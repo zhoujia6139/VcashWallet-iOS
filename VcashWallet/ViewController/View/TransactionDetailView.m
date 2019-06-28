@@ -14,6 +14,13 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *signTxBtn;
 
+@property (weak, nonatomic) IBOutlet UILabel *lablelTxID;
+
+@property (weak, nonatomic) IBOutlet UILabel *labelAmount;
+
+@property (weak, nonatomic) IBOutlet UILabel *labelFee;
+
+@property (weak, nonatomic) IBOutlet UILabel *labelTime;
 
 @end
 
@@ -35,11 +42,20 @@
     ViewRadius(self.signTxBtn, 4.0);
 }
 
+- (void)setSlate:(VcashSlate *)slate{
+    _slate = slate;
+    NSString *amountStr = @([WalletWrapper nanoToVcash:slate.amount]).p09fString;
+    self.lablelTxID.text = slate.uuid;
+    self.labelAmount.text = [NSString stringWithFormat:@"%@ VCash", amountStr];
+    self.labelFee.text = [NSString stringWithFormat:@"%@ VCash", @([WalletWrapper nanoToVcash:slate.fee]).p09fString];
+    self.labelTime.text = slate.txLog.create_time > 0 ? [[NSDate dateWithTimeIntervalSince1970:slate.txLog.create_time] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"] : [[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+}
+
 
 - (IBAction)clickedBtnSignTx:(id)sender {
     //sign tx callBack
     if (self.signCallBack) {
-        self.signCallBack();
+        self.signCallBack(self.slate);
     }
     [self hiddenAnimation];
 }

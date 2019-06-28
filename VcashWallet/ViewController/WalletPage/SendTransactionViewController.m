@@ -137,9 +137,11 @@
         return;
     }
     
-    if (self.targetAddressTextView.text.length != 66) {
-        [self.view makeToast:[LanguageService contentForKey:@"addressFormatIncorrect"]];
-        return;
+    if (![self isUrlAddress:self.targetAddressTextView.text]) {
+        if (self.targetAddressTextView.text.length != 66) {
+            [self.view makeToast:[LanguageService contentForKey:@"addressFormatIncorrect"]];
+            return;
+        }
     }
     
     NSString* strAmount = self.amountField.text;
@@ -158,7 +160,11 @@
         [WalletWrapper createSendTransaction:[WalletWrapper vcashToNano:amount] fee:0 withComplete:^(BOOL yesOrNo, id retData) {
             if (yesOrNo){
                 VcashSlate* slate = (VcashSlate*)retData;
-                [self sendTransactionWithUseId:self.targetAddressTextView.text slate:slate];
+                if ([self isUrlAddress:self.targetAddressTextView.text]) {
+                    [self sendTransactionWithUrl:self.targetAddressTextView.text slate:slate];
+                }else{
+                    [self sendTransactionWithUseId:self.targetAddressTextView.text slate:slate];
+                }
             }
             else{
 //                [MBHudHelper showTextTips:[NSString stringWithFormat:@"%@", retData] onView:nil withDuration:1.5];
@@ -171,6 +177,16 @@
 
     }
 }
+
+- (BOOL)isUrlAddress:(NSString*)url{
+    if ([url hasPrefix:@"http"]) {
+        return YES;
+    }
+    return NO;
+}
+
+
+
 
 
 - (BOOL)isNumber:(NSString *)strValue
@@ -200,6 +216,18 @@
         }
         else{
             [MBHudHelper showTextTips:[LanguageService contentForKey:@"sendFailed"] onView:nil withDuration:1];
+        }
+    }];
+}
+
+- (void)sendTransactionWithUrl:(NSString *)url slate:(VcashSlate *)slate{
+    [WalletWrapper sendTransaction:slate forUrl:url withComplete:^(BOOL yesOrNo, id _Nullable data) {
+        if (yesOrNo) {
+            [MBHudHelper showTextTips:[LanguageService contentForKey:@"sendSuc"] onView:nil withDuration:1];
+            VcashTxLog *txLog =  [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
+            [self pushTranscactionDetailVcWith:txLog];
+        }else{
+             [MBHudHelper showTextTips:[LanguageService contentForKey:@"sendFailed"] onView:nil withDuration:1];
         }
     }];
 }
