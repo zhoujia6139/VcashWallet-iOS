@@ -20,7 +20,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self initView];
-    [self getSignTxFileContent];
+//    [self getSignTxFileContent];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -106,7 +106,75 @@
         make.top.equalTo(copyBtn.mas_bottom);
         make.left.offset(28);
         make.right.offset(-28);
-        make.bottom.offset(-200);
+        make.bottom.offset(-288);
+    }];
+    
+    UILabel *txDetailLabel = [[UILabel alloc] init];
+    txDetailLabel.font = [UIFont systemFontOfSize:18];
+    txDetailLabel.textColor = [UIColor colorWithHexString:@"#1F1F1F"];
+    txDetailLabel.text = [LanguageService contentForKey:@"txDetail"];
+    [self.view addSubview:txDetailLabel];
+    [txDetailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(signTxFileContentView.mas_bottom).offset(21);
+        make.left.offset(28);
+    }];
+    
+    UIView *txDetailContainer = [[UIView alloc] init];
+    txDetailContainer.backgroundColor = [UIColor colorWithHexString:@"#F5F5F5"];
+    [self.view addSubview:txDetailContainer];
+    
+    [txDetailContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(28);
+        make.right.offset(-28);
+        make.top.equalTo(txDetailLabel.mas_bottom).offset(10);
+    }];
+    
+
+    UIView *priTxDetailSubview = nil;
+    for (NSInteger i = 0; i < 3; i++) {
+        UIView *txDetailContainerSubView = [[UIView alloc] init];
+        txDetailContainerSubView.backgroundColor = [UIColor colorWithHexString:@"#F5F5F5"];
+        [txDetailContainer addSubview:txDetailContainerSubView];
+        if (priTxDetailSubview) {
+            [txDetailContainerSubView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(txDetailContainer);
+                make.top.equalTo(txDetailContainer).offset(15);
+            }];
+        }else{
+            [txDetailContainerSubView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(txDetailContainer);
+                make.top.equalTo(priTxDetailSubview.mas_bottom).offset(20);
+            }];
+        }
+        priTxDetailSubview = txDetailContainerSubView;
+        UILabel *txIdLabel = [[UILabel alloc] init];
+        txIdLabel.font = [UIFont systemFontOfSize:14];
+        txIdLabel.textColor = [UIColor colorWithHexString:@"#1F1F1F"];
+        txIdLabel.text = [LanguageService contentForKey:@"txid"];
+        txIdLabel.textAlignment = NSTextAlignmentRight;
+        [txDetailContainerSubView addSubview:txIdLabel];
+        [txIdLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.equalTo(txDetailContainerSubView);
+            make.width.mas_equalTo(100);
+        }];
+        
+        UILabel *txIdInfo = [[UILabel alloc] init];
+        txIdInfo.numberOfLines = 0;
+        txIdInfo.font = [UIFont systemFontOfSize:14];
+        txIdInfo.textColor = [UIColor colorWithHexString:@"#1F1F1F"];
+        [txDetailContainerSubView addSubview:txIdInfo];
+        [txIdInfo mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(txIdLabel);
+            make.left.equalTo(txDetailContainerSubView).offset(114);
+            make.right.equalTo(txDetailContainerSubView).offset(-15);
+            make.bottom.equalTo(txDetailContainerSubView);
+        }];
+    }
+    
+    [priTxDetailSubview mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(txDetailContainer);
+        make.top.equalTo(priTxDetailSubview.mas_bottom).offset(20);
+        make.bottom.equalTo(txDetailContainer.mas_bottom).offset(-15);
     }];
     
     _signTxFileContontTexView = [[UITextView alloc] init];
@@ -114,6 +182,7 @@
     _signTxFileContontTexView.backgroundColor = [UIColor colorWithHexString:@"#F5F5F5"];
     _signTxFileContontTexView.textColor = [UIColor colorWithHexString:@"#1F1F1F"];
     _signTxFileContontTexView.textContainerInset = UIEdgeInsetsMake(15, 0, 15, 15);
+    _signTxFileContontTexView.text = self.txLog.signed_slate_msg;
     _signTxFileContontTexView.editable = NO;
     [signTxFileContentView addSubview:_signTxFileContontTexView];
     [_signTxFileContontTexView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -124,18 +193,7 @@
     
 }
 
-- (void)getSignTxFileContent{
-    if (!self.slate) {
-        return;
-    }
-    [WalletWrapper receiveTransactionBySlate:self.slate withComplete:^(BOOL yesOrNo, id _Nullable data) {
-        if (yesOrNo) {
-            self.signTxFileContontTexView.text = data;
-        }else{
-            [self.view makeToast:data];
-        }
-    }];
-}
+
 
 - (void)copyFileContent{
     if (self.signTxFileContontTexView.text.length > 0) {

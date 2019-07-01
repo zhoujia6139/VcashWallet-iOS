@@ -154,4 +154,7 @@
     "signTransactionFilePrompt":"After generating the signed transaction file, copy the contents and send it to the sender.",
     "copy":"Copy",
     "signTxFile":"Signed transaction file",
+    "txDetail":"Transaction details",
+    "record":"Record",
+    "txFileSignedRecordTitle":"Transaction file signed record",
 }

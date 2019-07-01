@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ReceiverSignTransactionFileViewController : BaseViewController
 
-@property (nonatomic, strong) VcashSlate *slate;
+@property (nonatomic, strong) VcashTxLog *txLog;
 
 @end
 

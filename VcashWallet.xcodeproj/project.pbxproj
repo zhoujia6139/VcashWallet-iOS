@@ -167,6 +167,8 @@
 		A27269AF22B3B22F00E76E0A /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = A27269AE22B3B22F00E76E0A /* ProgressView.m */; };
 		A27269B122B3B25B00E76E0A /* ProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A27269B022B3B25B00E76E0A /* ProgressView.xib */; };
 		A2B3A11722A0D8EF000F7495 /* ServerTransactionBlackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */; };
+		A2D1569222C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D1569022C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.m */; };
+		A2D1569322C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2D1569122C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib */; };
 		A2E5602022A8DBE7002E8E2D /* leftmenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E5601E22A8DBE6002E8E2D /* leftmenu@2x.png */; };
 		A2E5602122A8DBE7002E8E2D /* leftmenu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E5601F22A8DBE6002E8E2D /* leftmenu@3x.png */; };
 		ED24988F2280298D00D94EBE /* ServerApi.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24988E2280298D00D94EBE /* ServerApi.m */; };
@@ -477,6 +479,9 @@
 		A27269B022B3B25B00E76E0A /* ProgressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgressView.xib; sourceTree = "<group>"; };
 		A2B3A11522A0D8EF000F7495 /* ServerTransactionBlackManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerTransactionBlackManager.h; sourceTree = "<group>"; };
 		A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerTransactionBlackManager.m; sourceTree = "<group>"; };
+		A2D1568F22C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransactionFileSignedRecordViewController.h; sourceTree = "<group>"; };
+		A2D1569022C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransactionFileSignedRecordViewController.m; sourceTree = "<group>"; };
+		A2D1569122C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionFileSignedRecordViewController.xib; sourceTree = "<group>"; };
 		A2E5601E22A8DBE6002E8E2D /* leftmenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftmenu@2x.png"; sourceTree = "<group>"; };
 		A2E5601F22A8DBE6002E8E2D /* leftmenu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftmenu@3x.png"; sourceTree = "<group>"; };
 		ED24988D2280298D00D94EBE /* ServerApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerApi.h; sourceTree = "<group>"; };
@@ -976,6 +981,9 @@
 				A25E6E4122BC824100D563A4 /* ReceiveTransactionFileViewController.m */,
 				A25E6E4E22BCBE1700D563A4 /* ReceiverSignTransactionFileViewController.h */,
 				A25E6E4F22BCBE1700D563A4 /* ReceiverSignTransactionFileViewController.m */,
+				A2D1568F22C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.h */,
+				A2D1569022C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.m */,
+				A2D1569122C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib */,
 			);
 			path = WalletPage;
 			sourceTree = "<group>";
@@ -1454,6 +1462,7 @@
 				A26FEC79229F805B003CCD7C /* scanLine@3x.png in Resources */,
 				A241824E22A7C1A600519F7D /* indicator@2x.png in Resources */,
 				A26FEC50229F805A003CCD7C /* lock@2x.png in Resources */,
+				A2D1569322C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib in Resources */,
 				A26FEC54229F805A003CCD7C /* add@2x.png in Resources */,
 				A26FEC8D229F805B003CCD7C /* delete@2x.png in Resources */,
 				A27269A122AF984600E76E0A /* canceled@2x.png in Resources */,
@@ -1712,6 +1721,7 @@
 				ED44BF9722696CF50042928E /* BTCCurrencyConverter+Tests.m in Sources */,
 				EDA5149D22686DEE0011138F /* main.m in Sources */,
 				ED44BFA222696CF50042928E /* BTCPaymentMethodDetails.m in Sources */,
+				A2D1569222C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.m in Sources */,
 				ED44BFA522696CF50042928E /* BTCPaymentRequest.m in Sources */,
 				ED44BF9922696CF50042928E /* BTCAddress.m in Sources */,
 				EDA5148F22686DEC0011138F /* AppDelegate.m in Sources */,

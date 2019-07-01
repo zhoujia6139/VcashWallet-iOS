@@ -9,6 +9,7 @@
 #import "ReceiveTransactionFileViewController.h"
 #import "ReceiverSignTransactionFileViewController.h"
 #import "TransactionDetailView.h"
+#import "TransactionFileSignedRecordViewController.h"
 
 @interface ReceiveTransactionFileViewController ()<UITextViewDelegate>
 
@@ -36,6 +37,15 @@
 
 - (void)configView{
     self.title = [LanguageService contentForKey:@"receiveTransactionFile"];
+    
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightBtn setTitleColor:[UIColor colorWithHexString:@""] forState:UIControlStateNormal];
+    [rightBtn setTitleColor:[UIColor colorWithHexString:@"#FF9502"] forState:UIControlStateNormal];
+    [rightBtn setTitle:[LanguageService contentForKey:@"record"] forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(pushRecordVc) forControlEvents:UIControlEventTouchUpInside];
+    rightBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _scrollView.contentSize = CGSizeMake(ScreenWidth, ScreenHeight);
@@ -140,6 +150,23 @@
     
 }
 
+- (void)getSignTxFileContentWith:(VcashSlate *)slate{
+    if (!slate) {
+        return;
+    }
+    [WalletWrapper receiveTransactionBySlate:slate withComplete:^(BOOL yesOrNo, id _Nullable data) {
+        if (yesOrNo) {
+            ReceiverSignTransactionFileViewController *signTxFileVc = [[ReceiverSignTransactionFileViewController alloc] init];
+            VcashTxLog *txLog = [WalletWrapper getTxByTxid:slate.uuid];
+            signTxFileVc.txLog = txLog;
+            [self.navigationController pushViewController:signTxFileVc animated:YES];
+//            self.signTxFileContontTexView.text = data;
+        }else{
+            [self.view makeToast:data];
+        }
+    }];
+}
+
 - (void)showTxDetailViewWithSlate:(VcashSlate *)slate{
     TransactionDetailView *txDetailView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([TransactionDetailView class]) owner:nil options:nil] firstObject];
     txDetailView.slate = slate;
@@ -149,10 +176,13 @@
     [txDetailView show];
 }
 
-- (void)pushReceiverSignTxFileVcWithSlate:(VcashSlate *)salte{
-    ReceiverSignTransactionFileViewController *signTxFileVc = [[ReceiverSignTransactionFileViewController alloc] init];
-    signTxFileVc.slate = salte;
-    [self.navigationController pushViewController:signTxFileVc animated:YES];
+- (void)pushReceiverSignTxFileVcWithSlate:(VcashSlate *)slate{
+    [self getSignTxFileContentWith:slate];
+}
+
+- (void)pushRecordVc{
+    TransactionFileSignedRecordViewController *txFileSignedRecordVc = [[TransactionFileSignedRecordViewController alloc] init];
+    [self.navigationController pushViewController:txFileSignedRecordVc animated:YES];
 }
 
 
