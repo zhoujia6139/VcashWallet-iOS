@@ -29,6 +29,11 @@
     [self configView];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self.fileContentTextView becomeFirstResponder];
+}
+
 - (void)configView{
     self.title = [LanguageService contentForKey:@"receiveTransactionFile"];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -89,15 +94,16 @@
     [_scrollView addSubview:_fileContentTextView];
     [_fileContentTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lineView.mas_bottom);
-        make.left.right.equalTo(self.scrollView);
-        make.height.mas_equalTo(200);
+        make.left.equalTo(self.scrollView).offset(20);
+        make.right.equalTo(self.scrollView);
+        make.bottom.equalTo(self.view).offset(-200);
     }];
     
     UIView *bottomlineView = [[UIView alloc] init];
     bottomlineView.backgroundColor = [UIColor colorWithHexString:@"#EEEEEE"];
     [_scrollView addSubview:bottomlineView];
     [bottomlineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.fileContentTextView.mas_bottom).offset(14);
+        make.top.equalTo(self.fileContentTextView.mas_bottom);
         make.left.right.equalTo(self.scrollView);
         make.height.mas_equalTo(2);
     }];
@@ -117,20 +123,8 @@
     }];
     ViewRadius(readTxDetailBtn, 4.0);
     
-    self.fileContentTextView.contentInset = UIEdgeInsetsMake(10, 10, 0, 10);
-    self.fileContentTextView.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
-    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+    self.fileContentTextView.textContainerInset = UIEdgeInsetsMake(20, 0, 20, 20);
     
-    self.fileContentTextView.text = pasteBoard.string.length > 0 ? pasteBoard.string : @"";
-    if (self.fileContentTextView.text.length > 0) {
-        readTxDetailBtn.backgroundColor = COrangeColor;
-        readTxDetailBtn.userInteractionEnabled = YES;
-    }else{
-        readTxDetailBtn.backgroundColor = COrangeEnableColor;
-        readTxDetailBtn.userInteractionEnabled = NO;
-    }
-    
-//    [self setTextViewHeight];
 }
 
 - (void)readTransactionDetail{
@@ -161,14 +155,6 @@
     [self.navigationController pushViewController:signTxFileVc animated:YES];
 }
 
-- (void)setTextViewHeight{
-//    CGSize size = [self.fileContentTextView sizeThatFits:CGSizeMake(ScreenWidth - 40, 1000)];
-//    CGFloat textViewHeight = size.height;
-//    [self.fileContentTextView mas_updateConstraints:^(MASConstraintMaker *make) {
-//        make.height.mas_equalTo(textViewHeight);
-//    }];
-//    self.fileContentTextView.contentSize = CGSizeMake(ScreenWidth - 40, textViewHeight);
-}
 
 #pragma mark - UITextViewDelegate
 - (void)textViewDidChange:(UITextView *)textView{
