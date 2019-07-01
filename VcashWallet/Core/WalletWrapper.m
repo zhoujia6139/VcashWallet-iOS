@@ -420,7 +420,7 @@
     NSArray* txArr = [self getTransationArr];
     NSMutableArray* retArr = [NSMutableArray new];
     for (VcashTxLog* item in txArr){
-        if (item.tx_type == TxReceived && !item.parter_id){
+        if (item.tx_type == TxReceived && !item.parter_id && item.signed_slate_msg){
             [retArr addObject:item];
         }
     }

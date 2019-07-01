@@ -43,7 +43,7 @@
     [rightBtn setTitleColor:[UIColor colorWithHexString:@"#FF9502"] forState:UIControlStateNormal];
     [rightBtn setTitle:[LanguageService contentForKey:@"record"] forState:UIControlStateNormal];
     [rightBtn addTarget:self action:@selector(pushRecordVc) forControlEvents:UIControlEventTouchUpInside];
-    rightBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    rightBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     
     self.view.backgroundColor = [UIColor whiteColor];
@@ -104,7 +104,7 @@
     [_scrollView addSubview:_fileContentTextView];
     [_fileContentTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lineView.mas_bottom);
-        make.left.equalTo(self.scrollView).offset(20);
+        make.left.equalTo(self.scrollView).offset(10);
         make.right.equalTo(self.scrollView);
         make.bottom.equalTo(self.view).offset(-200);
     }];
@@ -133,7 +133,7 @@
     }];
     ViewRadius(readTxDetailBtn, 4.0);
     
-    self.fileContentTextView.textContainerInset = UIEdgeInsetsMake(20, 0, 20, 20);
+    self.fileContentTextView.textContainerInset = UIEdgeInsetsMake(10, 0, 10, 10);
     
 }
 
@@ -158,6 +158,7 @@
         if (yesOrNo) {
             ReceiverSignTransactionFileViewController *signTxFileVc = [[ReceiverSignTransactionFileViewController alloc] init];
             VcashTxLog *txLog = [WalletWrapper getTxByTxid:slate.uuid];
+            signTxFileVc.showDone = YES;
             signTxFileVc.txLog = txLog;
             [self.navigationController pushViewController:signTxFileVc animated:YES];
 //            self.signTxFileContontTexView.text = data;

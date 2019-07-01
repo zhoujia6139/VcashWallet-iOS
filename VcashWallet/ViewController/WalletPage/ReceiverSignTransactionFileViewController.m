@@ -7,6 +7,7 @@
 //
 
 #import "ReceiverSignTransactionFileViewController.h"
+#import "TransactionFileSignedRecordViewController.h"
 
 @interface ReceiverSignTransactionFileViewController ()
 
@@ -25,26 +26,30 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-}
-
-- (void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-    self.navigationController.interactivePopGestureRecognizer.enabled  = YES;
+    if (self.showDone) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+        NSMutableArray *arrVcs = [NSMutableArray arrayWithArray:self.navigationController.childViewControllers];
+        NSInteger count = arrVcs.count;
+        TransactionFileSignedRecordViewController *fileSignedRecordVc = [TransactionFileSignedRecordViewController new];
+        [arrVcs insertObject:fileSignedRecordVc atIndex:count - 1];
+        self.navigationController.viewControllers = arrVcs;
+    }
+   
 }
 
 - (void)initView{
     self.title = [LanguageService contentForKey:@"receiveTransactionFile"];
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [rightBtn setTitleColor:[UIColor colorWithHexString:@"#FF9502"] forState:UIControlStateNormal];
-    [rightBtn setTitle:[LanguageService contentForKey:@"done"] forState:UIControlStateNormal];
-    [rightBtn addTarget:self action:@selector(backBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    rightBtn.titleLabel.font = [UIFont systemFontOfSize:16];
-    
-    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
-    self.navigationItem.rightBarButtonItem = barButtonItem;
+    if(self.showDone){
+        UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [rightBtn setTitleColor:[UIColor colorWithHexString:@"#FF9502"] forState:UIControlStateNormal];
+        [rightBtn setTitle:[LanguageService contentForKey:@"done"] forState:UIControlStateNormal];
+        [rightBtn addTarget:self action:@selector(backBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+        rightBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+        
+        UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+        self.navigationItem.rightBarButtonItem = barButtonItem;
+    }
     
     UILabel *promptLabel = [[UILabel alloc] init];
     promptLabel.font = [UIFont systemFontOfSize:14];
@@ -121,6 +126,7 @@
     
     UIView *txDetailContainer = [[UIView alloc] init];
     txDetailContainer.backgroundColor = [UIColor colorWithHexString:@"#F5F5F5"];
+    ViewRadius(txDetailContainer, 4.0);
     [self.view addSubview:txDetailContainer];
     
     [txDetailContainer mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -129,13 +135,12 @@
         make.top.equalTo(txDetailLabel.mas_bottom).offset(10);
     }];
     
-
     UIView *priTxDetailSubview = nil;
-    for (NSInteger i = 0; i < 3; i++) {
+    for (NSInteger i = 0; i < 4; i++) {
         UIView *txDetailContainerSubView = [[UIView alloc] init];
         txDetailContainerSubView.backgroundColor = [UIColor colorWithHexString:@"#F5F5F5"];
         [txDetailContainer addSubview:txDetailContainerSubView];
-        if (priTxDetailSubview) {
+        if (!priTxDetailSubview) {
             [txDetailContainerSubView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.right.equalTo(txDetailContainer);
                 make.top.equalTo(txDetailContainer).offset(15);
@@ -144,38 +149,73 @@
             [txDetailContainerSubView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.right.equalTo(txDetailContainer);
                 make.top.equalTo(priTxDetailSubview.mas_bottom).offset(20);
+                if (i == 3) {
+                  make.bottom.equalTo(txDetailContainer).offset(-15);
+                }
             }];
         }
-        priTxDetailSubview = txDetailContainerSubView;
-        UILabel *txIdLabel = [[UILabel alloc] init];
-        txIdLabel.font = [UIFont systemFontOfSize:14];
-        txIdLabel.textColor = [UIColor colorWithHexString:@"#1F1F1F"];
-        txIdLabel.text = [LanguageService contentForKey:@"txid"];
-        txIdLabel.textAlignment = NSTextAlignmentRight;
-        [txDetailContainerSubView addSubview:txIdLabel];
-        [txIdLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        UILabel *txTitleLabel = [[UILabel alloc] init];
+        txTitleLabel.font = [UIFont systemFontOfSize:14];
+        txTitleLabel.textColor = [UIColor colorWithHexString:@"#1F1F1F"];
+        txTitleLabel.textAlignment = NSTextAlignmentRight;
+        [txDetailContainerSubView addSubview:txTitleLabel];
+        [txTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.equalTo(txDetailContainerSubView);
             make.width.mas_equalTo(100);
         }];
+      
         
-        UILabel *txIdInfo = [[UILabel alloc] init];
-        txIdInfo.numberOfLines = 0;
-        txIdInfo.font = [UIFont systemFontOfSize:14];
-        txIdInfo.textColor = [UIColor colorWithHexString:@"#1F1F1F"];
-        [txDetailContainerSubView addSubview:txIdInfo];
-        [txIdInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(txIdLabel);
+        UILabel *txContent = [[UILabel alloc] init];
+        txContent.numberOfLines = 0;
+        txContent.font = [UIFont systemFontOfSize:14];
+        txContent.textColor = [UIColor colorWithHexString:@"#1F1F1F"];
+        NSString *title = @"";
+        switch (i) {
+            case 0:{
+                title = [LanguageService contentForKey:@"txid"];
+                txContent.text = (self.txLog.tx_slate_id ? self.txLog.tx_slate_id :  [LanguageService contentForKey:@"unreachable"]);
+            }
+                break;
+            case 1:{
+                title = [LanguageService contentForKey:@"txAmount"];
+                uint64_t amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited);
+                NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
+                txContent.text = [NSString stringWithFormat:@"%@ VCash", amountStr];
+            }
+                break;
+            case 2:{
+                title = [LanguageService contentForKey:@"txfee"];
+                txContent.text = [NSString stringWithFormat:@"%@ VCash", @([WalletWrapper nanoToVcash:self.txLog.fee]).p09fString];
+            }
+               
+                break;
+            case 3:
+                 title = [LanguageService contentForKey:@"txtime"];
+                 txContent.text =  self.txLog.create_time > 0 ? [[NSDate dateWithTimeIntervalSince1970:self.txLog.create_time] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"] : @"none";//[[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"]
+                break;
+            default:
+                break;
+        }
+    
+        txTitleLabel.text = title;
+        [txDetailContainerSubView addSubview:txContent];
+        [txContent mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(txTitleLabel);
             make.left.equalTo(txDetailContainerSubView).offset(114);
             make.right.equalTo(txDetailContainerSubView).offset(-15);
             make.bottom.equalTo(txDetailContainerSubView);
         }];
+        priTxDetailSubview = txDetailContainerSubView;
     }
     
-    [priTxDetailSubview mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(txDetailContainer);
-        make.top.equalTo(priTxDetailSubview.mas_bottom).offset(20);
-        make.bottom.equalTo(txDetailContainer.mas_bottom).offset(-15);
-    }];
+//    [priTxDetailSubview layoutIfNeeded];
+//
+//    [txDetailContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.offset(28);
+//        make.right.offset(-28);
+//        make.top.equalTo(txDetailLabel.mas_bottom).offset(10);
+//        make.height.mas_equalTo(priTxDetailSubview.origin.y + priTxDetailSubview.frame.size.height + 15);
+//    }];
     
     _signTxFileContontTexView = [[UITextView alloc] init];
     _signTxFileContontTexView.font = [UIFont systemFontOfSize:14];
@@ -204,7 +244,8 @@
 }
 
 - (void)backBtnClicked{
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    [self.navigationController popViewControllerAnimated:YES];
 }
 /*
 #pragma mark - Navigation

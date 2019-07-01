@@ -26,13 +26,17 @@ static NSString *const identifier = @"WalletCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.arrData = [WalletWrapper getFileReceiveTxArr];
+    NSArray *array = [WalletWrapper getFileReceiveTxArr];
+    self.arrData = [array sortedArrayUsingComparator:^NSComparisonResult(VcashTxLog *obj1, VcashTxLog *obj2) {
+        return [@(obj2.create_time) compare:@(obj1.create_time)];
+    }];
     [self configView];
 }
 
 - (void)configView{
     self.title = [LanguageService contentForKey:@"txFileSignedRecordTitle"];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([WalletCell class]) bundle:nil] forCellReuseIdentifier:identifier];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 #pragma mark - UITableViewDataSource
@@ -43,6 +47,10 @@ static NSString *const identifier = @"WalletCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     WalletCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    if (indexPath.row < self.arrData.count) {
+        VcashTxLog *txLog = self.arrData[indexPath.row];
+        [cell setTxLog:txLog];
+    }
     return cell;
 }
 
