@@ -186,6 +186,7 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="contentView" destination="EYz-Kb-7d6" id="cN7-6v-zI7"/>
+                <outlet property="imageViewClose" destination="l5w-GG-PhU" id="gou-aG-J4w"/>
                 <outlet property="labelAmount" destination="kBD-dI-pa3" id="ekr-7W-hxv"/>
                 <outlet property="labelFee" destination="asU-JJ-ug7" id="sNP-uL-Ot1"/>
                 <outlet property="lablelTxID" destination="4jI-gM-PBN" id="BtW-ok-Xhc"/>

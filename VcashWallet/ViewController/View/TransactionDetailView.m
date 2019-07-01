@@ -20,7 +20,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *labelFee;
 
-@property (weak, nonatomic) IBOutlet UILabel *labelTime;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewClose;
 
 @end
 
@@ -40,6 +40,9 @@
     self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
     ViewRadius(self.contentView, 4.0);
     ViewRadius(self.signTxBtn, 4.0);
+    self.imageViewClose.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenAnimation)];
+    [self.imageViewClose addGestureRecognizer:tap];
 }
 
 - (void)setSlate:(VcashSlate *)slate{
@@ -48,7 +51,6 @@
     self.lablelTxID.text = slate.uuid;
     self.labelAmount.text = [NSString stringWithFormat:@"%@ VCash", amountStr];
     self.labelFee.text = [NSString stringWithFormat:@"%@ VCash", @([WalletWrapper nanoToVcash:slate.fee]).p09fString];
-    self.labelTime.text = slate.txLog.create_time > 0 ? [[NSDate dateWithTimeIntervalSince1970:slate.txLog.create_time] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"] : [[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
 }
 
 

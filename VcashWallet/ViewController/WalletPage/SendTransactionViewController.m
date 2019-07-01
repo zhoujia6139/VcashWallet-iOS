@@ -225,6 +225,7 @@
         if (yesOrNo) {
             [MBHudHelper showTextTips:[LanguageService contentForKey:@"sendSuc"] onView:nil withDuration:1];
             VcashTxLog *txLog =  [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
+            txLog.confirm_state = LoalConfirmed;
             [self pushTranscactionDetailVcWith:txLog];
         }else{
              [MBHudHelper showTextTips:[LanguageService contentForKey:@"sendFailed"] onView:nil withDuration:1];

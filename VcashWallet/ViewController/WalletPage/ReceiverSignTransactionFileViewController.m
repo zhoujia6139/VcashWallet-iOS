@@ -106,17 +106,20 @@
         make.top.equalTo(copyBtn.mas_bottom);
         make.left.offset(28);
         make.right.offset(-28);
+        make.bottom.offset(-200);
     }];
     
     _signTxFileContontTexView = [[UITextView alloc] init];
     _signTxFileContontTexView.font = [UIFont systemFontOfSize:14];
+    _signTxFileContontTexView.backgroundColor = [UIColor colorWithHexString:@"#F5F5F5"];
     _signTxFileContontTexView.textColor = [UIColor colorWithHexString:@"#1F1F1F"];
-//    _signTxFileContontLabel = @"某些研究需要敏感的数据集，比如学校营养午餐与学生健康之间的关系、企业薪资股权激励的有效性等，这些有价值的数据通常会涉及隐私信息。在经过多年努力之后，谷歌密码学家和数据科学家提出了一种全新的技术来实现这种“多方计算”（multiparty computation），而不会向任何无关的人公开信息 某些研究需要敏感的数据集，比如学校营养午餐与学生健康之间的关系、企业薪资股权激励的有效性等，这些有价值的数据通常会涉及隐私信息。在经过多年努力之后，谷歌密码学家和数据科学家提出了一种全新的技术来实现这种“多方计算”（multiparty computation），而不会向任何无关的人公开信息";
+    _signTxFileContontTexView.textContainerInset = UIEdgeInsetsMake(15, 0, 15, 15);
+    _signTxFileContontTexView.editable = NO;
     [signTxFileContentView addSubview:_signTxFileContontTexView];
     [_signTxFileContontTexView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.offset(16);
-        make.height.mas_equalTo(200);
-        make.right.bottom.offset(-16);
+        make.left.offset(15);
+        make.right.offset(0);
+        make.top.bottom.offset(0);
     }];
     
 }
