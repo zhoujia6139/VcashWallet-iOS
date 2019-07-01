@@ -61,6 +61,8 @@ typedef enum {
 
 @property(strong, nonatomic)NSArray<NSString*>* outputs;
 
+@property(strong, nonatomic)NSString* signed_slate_msg;
+
 -(void)appendInput:(NSString*)commitment;
 
 -(void)appendOutput:(NSString*)commitment;

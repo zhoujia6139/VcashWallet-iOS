@@ -63,6 +63,8 @@
 
 +(Boolean)deleteTxByTxid:(NSString*)txid;
 
++(NSArray*)getFileReceiveTxArr;
+
 +(void)updateOutputStatusWithComplete:(RequestCompleteBlock)block;
 
 +(double)nanoToVcash:(int64_t)nano;

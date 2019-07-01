@@ -23,6 +23,7 @@ WCDB_PROPERTY(amount_debited)
 WCDB_PROPERTY(fee)
 WCDB_PROPERTY(inputs)
 WCDB_PROPERTY(outputs)
+WCDB_PROPERTY(signed_slate_msg)
 
 @end
 

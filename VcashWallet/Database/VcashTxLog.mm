@@ -26,6 +26,7 @@ WCDB_SYNTHESIZE(VcashTxLog, amount_debited)
 WCDB_SYNTHESIZE(VcashTxLog, fee)
 WCDB_SYNTHESIZE(VcashTxLog, inputs)
 WCDB_SYNTHESIZE(VcashTxLog, outputs)
+WCDB_SYNTHESIZE(VcashTxLog, signed_slate_msg)
 
 WCDB_PRIMARY(VcashTxLog, tx_id)
 

@@ -288,8 +288,10 @@
     
     slate.createNewOutputsFn?slate.createNewOutputsFn():nil;
     //save txLog
+    NSString* slateStr = [slate modelToJSONString];
     slate.txLog.parter_id = serverTx.sender_id;
     slate.txLog.status = TxReceiverd;
+    slate.txLog.signed_slate_msg = slateStr;
     ret = [[VcashDataManager shareInstance] saveTx:slate.txLog];
     if (!ret){
         rollbackBlock();
@@ -302,7 +304,7 @@
     [[VcashWallet shareInstance] syncOutputInfo];
     
     if (serverTx){
-        serverTx.slate  = [slate modelToJSONString];
+        serverTx.slate  = slateStr;
         serverTx.status = TxReceiverd;
         [[ServerApi shareInstance] receiveTransaction:serverTx WithComplete:^(BOOL yesOrNO, id _Nullable data) {
             if (yesOrNO){
@@ -318,7 +320,6 @@
         }];
     }
     else{
-        NSString* slateStr = [slate modelToJSONString];
         [[VcashDataManager shareInstance] commitDatabaseTransaction];
         block?block(YES, slateStr):nil;
     }
@@ -413,6 +414,18 @@
 
 +(Boolean)deleteTxByTxid:(NSString*)txid{
     return  [[VcashDataManager shareInstance] deleteTxBySlateId:txid];
+}
+
++(NSArray*)getFileReceiveTxArr{
+    NSArray* txArr = [self getTransationArr];
+    NSMutableArray* retArr = [NSMutableArray new];
+    for (VcashTxLog* item in txArr){
+        if (item.tx_type == TxReceived && !item.parter_id){
+            [retArr addObject:item];
+        }
+    }
+    
+    return retArr;
 }
 
 +(void)updateOutputStatusWithComplete:(RequestCompleteBlock)block{
