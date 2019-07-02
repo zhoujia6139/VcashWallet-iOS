@@ -18,6 +18,7 @@ static NSString *const identifier = @"WalletCell";
 
 @property (nonatomic, strong) NSArray *arrData;
 
+@property (weak, nonatomic) IBOutlet UIView *noDataView;
 
 @end
 
@@ -37,6 +38,7 @@ static NSString *const identifier = @"WalletCell";
     self.title = [LanguageService contentForKey:@"txFileSignedRecordTitle"];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([WalletCell class]) bundle:nil] forCellReuseIdentifier:identifier];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.noDataView.hidden  = self.arrData.count > 0 ? YES : NO;
 }
 
 #pragma mark - UITableViewDataSource

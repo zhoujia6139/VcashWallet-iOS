@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TransactionFileSignedRecordViewController">
             <connections>
+                <outlet property="noDataView" destination="YUf-dr-EUN" id="Utf-my-l63"/>
                 <outlet property="tableView" destination="XPz-85-ogP" id="cxk-UG-Two"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -29,15 +30,51 @@
                         <outlet property="delegate" destination="-1" id="uKO-kp-rtH"/>
                     </connections>
                 </tableView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YUf-dr-EUN">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nodata.png" translatesAutoresizingMaskIntoConstraints="NO" id="GyN-Ug-OsQ">
+                            <rect key="frame" x="188" y="351.5" width="38" height="45"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="38" id="NCz-v0-RiG"/>
+                                <constraint firstAttribute="height" constant="45" id="jQA-WP-Jz4"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No  transactions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="koo-eR-kqD" customClass="VcashLabel">
+                            <rect key="frame" x="151" y="411.5" width="112.5" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localText" value="noTransactions"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="koo-eR-kqD" firstAttribute="centerX" secondItem="yyH-8v-SD2" secondAttribute="centerX" id="1UU-re-BCJ"/>
+                        <constraint firstItem="GyN-Ug-OsQ" firstAttribute="centerX" secondItem="yyH-8v-SD2" secondAttribute="centerX" id="iX0-aS-koE"/>
+                        <constraint firstItem="koo-eR-kqD" firstAttribute="top" secondItem="GyN-Ug-OsQ" secondAttribute="bottom" constant="15" id="laL-Aw-OZE"/>
+                        <constraint firstItem="GyN-Ug-OsQ" firstAttribute="centerY" secondItem="yyH-8v-SD2" secondAttribute="centerY" constant="-35" id="v9Z-dq-iwo"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="yyH-8v-SD2"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="YUf-dr-EUN" firstAttribute="trailing" secondItem="XPz-85-ogP" secondAttribute="trailing" id="0jO-qG-mCM"/>
                 <constraint firstItem="XPz-85-ogP" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="72s-xO-asm"/>
+                <constraint firstItem="YUf-dr-EUN" firstAttribute="top" secondItem="XPz-85-ogP" secondAttribute="top" id="STO-5y-2E5"/>
                 <constraint firstItem="XPz-85-ogP" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Y6r-9h-6ff"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="XPz-85-ogP" secondAttribute="trailing" id="ZSy-Ue-A8S"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="XPz-85-ogP" secondAttribute="bottom" id="kOW-Hz-dN9"/>
+                <constraint firstItem="YUf-dr-EUN" firstAttribute="bottom" secondItem="XPz-85-ogP" secondAttribute="bottom" id="lfA-IZ-1yR"/>
+                <constraint firstItem="YUf-dr-EUN" firstAttribute="leading" secondItem="XPz-85-ogP" secondAttribute="leading" id="tIe-3c-Ga4"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
         </view>
     </objects>
+    <resources>
+        <image name="nodata.png" width="45" height="38"/>
+    </resources>
 </document>
