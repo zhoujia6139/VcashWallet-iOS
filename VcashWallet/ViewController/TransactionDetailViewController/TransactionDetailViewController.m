@@ -41,6 +41,20 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintBtnSignatureBottomWithBtnCancel;
 
+@property (weak, nonatomic) IBOutlet UIView *viewPrompt;
+
+@property (weak, nonatomic) IBOutlet UIView *viewSignTxTitle;
+
+
+@property (weak, nonatomic) IBOutlet UITextView *textViewSignFileContent;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTextSignFileContentBottomWithScrollView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintViewTimeBottomWithScrollView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintViewBottomHeight;
+
+
 @end
 
 @implementation TransactionDetailViewController{
@@ -100,6 +114,7 @@
         self.isShowLeftBack = NO;
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
         [btn setTitle:[LanguageService contentForKey:@"done"] forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
         [btn setTitleColor:[UIColor colorWithHexString:@"#FF9502"] forState:UIControlStateNormal];
         btn.frame = CGRectMake(0, 0, 40, 40);
         [btn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
@@ -120,6 +135,30 @@
     self.labelAmount.text = [NSString stringWithFormat:@"%@ VCash", amountStr];
     self.labelFee.text = [NSString stringWithFormat:@"%@ VCash", @([WalletWrapper nanoToVcash:fee]).p09fString];
     self.labelTxTime.text = create_time > 0 ? [[NSDate dateWithTimeIntervalSince1970:create_time] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"] : [[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+    ViewRadius(self.textViewSignFileContent, 4.0);
+    self.textViewSignFileContent.contentInset = UIEdgeInsetsZero;
+    self.textViewSignFileContent.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    if (self.txLog.signed_slate_msg.length > 0) {
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickedBtnCopySignedTxContent:)];
+        [self.textViewSignFileContent addGestureRecognizer:tap];
+        self.textViewSignFileContent.text = self.txLog.signed_slate_msg;
+        self.viewPrompt.hidden = NO;
+        self.viewSignTxTitle.hidden = NO;
+        self.textViewSignFileContent.hidden = NO;
+        self.constraintTextSignFileContentBottomWithScrollView.active = YES;
+        self.constraintViewTimeBottomWithScrollView.active = NO;
+    }else{
+        self.viewPrompt.hidden = YES;
+        self.viewSignTxTitle.hidden = YES;
+        self.textViewSignFileContent.hidden = YES;
+        self.constraintTextSignFileContentBottomWithScrollView.active = NO;
+        self.constraintViewTimeBottomWithScrollView.active = YES;
+    }
+    if (self.btnSignature.hidden && self.btnCancelTx.hidden) {
+        self.constraintViewBottomHeight.constant = 0;
+    }else{
+        self.constraintViewBottomHeight.constant = 144;
+    }
 }
 
 - (void)configDataFromServerTransaction{
@@ -262,6 +301,15 @@
             break;
     }
 }
+
+- (IBAction)clickedBtnCopySignedTxContent:(id)sender {
+    if (self.textViewSignFileContent.text.length > 0) {
+        UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+        [pasteBoard setString:self.textViewSignFileContent.text];
+        [self.view makeToast:[LanguageService contentForKey:@"copySuc"]];
+    }
+}
+
 
 - (void)goBack{
     [self.navigationController popViewControllerAnimated:YES];

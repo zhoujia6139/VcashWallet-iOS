@@ -10,6 +10,7 @@
 #import "ReceiverSignTransactionFileViewController.h"
 #import "TransactionDetailView.h"
 #import "TransactionFileSignedRecordViewController.h"
+#import "UIViewController+POPHUD.h"
 
 @interface ReceiveTransactionFileViewController ()<UITextViewDelegate>
 
@@ -154,14 +155,15 @@
     if (!slate) {
         return;
     }
+    [self ex_showLoadingHUD];
     [WalletWrapper receiveTransactionBySlate:slate withComplete:^(BOOL yesOrNo, id _Nullable data) {
+        [self ex_hideHUD];
         if (yesOrNo) {
             ReceiverSignTransactionFileViewController *signTxFileVc = [[ReceiverSignTransactionFileViewController alloc] init];
             VcashTxLog *txLog = [WalletWrapper getTxByTxid:slate.uuid];
             signTxFileVc.showDone = YES;
             signTxFileVc.txLog = txLog;
             [self.navigationController pushViewController:signTxFileVc animated:YES];
-//            self.signTxFileContontTexView.text = data;
         }else{
             [self.view makeToast:data];
         }

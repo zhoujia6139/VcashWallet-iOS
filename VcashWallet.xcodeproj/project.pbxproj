@@ -269,7 +269,6 @@
 		EDA5149222686DEC0011138F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA5149122686DEC0011138F /* ViewController.m */; };
 		EDA5149522686DEC0011138F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDA5149322686DEC0011138F /* Main.storyboard */; };
 		EDA5149722686DEE0011138F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDA5149622686DEE0011138F /* Assets.xcassets */; };
-		EDA5149A22686DEE0011138F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDA5149822686DEE0011138F /* LaunchScreen.storyboard */; };
 		EDA5149D22686DEE0011138F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA5149C22686DEE0011138F /* main.m */; };
 		EDA514A52268711A0011138F /* libsecp256k1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDA514A42268711A0011138F /* libsecp256k1.a */; };
 		EDA514B1226886150011138F /* libb2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDA514B0226886150011138F /* libb2.a */; };
@@ -692,7 +691,6 @@
 		EDA5149122686DEC0011138F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		EDA5149422686DEC0011138F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EDA5149622686DEE0011138F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		EDA5149922686DEE0011138F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EDA5149B22686DEE0011138F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EDA5149C22686DEE0011138F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EDA514A42268711A0011138F /* libsecp256k1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsecp256k1.a; sourceTree = "<group>"; };
@@ -1306,7 +1304,6 @@
 				A26FECA1229F8063003CCD7C /* LanguageFile */,
 				EDA5149322686DEC0011138F /* Main.storyboard */,
 				EDA5149622686DEE0011138F /* Assets.xcassets */,
-				EDA5149822686DEE0011138F /* LaunchScreen.storyboard */,
 				EDA5149B22686DEE0011138F /* Info.plist */,
 				EDA5149C22686DEE0011138F /* main.m */,
 			);
@@ -1476,7 +1473,6 @@
 				A26FEBBF229F7DE0003CCD7C /* HandleSlateViewController.xib in Resources */,
 				A26FEC87229F805B003CCD7C /* logo@2x.png in Resources */,
 				A26FEBC3229F7DE0003CCD7C /* TransactionDetailViewController.xib in Resources */,
-				EDA5149A22686DEE0011138F /* LaunchScreen.storyboard in Resources */,
 				A26FEC78229F805B003CCD7C /* topradius.9.png in Resources */,
 				A242179222B7A356004F815E /* eyeopen.png in Resources */,
 				A21189BF22B900E500B88179 /* headbg@2x.png in Resources */,
@@ -1789,14 +1785,6 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		EDA5149822686DEE0011138F /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EDA5149922686DEE0011138F /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1917,6 +1905,7 @@
 			baseConfigurationReference = 2B42695A9EB50E631A668976 /* Pods-VcashWallet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GT49X56UC2;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1968,6 +1957,7 @@
 			baseConfigurationReference = 32DD39C5EA5AAED2839B1728 /* Pods-VcashWallet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GT49X56UC2;
 				FRAMEWORK_SEARCH_PATHS = (

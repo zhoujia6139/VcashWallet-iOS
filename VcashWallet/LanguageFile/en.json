@@ -27,8 +27,8 @@
     "sendVcash":"Send VCash",
     "sendto":"Send to",
     "amount":"Amount",
-    "enterOrScan":"enter or scan the recipient’s ID",
-    "enterAmount":"enter amount",
+    "enterOrScan":"Input the recipient’s ID or http address",
+    "enterAmount":"Input amount",
     "unit":"VCash",
     "receiveVcash":"Receive VCash",
     "walletid":"Your wallet ID",
@@ -157,4 +157,5 @@
     "txDetail":"Transaction details",
     "record":"Record",
     "txFileSignedRecordTitle":"Transaction file signed record",
+    "sending":"sending",
 }

@@ -20,6 +20,7 @@
 @interface SendTransactionViewController ()<UITextFieldDelegate,UITextViewDelegate,ScanViewControllerDelegate>
 
 
+@property (weak, nonatomic) IBOutlet UIView *promptView;
 
 @property (weak, nonatomic) IBOutlet UITextView *targetAddressTextView;
 
@@ -47,13 +48,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = [LanguageService contentForKey:@"sendVcash"];
+    ViewRadius(self.promptView, 4.0);
     self.targetAddressTextView.scrollEnabled  = NO;
     self.targetAddressTextView.contentInset = UIEdgeInsetsMake(0, 0, 3, 0);
     self.targetAddressTextView.textContainerInset = UIEdgeInsetsMake(10, 0, 0, 0);
     self.constraintContentViewWidth.constant = ScreenWidth - 20 - 85;
     self.targetAddressTextView.delegate = self;
     [self setTextViewHeight];
-    [self.amountField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+    NSMutableAttributedString *placeholder = [[NSMutableAttributedString alloc] initWithString:[LanguageService contentForKey:@"enterAmount"]];
+    [placeholder addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, placeholder.length)];
+    [placeholder addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, placeholder.length)];
+    self.amountField.attributedPlaceholder = placeholder;
     [self.amountField addTarget:self action:@selector(enterAmount:) forControlEvents:UIControlEventEditingChanged];
     self.sendBtn.backgroundColor = COrangeEnableColor;
     self.sendBtn.userInteractionEnabled = NO;
@@ -208,27 +213,28 @@
 
 
 - (void)sendTransactionWithUseId:(NSString *)useId slate:(VcashSlate *)slate{
+     [MBHudHelper startWorkProcessWithTextTips:[LanguageService contentForKey:@"sending"]];
     [WalletWrapper sendTransaction:slate forUser:useId withComplete:^(BOOL yesOrNo, id _Nullable data) {
         if (yesOrNo){
-            [MBHudHelper showTextTips:[LanguageService contentForKey:@"sendSuc"] onView:nil withDuration:1];
+             [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:[LanguageService contentForKey:@"sendSuc"]];
              VcashTxLog *txLog =  [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
             [self pushTranscactionDetailVcWith:txLog];
-        }
-        else{
-            [MBHudHelper showTextTips:[LanguageService contentForKey:@"sendFailed"] onView:nil withDuration:1];
+        }else{
+             [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:[LanguageService contentForKey:@"sendFailed"]];
         }
     }];
 }
 
 - (void)sendTransactionWithUrl:(NSString *)url slate:(VcashSlate *)slate{
+    [MBHudHelper startWorkProcessWithTextTips:[LanguageService contentForKey:@"sending"]];
     [WalletWrapper sendTransaction:slate forUrl:url withComplete:^(BOOL yesOrNo, id _Nullable data) {
         if (yesOrNo) {
-            [MBHudHelper showTextTips:[LanguageService contentForKey:@"sendSuc"] onView:nil withDuration:1];
+            [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:[LanguageService contentForKey:@"sendSuc"]];
             VcashTxLog *txLog =  [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
             txLog.confirm_state = LoalConfirmed;
             [self pushTranscactionDetailVcWith:txLog];
         }else{
-             [MBHudHelper showTextTips:[LanguageService contentForKey:@"sendFailed"] onView:nil withDuration:1];
+            [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:[LanguageService contentForKey:@"sendFailed"]];
         }
     }];
 }

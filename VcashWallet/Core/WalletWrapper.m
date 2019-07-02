@@ -119,6 +119,7 @@
             if (!sessionManager){
                 sessionManager = [AFHTTPSessionManager manager];
                 sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+                sessionManager.requestSerializer.timeoutInterval = 20.0f;
                 sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
                 sessionManager.securityPolicy.allowInvalidCertificates = YES;
                 sessionManager.securityPolicy.validatesDomainName = NO;

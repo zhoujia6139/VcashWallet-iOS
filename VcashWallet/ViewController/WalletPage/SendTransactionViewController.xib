@@ -15,6 +15,7 @@
                 <outlet property="amountField" destination="YRG-CG-Brs" id="ZPc-np-l3u"/>
                 <outlet property="constraintTextViewHeight" destination="Gc8-70-jKf" id="oHJ-FM-n1P"/>
                 <outlet property="labelPlaceHolder" destination="bPv-1N-TGU" id="tYV-bQ-1IE"/>
+                <outlet property="promptView" destination="ca8-xS-xgW" id="tkP-2M-0Fa"/>
                 <outlet property="sendBtn" destination="LH6-sa-gCG" id="DpX-ug-jR6"/>
                 <outlet property="targetAddressTextView" destination="DzF-iA-TgO" id="pfc-Sq-f8t"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -91,8 +92,8 @@
                                 <action selector="pushScanQRVc:" destination="-1" eventType="touchUpInside" id="9ro-We-EWW"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="enter or scan the recipient’s ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPv-1N-TGU" customClass="VcashLabel">
-                            <rect key="frame" x="26" y="41.5" width="198" height="17"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Input the recipient’s ID or http address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPv-1N-TGU" customClass="VcashLabel">
+                            <rect key="frame" x="26" y="41.5" width="248.5" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -150,7 +151,7 @@
                                 <constraint firstAttribute="height" constant="40" id="yZC-89-Zu9"/>
                             </constraints>
                             <nil key="textColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
                             <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localPlaceholder" value="enterAmount"/>
@@ -203,23 +204,9 @@
                         <action selector="clickSend:" destination="-1" eventType="touchUpInside" id="Nvg-G0-hxt"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nuH-sj-Di6" customClass="VcashButton">
-                    <rect key="frame" x="76.5" y="411" width="222" height="30"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="355" id="Yv8-tx-3QH"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" title="Send VCash with transaction file">
-                        <color key="titleColor" red="0.20000000000000001" green="0.59999999999999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="localTitle" value="sendTransactionFile"/>
-                    </userDefinedRuntimeAttributes>
-                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="nuH-sj-Di6" firstAttribute="centerX" secondItem="Q5M-cg-NOt" secondAttribute="centerX" id="6pt-jP-i7W"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="LH6-sa-gCG" secondAttribute="bottom" constant="40" id="7uo-km-Hvh"/>
                 <constraint firstItem="dmR-Lj-w93" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Da2-FL-wjA"/>
                 <constraint firstItem="ca8-xS-xgW" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="12" id="SWA-AR-IgT"/>
@@ -233,7 +220,6 @@
                 <constraint firstItem="ca8-xS-xgW" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="12" id="kj8-wj-gXT"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="dmR-Lj-w93" secondAttribute="trailing" id="oJL-DM-tya"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="LH6-sa-gCG" secondAttribute="trailing" constant="28" id="qwr-U2-HGa"/>
-                <constraint firstItem="nuH-sj-Di6" firstAttribute="top" secondItem="dmR-Lj-w93" secondAttribute="bottom" constant="50" id="snP-rA-1NF"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="zrg-pV-E6b" secondAttribute="trailing" id="v8n-Dv-kgh"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="APr-Mf-sCF" secondAttribute="trailing" constant="26" id="vBu-zL-x9s"/>
             </constraints>
