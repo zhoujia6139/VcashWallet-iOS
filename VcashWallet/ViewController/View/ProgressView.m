@@ -43,6 +43,24 @@
     [self mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(wd);
     }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self animationAlert:self.viewContent];
+    });
+}
+
+- (void)animationAlert:(UIView *)view{
+    CAKeyframeAnimation *popAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    popAnimation.duration = 0.4;
+    popAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.01f, 0.01f, 1.0f)],
+                            [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.1f, 1.1f, 1.0f)],
+                            [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.9f, 0.9f, 1.0f)],
+                            [NSValue valueWithCATransform3D:CATransform3DIdentity]];
+    popAnimation.keyTimes = @[@0.0f, @0.5f, @0.75f, @1.0f];
+    popAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
+                                     [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
+                                     [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    [view.layer addAnimation:popAnimation forKey:nil];
+    
 }
 
 - (void)setProgress:(float)progress{
@@ -51,6 +69,7 @@
     self.labelProgress.text = [NSString stringWithFormat:@"%.0f%%",progress * 100];
     if (progress == 1) {
         self.hidden = YES;
+        [self removeFromSuperview];
         if (self.restoreSuccessCallBack) {
             self.restoreSuccessCallBack();
         }
