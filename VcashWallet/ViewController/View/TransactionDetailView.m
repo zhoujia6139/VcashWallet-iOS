@@ -49,8 +49,14 @@
     _slate = slate;
     NSString *amountStr = @([WalletWrapper nanoToVcash:slate.amount]).p09fString;
     self.lablelTxID.text = slate.uuid;
-    self.labelAmount.text = [NSString stringWithFormat:@"%@ VCash", amountStr];
-    self.labelFee.text = [NSString stringWithFormat:@"%@ VCash", @([WalletWrapper nanoToVcash:slate.fee]).p09fString];
+    NSMutableAttributedString *amountAttributeStr = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}];
+    NSAttributedString *unitAttributeStr = [[NSAttributedString alloc] initWithString:@" VCash" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
+    [amountAttributeStr appendAttributedString:unitAttributeStr];
+    self.labelAmount.attributedText = amountAttributeStr;
+    
+    NSMutableAttributedString *feeAttributeStr = [[NSMutableAttributedString alloc] initWithString:@([WalletWrapper nanoToVcash:slate.fee]).p09fString attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}];
+    [feeAttributeStr appendAttributedString:unitAttributeStr];
+    self.labelFee.attributedText = feeAttributeStr;
 }
 
 

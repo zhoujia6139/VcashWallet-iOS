@@ -180,12 +180,19 @@
                 title = [LanguageService contentForKey:@"txAmount"];
                 uint64_t amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited);
                 NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
-                txContent.text = [NSString stringWithFormat:@"%@ VCash", amountStr];
+                NSAttributedString *unitAttributrStr = [[NSAttributedString alloc] initWithString:@" VCash" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
+                NSMutableAttributedString *amountAttributeStr = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}];
+                [amountAttributeStr appendAttributedString:unitAttributrStr];
+                txContent.attributedText = amountAttributeStr;
             }
                 break;
             case 2:{
                 title = [LanguageService contentForKey:@"txfee"];
-                txContent.text = [NSString stringWithFormat:@"%@ VCash", @([WalletWrapper nanoToVcash:self.txLog.fee]).p09fString];
+              
+                NSAttributedString *unitAttributrStr = [[NSAttributedString alloc] initWithString:@" VCash" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
+                NSMutableAttributedString *feeAttributeStr = [[NSMutableAttributedString alloc] initWithString:@([WalletWrapper nanoToVcash:self.txLog.fee]).p09fString attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}];
+                [feeAttributeStr appendAttributedString:unitAttributrStr];
+                txContent.attributedText = feeAttributeStr;
             }
                
                 break;
@@ -230,6 +237,9 @@
         make.right.offset(0);
         make.top.bottom.offset(0);
     }];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(copyFileContent)];
+    [_signTxFileContontTexView addGestureRecognizer:tap];
     
 }
 

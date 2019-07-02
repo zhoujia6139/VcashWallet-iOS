@@ -132,8 +132,17 @@
     self.labelSender.text = sender_id;
     self.labelRecipient.text = receiver_id;
     NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
-    self.labelAmount.text = [NSString stringWithFormat:@"%@ VCash", amountStr];
-    self.labelFee.text = [NSString stringWithFormat:@"%@ VCash", @([WalletWrapper nanoToVcash:fee]).p09fString];
+     NSAttributedString *unitAttributrStr = [[NSAttributedString alloc] initWithString:@" VCash" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
+    NSMutableAttributedString *amountAttributeStr = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}];
+    [amountAttributeStr appendAttributedString:unitAttributrStr];
+    
+    self.labelAmount.attributedText = amountAttributeStr;
+    
+    NSMutableAttributedString *feeAttributeStr = [[NSMutableAttributedString alloc] initWithString:@([WalletWrapper nanoToVcash:fee]).p09fString attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}];
+   
+    [feeAttributeStr appendAttributedString:unitAttributrStr];
+    
+    self.labelFee.attributedText = feeAttributeStr;
     self.labelTxTime.text = create_time > 0 ? [[NSDate dateWithTimeIntervalSince1970:create_time] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"] : [[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
     ViewRadius(self.textViewSignFileContent, 4.0);
     self.textViewSignFileContent.contentInset = UIEdgeInsetsZero;

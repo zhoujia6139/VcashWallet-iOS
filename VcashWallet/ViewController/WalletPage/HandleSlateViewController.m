@@ -21,6 +21,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *scanQR;
 
+@property (weak, nonatomic) IBOutlet VcashButton *btnReceiveTxFile;
 
 @end
 
@@ -40,6 +41,7 @@
     CIImage *ciImage = [self createQRCodeWithUrlString:walletId];
     UIImage *imageQRCode = [self adjustQRImageSize:ciImage QRSize:170];
     self.scanQR.image = imageQRCode;
+    [self.btnReceiveTxFile setTitle:[NSString stringWithFormat:@"%@ >>",[LanguageService contentForKey:@"receiveTransactionFile"]] forState:UIControlStateNormal];
 }
 
 - (CIImage*)createQRCodeWithUrlString:(NSString*)url{
