@@ -210,8 +210,8 @@ static NSString *const identifier = @"WalletCell";
 -(void)refreshMainView{
     self.userIdView.text = [WalletWrapper getWalletUserId];
     WalletBalanceInfo* info = [WalletWrapper getWalletBalanceInfo];
-    NSString *balance = @([WalletWrapper nanoToVcash:info.total]).p09fString;
-    NSString *confirm = @([WalletWrapper nanoToVcash:info.spendable]).p09fString;
+    NSString *balance = @([WalletWrapper nanoToVcash:info.spendable]).p09fString;
+    NSString *confirm = @([WalletWrapper nanoToVcash:info.locked]).p09fString;
     NSString *unconfirm =  @([WalletWrapper nanoToVcash:info.unconfirmed]).p09fString;
     self.balanceTotal.text = balance;
     
