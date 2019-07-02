@@ -280,7 +280,7 @@
                                     <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                     <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="-3" maxY="0.0"/>
                                     <state key="normal" title="Copy" image="copyorange.png">
-                                        <color key="titleColor" red="0.97254901959999995" green="0.57647058819999997" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleColor" red="1" green="0.58431372549019611" blue="0.0078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>
                                         <action selector="clickedBtnCopySignedTxContent:" destination="-1" eventType="touchUpInside" id="OEX-Op-iFq"/>
