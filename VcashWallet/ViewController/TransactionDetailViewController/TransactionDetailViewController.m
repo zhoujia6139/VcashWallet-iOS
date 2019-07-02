@@ -147,7 +147,7 @@
     ViewRadius(self.textViewSignFileContent, 4.0);
     self.textViewSignFileContent.contentInset = UIEdgeInsetsZero;
     self.textViewSignFileContent.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
-    if (self.txLog.signed_slate_msg.length > 0) {
+    if (self.txLog.tx_type == TxReceived && !self.txLog.parter_id && self.txLog.signed_slate_msg) {
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickedBtnCopySignedTxContent:)];
         [self.textViewSignFileContent addGestureRecognizer:tap];
         self.textViewSignFileContent.text = self.txLog.signed_slate_msg;
