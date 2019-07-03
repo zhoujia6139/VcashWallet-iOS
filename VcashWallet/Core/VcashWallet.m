@@ -205,6 +205,11 @@ static VcashWallet* walletInstance = nil;
         actualFee = [self calcuteFee:spendable.count withOutputCount:2];
     }
     amount_with_fee = amount + actualFee;
+    if (total < amount_with_fee){
+        NSString* errMsg = [NSString stringWithFormat:[LanguageService contentForKey:@"insufficientFundsWaring"], @([WalletWrapper nanoToVcash:amount_with_fee]),@([WalletWrapper nanoToVcash:total])];
+        block?block(NO, errMsg):nil;
+        return;
+    }
     uint64_t change = total - amount_with_fee;
     
     //2 fill txLog and slate
