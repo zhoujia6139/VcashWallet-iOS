@@ -18,11 +18,12 @@
 }
 */
 
-- (void)setLocalTitle:(NSString *)localText{
+- (void)setLocalText:(NSString *)localText{
     if (!localText) {
         return;
     }
     self.text = [LanguageService contentForKey:localText];
 }
+
 
 @end
