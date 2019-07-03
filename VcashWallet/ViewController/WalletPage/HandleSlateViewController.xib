@@ -54,14 +54,14 @@
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VgT-wY-oBE">
-                    <rect key="frame" x="102.5" y="235" width="170" height="170"/>
+                    <rect key="frame" x="102.5" y="250" width="170" height="170"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="170" id="4Hl-Fd-Bak"/>
                         <constraint firstAttribute="height" constant="170" id="rrZ-fy-eYu"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or scan the QR code" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9a-BT-iif" customClass="VcashLabel">
-                    <rect key="frame" x="10" y="203" width="355" height="17"/>
+                    <rect key="frame" x="10" y="218" width="355" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="1" green="0.58431372550000005" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -70,7 +70,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="781-2n-cdr" customClass="VcashButton">
-                    <rect key="frame" x="10" y="465" width="355" height="30"/>
+                    <rect key="frame" x="10" y="480" width="355" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="Receive from transaction file">
                         <color key="titleColor" red="0.20000000000000001" green="0.59999999999999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -99,7 +99,7 @@
                 <constraint firstItem="L9a-BT-iif" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="10" id="SQD-5F-Mrh"/>
                 <constraint firstItem="VgT-wY-oBE" firstAttribute="top" secondItem="L9a-BT-iif" secondAttribute="bottom" constant="15" id="UI8-Kx-EEV"/>
                 <constraint firstItem="xAf-Is-pSA" firstAttribute="top" secondItem="56y-IY-YZA" secondAttribute="bottom" constant="24" id="a1u-K8-Flg"/>
-                <constraint firstItem="L9a-BT-iif" firstAttribute="top" secondItem="xAf-Is-pSA" secondAttribute="bottom" constant="15" id="cb2-gi-pzr"/>
+                <constraint firstItem="L9a-BT-iif" firstAttribute="top" secondItem="xAf-Is-pSA" secondAttribute="bottom" constant="30" id="cb2-gi-pzr"/>
                 <constraint firstItem="nHq-75-RR0" firstAttribute="top" secondItem="xAf-Is-pSA" secondAttribute="top" constant="13" id="dDm-4p-1ji"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="56y-IY-YZA" secondAttribute="trailing" constant="10" id="fNH-ou-knn"/>
                 <constraint firstItem="xAf-Is-pSA" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="nRt-f6-GdY"/>
