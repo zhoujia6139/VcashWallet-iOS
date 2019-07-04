@@ -1907,7 +1907,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GT49X56UC2;
+				DEVELOPMENT_TEAM = GQ38C363C2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/YYKit/Vendor\"",
@@ -1946,9 +1946,9 @@
 					"$(PROJECT_DIR)/VcashWallet/Core/CoreBitcoin/binaries/iOS",
 					"$(PROJECT_DIR)/VcashWallet/Core/CoreBitcoin/openssl/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = test.vcash.vcash;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vcashorg.vcashwallet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1959,7 +1959,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GT49X56UC2;
+				DEVELOPMENT_TEAM = GQ38C363C2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/YYKit/Vendor\"",
@@ -1998,9 +1998,9 @@
 					"$(PROJECT_DIR)/VcashWallet/Core/CoreBitcoin/binaries/iOS",
 					"$(PROJECT_DIR)/VcashWallet/Core/CoreBitcoin/openssl/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = test.vcash.vcash;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vcashorg.vcashwallet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
