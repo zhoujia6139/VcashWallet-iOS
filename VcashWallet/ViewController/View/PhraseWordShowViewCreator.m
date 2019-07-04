@@ -39,6 +39,7 @@
         };
         if(isExitMnemonic){
             itemView.phrase = mnemonicArr[i];
+            itemView.tagColor = [UIColor colorWithHexString:@"#66CC33"];
         }
         itemView.tag = (kWordItemTagStart + i);
         itemView.index = i;

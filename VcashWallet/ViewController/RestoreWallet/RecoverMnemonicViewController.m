@@ -78,6 +78,9 @@
 
 
 - (void)pasteWordsFromClipBoard{
+    if ([self.creator getAllInputWords].count == 24) {
+        return;
+    }
     NSString *pasteString = [UIPasteboard generalPasteboard].string;
     if (pasteString.length > 0) {
         NSArray *mnemonicArr = nil;
