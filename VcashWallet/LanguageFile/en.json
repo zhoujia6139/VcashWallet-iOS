@@ -146,7 +146,7 @@
     "noTransactions":"No  transactions",
     "processLater":"Process later",
     "goAndsee":"Go and see",
-    "ok":"ok",
+    "ok":"Ok",
     "sendVCashPrompt":"Sending VCash is an interactive process that the sender and the recipient need to interact back and forth to ensure the transaction is implemented.",
     "receiveTransactionFile":"Receive from transaction file",
     "receiveTransactionFilePrompt":"VCash can be received through transaction files. Copy the transaction file you got into the following form and continue.",
@@ -163,5 +163,5 @@
     "pending":"Pending",
     "balance":"Balance",
     "pleaseEnter":"Please enter",
-    "paste24WordsTitle":"Paste 24 words from the clipboard?",
+    "paste24WordsTitle":"You can copy seed phrase from your backup",
 }

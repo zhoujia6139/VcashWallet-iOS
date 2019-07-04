@@ -84,12 +84,21 @@
     NSString *pasteString = [UIPasteboard generalPasteboard].string;
     if (pasteString.length > 0) {
         NSArray *mnemonicArr = nil;
+        pasteString = [pasteString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        pasteString = [pasteString stringByReplacingOccurrencesOfString:@"-" withString:@" "];
+        pasteString = [pasteString stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        NSError *error = nil;
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\s{2,}" options:NSRegularExpressionCaseInsensitive error:&error];
+        
+        NSArray *arr = [regex matchesInString:pasteString options:NSMatchingReportCompletion range:NSMakeRange(0, pasteString.length)];
+        
+        arr = [[arr reverseObjectEnumerator] allObjects];
+        
+        for (NSTextCheckingResult *str in arr) {
+            pasteString = [pasteString stringByReplacingCharactersInRange:[str range] withString:@" "];
+        }
         if ([pasteString containsString:@" "]) {
             mnemonicArr = [pasteString componentsSeparatedByString:@" "];
-        }else if ([pasteString containsString:@"-"]){
-            mnemonicArr = [pasteString componentsSeparatedByString:@"-"];
-        }else if ([pasteString containsString:@"\n"]){
-            mnemonicArr = [pasteString componentsSeparatedByString:@"\n"];
         }
         
         if (mnemonicArr && mnemonicArr.count == 24) {
