@@ -107,7 +107,7 @@
         return;
     }
     
-    NSString* url = [NSString stringWithFormat:@"%@/v1/pool/push?fluff", [self NodeUrl]];
+    NSString* url = [NSString stringWithFormat:@"%@/v1/pool/push_tx?fluff", [self NodeUrl]];
     NSDictionary* param = [NSDictionary dictionaryWithObject:txHex forKey:@"tx_hex"];
     [[self sessionManager] POST:url parameters:param progress:^(NSProgress * _Nonnull uploadProgress) {
         

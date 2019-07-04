@@ -281,8 +281,8 @@
     }
     
     VcashTxLog* txLog = [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
-    if (txLog){
-        block?block(NO, @"Duplicate Tx"):nil;
+    if (!txLog){
+        block?block(NO, @"Tx missed"):nil;
         return;
     }
     
