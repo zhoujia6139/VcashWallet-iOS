@@ -16,7 +16,8 @@ typedef void (^PhraseWordViewCallback)(CGFloat height,NSInteger wordsCount);
 
 typedef void (^PhraseWordFillAllCallBack)(NSString *title);
 
--(void)creatPhraseViewWithParentView:(UIView*)view isCanEdit:(BOOL)yesOrNo withCallBack:(PhraseWordViewCallback)callback;
+
+-(void)creatPhraseViewWithParentView:(UIView*)view isCanEdit:(BOOL)yesOrNo mnemonicArr:(NSArray *)mnemonicArr withCallBack:(PhraseWordViewCallback)callback;
 
 - (void)creatPhraseViewWithParentView:(UIView*)view vc:(UIViewController *)vc needConfirmPhraseArr:(NSArray *)needConfirmPhraseArr dicData:(NSDictionary *)dicData  withCallBack:(PhraseWordFillAllCallBack)callback;
 

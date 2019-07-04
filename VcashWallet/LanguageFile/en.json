@@ -131,7 +131,7 @@
     "usableWallet":"Wallet is ready for use",
     "recoverWalletWarning":"Your current wallet will be logged out if you restore other wallets. Please ensure seed phrase has been correctly saved before taking actions.",
     "warning":"Warning",
-    "checkSeedPhrase":"Failed to create wallet, please check the information you filled out Is the seed phrase correct?",
+    "checkSeedPhrase":"Incorrect seed phrase. Please double check and correct them.",
     "addressFormatIncorrect":"The address format is incorrect",
     "sendSuc":"Sent successfully.",
     "sendFailed":"Failed to send your transaction.",
@@ -162,4 +162,6 @@
     "locked":"Locked",
     "pending":"Pending",
     "balance":"Balance",
+    "pleaseEnter":"Please enter",
+    "paste24WordsTitle":"Paste 24 words from the clipboard?",
 }

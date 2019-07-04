@@ -53,6 +53,8 @@
         [self.btnNext setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
     }else{
         self.btnNext.userInteractionEnabled = NO;
+        self.labelPrompt.hidden = YES;
+        self.textFieldPassword.textColor = [UIColor darkTextColor];
         [self.btnNext setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
     }
 }

@@ -48,6 +48,7 @@
 - (void)setSlate:(VcashSlate *)slate{
     _slate = slate;
     NSString *amountStr = @([WalletWrapper nanoToVcash:slate.amount]).p09fString;
+    self.lablelTxID.lineBreakMode = NSLineBreakByCharWrapping;
     self.lablelTxID.text = slate.uuid;
     NSMutableAttributedString *amountAttributeStr = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}];
     NSAttributedString *unitAttributeStr = [[NSAttributedString alloc] initWithString:@" VCash" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];

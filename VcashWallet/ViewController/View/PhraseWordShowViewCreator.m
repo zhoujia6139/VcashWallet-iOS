@@ -21,9 +21,11 @@
     NSArray* allWords;
 }
 
--(void)creatPhraseViewWithParentView:(UIView*)view isCanEdit:(BOOL)yesOrNo withCallBack:(PhraseWordViewCallback)callback
+-(void)creatPhraseViewWithParentView:(UIView*)view isCanEdit:(BOOL)yesOrNo mnemonicArr:(NSArray *)mnemonicArr withCallBack:(PhraseWordViewCallback)callback
 {
+    [view removeAllSubviews];
     CGFloat parentHeight = 4*kWordItemViewHeight;
+    BOOL isExitMnemonic = (mnemonicArr.count == 24) ? YES : NO;
     for (int i=0; i<kWordItemCount; i++)
     {
         int line = i/3;
@@ -35,6 +37,9 @@
                 callback(parentHeight,inputCount);
             }
         };
+        if(isExitMnemonic){
+            itemView.phrase = mnemonicArr[i];
+        }
         itemView.tag = (kWordItemTagStart + i);
         itemView.index = i;
         itemView.userInteractionEnabled = yesOrNo;

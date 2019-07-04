@@ -181,7 +181,9 @@
             }else if(yesOrNo && [ret isKindOfClass:[NSNumber class]]){
                 self.progressView.progress = [ret floatValue];
             }else{
-                [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:[LanguageService contentForKey:@"recoveryFailure"]];;
+                [MBHudHelper showTextTips:[LanguageService contentForKey:@"recoveryFailure"] onView:nil withDuration:1.5];
+                [self.progressView removeFromSuperview];
+                self.progressView = nil;
             }
             
         }];

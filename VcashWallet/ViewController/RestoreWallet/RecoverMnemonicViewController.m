@@ -45,7 +45,7 @@
     [self.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
     self.creator = [PhraseWordShowViewCreator new];
     __weak typeof(self) weakSelf = self;
-    [self.creator creatPhraseViewWithParentView:self.phraseView isCanEdit:YES withCallBack:^(CGFloat height, NSInteger wordsCount) {
+    [self.creator creatPhraseViewWithParentView:self.phraseView isCanEdit:YES mnemonicArr:nil withCallBack:^(CGFloat height, NSInteger wordsCount){
         __strong typeof(weakSelf) strongSlef = weakSelf;
         if (wordsCount != 24) {
             strongSlef.recoverBtn.userInteractionEnabled = NO;
@@ -56,19 +56,65 @@
         }
     }];
     self.constraintRecoverBottom.constant = 30 + Portrait_Bottom_SafeArea_Height;
+     NSString* mnemonicStr = @"evidence boy green adult kidney biology hollow expire jewel give elegant engine farm photo tomato sustain rigid emerge afford sibling color assume gesture material";
+    [[UIPasteboard generalPasteboard] setString:mnemonicStr];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pasteWordsFromClipBoard) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self.creator firstTextFieldBecomeFirstResponder];
+    [self pasteWordsFromClipBoard];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 }
 
+
+- (void)pasteWordsFromClipBoard{
+    NSString *pasteString = [UIPasteboard generalPasteboard].string;
+    if (pasteString.length > 0) {
+        NSArray *mnemonicArr = nil;
+        if ([pasteString containsString:@" "]) {
+            mnemonicArr = [pasteString componentsSeparatedByString:@" "];
+        }else if ([pasteString containsString:@"-"]){
+            mnemonicArr = [pasteString componentsSeparatedByString:@"-"];
+        }else if ([pasteString containsString:@"\n"]){
+            mnemonicArr = [pasteString componentsSeparatedByString:@"\n"];
+        }
+        
+        if (mnemonicArr && mnemonicArr.count == 24) {
+            UIAlertController *alterVc = [UIAlertController alertControllerWithTitle:[LanguageService contentForKey:@"paste24WordsTitle"] message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            [alterVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"cancel"] style:UIAlertActionStyleDefault handler:nil]];
+            [alterVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"ok"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self.creator creatPhraseViewWithParentView:self.phraseView isCanEdit:YES mnemonicArr:mnemonicArr withCallBack:^(CGFloat height, NSInteger wordsCount){
+                    __weak typeof(self) weakSelf = self;
+                    __strong typeof(weakSelf) strongSlef = weakSelf;
+                    if (wordsCount != 24) {
+                        strongSlef.recoverBtn.userInteractionEnabled = NO;
+                        [strongSlef.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
+                    }else{
+                        strongSlef.recoverBtn.userInteractionEnabled = YES;
+                        [strongSlef.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
+                    }
+                }];
+                self.recoverBtn.userInteractionEnabled = YES;
+                [self.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
+            }]];
+            
+            [self.navigationController presentViewController:alterVc animated:YES completion:nil];
+            
+        }
+    }
+}
 
 
 - (void)didReceiveMemoryWarning {

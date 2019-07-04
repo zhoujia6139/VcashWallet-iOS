@@ -109,7 +109,15 @@
 - (void)textViewDidChange:(UITextView *)textView{
     self.labelPlaceHolder.hidden = textView.text.length > 0 ? YES : NO;
     [self setTextViewHeight];
+    if (self.amountField.text.length > 0 && self.targetAddressTextView.text.length > 0) {
+        self.sendBtn.backgroundColor = COrangeColor;
+        self.sendBtn.userInteractionEnabled = YES;
+    }else{
+        self.sendBtn.backgroundColor = COrangeEnableColor;
+        self.sendBtn.userInteractionEnabled = NO;
+    }
 }
+
 
 #pragma mark - ScanViewControllerDelegate
 
