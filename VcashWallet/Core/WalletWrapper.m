@@ -202,7 +202,34 @@
             block?block(NO, data):nil;
         }
     }];
+}
+
++(void)sendTransactionByFile:(VcashSlate*)slate withComplete:(RequestCompleteBlock)block{
+    DDLogWarn(@"start sendTransaction by file");
+    BOOL ret = [[VcashDataManager shareInstance] beginDatabaseTransaction];
+    if (!ret){
+        DDLogError(@"beginDatabaseTransaction failed");
+        block?block(NO, @"Db error"):nil;
+        return;
+    }
+    dispatch_block_t rollbackBlock = ^{
+        [[VcashDataManager shareInstance] rollbackDataTransaction];
+        [[VcashWallet shareInstance] reloadOutputInfo];
+    };
     
+    [self sendTx:slate withComplete:^(BOOL yesOrNO, id _Nullable data) {
+        if (yesOrNO){
+            DDLogWarn(@"sendTransaction by file suc");
+            [[VcashDataManager shareInstance] commitDatabaseTransaction];
+            NSString* str = [slate modelToJSONString];
+            block?block(YES, str):nil;
+        }
+        else{
+            DDLogError(@"sendTransaction by file error!");
+            rollbackBlock();
+            block?block(NO, data):nil;
+        }
+    }];
 }
 
 +(void)sendTx:(VcashSlate*)slate withComplete:(RequestCompleteBlock)block{
@@ -230,9 +257,25 @@
     return;
 }
 
-+(void)isValidSlateConent:(NSString*)slateStr withComplete:(RequestCompleteBlock)block{
++(void)isValidSlateConentForReceive:(NSString*)slateStr withComplete:(RequestCompleteBlock)block{
     VcashSlate* slate = [VcashSlate modelWithJSON:slateStr];
     if (!slate || ![slate isValidForReceive]){
+        block?block(NO, @"Wrong Data Format"):nil;
+        return;
+    }
+    
+    VcashTxLog* txLog = [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
+    if (txLog){
+        block?block(NO, @"Duplicate Tx"):nil;
+        return;
+    }
+    
+    block?block(YES, slate):nil;
+}
+
++(void)isValidSlateConentForFinalize:(NSString*)slateStr withComplete:(RequestCompleteBlock)block{
+    VcashSlate* slate = [VcashSlate modelWithJSON:slateStr];
+    if (!slate || ![slate isValidForFinalize]){
         block?block(NO, @"Wrong Data Format"):nil;
         return;
     }
@@ -326,10 +369,6 @@
     }
     
     return;
-}
-
-+(void)finalizeTransactionByFileContent:(NSString*)slateStr withComplete:(RequestCompleteBlock)block{
-    
 }
 
 +(void)finalizeServerTx:(ServerTransaction*)tx withComplete:(RequestCompleteBlock)block{
