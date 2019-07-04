@@ -51,7 +51,7 @@
     "verifySign":"Sign the transaction",
     "recentTxs":"Recent transactions",
     "restorePhrase":"Restore from seed phrase",
-    "usecreatedPhrasePrompt":"This is a 24 word phrase you were given when you created your previous wallet.",
+    "usecreatedPhrasePrompt":"This is a 24 word phrase you were given when you created your previous wallet.You can copy seed phrase from your backup",
     "openwallet":"Open my wallet",
     "setting":"Settings",
     "lockScreen":"Lock screen",
@@ -163,5 +163,5 @@
     "pending":"Pending",
     "balance":"Balance",
     "pleaseEnter":"Please enter",
-    "paste24WordsTitle":"You can copy seed phrase from your backup",
+    "paste24WordsTitle":"Paste 24 words from the clipboard?",
 }
