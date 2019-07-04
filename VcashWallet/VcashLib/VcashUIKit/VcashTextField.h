@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
-IB_DESIGNABLE
+
+IB_DESIGNABLE;
 
 @interface VcashTextField : UITextField
 
@@ -20,4 +20,4 @@ IB_DESIGNABLE
 
 @end
 
-NS_ASSUME_NONNULL_END
+

@@ -55,6 +55,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.translucent = NO;
+    self.startUseWalletBtn.userInteractionEnabled = NO;
     self.startUseWalletBtn.backgroundColor = CGrayColor;
     ViewRadius(self.startUseWalletBtn, 4.0);
     

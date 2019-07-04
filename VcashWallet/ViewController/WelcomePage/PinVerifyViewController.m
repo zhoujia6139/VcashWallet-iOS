@@ -42,7 +42,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.textFieldPassword setValue:[UIColor colorWithHexString:@"#666666"] forKeyPath:@"_placeholderLabel.textColor"];
-    self.textFieldPassword.tintColor = [UIColor whiteColor];
+    self.textFieldPassword.tintColor = COrangeColor;
     UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 40)];
     self.textFieldPassword.rightView = rightView;
     self.textFieldPassword.rightViewMode = UITextFieldViewModeAlways;
@@ -90,7 +90,7 @@
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     self.labelPrompt.textColor = [UIColor colorWithHexString:@"#666666"];
-    self.viewLine.backgroundColor = [UIColor whiteColor];
+    self.viewLine.backgroundColor = COrangeColor;
     return YES;
 }
 
