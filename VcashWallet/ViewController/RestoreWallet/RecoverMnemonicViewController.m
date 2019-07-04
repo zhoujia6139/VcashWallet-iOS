@@ -56,8 +56,6 @@
         }
     }];
     self.constraintRecoverBottom.constant = 30 + Portrait_Bottom_SafeArea_Height;
-     NSString* mnemonicStr = @"evidence boy green adult kidney biology hollow expire jewel give elegant engine farm photo tomato sustain rigid emerge afford sibling color assume gesture material";
-    [[UIPasteboard generalPasteboard] setString:mnemonicStr];
     // Do any additional setup after loading the view from its nib.
 }
 
