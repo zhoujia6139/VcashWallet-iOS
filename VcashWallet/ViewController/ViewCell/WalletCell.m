@@ -72,6 +72,7 @@
     }else{
         amountStr = [NSString stringWithFormat:@"-%@",@([WalletWrapper nanoToVcash:amount]).p09fString];
     }
+    self.bgView.backgroundColor = [UIColor colorWithHexString:@"#F6F0E8"];
     self.labelAmount.text = [NSString stringWithFormat:@"%@",amountStr];
     self.labelTime.text = [[NSDate date] stringWithFormat:@"yyyy-MM-dd"];
     [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
@@ -125,11 +126,13 @@
                 self.stateLabel.text = [LanguageService contentForKey:@"canceled"];
                 self.stateLabel.textColor = [UIColor colorWithHexString:@"#AEAEAE"];
                 [self.imageViewState setImage:[UIImage imageNamed:@"canceled.png"]];
+                self.bgView.backgroundColor = [UIColor whiteColor];
             }else if(txLog.tx_type == TxSent || txLog.tx_type == TxReceived){
                 self.stateLabel.text = (txLog.tx_type == TxSent)  ? [LanguageService contentForKey:@"waitRecipientSignature"] : [LanguageService contentForKey:@"waitSenderSignature"];
                 self.stateLabel.textColor = [UIColor colorWithHexString:@"#FF3333"];
                 [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
                 [self.imageViewInputOrOutput setImage:(txLog.tx_type == TxSent) ? self.imageSent : self.imageReceive];
+                self.bgView.backgroundColor = [UIColor colorWithHexString:@"#F6F0E8"];
             }
             break;
         case LoalConfirmed://waiting confirm
@@ -137,11 +140,13 @@
                 self.stateLabel.textColor = [UIColor colorWithHexString:@"#FF3333"];
                 [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
                 [self.imageViewInputOrOutput setImage:(txLog.tx_type == TxSent) ? self.imageSent : self.imageReceive];
+            self.bgView.backgroundColor = [UIColor colorWithHexString:@"#F6F0E8"];
             break;
         case NetConfirmed:
             self.stateLabel.text = [LanguageService contentForKey:@"confirmed"];
             self.stateLabel.textColor = [UIColor colorWithHexString:@"#AEAEAE"];
             [self.imageViewState setImage:[UIImage imageNamed:@"confirmed.png"]];
+            self.bgView.backgroundColor = [UIColor whiteColor];
             break;
     }
 }

@@ -36,6 +36,7 @@
             make.left.offset(15);
             make.centerY.equalTo(self);
         }];
+        [AppHelper addLineWithParentView:self];
     }
     return self;
 }

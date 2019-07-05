@@ -171,9 +171,9 @@
 		A2D1569322C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2D1569122C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib */; };
 		A2E0164422CF01B10086FFA2 /* WalletPageSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A2E0164322CF01B10086FFA2 /* WalletPageSectionView.m */; };
 		A2E0164622CF12370086FFA2 /* sendgif.gif in Resources */ = {isa = PBXBuildFile; fileRef = A2E0164522CF12370086FFA2 /* sendgif.gif */; };
-		A2E0164822CF2AAD0086FFA2 /* receivegif.gif in Resources */ = {isa = PBXBuildFile; fileRef = A2E0164722CF2AAC0086FFA2 /* receivegif.gif */; };
 		A2E0164B22CF2CE40086FFA2 /* eyeblackclose.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E0164922CF2CE30086FFA2 /* eyeblackclose.png */; };
 		A2E0164C22CF2CE40086FFA2 /* eyeblackopen.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E0164A22CF2CE40086FFA2 /* eyeblackopen.png */; };
+		A2E0164E22CF4F310086FFA2 /* receivegif.gif in Resources */ = {isa = PBXBuildFile; fileRef = A2E0164D22CF4F310086FFA2 /* receivegif.gif */; };
 		A2E5602022A8DBE7002E8E2D /* leftmenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E5601E22A8DBE6002E8E2D /* leftmenu@2x.png */; };
 		A2E5602122A8DBE7002E8E2D /* leftmenu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E5601F22A8DBE6002E8E2D /* leftmenu@3x.png */; };
 		ED24988F2280298D00D94EBE /* ServerApi.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24988E2280298D00D94EBE /* ServerApi.m */; };
@@ -489,9 +489,9 @@
 		A2E0164222CF01B10086FFA2 /* WalletPageSectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletPageSectionView.h; sourceTree = "<group>"; };
 		A2E0164322CF01B10086FFA2 /* WalletPageSectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletPageSectionView.m; sourceTree = "<group>"; };
 		A2E0164522CF12370086FFA2 /* sendgif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sendgif.gif; sourceTree = "<group>"; };
-		A2E0164722CF2AAC0086FFA2 /* receivegif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = receivegif.gif; sourceTree = "<group>"; };
 		A2E0164922CF2CE30086FFA2 /* eyeblackclose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyeblackclose.png; sourceTree = "<group>"; };
 		A2E0164A22CF2CE40086FFA2 /* eyeblackopen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyeblackopen.png; sourceTree = "<group>"; };
+		A2E0164D22CF4F310086FFA2 /* receivegif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = receivegif.gif; sourceTree = "<group>"; };
 		A2E5601E22A8DBE6002E8E2D /* leftmenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftmenu@2x.png"; sourceTree = "<group>"; };
 		A2E5601F22A8DBE6002E8E2D /* leftmenu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftmenu@3x.png"; sourceTree = "<group>"; };
 		ED24988D2280298D00D94EBE /* ServerApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerApi.h; sourceTree = "<group>"; };
@@ -869,7 +869,7 @@
 				A2E0164922CF2CE30086FFA2 /* eyeblackclose.png */,
 				A2E0164A22CF2CE40086FFA2 /* eyeblackopen.png */,
 				A2E0164522CF12370086FFA2 /* sendgif.gif */,
-				A2E0164722CF2AAC0086FFA2 /* receivegif.gif */,
+				A2E0164D22CF4F310086FFA2 /* receivegif.gif */,
 				A25E6E4A22BCBC5C00D563A4 /* close@2x.png */,
 				A25E6E4B22BCBC5C00D563A4 /* close@3x.png */,
 				A21189B422B8C5E600B88179 /* scan@2x.png */,
@@ -1531,12 +1531,12 @@
 				A26FEC53229F805A003CCD7C /* back@2x.png in Resources */,
 				A26FEC81229F805B003CCD7C /* ongoing@3x.png in Resources */,
 				A26FEBD1229F7DE0003CCD7C /* PinPasswordSetViewController.xib in Resources */,
+				A2E0164E22CF4F310086FFA2 /* receivegif.gif in Resources */,
 				EDA5149722686DEE0011138F /* Assets.xcassets in Resources */,
 				A26FEC7C229F805B003CCD7C /* adressbook@3x.png in Resources */,
 				A26FEC98229F805B003CCD7C /* adressbook_hight@2x.png in Resources */,
 				A26FEC9D229F805B003CCD7C /* confirmdetail@2x.png in Resources */,
 				A26FEC9E229F805B003CCD7C /* wallet_hight@2x.png in Resources */,
-				A2E0164822CF2AAD0086FFA2 /* receivegif.gif in Resources */,
 				A26FEC5B229F805A003CCD7C /* confirmed@3x.png in Resources */,
 				A2E0164C22CF2CE40086FFA2 /* eyeblackopen.png in Resources */,
 				A26FEC97229F805B003CCD7C /* vcash@2x.png in Resources */,
