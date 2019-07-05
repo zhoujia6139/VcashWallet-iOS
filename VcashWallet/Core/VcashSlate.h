@@ -57,6 +57,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(BOOL)isValidForReceive;
 
+-(BOOL)isValidForFinalize;
+
 @end
 
 @interface VersionCompatInfo : NSObject
@@ -65,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(assign, nonatomic)uint16_t orig_version;
 
-@property(assign, nonatomic)uint16_t min_compat_version;
+@property(assign, nonatomic)uint16_t block_header_version;
 
 +(instancetype)createVersionInfo;
 

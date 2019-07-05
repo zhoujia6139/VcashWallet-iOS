@@ -410,9 +410,9 @@
 -(instancetype)initWithCompactData:(NSData*)compactData{
     self = [super init];
     if (self) {
-//        VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
-//        self.sig_data = [secp compactDataToSignature:compactData];
-        self.sig_data = compactData;
+        VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+        self.sig_data = [secp compactDataToSignature:compactData];
+        //self.sig_data = compactData;
         if (self.sig_data){
             return self;
         }

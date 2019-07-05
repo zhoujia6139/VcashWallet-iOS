@@ -266,6 +266,18 @@
     return YES;
 }
 
+-(BOOL)isValidForFinalize{
+    if (self.participant_data.count != 2){
+        return NO;
+    }
+    
+    if (self.tx.body.inputs.count == 0 || self.tx.body.kernels.count == 0){
+        return NO;
+    }
+    
+    return YES;
+}
+
 @end
 
 @implementation VersionCompatInfo
@@ -274,7 +286,7 @@
     VersionCompatInfo* info = [VersionCompatInfo new];
     info.version= 2;
     info.orig_version = 2;
-    info.min_compat_version = 2;
+    info.block_header_version = 1;
     return info;
 }
 
@@ -334,8 +346,9 @@
     }
     
     if (self.part_sig) {
-        //NSData* compactPartSig = [self.part_sig getCompactData];
-        dic[@"part_sig"] = BTCHexFromData(self.part_sig.sig_data);
+        NSData* compactPartSig = [self.part_sig getCompactData];
+        dic[@"part_sig"] = BTCHexFromData(compactPartSig);
+        //dic[@"part_sig"] = BTCHexFromData(self.part_sig.sig_data);
     }
     else{
         dic[@"part_sig"] = [NSNull null];

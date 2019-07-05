@@ -42,17 +42,21 @@
 
 +(void)sendTransaction:(VcashSlate*)slate forUrl:(NSString*)url withComplete:(RequestCompleteBlock)block;
 
++(void)sendTransactionByFile:(VcashSlate*)slate withComplete:(RequestCompleteBlock)block;
+
 //receive Transaction
-+(void)isValidSlateConent:(NSString*)slateStr withComplete:(RequestCompleteBlock)block;
++(void)isValidSlateConentForReceive:(NSString*)slateStr withComplete:(RequestCompleteBlock)block;
 
 +(void)receiveTransactionBySlate:(VcashSlate*)slate withComplete:(RequestCompleteBlock)block;
 
 +(void)receiveTransaction:(ServerTransaction*)tx withComplete:(RequestCompleteBlock)block;
 
 //finalize Transaction
-+(void)finalizeTransactionByFileContent:(NSString*)slateStr withComplete:(RequestCompleteBlock)block;
++(void)isValidSlateConentForFinalize:(NSString*)slateStr withComplete:(RequestCompleteBlock)block;
 
 +(void)finalizeServerTx:(ServerTransaction*)tx withComplete:(RequestCompleteBlock)block;
+
++(void)finalizeTransaction:(VcashSlate*)slate withComplete:(RequestCompleteBlock)block;
 
 +(BOOL)cancelTransaction:(NSString*)tx_id;
 

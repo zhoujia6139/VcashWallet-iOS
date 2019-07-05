@@ -155,7 +155,7 @@
 
 - (void)readTransactionDetail{
     //Transaction details
-    [WalletWrapper isValidSlateConent:self.fileContentTextView.text withComplete:^(BOOL yesOrNo, id _Nullable data) {
+    [WalletWrapper isValidSlateConentForReceive:self.fileContentTextView.text withComplete:^(BOOL yesOrNo, id _Nullable data) {
         if (yesOrNo) {
             VcashSlate *slate = (VcashSlate *)data;
             [self showTxDetailViewWithSlate:slate];
