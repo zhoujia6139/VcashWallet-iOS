@@ -18,6 +18,10 @@ typedef void(^SignCallBack)(VcashSlate *slate);
 
 @property (nonatomic, strong) VcashSlate *slate;
 
+@property (nonatomic, strong) NSString *senderAddress;
+
+@property (nonatomic, strong) NSString *btnTitle;
+
 
 - (void)show;
 

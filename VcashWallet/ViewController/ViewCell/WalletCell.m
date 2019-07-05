@@ -22,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewRadiusType;
 
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageViewInputOrOutput;
+@property (weak, nonatomic) IBOutlet YYAnimatedImageView *imageViewInputOrOutput;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewState;
 
@@ -36,6 +36,11 @@
 
 @property (nonatomic, strong) CAShapeLayer *maskLayer;
 
+@property (nonatomic, strong) YYImage *imageSent;
+
+@property (nonatomic, strong) YYImage *imageReceive;
+
+
 @end
 
 @implementation WalletCell
@@ -46,7 +51,8 @@
    
 //    self.selectionStyle = UITableViewCellSelectionStyleNone;
     [AppHelper addLineWithParentView:self];
-
+    self.imageSent = [YYImage imageNamed:@"sendgif"];
+    self.imageReceive = [YYImage imageNamed:@"receivegif"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -58,7 +64,7 @@
 - (void)setServerTransaction:(ServerTransaction *)serverTx{
     _serverTx = serverTx;
     self.labelTxId.text = serverTx.tx_id;
-    serverTx.isSend ? [self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"send.png"]] :[self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"receive.png"]];
+    serverTx.isSend ? [self.imageViewInputOrOutput setImage:self.imageSent] :[self.imageViewInputOrOutput setImage:self.imageReceive];
     int64_t amount = serverTx.slateObj.amount;
     NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
     if (!serverTx.isSend) {
@@ -123,12 +129,14 @@
                 self.stateLabel.text = (txLog.tx_type == TxSent)  ? [LanguageService contentForKey:@"waitRecipientSignature"] : [LanguageService contentForKey:@"waitSenderSignature"];
                 self.stateLabel.textColor = [UIColor colorWithHexString:@"#FF3333"];
                 [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
+                [self.imageViewInputOrOutput setImage:(txLog.tx_type == TxSent) ? self.imageSent : self.imageReceive];
             }
             break;
         case LoalConfirmed://waiting confirm
                 self.stateLabel.text = [LanguageService contentForKey:@"waitingForConfirming"];
                 self.stateLabel.textColor = [UIColor colorWithHexString:@"#FF3333"];
                 [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
+                [self.imageViewInputOrOutput setImage:(txLog.tx_type == TxSent) ? self.imageSent : self.imageReceive];
             break;
         case NetConfirmed:
             self.stateLabel.text = [LanguageService contentForKey:@"confirmed"];

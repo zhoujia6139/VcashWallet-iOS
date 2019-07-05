@@ -24,7 +24,6 @@
                 <outlet property="receiveVcashBtn" destination="9oW-aY-TEn" id="Apx-VE-Q67"/>
                 <outlet property="sendVcashBtn" destination="hh3-a0-fEH" id="ZiL-01-2lM"/>
                 <outlet property="tableViewContainer" destination="ggw-su-c8X" id="NOm-wl-gq1"/>
-                <outlet property="transactionTitleView" destination="EXq-lG-u0E" id="jLj-Rg-BYD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewHeader" destination="K8U-Op-xPE" id="e6v-s2-i6J"/>
             </connections>
@@ -164,13 +163,13 @@
             <point key="canvasLocation" x="73" y="48"/>
         </view>
         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K8U-Op-xPE">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="231"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="201"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headbg.png" translatesAutoresizingMaskIntoConstraints="NO" id="6kF-8D-3JP">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="231"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="201"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fEM-9y-XJr">
-                    <rect key="frame" x="0.0" y="138" width="375" height="93"/>
+                    <rect key="frame" x="0.0" y="138" width="375" height="63"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jTf-aD-Lyc">
                             <rect key="frame" x="27" y="14" width="9" height="17"/>
@@ -205,29 +204,9 @@
                         <constraint firstItem="rHb-KX-VKv" firstAttribute="centerY" secondItem="OaI-cV-RKV" secondAttribute="centerY" id="UTN-u2-q2f"/>
                         <constraint firstItem="OaI-cV-RKV" firstAttribute="top" secondItem="fEM-9y-XJr" secondAttribute="top" constant="14" id="WP4-w9-6tE"/>
                         <constraint firstItem="2Tr-ga-yCx" firstAttribute="centerY" secondItem="jTf-aD-Lyc" secondAttribute="centerY" id="cex-l6-Vd3"/>
-                        <constraint firstAttribute="height" constant="93" id="d0d-Oy-Zb4"/>
+                        <constraint firstAttribute="height" constant="63" id="d0d-Oy-Zb4"/>
                         <constraint firstItem="jTf-aD-Lyc" firstAttribute="top" secondItem="fEM-9y-XJr" secondAttribute="top" constant="14" id="nxI-jE-ODX"/>
                         <constraint firstAttribute="trailing" secondItem="rHb-KX-VKv" secondAttribute="trailing" constant="27" id="uzp-7a-Zo9"/>
-                    </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EXq-lG-u0E">
-                    <rect key="frame" x="0.0" y="201" width="375" height="30"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent transaction" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X8f-AK-3za" customClass="VcashLabel">
-                            <rect key="frame" x="134" y="7.5" width="107" height="15"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <color key="textColor" red="0.68235294117647061" green="0.68235294117647061" blue="0.68235294117647061" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localText" value="recentTxs"/>
-                            </userDefinedRuntimeAttributes>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="30" id="HdY-Lk-7JI"/>
-                        <constraint firstItem="X8f-AK-3za" firstAttribute="centerX" secondItem="EXq-lG-u0E" secondAttribute="centerX" id="Piq-e2-f7W"/>
-                        <constraint firstItem="X8f-AK-3za" firstAttribute="centerY" secondItem="EXq-lG-u0E" secondAttribute="centerY" id="S33-W3-MY6"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAj-r0-mKB">
@@ -237,7 +216,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Je-8t-8en" customClass="VcashLabel">
-                    <rect key="frame" x="27" y="177" width="41" height="15"/>
+                    <rect key="frame" x="27" y="177" width="50.5" height="15"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -255,7 +234,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z47-DQ-wb5">
-                    <rect key="frame" x="151" y="90" width="73" height="17"/>
+                    <rect key="frame" x="154" y="90" width="67.5" height="17"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="balancelogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="exA-Wx-RRe">
                             <rect key="frame" x="0.0" y="2" width="13" height="13"/>
@@ -265,7 +244,7 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IYC-Ox-YkN" customClass="VcashLabel">
-                            <rect key="frame" x="16" y="0.0" width="57" height="17"/>
+                            <rect key="frame" x="16" y="0.0" width="51.5" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -291,9 +270,7 @@
                 <constraint firstItem="Z47-DQ-wb5" firstAttribute="centerX" secondItem="K8U-Op-xPE" secondAttribute="centerX" id="2e3-iQ-vTT"/>
                 <constraint firstItem="fEM-9y-XJr" firstAttribute="leading" secondItem="K8U-Op-xPE" secondAttribute="leading" id="63m-gl-8sh"/>
                 <constraint firstAttribute="trailing" secondItem="fEM-9y-XJr" secondAttribute="trailing" id="A9A-4B-Ics"/>
-                <constraint firstAttribute="trailing" secondItem="EXq-lG-u0E" secondAttribute="trailing" id="IHM-wD-xsz"/>
                 <constraint firstItem="6kF-8D-3JP" firstAttribute="leading" secondItem="K8U-Op-xPE" secondAttribute="leading" id="Ku8-EZ-BcR"/>
-                <constraint firstAttribute="bottom" secondItem="EXq-lG-u0E" secondAttribute="bottom" id="NEn-mY-s3G"/>
                 <constraint firstItem="1Je-8t-8en" firstAttribute="leading" secondItem="K8U-Op-xPE" secondAttribute="leading" constant="27" id="SOH-8n-TWC"/>
                 <constraint firstAttribute="bottom" secondItem="fEM-9y-XJr" secondAttribute="bottom" id="Sav-nq-42e"/>
                 <constraint firstItem="eAj-r0-mKB" firstAttribute="top" secondItem="K8U-Op-xPE" secondAttribute="top" constant="45" id="VBI-yi-EnQ"/>
@@ -304,7 +281,6 @@
                 <constraint firstItem="Z47-DQ-wb5" firstAttribute="top" secondItem="eAj-r0-mKB" secondAttribute="bottom" constant="6" id="nv7-6w-bo8"/>
                 <constraint firstAttribute="trailing" secondItem="eAj-r0-mKB" secondAttribute="trailing" constant="10" id="rus-ER-20Z"/>
                 <constraint firstAttribute="trailing" secondItem="0ad-b9-zPB" secondAttribute="trailing" constant="27" id="rz0-nN-bsg"/>
-                <constraint firstItem="EXq-lG-u0E" firstAttribute="leading" secondItem="K8U-Op-xPE" secondAttribute="leading" id="wcO-Fg-oWx"/>
                 <constraint firstAttribute="top" secondItem="6kF-8D-3JP" secondAttribute="top" id="wzR-rS-Tql"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

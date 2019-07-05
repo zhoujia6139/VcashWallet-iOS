@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="amountField" destination="YRG-CG-Brs" id="ZPc-np-l3u"/>
                 <outlet property="constraintTextViewHeight" destination="Gc8-70-jKf" id="oHJ-FM-n1P"/>
+                <outlet property="labelAvailable" destination="0az-fJ-g2H" id="pjW-ue-cfu"/>
                 <outlet property="labelPlaceHolder" destination="bPv-1N-TGU" id="tYV-bQ-1IE"/>
                 <outlet property="promptView" destination="ca8-xS-xgW" id="tkP-2M-0Fa"/>
                 <outlet property="sendBtn" destination="LH6-sa-gCG" id="DpX-ug-jR6"/>
@@ -130,7 +131,7 @@
                     <rect key="frame" x="0.0" y="286.5" width="375" height="74.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfI-HJ-msy" customClass="VcashLabel">
-                            <rect key="frame" x="26" y="0.0" width="323" height="21.5"/>
+                            <rect key="frame" x="26" y="0.0" width="63.5" height="21.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <color key="textColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -169,17 +170,28 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="localText" value="unit"/>
                             </userDefinedRuntimeAttributes>
                         </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VCash" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0az-fJ-g2H" customClass="VcashLabel">
+                            <rect key="frame" x="100" y="3.5" width="247" height="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.59999999999999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localText" value="unit"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="YRG-CG-Brs" firstAttribute="leading" secondItem="dmR-Lj-w93" secondAttribute="leading" constant="26" id="0EY-b1-15W"/>
+                        <constraint firstItem="0az-fJ-g2H" firstAttribute="centerY" secondItem="OfI-HJ-msy" secondAttribute="centerY" id="4Jg-hv-Fqm"/>
                         <constraint firstItem="OfI-HJ-msy" firstAttribute="leading" secondItem="dmR-Lj-w93" secondAttribute="leading" constant="26" id="4L6-xj-0ck"/>
                         <constraint firstAttribute="bottom" secondItem="ooY-S2-Qmq" secondAttribute="bottom" id="6TC-ny-Abw"/>
                         <constraint firstAttribute="trailing" secondItem="AVb-N6-bqL" secondAttribute="trailing" constant="28" id="9Ay-Nc-LeO"/>
                         <constraint firstAttribute="trailing" secondItem="YRG-CG-Brs" secondAttribute="trailing" constant="85" id="GuL-Er-6wd"/>
                         <constraint firstItem="OfI-HJ-msy" firstAttribute="top" secondItem="dmR-Lj-w93" secondAttribute="top" id="Haz-MB-ued"/>
+                        <constraint firstAttribute="trailing" secondItem="0az-fJ-g2H" secondAttribute="trailing" constant="28" id="IxA-uw-1AL"/>
                         <constraint firstAttribute="bottom" secondItem="YRG-CG-Brs" secondAttribute="bottom" constant="3" id="Lgt-7l-Yjn"/>
-                        <constraint firstAttribute="trailing" secondItem="OfI-HJ-msy" secondAttribute="trailing" constant="26" id="MKO-3E-RHG"/>
+                        <constraint firstItem="0az-fJ-g2H" firstAttribute="leading" secondItem="dmR-Lj-w93" secondAttribute="leading" constant="100" id="UN0-Zh-gB9"/>
                         <constraint firstAttribute="trailing" secondItem="ooY-S2-Qmq" secondAttribute="trailing" constant="26" id="Xao-Eo-peD"/>
                         <constraint firstItem="AVb-N6-bqL" firstAttribute="centerY" secondItem="YRG-CG-Brs" secondAttribute="centerY" id="Zbe-PT-Lpz"/>
                         <constraint firstItem="ooY-S2-Qmq" firstAttribute="leading" secondItem="dmR-Lj-w93" secondAttribute="leading" constant="26" id="aq5-uL-sr2"/>

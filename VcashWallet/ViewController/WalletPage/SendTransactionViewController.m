@@ -11,6 +11,7 @@
 #import "SendTransactionConfirmView.h"
 #import "ScanViewController.h"
 #import "TransactionDetailViewController.h"
+#import "TransactionDetailView.h"
 
 
 #define CGrayColor [UIColor colorWithHexString:@"#EEEEEE"]
@@ -32,6 +33,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *viewLineAmount;
 
+@property (weak, nonatomic) IBOutlet VcashLabel *labelAvailable;
 
 @property (weak, nonatomic) IBOutlet VcashButton *sendBtn;
 
@@ -63,6 +65,8 @@
     self.sendBtn.backgroundColor = COrangeEnableColor;
     self.sendBtn.userInteractionEnabled = NO;
     ViewRadius(self.sendBtn, 4.0);
+    WalletBalanceInfo* info = [WalletWrapper getWalletBalanceInfo];
+    self.labelAvailable.text = [NSString stringWithFormat:@"%@: %@ v",[LanguageService contentForKey:@"available"],@([WalletWrapper nanoToVcash:info.spendable]).p09fString];
 }
 
 
@@ -109,7 +113,15 @@
 - (void)textViewDidChange:(UITextView *)textView{
     self.labelPlaceHolder.hidden = textView.text.length > 0 ? YES : NO;
     [self setTextViewHeight];
+    if (self.amountField.text.length > 0 && self.targetAddressTextView.text.length > 0) {
+        self.sendBtn.backgroundColor = COrangeColor;
+        self.sendBtn.userInteractionEnabled = YES;
+    }else{
+        self.sendBtn.backgroundColor = COrangeEnableColor;
+        self.sendBtn.userInteractionEnabled = NO;
+    }
 }
+
 
 #pragma mark - ScanViewControllerDelegate
 
@@ -165,11 +177,20 @@
         [WalletWrapper createSendTransaction:[WalletWrapper vcashToNano:amount] fee:0 withComplete:^(BOOL yesOrNo, id retData) {
             if (yesOrNo){
                 VcashSlate* slate = (VcashSlate*)retData;
-                if ([self isUrlAddress:self.targetAddressTextView.text]) {
-                    [self sendTransactionWithUrl:self.targetAddressTextView.text slate:slate];
-                }else{
-                    [self sendTransactionWithUseId:self.targetAddressTextView.text slate:slate];
-                }
+                TransactionDetailView *txDetailView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([TransactionDetailView class]) owner:nil options:nil] firstObject];
+                txDetailView.senderAddress = self.targetAddressTextView.text;
+                txDetailView.btnTitle = [LanguageService contentForKey:@"ok"];
+                txDetailView.slate = slate;
+                __weak typeof(self) weakSelf  = self;
+                txDetailView.signCallBack = ^(VcashSlate * _Nonnull slate) {
+                    __strong typeof(weakSelf) strongSelf  = weakSelf;
+                    if ([strongSelf isUrlAddress:strongSelf.targetAddressTextView.text]) {
+                        [strongSelf sendTransactionWithUrl:strongSelf.targetAddressTextView.text slate:slate];
+                    }else{
+                        [strongSelf sendTransactionWithUseId:strongSelf.targetAddressTextView.text slate:slate];
+                    }
+                };
+                [txDetailView show];
             }
             else{
 //                [MBHudHelper showTextTips:[NSString stringWithFormat:@"%@", retData] onView:nil withDuration:1.5];

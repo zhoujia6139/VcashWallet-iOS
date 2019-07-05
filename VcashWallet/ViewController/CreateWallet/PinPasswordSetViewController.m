@@ -39,6 +39,9 @@
 
 @property (nonatomic, strong) ProgressView *progressView;
 
+@property (weak, nonatomic) IBOutlet UIButton *btnPasswordSecture;
+
+@property (weak, nonatomic) IBOutlet UIButton *btnConfirmSecture;
 
 @end
 
@@ -63,9 +66,25 @@
         self.promptLabel.localText = @"createNewPass";
         self.startUseWalletBtn.localTitle = @"saveNewPassword";
     }
+    self.passwordTextField.tintColor = COrangeColor;
+    self.confirmPasTextField.tintColor = COrangeColor;
+    
+    UIView *rightViewPassword = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 40)];
+    self.passwordTextField.rightView = rightViewPassword;
+    self.passwordTextField.rightViewMode = UITextFieldViewModeAlways;
+    
+    UIView *rightViewConfirm = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 40)];
+    self.confirmPasTextField.rightView = rightViewConfirm;
+    self.confirmPasTextField.rightViewMode = UITextFieldViewModeAlways;
     
     [self.passwordTextField addTarget:self action:@selector(fillConfirmPassword:) forControlEvents:UIControlEventEditingChanged];
     [self.confirmPasTextField addTarget:self action:@selector(fillConfirmPassword:) forControlEvents:UIControlEventEditingChanged];
+    
+    [self.btnPasswordSecture setImage:[UIImage imageNamed:@"eyeblackopen.png"] forState:UIControlStateNormal];
+    [self.btnPasswordSecture setImage:[UIImage imageNamed:@"eyeblackclose.png"] forState:UIControlStateSelected];
+    
+    [self.btnConfirmSecture setImage:[UIImage imageNamed:@"eyeblackopen.png"] forState:UIControlStateNormal];
+    [self.btnConfirmSecture setImage:[UIImage imageNamed:@"eyeblackclose.png"] forState:UIControlStateSelected];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -148,6 +167,21 @@
     return [WalletWrapper createWalletWithPhrase:self.mnemonicWordsArr nickname:nil password:nil];
 }
 
+
+- (IBAction)clickedBtnPasswordSecture:(id)sender {
+    UIButton *btn = (UIButton *)sender;
+    btn.selected = !btn.selected;
+    self.passwordTextField.secureTextEntry = !btn.selected;
+}
+
+- (IBAction)clickedBtnConfirmSecture:(id)sender {
+    UIButton *btn = (UIButton *)sender;
+    btn.selected = !btn.selected;
+    self.confirmPasTextField.secureTextEntry = !btn.selected;
+}
+
+
+
 - (IBAction)clickedStartUseWallet:(id)sender {
     if (![self.passwordTextField.text isEqualToString:self.confirmPasTextField.text]) {
         self.passwordNotmatchLabel.hidden = NO;
@@ -181,7 +215,9 @@
             }else if(yesOrNo && [ret isKindOfClass:[NSNumber class]]){
                 self.progressView.progress = [ret floatValue];
             }else{
-                [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:[LanguageService contentForKey:@"recoveryFailure"]];;
+                [MBHudHelper showTextTips:[LanguageService contentForKey:@"recoveryFailure"] onView:nil withDuration:1.5];
+                [self.progressView removeFromSuperview];
+                self.progressView = nil;
             }
             
         }];

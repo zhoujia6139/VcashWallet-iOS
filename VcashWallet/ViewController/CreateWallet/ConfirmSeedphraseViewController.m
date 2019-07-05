@@ -62,7 +62,10 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    if (!self.recoveryPhrase) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+   
     [self addObserver:self forKeyPath:@"phraseArr" options:NSKeyValueObservingOptionNew context:nil];
 }
 
@@ -83,6 +86,7 @@
     self.btnCheck.userInteractionEnabled = NO;
     [self.btnCheck setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.btnCheck setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
+    [self.btnCheck setTitle:self.recoveryPhrase ? [LanguageService contentForKey:@"done"] : [LanguageService contentForKey:@"check"] forState:UIControlStateNormal];
     creator = [PhraseWordShowViewCreator new];
     [creator creatPhraseViewWithParentView:self.needConfirmPhraseView vc:self needConfirmPhraseArr:self.needConfirmPhraseArr dicData:self.dic  withCallBack:nil];
     
@@ -131,6 +135,10 @@
 }
 
 - (void)backBtnClicked{
+    if (self.recoveryPhrase) {
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
     AlertView *alterView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([AlertView class]) owner:nil options:nil] firstObject];
     __weak typeof(self) weakSelf = self;
     alterView.doneCallBack = ^{
@@ -202,6 +210,12 @@
                 
             }];
             
+            return;
+        }
+        
+        if (self.recoveryPhrase) {
+            [MBHudHelper showTextTips:[LanguageService contentForKey:@"verifySuc"] onView:nil withDuration:1.0];
+            [self.navigationController popToRootViewControllerAnimated:YES];
             return;
         }
         

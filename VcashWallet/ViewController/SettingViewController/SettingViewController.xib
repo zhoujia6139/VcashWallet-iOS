@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="btnChangePassword" destination="cSB-fu-lPQ" id="Qix-2q-Beo"/>
                 <outlet property="btnLockScreen" destination="F2o-mV-oOS" id="gSI-mD-95o"/>
+                <outlet property="btnRecoverPhrase" destination="nxk-nz-l3C" id="N1k-gd-67d"/>
                 <outlet property="labelLockScreenTitle" destination="Pi1-Fg-e79" id="MOW-TH-mZI"/>
                 <outlet property="labelVersion" destination="2fp-MS-bYM" id="4ih-rX-d8d"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -123,26 +124,59 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fp-MS-bYM">
-                    <rect key="frame" x="10" y="580" width="355" height="17"/>
+                    <rect key="frame" x="10" y="610" width="355" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhL-UY-11w">
+                    <rect key="frame" x="0.0" y="175" width="375" height="50"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nxk-nz-l3C">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                            <connections>
+                                <action selector="clickedBtnRecoverPhrase:" destination="-1" eventType="touchUpInside" id="s3q-V3-sEH"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recover Phrase" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHK-dO-53L" customClass="VcashLabel">
+                            <rect key="frame" x="15" y="16" width="107.5" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localText" value="recoverPhrase"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="nxk-nz-l3C" firstAttribute="top" secondItem="lhL-UY-11w" secondAttribute="top" id="3Vk-hR-r1Y"/>
+                        <constraint firstAttribute="bottom" secondItem="nxk-nz-l3C" secondAttribute="bottom" id="CwH-OL-F5m"/>
+                        <constraint firstAttribute="height" constant="50" id="DnP-SJ-Zej"/>
+                        <constraint firstItem="bHK-dO-53L" firstAttribute="leading" secondItem="lhL-UY-11w" secondAttribute="leading" constant="15" id="JQd-Lk-RR7"/>
+                        <constraint firstItem="nxk-nz-l3C" firstAttribute="leading" secondItem="lhL-UY-11w" secondAttribute="leading" id="Nod-kr-DP1"/>
+                        <constraint firstAttribute="trailing" secondItem="nxk-nz-l3C" secondAttribute="trailing" id="U7J-4i-rou"/>
+                        <constraint firstItem="bHK-dO-53L" firstAttribute="centerY" secondItem="lhL-UY-11w" secondAttribute="centerY" id="UoF-kR-M1q"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vL8-mY-7OQ" firstAttribute="top" secondItem="jVo-wk-4Vh" secondAttribute="bottom" id="0gW-Nx-6La"/>
                 <constraint firstItem="2fp-MS-bYM" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="10" id="2f8-xW-Z6u"/>
+                <constraint firstAttribute="trailing" secondItem="lhL-UY-11w" secondAttribute="trailing" id="8tD-L5-nj6"/>
                 <constraint firstItem="vL8-mY-7OQ" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="BNm-uT-pDY"/>
                 <constraint firstItem="eTr-Rh-DAP" firstAttribute="top" secondItem="vL8-mY-7OQ" secondAttribute="bottom" id="DA1-14-C60"/>
                 <constraint firstItem="eTr-Rh-DAP" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Gis-7i-tP2"/>
                 <constraint firstItem="jVo-wk-4Vh" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Kn9-0N-TI6"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="vL8-mY-7OQ" secondAttribute="trailing" id="PEf-o0-JxK"/>
                 <constraint firstAttribute="trailing" secondItem="eTr-Rh-DAP" secondAttribute="trailing" id="PYP-OB-0dg"/>
+                <constraint firstItem="lhL-UY-11w" firstAttribute="top" secondItem="eTr-Rh-DAP" secondAttribute="bottom" constant="15" id="Z39-1F-3aE"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="2fp-MS-bYM" secondAttribute="trailing" constant="10" id="cxp-EQ-HQR"/>
                 <constraint firstItem="jVo-wk-4Vh" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="k2Y-5k-hcX"/>
+                <constraint firstItem="lhL-UY-11w" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="ogq-l1-a0F"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="jVo-wk-4Vh" secondAttribute="trailing" id="rqi-f4-h11"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="2fp-MS-bYM" secondAttribute="bottom" constant="70" id="wlh-K0-nBp"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="2fp-MS-bYM" secondAttribute="bottom" constant="40" id="wlh-K0-nBp"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <point key="canvasLocation" x="55.200000000000003" y="48.125937031484263"/>

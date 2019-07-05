@@ -10,4 +10,8 @@
 
 @interface RecoverMnemonicViewController : BaseViewController
 
+@property (nonatomic, assign) BOOL recoveryPhrase;
+
+- (void)setMnemonicKey:(NSString *)key;
+
 @end

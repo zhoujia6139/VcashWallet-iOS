@@ -32,7 +32,7 @@
 #import "WalletWrapper.h"
 #import "LanguageManager.h"
 
-//#define isInTestNet 1
+#define isInTestNet 1
 
 
 // Include any system framework and library headers here that should be included in all compilation units.

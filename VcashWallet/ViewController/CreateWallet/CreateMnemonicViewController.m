@@ -54,7 +54,7 @@
     [self.nextBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
     [self.nextBtn setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
     creator = [PhraseWordShowViewCreator new];
-    [creator creatPhraseViewWithParentView:self.phraseWordView isCanEdit:NO withCallBack:nil];
+    [creator creatPhraseViewWithParentView:self.phraseWordView isCanEdit:NO mnemonicArr:nil  withCallBack:nil];
 
     
     

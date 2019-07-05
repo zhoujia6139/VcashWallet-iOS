@@ -18,6 +18,8 @@
 
 @property (strong, nonatomic) IBOutlet UITextView *fileContentTextView;
 
+@property (nonatomic, strong) UILabel *labelPlaceHolder;
+
 
 @end
 
@@ -101,14 +103,27 @@
     
     _fileContentTextView = [[UITextView alloc] init];
     _fileContentTextView.font = [UIFont systemFontOfSize:14];
+    _fileContentTextView.backgroundColor = [UIColor colorWithHexString:@"#F9F9F9"];
     _fileContentTextView.delegate = self;
     [_scrollView addSubview:_fileContentTextView];
     [_fileContentTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lineView.mas_bottom);
-        make.left.equalTo(self.scrollView).offset(10);
+        make.left.equalTo(self.scrollView);
         make.right.equalTo(self.scrollView);
         make.bottom.equalTo(self.view).offset(-200);
     }];
+    
+    _labelPlaceHolder = [[UILabel alloc] init];
+    _labelPlaceHolder.font = [UIFont systemFontOfSize:14];
+    _labelPlaceHolder.textColor = [UIColor lightGrayColor];
+    _labelPlaceHolder.text = [LanguageService contentForKey:@"pleaseEnter"];
+    [_fileContentTextView addSubview:self.labelPlaceHolder];
+    
+    [self.labelPlaceHolder mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(24);
+        make.top.offset(10);
+    }];
+    
     
     UIView *bottomlineView = [[UIView alloc] init];
     bottomlineView.backgroundColor = [UIColor colorWithHexString:@"#EEEEEE"];
@@ -134,7 +149,7 @@
     }];
     ViewRadius(readTxDetailBtn, 4.0);
     
-    self.fileContentTextView.textContainerInset = UIEdgeInsetsMake(10, 0, 10, 10);
+    self.fileContentTextView.textContainerInset = UIEdgeInsetsMake(10, 20, 10, 10);
     
 }
 
@@ -192,9 +207,11 @@
 #pragma mark - UITextViewDelegate
 - (void)textViewDidChange:(UITextView *)textView{
     if (textView.text.length > 0) {
+        self.labelPlaceHolder.hidden = YES;
         readTxDetailBtn.backgroundColor = COrangeColor;
         readTxDetailBtn.userInteractionEnabled = YES;
     }else{
+        self.labelPlaceHolder.hidden = NO;
         readTxDetailBtn.backgroundColor = COrangeEnableColor;
         readTxDetailBtn.userInteractionEnabled = NO;
     }

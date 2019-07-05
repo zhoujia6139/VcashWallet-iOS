@@ -22,6 +22,15 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewClose;
 
+@property (weak, nonatomic) IBOutlet UIView *viewSendTo;
+
+@property (weak, nonatomic) IBOutlet UILabel *labelSendTo;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTxAmountTopWithLabelSendto;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintViewSendToHeight;
+
+
 @end
 
 @implementation TransactionDetailView
@@ -41,6 +50,9 @@
     ViewRadius(self.contentView, 4.0);
     ViewRadius(self.signTxBtn, 4.0);
     self.imageViewClose.userInteractionEnabled = YES;
+    self.viewSendTo.hidden = YES;
+    self.labelSendTo.preferredMaxLayoutWidth = ScreenWidth - 142;
+    self.constraintViewSendToHeight.constant = 0;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenAnimation)];
     [self.imageViewClose addGestureRecognizer:tap];
 }
@@ -48,6 +60,7 @@
 - (void)setSlate:(VcashSlate *)slate{
     _slate = slate;
     NSString *amountStr = @([WalletWrapper nanoToVcash:slate.amount]).p09fString;
+    self.lablelTxID.lineBreakMode = NSLineBreakByCharWrapping;
     self.lablelTxID.text = slate.uuid;
     NSMutableAttributedString *amountAttributeStr = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}];
     NSAttributedString *unitAttributeStr = [[NSAttributedString alloc] initWithString:@" VCash" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
@@ -57,6 +70,22 @@
     NSMutableAttributedString *feeAttributeStr = [[NSMutableAttributedString alloc] initWithString:@([WalletWrapper nanoToVcash:slate.fee]).p09fString attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}];
     [feeAttributeStr appendAttributedString:unitAttributeStr];
     self.labelFee.attributedText = feeAttributeStr;
+}
+
+- (void)setSenderAddress:(NSString *)senderAddress{
+    _senderAddress = senderAddress;
+    if (!senderAddress) {
+        return;
+    }
+    self.labelSendTo.text = senderAddress;
+    self.viewSendTo.hidden = NO;
+    CGFloat viewSendHeight = [self.labelSendTo sizeThatFits:CGSizeMake(ScreenWidth - 142, 1000)].height + 20;
+    self.constraintViewSendToHeight.constant = viewSendHeight;
+}
+
+- (void)setBtnTitle:(NSString *)btnTitle{
+    _btnTitle = btnTitle;
+    [self.signTxBtn setTitle:btnTitle forState:UIControlStateNormal];
 }
 
 

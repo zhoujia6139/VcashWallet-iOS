@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ConfirmSeedphraseViewController : BaseViewController
 
+@property (nonatomic, assign) BOOL recoveryPhrase;
+
 @property (strong, nonatomic)NSArray* mnemonicWordsArr;
 
 
