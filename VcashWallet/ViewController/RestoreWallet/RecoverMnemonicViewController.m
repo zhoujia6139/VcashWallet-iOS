@@ -11,6 +11,7 @@
 #import "PhraseWordShowViewCreator.h"
 #import "PinPasswordSetViewController.h"
 #import "WelcomePageViewController.h"
+#import "ConfirmSeedphraseViewController.h"
 
 @interface RecoverMnemonicViewController ()
 
@@ -18,6 +19,8 @@
 
 
 @property (weak, nonatomic) IBOutlet UIView *promptView;
+
+@property (weak, nonatomic) IBOutlet VcashLabel *promptLabel;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintPromptViewWidth;
 
@@ -27,7 +30,10 @@
 @property (nonatomic, strong) PhraseWordShowViewCreator *creator;
 
 
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintRecoverBottom;
+
+@property (nonatomic, strong) NSString *password;
 
 @end
 
@@ -45,7 +51,8 @@
     [self.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
     self.creator = [PhraseWordShowViewCreator new];
     __weak typeof(self) weakSelf = self;
-    [self.creator creatPhraseViewWithParentView:self.phraseView isCanEdit:YES mnemonicArr:nil withCallBack:^(CGFloat height, NSInteger wordsCount){
+    NSArray *mnemonicArr = self.recoveryPhrase ? [[[UserCenter sharedInstance] getStoredMnemonicWordsWithKey:self.password] componentsSeparatedByString:@" "] : nil;
+    [self.creator creatPhraseViewWithParentView:self.phraseView isCanEdit:!self.recoveryPhrase mnemonicArr:mnemonicArr withCallBack:^(CGFloat height, NSInteger wordsCount){
         __strong typeof(weakSelf) strongSlef = weakSelf;
         if (wordsCount != 24) {
             strongSlef.recoverBtn.userInteractionEnabled = NO;
@@ -55,6 +62,13 @@
             [strongSlef.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
         }
     }];
+    
+    if (self.recoveryPhrase) {
+        self.title = [LanguageService contentForKey:@"recoverPhrase"];
+        self.promptLabel.text = [LanguageService contentForKey:@"recoveryPhrasePrompt"];
+        self.recoverBtn.userInteractionEnabled = YES;
+        [self.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
+    }
     self.constraintRecoverBottom.constant = 30 + Portrait_Bottom_SafeArea_Height;
     // Do any additional setup after loading the view from its nib.
 }
@@ -76,8 +90,14 @@
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 }
 
+- (void)setMnemonicKey:(NSString *)key{
+    self.password = key;
+}
 
 - (void)pasteWordsFromClipBoard{
+    if (self.recoveryPhrase) {
+        return;
+    }
     if ([self.creator getAllInputWords].count == 24) {
         return;
     }
@@ -133,6 +153,14 @@
 }
 
 - (IBAction)clickRecover:(id)sender {
+    if (self.recoveryPhrase) {
+        NSArray *mnemonicWordsArr = [[[UserCenter sharedInstance] getStoredMnemonicWordsWithKey:self.password] componentsSeparatedByString:@" "];
+        ConfirmSeedphraseViewController *confimSeedPhraseVc = [[ConfirmSeedphraseViewController alloc] init];
+        confimSeedPhraseVc.recoveryPhrase = YES;
+        confimSeedPhraseVc.mnemonicWordsArr = mnemonicWordsArr;
+        [self.navigationController pushViewController:confimSeedPhraseVc animated:YES];
+        return;
+    }
     NSArray* wordsArr = [self.creator getAllInputWords];
     if (wordsArr.count == 0)
     {

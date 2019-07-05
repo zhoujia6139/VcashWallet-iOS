@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ChangePasswordViewController : BaseViewController
 
+@property (nonatomic, assign) BOOL recoveryPhrase;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -22,6 +22,9 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *btnChangePassword;
 
+@property (weak, nonatomic) IBOutlet UIButton *btnRecoverPhrase;
+
+
 @property (weak, nonatomic) IBOutlet UILabel *labelVersion;
 
 @end
@@ -35,6 +38,7 @@
     [AppHelper addLineWithParentView:self.viewLockScreen];
     [self.btnLockScreen setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#9C9D9D"]] forState:UIControlStateHighlighted];
     [self.btnChangePassword setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#9C9D9D"]] forState:UIControlStateHighlighted];
+    [self.btnRecoverPhrase setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#9C9D9D"]] forState:UIControlStateHighlighted];
     self.labelVersion.text = [NSString stringWithFormat:@"App Version:%@",AppVersion];
 }
 
@@ -80,6 +84,12 @@
     [self.navigationController pushViewController:changePwVc animated:YES];
 }
 
+
+- (IBAction)clickedBtnRecoverPhrase:(id)sender {
+    ChangePasswordViewController *changePwVc = [[ChangePasswordViewController alloc] init];
+    changePwVc.recoveryPhrase = YES;
+    [self.navigationController pushViewController:changePwVc animated:YES];
+}
 
 /*
 #pragma mark - Navigation

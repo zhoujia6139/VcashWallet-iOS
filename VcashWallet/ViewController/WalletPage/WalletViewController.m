@@ -20,12 +20,17 @@
 #import "RefreshStateHeader.h"
 #import "ServerTransactionBlackManager.h"
 #import "LeftMenuManager.h"
+#import "WalletPageSectionView.h"
+
+static NSString *const identifierSection = @"WalletPageSectionView";
 
 static NSString *const identifier = @"WalletCell";
 
 #define ServerTxs @"ServerTxs"
 #define TxLog @"TxLog"
 
+#define txOngoing @"txOngoing"
+#define txComplete @"txComplete"
 
 @interface WalletViewController ()<UITableViewDataSource,UITableViewDelegate,LeftMenuViewDelegate>
 
@@ -53,19 +58,18 @@ static NSString *const identifier = @"WalletCell";
 
 @property (weak, nonatomic) IBOutlet VcashButton *sendVcashBtn;
 
-@property (weak, nonatomic) IBOutlet UIView *transactionTitleView;
 
 @property (strong, nonatomic) IBOutlet UIView *footView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintNaviHeight;
 
-@property (nonatomic, strong) NSArray *arrTransactionList;
-
-@property (nonatomic, strong) NSArray *arrServerTransactins;
-
 @property (nonatomic, strong) NSMutableArray *arrSections;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintViewBottomHeight;
+
+@property (nonatomic, strong) NSMutableArray *arrOngoing;
+
+@property (nonatomic, strong) NSMutableArray *arrComplete;
 
 @end
 
@@ -137,10 +141,9 @@ static NSString *const identifier = @"WalletCell";
     [[[LeftMenuManager shareInstance] leftMenuView] addInView];
     
     self.maskView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1];
-    [AppHelper addLineWithParentView:self.transactionTitleView];
     
     UIView *tableViewHeader = [[UIView alloc] init];
-    tableViewHeader.frame = CGRectMake(0, 0, ScreenWidth, 231);
+    tableViewHeader.frame = CGRectMake(0, 0, ScreenWidth, 201);
     [tableViewHeader addSubview:self.viewHeader];
     [self.viewHeader mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(tableViewHeader);
@@ -148,6 +151,7 @@ static NSString *const identifier = @"WalletCell";
     self.tableViewContainer.tableHeaderView = tableViewHeader;
     self.tableViewContainer.dataSource = self;
     self.tableViewContainer.delegate = self;
+    [self.tableViewContainer registerClass:[WalletPageSectionView class] forHeaderFooterViewReuseIdentifier:identifierSection];
     [self.tableViewContainer registerNib:[UINib nibWithNibName:NSStringFromClass([WalletCell class]) bundle:nil] forCellReuseIdentifier:identifier];
     self.tableViewContainer.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableViewContainer.estimatedSectionHeaderHeight = 0;
@@ -172,16 +176,6 @@ static NSString *const identifier = @"WalletCell";
 
 }
 
-
-- (void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    UIRectCorner corner = UIRectCornerTopLeft | UIRectCornerTopRight;
-    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRoundedRect:self.transactionTitleView.bounds byRoundingCorners:corner cornerRadii:CGSizeMake(6, 6)];
-    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    maskLayer.frame = self.transactionTitleView.bounds;
-    maskLayer.path = bezierPath.CGPath;
-    self.transactionTitleView.layer.mask = maskLayer;
-}
 
 -(void)refreshWalletStatus{
     __weak typeof(self) weakSelf = self;
@@ -222,6 +216,7 @@ static NSString *const identifier = @"WalletCell";
     self.chainHeight.text = [NSString stringWithFormat:@"Height:%@", @([WalletWrapper getCurChainHeight])];
     
     NSArray *arrTransaction = [WalletWrapper getTransationArr];
+    NSArray *arrSortTxs = [NSArray array];
     if (arrTransaction) {
         NSMutableArray *mutableArrTransaction = [NSMutableArray arrayWithArray:arrTransaction];
         NSInteger count = arrTransaction.count;
@@ -234,20 +229,36 @@ static NSString *const identifier = @"WalletCell";
             }
         }
         [mutableArrTransaction removeObjectsInArray:deleteTransaction];
-        self.arrTransactionList = [mutableArrTransaction sortedArrayUsingComparator:^NSComparisonResult(VcashTxLog *obj1, VcashTxLog *obj2) {
+        arrSortTxs = [mutableArrTransaction sortedArrayUsingComparator:^NSComparisonResult(VcashTxLog *obj1, VcashTxLog *obj2) {
             return [@(obj2.create_time) compare:@(obj1.create_time)];
         }];
     }
-    self.arrServerTransactins = [[ServerTxManager shareInstance] allServerTransactions];
-    [self.arrSections removeAllObjects];
-    if (self.arrServerTransactins.count > 0) {
-        [self.arrSections addObject:ServerTxs];
+    
+    NSArray *arrServerTransactins = [[ServerTxManager shareInstance] allServerTransactions];
+    [self.arrOngoing removeAllObjects];
+    [self.arrComplete removeAllObjects];
+    if (arrServerTransactins.count > 0) {
+        [self.arrOngoing addObjectsFromArray:arrServerTransactins];
     }
-    if (self.arrTransactionList.count > 0) {
-        [self.arrSections addObject:TxLog];
+    for (NSInteger i = 0; i < arrSortTxs.count; i++) {
+        VcashTxLog *txLog = arrSortTxs[i];
+        if (txLog.confirm_state == NetConfirmed || txLog.tx_type == TxSentCancelled || txLog.tx_type == TxReceivedCancelled) {
+            [self.arrComplete addObject:txLog];
+        }else{
+            [self.arrOngoing addObject:txLog];
+        }
+    }
+    
+  
+    [self.arrSections removeAllObjects];
+    if (self.arrOngoing.count > 0) {
+        [self.arrSections addObject:txOngoing];
+    }
+    if (self.arrComplete.count > 0) {
+        [self.arrSections addObject:txComplete];
     }
    
-    self.tableViewContainer.tableFooterView = ((self.arrTransactionList.count   +  self.arrServerTransactins.count) > 0 )? nil : self.footView;
+    self.tableViewContainer.tableFooterView = ((self.arrOngoing.count   +  self.arrComplete.count) > 0 )? nil : self.footView;
     [self.tableViewContainer reloadData];
 }
 
@@ -258,39 +269,69 @@ static NSString *const identifier = @"WalletCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSString *title = self.arrSections[section];
-    if ([title isEqualToString:ServerTxs]) {
-        return self.arrServerTransactins.count;
+    if ([title isEqualToString:txOngoing]) {
+        return self.arrOngoing.count;
     }
-    return self.arrTransactionList.count;
+    return self.arrComplete.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     WalletCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     NSString *title = self.arrSections[indexPath.section];
-    if ([title isEqualToString:ServerTxs]) {
-        if (indexPath.row < self.arrServerTransactins.count) {
-            ServerTransaction *serverTx = self.arrServerTransactins[indexPath.row];
-            [cell setServerTransaction:serverTx];
+    if ([title isEqualToString:txOngoing]) {
+        if (indexPath.row < self.arrOngoing.count) {
+            id tx = self.arrOngoing[indexPath.row];
+            if ([tx isKindOfClass:[ServerTransaction class]]) {
+                [cell setServerTransaction:tx];
+            }else{
+                [cell setTxLog:tx];
+            }
         }
         return cell;
     }
-    if (indexPath.row < self.arrTransactionList.count) {
-        VcashTxLog *model = self.arrTransactionList[indexPath.row];
+    if (indexPath.row < self.arrComplete.count) {
+        VcashTxLog *model = self.arrComplete[indexPath.row];
         [cell setTxLog:model];
     }
     return cell;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    NSString *title = self.arrSections[section];
+    WalletPageSectionView *sectionView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:identifierSection];
+    if (!sectionView) {
+        sectionView = [[WalletPageSectionView alloc] initWithReuseIdentifier:identifierSection];
+    }
+    if ([title isEqualToString:txOngoing]) {
+        sectionView.title = [LanguageService  contentForKey:@"ongoingTx"];
+    }else{
+        sectionView.title = [LanguageService contentForKey:@"completedTx"];
+    }
+    return sectionView;
+}
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *title = self.arrSections[indexPath.section];
-    if ([title isEqualToString:ServerTxs]) {
-         ServerTransaction *serverTx = self.arrServerTransactins[indexPath.row];
-        if (serverTx.status == TxCanceled) {
-            return YES;
+    if ([title isEqualToString:txOngoing]) {
+        id tx = self.arrOngoing[indexPath.row];
+        if ([tx isKindOfClass:[ServerTransaction class]]) {
+            ServerTransaction *serverTx = (ServerTransaction *)tx;
+            if (serverTx.status == TxCanceled) {
+                return YES;
+            }
+            return NO;
+        }else{
+             VcashTxLog *model = (VcashTxLog *)tx;
+            if (model.tx_type == TxReceived && !model.parter_id && model.signed_slate_msg) {
+                if (model.confirm_state == NetConfirmed) {
+                    return NO;
+                }else{
+                    return YES;
+                }
+            }
         }
-        return NO;
     }
-    VcashTxLog *model = self.arrTransactionList[indexPath.row];
+    VcashTxLog *model = self.arrComplete[indexPath.row];
     if (model.tx_type == TxSentCancelled || model.tx_type == TxReceivedCancelled) {
         return YES;
     }
@@ -300,17 +341,28 @@ static NSString *const identifier = @"WalletCell";
 - (NSArray <UITableViewRowAction *>*)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:[LanguageService contentForKey:@"deleteTransaction"] handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         NSString *title = self.arrSections[indexPath.section];
-        if ([title isEqualToString:ServerTxs]) {
-            ServerTransaction *serverTx = self.arrServerTransactins[indexPath.row];
-            BOOL result = [WalletWrapper deleteTxByTxid:serverTx.tx_id];
-            if (!result) {
-                DDLogError(@"delete canceled transaction failed");
+        if ([title isEqualToString:txOngoing]) {
+            id tx = self.arrOngoing[indexPath.row];
+            if ([tx isKindOfClass:[ServerTransaction class]]) {
+                ServerTransaction *serverTx = (ServerTransaction *)tx;
+                BOOL result = [WalletWrapper deleteTxByTxid:serverTx.tx_id];
+                if (!result) {
+                    DDLogError(@"delete canceled transaction failed");
+                }else{
+                    [self refreshMainView];
+                }
             }else{
-                [self refreshMainView];
+                VcashTxLog *model = (VcashTxLog *)tx;
+                BOOL result = [WalletWrapper deleteTxByTxid:model.tx_slate_id];
+                if (!result) {
+                    DDLogError(@"delete canceled transaction failed");
+                }else{
+                    [self refreshMainView];
+                }
             }
             return;
         }
-        VcashTxLog *model = self.arrTransactionList[indexPath.row];
+        VcashTxLog *model = self.arrComplete[indexPath.row];
         BOOL result = [WalletWrapper deleteTxByTxid:model.tx_slate_id];
         if (!result) {
             DDLogError(@"delete canceled transaction failed");
@@ -321,6 +373,10 @@ static NSString *const identifier = @"WalletCell";
     return @[deleteRowAction];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 30;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 73;
 }
@@ -329,15 +385,21 @@ static NSString *const identifier = @"WalletCell";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
      NSString *title = self.arrSections[indexPath.section];
-     if ([title isEqualToString:ServerTxs]) {
-         if (indexPath.row < self.arrServerTransactins.count) {
-             ServerTransaction *serverTx = self.arrServerTransactins[indexPath.row];
-             [self pushTransactionDetailVcWithTxLog:nil serverTx:serverTx];
+     if ([title isEqualToString:txOngoing]) {
+         if (indexPath.row < self.arrOngoing.count) {
+             id tx = self.arrOngoing[indexPath.row];
+             if ([tx isKindOfClass:[ServerTransaction class]]) {
+                 ServerTransaction *serverTx = (ServerTransaction *)tx;
+                 [self pushTransactionDetailVcWithTxLog:nil serverTx:serverTx];
+             }else{
+                 VcashTxLog *txLog =  (VcashTxLog *)tx;
+                 [self pushTransactionDetailVcWithTxLog:txLog serverTx:nil];
+             }
          }
          return;
      }
-    if (indexPath.row < self.arrTransactionList.count) {
-        VcashTxLog *txLog = self.arrTransactionList[indexPath.row];
+    if (indexPath.row < self.arrComplete.count) {
+        VcashTxLog *txLog = self.arrComplete[indexPath.row];
         [self pushTransactionDetailVcWithTxLog:txLog serverTx:nil];
     }
 }
@@ -381,6 +443,20 @@ static NSString *const identifier = @"WalletCell";
     return _arrSections;
 }
 
+- (NSMutableArray *)arrOngoing{
+    if (!_arrOngoing) {
+        _arrOngoing = [NSMutableArray array];
+    }
+    return _arrOngoing;
+}
+
+
+- (NSMutableArray *)arrComplete{
+    if (!_arrComplete) {
+        _arrComplete = [NSMutableArray array];
+    }
+    return _arrComplete;
+}
 
 /*
 #pragma mark - Navigation

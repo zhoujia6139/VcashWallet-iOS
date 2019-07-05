@@ -164,4 +164,12 @@
     "balance":"Balance",
     "pleaseEnter":"Please enter",
     "paste24WordsTitle":"Paste 24 words from the clipboard?",
+    "ongoingTx":"Ongoing transactions",
+    "completedTx":"Completed transactions",
+    "recoverPhrase":"Backup Phrase",
+    "verifyPasswordTitle":"Verify wallet password",
+    "recoveryPhrasePrompt":"These 24 words are the keys to your wallet.Back them up manually.Do not share this with anyone.",
+    "verifySuc":"Backup successfully",
+    "check":"Check",
+    "sendTo":"Send to",
 }

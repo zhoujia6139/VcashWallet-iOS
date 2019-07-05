@@ -169,6 +169,11 @@
 		A2B3A11722A0D8EF000F7495 /* ServerTransactionBlackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */; };
 		A2D1569222C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D1569022C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.m */; };
 		A2D1569322C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2D1569122C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib */; };
+		A2E0164422CF01B10086FFA2 /* WalletPageSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A2E0164322CF01B10086FFA2 /* WalletPageSectionView.m */; };
+		A2E0164622CF12370086FFA2 /* sendgif.gif in Resources */ = {isa = PBXBuildFile; fileRef = A2E0164522CF12370086FFA2 /* sendgif.gif */; };
+		A2E0164822CF2AAD0086FFA2 /* receivegif.gif in Resources */ = {isa = PBXBuildFile; fileRef = A2E0164722CF2AAC0086FFA2 /* receivegif.gif */; };
+		A2E0164B22CF2CE40086FFA2 /* eyeblackclose.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E0164922CF2CE30086FFA2 /* eyeblackclose.png */; };
+		A2E0164C22CF2CE40086FFA2 /* eyeblackopen.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E0164A22CF2CE40086FFA2 /* eyeblackopen.png */; };
 		A2E5602022A8DBE7002E8E2D /* leftmenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E5601E22A8DBE6002E8E2D /* leftmenu@2x.png */; };
 		A2E5602122A8DBE7002E8E2D /* leftmenu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E5601F22A8DBE6002E8E2D /* leftmenu@3x.png */; };
 		ED24988F2280298D00D94EBE /* ServerApi.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24988E2280298D00D94EBE /* ServerApi.m */; };
@@ -481,6 +486,12 @@
 		A2D1568F22C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransactionFileSignedRecordViewController.h; sourceTree = "<group>"; };
 		A2D1569022C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransactionFileSignedRecordViewController.m; sourceTree = "<group>"; };
 		A2D1569122C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionFileSignedRecordViewController.xib; sourceTree = "<group>"; };
+		A2E0164222CF01B10086FFA2 /* WalletPageSectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletPageSectionView.h; sourceTree = "<group>"; };
+		A2E0164322CF01B10086FFA2 /* WalletPageSectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletPageSectionView.m; sourceTree = "<group>"; };
+		A2E0164522CF12370086FFA2 /* sendgif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sendgif.gif; sourceTree = "<group>"; };
+		A2E0164722CF2AAC0086FFA2 /* receivegif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = receivegif.gif; sourceTree = "<group>"; };
+		A2E0164922CF2CE30086FFA2 /* eyeblackclose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyeblackclose.png; sourceTree = "<group>"; };
+		A2E0164A22CF2CE40086FFA2 /* eyeblackopen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyeblackopen.png; sourceTree = "<group>"; };
 		A2E5601E22A8DBE6002E8E2D /* leftmenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftmenu@2x.png"; sourceTree = "<group>"; };
 		A2E5601F22A8DBE6002E8E2D /* leftmenu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftmenu@3x.png"; sourceTree = "<group>"; };
 		ED24988D2280298D00D94EBE /* ServerApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerApi.h; sourceTree = "<group>"; };
@@ -802,6 +813,8 @@
 				A26FEBA0229F7DE0003CCD7C /* AlertView.h */,
 				A26FEBAE229F7DE0003CCD7C /* AlertView.m */,
 				A26FEBAC229F7DE0003CCD7C /* AlertView.xib */,
+				A2E0164222CF01B10086FFA2 /* WalletPageSectionView.h */,
+				A2E0164322CF01B10086FFA2 /* WalletPageSectionView.m */,
 				A25E6E4522BCB87800D563A4 /* TransactionDetailView.h */,
 				A25E6E4622BCB87800D563A4 /* TransactionDetailView.m */,
 				A25E6E4822BCB88D00D563A4 /* TransactionDetailView.xib */,
@@ -853,6 +866,10 @@
 			children = (
 				A26FECAF229FEC26003CCD7C /* process_suc_icon@2x.png */,
 				A26FECB1229FEC33003CCD7C /* process_fail_icon@2x.png */,
+				A2E0164922CF2CE30086FFA2 /* eyeblackclose.png */,
+				A2E0164A22CF2CE40086FFA2 /* eyeblackopen.png */,
+				A2E0164522CF12370086FFA2 /* sendgif.gif */,
+				A2E0164722CF2AAC0086FFA2 /* receivegif.gif */,
 				A25E6E4A22BCBC5C00D563A4 /* close@2x.png */,
 				A25E6E4B22BCBC5C00D563A4 /* close@3x.png */,
 				A21189B422B8C5E600B88179 /* scan@2x.png */,
@@ -1463,6 +1480,7 @@
 				A26FEC54229F805A003CCD7C /* add@2x.png in Resources */,
 				A26FEC8D229F805B003CCD7C /* delete@2x.png in Resources */,
 				A27269A122AF984600E76E0A /* canceled@2x.png in Resources */,
+				A2E0164B22CF2CE40086FFA2 /* eyeblackclose.png in Resources */,
 				A26FEBDC229F7DE0003CCD7C /* SendTransactionConfirmView.xib in Resources */,
 				A26FEC5F229F805B003CCD7C /* lock@3x.png in Resources */,
 				A26FEC67229F805B003CCD7C /* restore@2x.png in Resources */,
@@ -1518,7 +1536,9 @@
 				A26FEC98229F805B003CCD7C /* adressbook_hight@2x.png in Resources */,
 				A26FEC9D229F805B003CCD7C /* confirmdetail@2x.png in Resources */,
 				A26FEC9E229F805B003CCD7C /* wallet_hight@2x.png in Resources */,
+				A2E0164822CF2AAD0086FFA2 /* receivegif.gif in Resources */,
 				A26FEC5B229F805A003CCD7C /* confirmed@3x.png in Resources */,
+				A2E0164C22CF2CE40086FFA2 /* eyeblackopen.png in Resources */,
 				A26FEC97229F805B003CCD7C /* vcash@2x.png in Resources */,
 				A26FEC86229F805B003CCD7C /* balancelogo@2x.png in Resources */,
 				A21189B622B8C5E700B88179 /* scan@2x.png in Resources */,
@@ -1542,6 +1562,7 @@
 				A26FEBE5229F7DE0003CCD7C /* RecoverMnemonicViewController.xib in Resources */,
 				A26FEC94229F805B003CCD7C /* tip.png in Resources */,
 				A26FEC88229F805B003CCD7C /* scanLine@2x.png in Resources */,
+				A2E0164622CF12370086FFA2 /* sendgif.gif in Resources */,
 				A26FEBC0229F7DE0003CCD7C /* SendTransactionViewController.xib in Resources */,
 				A26FEC83229F805B003CCD7C /* bg@3x.png in Resources */,
 				A26FEC93229F805B003CCD7C /* adressbook_hight@3x.png in Resources */,
@@ -1724,6 +1745,7 @@
 				ED44C00F226DAFB30042928E /* VcashTypes.m in Sources */,
 				ED44BF8122696CF50042928E /* BTCBigNumber.m in Sources */,
 				ED44C00C226D9FF50042928E /* NodeType.m in Sources */,
+				A2E0164422CF01B10086FFA2 /* WalletPageSectionView.m in Sources */,
 				ED44BF8222696CF50042928E /* BTCScript+Tests.m in Sources */,
 				A26FEBE4229F7DE0003CCD7C /* LeftMenuView.m in Sources */,
 				A241822722A50A7F00519F7D /* LockScreenSetViewController.m in Sources */,
