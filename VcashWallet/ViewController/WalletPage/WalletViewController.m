@@ -319,17 +319,15 @@ static NSString *const identifier = @"WalletCell";
             if (serverTx.status == TxCanceled) {
                 return YES;
             }
-            return NO;
         }else{
              VcashTxLog *model = (VcashTxLog *)tx;
             if (model.tx_type == TxReceived && !model.parter_id && model.signed_slate_msg) {
-                if (model.confirm_state == NetConfirmed) {
-                    return NO;
-                }else{
+                if (model.confirm_state != NetConfirmed) {
                     return YES;
                 }
             }
         }
+        return NO;
     }
     VcashTxLog *model = self.arrComplete[indexPath.row];
     if (model.tx_type == TxSentCancelled || model.tx_type == TxReceivedCancelled) {
