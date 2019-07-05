@@ -39,7 +39,8 @@
         };
         if(isExitMnemonic){
             itemView.phrase = mnemonicArr[i];
-            itemView.tagColor = [UIColor colorWithHexString:@"#66CC33"];
+            itemView.tagColor =  yesOrNo ? ([self checkWordIsValid:itemView.phrase] ? [UIColor colorWithHexString:@"#66CC33"] : [UIColor colorWithHexString:@"#FF3333"]) : [UIColor colorWithRed:194 / 255.0 green:194 / 255.0 blue:194 / 255.0 alpha:1];
+            itemView.textFieldColor = [self checkWordIsValid:itemView.phrase] ? [UIColor darkTextColor] :[UIColor colorWithHexString:@"#FF3333"];
         }
         itemView.tag = (kWordItemTagStart + i);
         itemView.index = i;
@@ -272,6 +273,7 @@
     textField.text = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
      _phrase = textField.text;
     self.tagColor = [self checkWordIsValid:textField.text] ?  [UIColor colorWithHexString:@"#66CC33"] : [UIColor colorWithHexString:@"#FF3333"];
+    self.textFieldColor = [self checkWordIsValid:textField.text] ? [UIColor darkTextColor] : [UIColor colorWithHexString:@"#FF3333"];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -330,7 +332,7 @@
 
 - (void)setTagColor:(UIColor *)tagColor{
     self.tagBtn.backgroundColor = tagColor;
-    self.textField.textColor = tagColor;
+//    self.textField.textColor = tagColor;
 }
 
 - (void)setTextFieldColor:(UIColor *)textFieldColor{

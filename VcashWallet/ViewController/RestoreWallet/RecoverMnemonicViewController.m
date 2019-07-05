@@ -136,8 +136,11 @@
                         [strongSlef.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
                     }
                 }];
-                self.recoverBtn.userInteractionEnabled = YES;
-                [self.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
+                if ([self.creator getAllInputWords].count == 24) {
+                    self.recoverBtn.userInteractionEnabled = YES;
+                    [self.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
+                }
+               
             }]];
             
             [self.navigationController presentViewController:alterVc animated:YES completion:nil];
