@@ -79,7 +79,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="localPlaceholder" value="passwordTitle"/>
                             </userDefinedRuntimeAttributes>
                         </textField>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eyeopen.png" translatesAutoresizingMaskIntoConstraints="NO" id="r6A-8X-PFk">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eyeclose.png" translatesAutoresizingMaskIntoConstraints="NO" id="r6A-8X-PFk">
                             <rect key="frame" x="325" y="34" width="24" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="24" id="bio-su-Fgz"/>
@@ -157,7 +157,7 @@
     </objects>
     <resources>
         <image name="bg2.png" width="375" height="451"/>
-        <image name="eyeopen.png" width="48" height="48"/>
+        <image name="eyeclose.png" width="48" height="48"/>
         <image name="logo.png" width="301" height="156"/>
     </resources>
 </document>

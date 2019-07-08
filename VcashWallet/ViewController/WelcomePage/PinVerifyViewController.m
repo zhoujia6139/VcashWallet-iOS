@@ -56,7 +56,7 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithActionBlock:^(id  _Nonnull sender) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         strongSelf.openEye = !strongSelf.openEye;
-        strongSelf.imageViewEye.image = strongSelf.openEye ? [UIImage imageNamed:@"eyeclose.png"] : [UIImage imageNamed:@"eyeopen.png"];
+        strongSelf.imageViewEye.image = strongSelf.openEye ?  [UIImage imageNamed:@"eyeopen.png"] : [UIImage imageNamed:@"eyeclose.png"];
         strongSelf.textFieldPassword.secureTextEntry = !strongSelf.openEye;
     }];
     [self.imageViewEye addGestureRecognizer:tap];

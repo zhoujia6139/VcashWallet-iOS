@@ -80,11 +80,11 @@
     [self.passwordTextField addTarget:self action:@selector(fillConfirmPassword:) forControlEvents:UIControlEventEditingChanged];
     [self.confirmPasTextField addTarget:self action:@selector(fillConfirmPassword:) forControlEvents:UIControlEventEditingChanged];
     
-    [self.btnPasswordSecture setImage:[UIImage imageNamed:@"eyeblackopen.png"] forState:UIControlStateNormal];
-    [self.btnPasswordSecture setImage:[UIImage imageNamed:@"eyeblackclose.png"] forState:UIControlStateSelected];
+    [self.btnPasswordSecture setImage:[UIImage imageNamed:@"eyeblackclose.png"] forState:UIControlStateNormal];
+    [self.btnPasswordSecture setImage:[UIImage imageNamed:@"eyeblackopen.png"] forState:UIControlStateSelected];
     
-    [self.btnConfirmSecture setImage:[UIImage imageNamed:@"eyeblackopen.png"] forState:UIControlStateNormal];
-    [self.btnConfirmSecture setImage:[UIImage imageNamed:@"eyeblackclose.png"] forState:UIControlStateSelected];
+    [self.btnConfirmSecture setImage:[UIImage imageNamed:@"eyeblackclose.png"] forState:UIControlStateNormal];
+    [self.btnConfirmSecture setImage:[UIImage imageNamed:@"eyeblackopen.png"] forState:UIControlStateSelected];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

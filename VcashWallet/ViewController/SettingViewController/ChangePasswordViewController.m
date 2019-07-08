@@ -34,8 +34,8 @@
     self.btnNext.userInteractionEnabled = NO;
     [self.btnNext setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
     [self.btnNext setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
-    [self.btnSecure setImage:[UIImage imageNamed:@"eyeblackopen.png"] forState:UIControlStateNormal];
-    [self.btnSecure setImage:[UIImage imageNamed:@"eyeblackclose.png"] forState:UIControlStateSelected];
+    [self.btnSecure setImage:[UIImage imageNamed:@"eyeblackclose.png"] forState:UIControlStateNormal];
+    [self.btnSecure setImage:[UIImage imageNamed:@"eyeblackopen.png"] forState:UIControlStateSelected];
     
     UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 40)];
     self.textFieldPassword.rightView = rightView;
