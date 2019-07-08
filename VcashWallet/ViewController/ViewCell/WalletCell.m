@@ -67,11 +67,11 @@
     serverTx.isSend ? [self.imageViewInputOrOutput setImage:self.imageSent] :[self.imageViewInputOrOutput setImage:self.imageReceive];
     int64_t amount = serverTx.slateObj.amount;
     NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
-    NSMutableAttributedString *amountAttribute = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont robotoRegularWithSize:14]}];
+    NSMutableAttributedString *amountAttribute = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont robotoRegularWithSize:15]}];
     if (!serverTx.isSend) {
-        [amountAttribute insertAttributedString:[[NSAttributedString alloc] initWithString:@"+" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}] atIndex:0];
+        [amountAttribute insertAttributedString:[[NSAttributedString alloc] initWithString:@"+" attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:15]}] atIndex:0];
     }else{
-        [amountAttribute insertAttributedString:[[NSAttributedString alloc] initWithString:@"-" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}] atIndex:0];
+        [amountAttribute insertAttributedString:[[NSAttributedString alloc] initWithString:@"-" attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:15]}] atIndex:0];
     }
     self.labelAmount.attributedText = amountAttribute;
     self.bgView.backgroundColor = [UIColor colorWithHexString:@"#F6F0E8"];
@@ -98,13 +98,13 @@
     _txLog = txLog;
     int64_t amount = (int64_t)txLog.amount_credited - (int64_t)txLog.amount_debited;
     NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
-    NSMutableAttributedString *amountAttribute = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont robotoRegularWithSize:14]}];
+    NSMutableAttributedString *amountAttribute = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:15]}];
     switch (txLog.tx_type) {
         case ConfirmedCoinbase:
         case TxReceived:
         case TxReceivedCancelled:
             [self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"receive.png"]];
-            [amountAttribute insertAttributedString:[[NSAttributedString alloc] initWithString:@"+" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}] atIndex:0];
+            [amountAttribute insertAttributedString:[[NSAttributedString alloc] initWithString:@"+" attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:15]}] atIndex:0];
             break;
         case TxSent:
         case TxSentCancelled:

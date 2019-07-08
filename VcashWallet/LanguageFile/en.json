@@ -163,7 +163,7 @@
     "balance":"Balance",
     "pleaseEnter":"Please enter",
     "paste24WordsTitle":"Paste 24 words from the clipboard?",
-    "ongoingTx":"Ongoing transactions",
+    "ongoingTx":"Pending transactions",
     "completedTx":"Completed transactions",
     "recoverPhrase":"Backup Phrase",
     "verifyPasswordTitle":"Verify wallet password",
