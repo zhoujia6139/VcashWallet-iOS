@@ -33,6 +33,11 @@
 	<string>Need to access your camera to scan the QR code</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Need to access the album to scan the QR code</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Roboto-Regular.ttf</string>
+		<string>Roboto-Bold.ttf</string>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

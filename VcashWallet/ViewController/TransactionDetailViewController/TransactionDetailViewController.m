@@ -133,12 +133,12 @@
     self.labelRecipient.text = receiver_id;
     NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
      NSAttributedString *unitAttributrStr = [[NSAttributedString alloc] initWithString:@" VCash" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
-    NSMutableAttributedString *amountAttributeStr = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}];
+    NSMutableAttributedString *amountAttributeStr = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:14]}];
     [amountAttributeStr appendAttributedString:unitAttributrStr];
     
     self.labelAmount.attributedText = amountAttributeStr;
     
-    NSMutableAttributedString *feeAttributeStr = [[NSMutableAttributedString alloc] initWithString:@([WalletWrapper nanoToVcash:fee]).p09fString attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}];
+    NSMutableAttributedString *feeAttributeStr = [[NSMutableAttributedString alloc] initWithString:@([WalletWrapper nanoToVcash:fee]).p09fString attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:14]}];
    
     [feeAttributeStr appendAttributedString:unitAttributrStr];
     
@@ -278,6 +278,10 @@
             sender_id = self.txLog.parter_id ? self.txLog.parter_id : [LanguageService contentForKey:@"unreachable"];
             receiver_id = [VcashWallet shareInstance].userId;
             amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited);
+            if (!self.txLog.parter_id && self.txLog.signed_slate_msg) {
+                self.btnCancelTx.hidden = NO;
+                [self.btnCancelTx setTitle:[LanguageService contentForKey:@"Delete"] forState:UIControlStateNormal];
+            }
         }
             break;
             
@@ -286,7 +290,7 @@
             txStatus = [LanguageService contentForKey:@"transactionCanceled"];
             self.btnSignature.hidden = YES;
             self.btnCancelTx.hidden = NO;
-            [self.btnCancelTx setTitle:[LanguageService contentForKey:@"deleteTransaction"] forState:UIControlStateNormal];
+            [self.btnCancelTx setTitle:[LanguageService contentForKey:@"Delete"] forState:UIControlStateNormal];
             [self.btnCancelTx setImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
             sender_id =  self.txLog.parter_id ? self.txLog.parter_id : [LanguageService contentForKey:@"unreachable"];
             receiver_id = [VcashWallet shareInstance].userId;
@@ -299,7 +303,7 @@
             txStatus = [LanguageService contentForKey:@"transactionCanceled"];
             self.btnSignature.hidden = YES;
             self.btnCancelTx.hidden = NO;
-            [self.btnCancelTx setTitle:[LanguageService contentForKey:@"deleteTransaction"] forState:UIControlStateNormal];
+            [self.btnCancelTx setTitle:[LanguageService contentForKey:@"Delete"] forState:UIControlStateNormal];
             [self.btnCancelTx setImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
             sender_id =  [VcashWallet shareInstance].userId;
             receiver_id = self.txLog.parter_id ? self.txLog.parter_id : [LanguageService contentForKey:@"unreachable"];
@@ -389,6 +393,18 @@
                 case TxReceivedCancelled:{
                     //delete transaction
                     [self deleteTransactionWith:self.txLog];
+                }
+                    break;
+                case TxReceived:{
+                    if (!self.txLog.parter_id && self.txLog.signed_slate_msg) {
+                        UIAlertController *alterVc = [UIAlertController alertControllerWithTitle:[LanguageService contentForKey:@"deleteTxTitle"] message:[LanguageService contentForKey:@"deleteTxMsg"] preferredStyle:UIAlertControllerStyleAlert];
+                        [alterVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"cancel"] style:UIAlertActionStyleDefault handler:nil]];
+                        [alterVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"ok"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                            [self deleteTransactionWith:self.txLog];
+                        }]];
+                        [self.navigationController presentViewController:alterVc animated:YES completion:nil];
+                    }
+                   
                 }
                     break;
                     

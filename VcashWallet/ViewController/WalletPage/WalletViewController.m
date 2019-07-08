@@ -207,10 +207,13 @@ static NSString *const identifier = @"WalletCell";
     NSString *balance = @([WalletWrapper nanoToVcash:info.total]).p09fString;
     NSString *confirm = @([WalletWrapper nanoToVcash:info.spendable]).p09fString;
     NSString *unconfirm =  @([WalletWrapper nanoToVcash:info.unconfirmed]).p09fString;
+    self.balanceTotal.font = [UIFont robotoRegularWithSize:32];
     self.balanceTotal.text = balance;
     
+    self.balanceConfirmed.font = [UIFont robotoRegularWithSize:14];
     self.balanceConfirmed.text = [NSString stringWithFormat:@"%@",confirm];
     
+    self.balanceUnconfirmed.font = [UIFont robotoRegularWithSize:14];
     self.balanceUnconfirmed.text = [NSString stringWithFormat:@"%@",unconfirm];
     
     self.chainHeight.text = [NSString stringWithFormat:@"Height:%@", @([WalletWrapper getCurChainHeight])];
@@ -355,7 +358,17 @@ static NSString *const identifier = @"WalletCell";
                 if (!result) {
                     DDLogError(@"delete canceled transaction failed");
                 }else{
-                    [self refreshMainView];
+                    if (model.tx_type == TxReceived && !model.parter_id && model.signed_slate_msg) {
+                        if (model.confirm_state != NetConfirmed) {
+                            UIAlertController *alterVc = [UIAlertController alertControllerWithTitle:[LanguageService contentForKey:@"deleteTxTitle"] message:[LanguageService contentForKey:@"deleteTxMsg"] preferredStyle:UIAlertControllerStyleAlert];
+                            [alterVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"cancel"] style:UIAlertActionStyleDefault handler:nil]];
+                            [alterVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"ok"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                [self refreshMainView];
+                            }]];
+                            [self.navigationController presentViewController:alterVc animated:YES completion:nil];
+                        }
+                    }
+                   
                 }
             }
             return;

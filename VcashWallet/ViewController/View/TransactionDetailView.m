@@ -62,12 +62,12 @@
     NSString *amountStr = @([WalletWrapper nanoToVcash:slate.amount]).p09fString;
     self.lablelTxID.lineBreakMode = NSLineBreakByCharWrapping;
     self.lablelTxID.text = slate.uuid;
-    NSMutableAttributedString *amountAttributeStr = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}];
+    NSMutableAttributedString *amountAttributeStr = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:14]}];
     NSAttributedString *unitAttributeStr = [[NSAttributedString alloc] initWithString:@" VCash" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
     [amountAttributeStr appendAttributedString:unitAttributeStr];
     self.labelAmount.attributedText = amountAttributeStr;
     
-    NSMutableAttributedString *feeAttributeStr = [[NSMutableAttributedString alloc] initWithString:@([WalletWrapper nanoToVcash:slate.fee]).p09fString attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}];
+    NSMutableAttributedString *feeAttributeStr = [[NSMutableAttributedString alloc] initWithString:@([WalletWrapper nanoToVcash:slate.fee]).p09fString attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:14]}];
     [feeAttributeStr appendAttributedString:unitAttributeStr];
     self.labelFee.attributedText = feeAttributeStr;
 }

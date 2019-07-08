@@ -30,7 +30,6 @@
 @property (nonatomic, strong) PhraseWordShowViewCreator *creator;
 
 
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintRecoverBottom;
 
 @property (nonatomic, strong) NSString *password;

@@ -67,13 +67,14 @@
     serverTx.isSend ? [self.imageViewInputOrOutput setImage:self.imageSent] :[self.imageViewInputOrOutput setImage:self.imageReceive];
     int64_t amount = serverTx.slateObj.amount;
     NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
+    NSMutableAttributedString *amountAttribute = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont robotoRegularWithSize:14]}];
     if (!serverTx.isSend) {
-        amountStr = [NSString stringWithFormat:@"+%@",@([WalletWrapper nanoToVcash:amount]).p09fString];
+        [amountAttribute insertAttributedString:[[NSAttributedString alloc] initWithString:@"+" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}] atIndex:0];
     }else{
-        amountStr = [NSString stringWithFormat:@"-%@",@([WalletWrapper nanoToVcash:amount]).p09fString];
+        [amountAttribute insertAttributedString:[[NSAttributedString alloc] initWithString:@"-" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}] atIndex:0];
     }
+    self.labelAmount.attributedText = amountAttribute;
     self.bgView.backgroundColor = [UIColor colorWithHexString:@"#F6F0E8"];
-    self.labelAmount.text = [NSString stringWithFormat:@"%@",amountStr];
     self.labelTime.text = [[NSDate date] stringWithFormat:@"yyyy-MM-dd"];
     [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
     self.stateLabel.textColor = [UIColor colorWithHexString:@"#FF3333"];
@@ -97,12 +98,13 @@
     _txLog = txLog;
     int64_t amount = (int64_t)txLog.amount_credited - (int64_t)txLog.amount_debited;
     NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
+    NSMutableAttributedString *amountAttribute = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont robotoRegularWithSize:14]}];
     switch (txLog.tx_type) {
         case ConfirmedCoinbase:
         case TxReceived:
         case TxReceivedCancelled:
             [self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"receive.png"]];
-            amountStr = [NSString stringWithFormat:@"+%@",@([WalletWrapper nanoToVcash:amount]).p09fString];
+            [amountAttribute insertAttributedString:[[NSAttributedString alloc] initWithString:@"+" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}] atIndex:0];
             break;
         case TxSent:
         case TxSentCancelled:
@@ -117,7 +119,8 @@
         txId = (self.txLog.tx_type == ConfirmedCoinbase) ? [LanguageService contentForKey:@"coinbase"] : [LanguageService contentForKey:@"unreachable"];
     }
     self.labelTxId.text = txId;
-    self.labelAmount.text = [NSString stringWithFormat:@"%@",amountStr];
+    self.labelAmount.attributedText = amountAttribute;
+//    self.labelAmount.text = [NSString stringWithFormat:@"%@",amountStr];
     self.labelTime.text = [[NSDate dateWithTimeIntervalSince1970:txLog.create_time] stringWithFormat:@"yyyy-MM-dd"];
     switch (txLog.confirm_state){
         case DefaultState:

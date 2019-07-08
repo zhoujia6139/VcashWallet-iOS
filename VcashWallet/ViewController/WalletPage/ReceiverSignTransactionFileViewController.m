@@ -24,18 +24,6 @@
 //    [self getSignTxFileContent];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    if (self.showDone) {
-        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-        NSMutableArray *arrVcs = [NSMutableArray arrayWithArray:self.navigationController.childViewControllers];
-        NSInteger count = arrVcs.count;
-        TransactionFileSignedRecordViewController *fileSignedRecordVc = [TransactionFileSignedRecordViewController new];
-        [arrVcs insertObject:fileSignedRecordVc atIndex:count - 1];
-        self.navigationController.viewControllers = arrVcs;
-    }
-   
-}
 
 - (void)initView{
     self.title = [LanguageService contentForKey:@"receiveTransactionFile"];
@@ -181,7 +169,7 @@
                 uint64_t amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited);
                 NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
                 NSAttributedString *unitAttributrStr = [[NSAttributedString alloc] initWithString:@" VCash" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
-                NSMutableAttributedString *amountAttributeStr = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}];
+                NSMutableAttributedString *amountAttributeStr = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:14]}];
                 [amountAttributeStr appendAttributedString:unitAttributrStr];
                 txContent.attributedText = amountAttributeStr;
             }
@@ -190,7 +178,7 @@
                 title = [LanguageService contentForKey:@"txfee"];
               
                 NSAttributedString *unitAttributrStr = [[NSAttributedString alloc] initWithString:@" VCash" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
-                NSMutableAttributedString *feeAttributeStr = [[NSMutableAttributedString alloc] initWithString:@([WalletWrapper nanoToVcash:self.txLog.fee]).p09fString attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]}];
+                NSMutableAttributedString *feeAttributeStr = [[NSMutableAttributedString alloc] initWithString:@([WalletWrapper nanoToVcash:self.txLog.fee]).p09fString attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:14]}];
                 [feeAttributeStr appendAttributedString:unitAttributrStr];
                 txContent.attributedText = feeAttributeStr;
             }
@@ -255,7 +243,7 @@
 
 - (void)backBtnClicked{
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 /*
 #pragma mark - Navigation

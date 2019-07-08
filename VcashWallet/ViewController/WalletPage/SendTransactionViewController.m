@@ -60,13 +60,20 @@
     NSMutableAttributedString *placeholder = [[NSMutableAttributedString alloc] initWithString:[LanguageService contentForKey:@"enterAmount"]];
     [placeholder addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, placeholder.length)];
     [placeholder addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, placeholder.length)];
+    self.amountField.font = [UIFont robotoRegularWithSize:22.0f];
     self.amountField.attributedPlaceholder = placeholder;
     [self.amountField addTarget:self action:@selector(enterAmount:) forControlEvents:UIControlEventEditingChanged];
     self.sendBtn.backgroundColor = COrangeEnableColor;
     self.sendBtn.userInteractionEnabled = NO;
     ViewRadius(self.sendBtn, 4.0);
     WalletBalanceInfo* info = [WalletWrapper getWalletBalanceInfo];
-    self.labelAvailable.text = [NSString stringWithFormat:@"%@: %@ v",[LanguageService contentForKey:@"available"],@([WalletWrapper nanoToVcash:info.spendable]).p09fString];
+    NSMutableAttributedString *availableAttribute = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@: ",[LanguageService contentForKey:@"available"]] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}];
+    NSAttributedString *spendableAttribute = [[NSAttributedString alloc] initWithString:@([WalletWrapper nanoToVcash:info.spendable]).p09fString attributes:@{NSFontAttributeName:[UIFont robotoRegularWithSize:12]}];
+    [availableAttribute appendAttributedString:spendableAttribute];
+    NSAttributedString *unitAttribute = [[NSAttributedString alloc] initWithString:@" V" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}];
+    [availableAttribute appendAttributedString:unitAttribute];
+    self.labelAvailable.attributedText = availableAttribute;
+//    self.labelAvailable.text = [NSString stringWithFormat:@"%@: %@ V",[LanguageService contentForKey:@"available"],@([WalletWrapper nanoToVcash:info.spendable]).p09fString];
 }
 
 

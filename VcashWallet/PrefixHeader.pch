@@ -31,6 +31,7 @@
 
 #import "WalletWrapper.h"
 #import "LanguageManager.h"
+#import "UIFont+Roboto.h"
 
 #define isInTestNet 1
 
