@@ -97,7 +97,6 @@
     "transactionCompleted":"TX Status: transaction completed",
     "unreachable":"unreachable",
     "coinbase":"coinbase",
-    "deleteTransaction":"Delete the transaction",
     "successfulBroadcast":"Waiting for network confirmation",
     "broadcastFailure":"Failed to broadcast the transaction.",
     "successfulSignature":"Signature completed. Waiting for the sender to process.",
@@ -172,4 +171,7 @@
     "verifySuc":"Backup successfully",
     "check":"Check",
     "sendTo":"Send to",
+    "deleteTxTitle":"Are you sure to delete the transaction?",
+    "deleteTxMsg":"The transaction will not be shown on your phone after being deleted",
+    "Delete":"Delete"
 }
