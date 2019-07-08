@@ -279,8 +279,10 @@
             receiver_id = [VcashWallet shareInstance].userId;
             amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited);
             if (!self.txLog.parter_id && self.txLog.signed_slate_msg) {
-                self.btnCancelTx.hidden = NO;
-                [self.btnCancelTx setTitle:[LanguageService contentForKey:@"Delete"] forState:UIControlStateNormal];
+                if (self.txLog.confirm_state != NetConfirmed) {
+                    self.btnCancelTx.hidden = NO;
+                    [self.btnCancelTx setTitle:[LanguageService contentForKey:@"Delete"] forState:UIControlStateNormal];
+                }
             }
         }
             break;
