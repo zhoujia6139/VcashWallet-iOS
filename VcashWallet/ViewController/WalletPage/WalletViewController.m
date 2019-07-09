@@ -341,7 +341,7 @@ static NSString *const identifier = @"WalletCell";
 }
 
 - (NSArray <UITableViewRowAction *>*)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:[LanguageService contentForKey:@"deleteTransaction"] handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+    UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:[LanguageService contentForKey:@"Delete"] handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         NSString *title = self.arrSections[indexPath.section];
         if ([title isEqualToString:txOngoing]) {
             id tx = self.arrOngoing[indexPath.row];
