@@ -175,4 +175,6 @@
     "deleteTxMsg":"The transaction will not be shown on your phone after being deleted",
     "Delete":"Delete",
     "deleting":"deleting",
+    "copyToClipboard":"Copy to Clipboard",
+    "copiedToClipboard":"Copied to clipboard",
 }

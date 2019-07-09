@@ -29,10 +29,12 @@
 
 @property (nonatomic, strong) PhraseWordShowViewCreator *creator;
 
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintRecoverBottom;
 
 @property (nonatomic, strong) NSString *password;
+
+
+@property (weak, nonatomic) IBOutlet VcashButton *btnCopy;
 
 @end
 
@@ -45,7 +47,7 @@
     self.navigationItem.title = [LanguageService contentForKey:@"restorePhrase"];
     self.constraintPromptViewWidth.constant = ScreenWidth - 24;
     ViewRadius(self.recoverBtn, 4.0);
-    
+    self.btnCopy.hidden = !self.recoveryPhrase;
     self.recoverBtn.userInteractionEnabled = NO;
     [self.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
     self.creator = [PhraseWordShowViewCreator new];
@@ -74,6 +76,18 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    if (self.recoveryPhrase) {
+        NSMutableArray *arrVcs = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+        NSInteger count = arrVcs.count;
+        for (NSInteger i = count - 1; i >= 0; i--) {
+            UIViewController *vc = arrVcs[i];
+            if ([vc isKindOfClass:NSClassFromString(@"ChangePasswordViewController")]) {
+                [arrVcs removeObject:vc];
+                break;
+            }
+        }
+        self.navigationController.viewControllers = arrVcs;
+    }
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pasteWordsFromClipBoard) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
@@ -153,6 +167,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)clickedBtnCopyPhrase:(id)sender {
+    NSString *mnemonicStr = [[UserCenter sharedInstance] getStoredMnemonicWordsWithKey:self.password];
+    if (mnemonicStr.length > 0) {
+        [[UIPasteboard generalPasteboard] setString:mnemonicStr];
+        [self.view makeToast:[LanguageService contentForKey:@"copiedToClipboard"]];
+    }
+}
+
+
 
 - (IBAction)clickRecover:(id)sender {
     if (self.recoveryPhrase) {

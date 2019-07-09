@@ -72,6 +72,7 @@
     [availableAttribute appendAttributedString:spendableAttribute];
     NSAttributedString *unitAttribute = [[NSAttributedString alloc] initWithString:@" V" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}];
     [availableAttribute appendAttributedString:unitAttribute];
+    self.labelAvailable.textColor = COrangeColor;
     self.labelAvailable.attributedText = availableAttribute;
 //    self.labelAvailable.text = [NSString stringWithFormat:@"%@: %@ V",[LanguageService contentForKey:@"available"],@([WalletWrapper nanoToVcash:info.spendable]).p09fString];
 }

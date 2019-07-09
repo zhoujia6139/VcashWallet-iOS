@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RecoverMnemonicViewController">
             <connections>
+                <outlet property="btnCopy" destination="SLp-Ua-lYP" id="xc4-06-Zb7"/>
                 <outlet property="constraintPromptViewWidth" destination="Fmp-Pi-QnW" id="y5O-R1-t9f"/>
                 <outlet property="constraintRecoverBottom" destination="UwH-dP-wsg" id="OeD-6w-v77"/>
                 <outlet property="phraseView" destination="nKk-dw-JPs" id="esy-BJ-u7I"/>
@@ -59,6 +60,19 @@
                                 <constraint firstAttribute="height" constant="360" id="d6y-sN-C8E"/>
                             </constraints>
                         </view>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLp-Ua-lYP" customClass="VcashButton">
+                            <rect key="frame" x="121.5" y="510" width="132" height="30"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <state key="normal" title="Copy to Clipboard">
+                                <color key="titleColor" red="0.20000000000000001" green="0.59999999999999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localTitle" value="copyToClipboard"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="clickedBtnCopyPhrase:" destination="-1" eventType="touchUpInside" id="qUn-8A-S3g"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="nKk-dw-JPs" secondAttribute="bottom" id="99A-Hg-WCv"/>
@@ -67,7 +81,9 @@
                         <constraint firstAttribute="trailing" secondItem="gem-0A-xWB" secondAttribute="trailing" constant="12" id="OvW-ER-iXY"/>
                         <constraint firstItem="nKk-dw-JPs" firstAttribute="top" secondItem="gem-0A-xWB" secondAttribute="bottom" constant="12" id="X9r-Np-Cca"/>
                         <constraint firstAttribute="trailing" secondItem="nKk-dw-JPs" secondAttribute="trailing" constant="12" id="Xvb-zs-SzP"/>
+                        <constraint firstItem="SLp-Ua-lYP" firstAttribute="top" secondItem="nKk-dw-JPs" secondAttribute="bottom" constant="40" id="bsF-UV-dXO"/>
                         <constraint firstItem="gem-0A-xWB" firstAttribute="top" secondItem="jfO-do-qEm" secondAttribute="top" constant="12" id="eJg-Gf-PYK"/>
+                        <constraint firstItem="SLp-Ua-lYP" firstAttribute="centerX" secondItem="nKk-dw-JPs" secondAttribute="centerX" id="y4k-Tw-EvM"/>
                     </constraints>
                 </scrollView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YLI-hd-uj4" customClass="VcashButton">

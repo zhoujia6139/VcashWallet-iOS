@@ -46,6 +46,7 @@
     UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 40)];
     self.textFieldPassword.rightView = rightView;
     self.textFieldPassword.rightViewMode = UITextFieldViewModeAlways;
+    [self.textFieldPassword addTarget:self action:@selector(enterPassword:) forControlEvents:UIControlEventEditingChanged];
     [self.btnOpenWallet setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
     [self.btnOpenWallet setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
     ViewRadius(self.btnOpenWallet, 4.0);
@@ -87,6 +88,13 @@
     return UIStatusBarStyleLightContent;
 }
 
+- (void)enterPassword:(UITextField *)textField{
+    if (textField.text.length == 0) {
+        self.viewLine.backgroundColor = COrangeColor;
+        self.labelPasswordWrong.hidden = YES;
+    }
+}
+
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     self.labelPrompt.textColor = [UIColor colorWithHexString:@"#666666"];
@@ -103,6 +111,8 @@
     [textField resignFirstResponder];
     return YES;
 }
+
+
 
 
 - (IBAction)clickedEnterWallet:(id)sender {
