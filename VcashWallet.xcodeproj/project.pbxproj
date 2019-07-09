@@ -23,8 +23,6 @@
 		A241824F22A7C1A600519F7D /* indicator@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A241824D22A7C1A600519F7D /* indicator@3x.png */; };
 		A241825222A7C49900519F7D /* seletedindicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A241825022A7C49800519F7D /* seletedindicator@2x.png */; };
 		A241825322A7C49900519F7D /* seletedindicator@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A241825122A7C49900519F7D /* seletedindicator@3x.png */; };
-		A242179222B7A356004F815E /* eyeopen.png in Resources */ = {isa = PBXBuildFile; fileRef = A242179022B7A356004F815E /* eyeopen.png */; };
-		A242179322B7A356004F815E /* eyeclose.png in Resources */ = {isa = PBXBuildFile; fileRef = A242179122B7A356004F815E /* eyeclose.png */; };
 		A25E6E4322BC824100D563A4 /* ReceiveTransactionFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A25E6E4122BC824100D563A4 /* ReceiveTransactionFileViewController.m */; };
 		A25E6E4722BCB87800D563A4 /* TransactionDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = A25E6E4622BCB87800D563A4 /* TransactionDetailView.m */; };
 		A25E6E4922BCB88D00D563A4 /* TransactionDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A25E6E4822BCB88D00D563A4 /* TransactionDetailView.xib */; };
@@ -169,13 +167,19 @@
 		A274F1C622D31F80004CF0C8 /* UIFont+Roboto.m in Sources */ = {isa = PBXBuildFile; fileRef = A274F1C522D31F80004CF0C8 /* UIFont+Roboto.m */; };
 		A274F1C822D3273E004CF0C8 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A274F1C222D31BB4004CF0C8 /* Roboto-Regular.ttf */; };
 		A274F1C922D3273E004CF0C8 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A274F1C722D323D5004CF0C8 /* Roboto-Bold.ttf */; };
+		A274F1CE22D46534004CF0C8 /* eyeblackopen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A274F1CA22D46534004CF0C8 /* eyeblackopen@3x.png */; };
+		A274F1CF22D46534004CF0C8 /* eyeblackclose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A274F1CB22D46534004CF0C8 /* eyeblackclose@2x.png */; };
+		A274F1D022D46534004CF0C8 /* eyeblackclose@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A274F1CC22D46534004CF0C8 /* eyeblackclose@3x.png */; };
+		A274F1D122D46534004CF0C8 /* eyeblackopen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A274F1CD22D46534004CF0C8 /* eyeblackopen@2x.png */; };
+		A274F1D622D468D3004CF0C8 /* eyeclose@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A274F1D222D468D2004CF0C8 /* eyeclose@3x.png */; };
+		A274F1D722D468D3004CF0C8 /* eyeopen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A274F1D322D468D3004CF0C8 /* eyeopen@2x.png */; };
+		A274F1D822D468D3004CF0C8 /* eyeclose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A274F1D422D468D3004CF0C8 /* eyeclose@2x.png */; };
+		A274F1D922D468D3004CF0C8 /* eyeopen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A274F1D522D468D3004CF0C8 /* eyeopen@3x.png */; };
 		A2B3A11722A0D8EF000F7495 /* ServerTransactionBlackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */; };
 		A2D1569222C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D1569022C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.m */; };
 		A2D1569322C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2D1569122C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib */; };
 		A2E0164422CF01B10086FFA2 /* WalletPageSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A2E0164322CF01B10086FFA2 /* WalletPageSectionView.m */; };
 		A2E0164622CF12370086FFA2 /* sendgif.gif in Resources */ = {isa = PBXBuildFile; fileRef = A2E0164522CF12370086FFA2 /* sendgif.gif */; };
-		A2E0164B22CF2CE40086FFA2 /* eyeblackclose.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E0164922CF2CE30086FFA2 /* eyeblackclose.png */; };
-		A2E0164C22CF2CE40086FFA2 /* eyeblackopen.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E0164A22CF2CE40086FFA2 /* eyeblackopen.png */; };
 		A2E0164E22CF4F310086FFA2 /* receivegif.gif in Resources */ = {isa = PBXBuildFile; fileRef = A2E0164D22CF4F310086FFA2 /* receivegif.gif */; };
 		A2E5602022A8DBE7002E8E2D /* leftmenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E5601E22A8DBE6002E8E2D /* leftmenu@2x.png */; };
 		A2E5602122A8DBE7002E8E2D /* leftmenu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E5601F22A8DBE6002E8E2D /* leftmenu@3x.png */; };
@@ -304,8 +308,6 @@
 		A241824D22A7C1A600519F7D /* indicator@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "indicator@3x.png"; sourceTree = "<group>"; };
 		A241825022A7C49800519F7D /* seletedindicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seletedindicator@2x.png"; sourceTree = "<group>"; };
 		A241825122A7C49900519F7D /* seletedindicator@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seletedindicator@3x.png"; sourceTree = "<group>"; };
-		A242179022B7A356004F815E /* eyeopen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyeopen.png; sourceTree = "<group>"; };
-		A242179122B7A356004F815E /* eyeclose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyeclose.png; sourceTree = "<group>"; };
 		A25E6E4022BC824100D563A4 /* ReceiveTransactionFileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReceiveTransactionFileViewController.h; sourceTree = "<group>"; };
 		A25E6E4122BC824100D563A4 /* ReceiveTransactionFileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReceiveTransactionFileViewController.m; sourceTree = "<group>"; };
 		A25E6E4522BCB87800D563A4 /* TransactionDetailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransactionDetailView.h; sourceTree = "<group>"; };
@@ -488,6 +490,14 @@
 		A274F1C422D31F80004CF0C8 /* UIFont+Roboto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+Roboto.h"; sourceTree = "<group>"; };
 		A274F1C522D31F80004CF0C8 /* UIFont+Roboto.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Roboto.m"; sourceTree = "<group>"; };
 		A274F1C722D323D5004CF0C8 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		A274F1CA22D46534004CF0C8 /* eyeblackopen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eyeblackopen@3x.png"; sourceTree = "<group>"; };
+		A274F1CB22D46534004CF0C8 /* eyeblackclose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eyeblackclose@2x.png"; sourceTree = "<group>"; };
+		A274F1CC22D46534004CF0C8 /* eyeblackclose@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eyeblackclose@3x.png"; sourceTree = "<group>"; };
+		A274F1CD22D46534004CF0C8 /* eyeblackopen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eyeblackopen@2x.png"; sourceTree = "<group>"; };
+		A274F1D222D468D2004CF0C8 /* eyeclose@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eyeclose@3x.png"; sourceTree = "<group>"; };
+		A274F1D322D468D3004CF0C8 /* eyeopen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eyeopen@2x.png"; sourceTree = "<group>"; };
+		A274F1D422D468D3004CF0C8 /* eyeclose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eyeclose@2x.png"; sourceTree = "<group>"; };
+		A274F1D522D468D3004CF0C8 /* eyeopen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eyeopen@3x.png"; sourceTree = "<group>"; };
 		A2B3A11522A0D8EF000F7495 /* ServerTransactionBlackManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerTransactionBlackManager.h; sourceTree = "<group>"; };
 		A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerTransactionBlackManager.m; sourceTree = "<group>"; };
 		A2D1568F22C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransactionFileSignedRecordViewController.h; sourceTree = "<group>"; };
@@ -496,8 +506,6 @@
 		A2E0164222CF01B10086FFA2 /* WalletPageSectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletPageSectionView.h; sourceTree = "<group>"; };
 		A2E0164322CF01B10086FFA2 /* WalletPageSectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletPageSectionView.m; sourceTree = "<group>"; };
 		A2E0164522CF12370086FFA2 /* sendgif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sendgif.gif; sourceTree = "<group>"; };
-		A2E0164922CF2CE30086FFA2 /* eyeblackclose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyeblackclose.png; sourceTree = "<group>"; };
-		A2E0164A22CF2CE40086FFA2 /* eyeblackopen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyeblackopen.png; sourceTree = "<group>"; };
 		A2E0164D22CF4F310086FFA2 /* receivegif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = receivegif.gif; sourceTree = "<group>"; };
 		A2E5601E22A8DBE6002E8E2D /* leftmenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftmenu@2x.png"; sourceTree = "<group>"; };
 		A2E5601F22A8DBE6002E8E2D /* leftmenu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftmenu@3x.png"; sourceTree = "<group>"; };
@@ -874,8 +882,14 @@
 				A274F1C322D31BBC004CF0C8 /* font */,
 				A26FECAF229FEC26003CCD7C /* process_suc_icon@2x.png */,
 				A26FECB1229FEC33003CCD7C /* process_fail_icon@2x.png */,
-				A2E0164922CF2CE30086FFA2 /* eyeblackclose.png */,
-				A2E0164A22CF2CE40086FFA2 /* eyeblackopen.png */,
+				A274F1D422D468D3004CF0C8 /* eyeclose@2x.png */,
+				A274F1D222D468D2004CF0C8 /* eyeclose@3x.png */,
+				A274F1D322D468D3004CF0C8 /* eyeopen@2x.png */,
+				A274F1D522D468D3004CF0C8 /* eyeopen@3x.png */,
+				A274F1CB22D46534004CF0C8 /* eyeblackclose@2x.png */,
+				A274F1CC22D46534004CF0C8 /* eyeblackclose@3x.png */,
+				A274F1CD22D46534004CF0C8 /* eyeblackopen@2x.png */,
+				A274F1CA22D46534004CF0C8 /* eyeblackopen@3x.png */,
 				A2E0164522CF12370086FFA2 /* sendgif.gif */,
 				A2E0164D22CF4F310086FFA2 /* receivegif.gif */,
 				A25E6E4A22BCBC5C00D563A4 /* close@2x.png */,
@@ -886,8 +900,6 @@
 				A25E6E5122BCC2B700D563A4 /* copyorange@3x.png */,
 				A21189BD22B900E500B88179 /* headbg@2x.png */,
 				A21189BC22B900E500B88179 /* headbg@3x.png */,
-				A242179122B7A356004F815E /* eyeclose.png */,
-				A242179022B7A356004F815E /* eyeopen.png */,
 				A27269AA22B3AB8B00E76E0A /* bg2@2x.png */,
 				A27269A922B3AB8A00E76E0A /* bg2@3x.png */,
 				A231645722B7470C00E690D1 /* cancel@2x.png */,
@@ -1475,14 +1487,15 @@
 				A26FEC5A229F805A003CCD7C /* add@3x.png in Resources */,
 				A26FECA3229F8064003CCD7C /* en.json in Resources */,
 				A26FEC62229F805B003CCD7C /* finish@2x.png in Resources */,
+				A274F1D822D468D3004CF0C8 /* eyeclose@2x.png in Resources */,
 				A25E6E5422BCC2B700D563A4 /* copyorange@2x.png in Resources */,
 				A26FEC76229F805B003CCD7C /* sendchose@2x.png in Resources */,
 				A241824722A7B15C00519F7D /* circle@3x.png in Resources */,
+				A274F1D022D46534004CF0C8 /* eyeblackclose@3x.png in Resources */,
 				A26FEBCB229F7DE0003CCD7C /* LeftMenuCell.xib in Resources */,
 				A26FEC73229F805B003CCD7C /* eye@2x.png in Resources */,
 				A26FEC9C229F805B003CCD7C /* normal.9.png in Resources */,
 				A2E5602122A8DBE7002E8E2D /* leftmenu@3x.png in Resources */,
-				A242179322B7A356004F815E /* eyeclose.png in Resources */,
 				A26FEC8C229F805B003CCD7C /* rightindicator@2x.png in Resources */,
 				A26FEC8F229F805B003CCD7C /* confirmdetail@3x.png in Resources */,
 				A25E6E5322BCC2B700D563A4 /* copyorange@3x.png in Resources */,
@@ -1500,7 +1513,6 @@
 				A26FEC54229F805A003CCD7C /* add@2x.png in Resources */,
 				A26FEC8D229F805B003CCD7C /* delete@2x.png in Resources */,
 				A27269A122AF984600E76E0A /* canceled@2x.png in Resources */,
-				A2E0164B22CF2CE40086FFA2 /* eyeblackclose.png in Resources */,
 				A26FEBDC229F7DE0003CCD7C /* SendTransactionConfirmView.xib in Resources */,
 				A26FEC5F229F805B003CCD7C /* lock@3x.png in Resources */,
 				A26FEC67229F805B003CCD7C /* restore@2x.png in Resources */,
@@ -1512,7 +1524,6 @@
 				A26FEC87229F805B003CCD7C /* logo@2x.png in Resources */,
 				A26FEBC3229F7DE0003CCD7C /* TransactionDetailViewController.xib in Resources */,
 				A26FEC78229F805B003CCD7C /* topradius.9.png in Resources */,
-				A242179222B7A356004F815E /* eyeopen.png in Resources */,
 				A21189BF22B900E500B88179 /* headbg@2x.png in Resources */,
 				A26FEBD7229F7DE0003CCD7C /* CreateMnemonicViewController.xib in Resources */,
 				A26FEC99229F805B003CCD7C /* wallet@2x.png in Resources */,
@@ -1526,6 +1537,7 @@
 				A26FEBBD229F7DE0003CCD7C /* WalletViewController.xib in Resources */,
 				A26FEC6B229F805B003CCD7C /* scanscanBg.png in Resources */,
 				A26FEC5D229F805B003CCD7C /* walletleftimage@3x.png in Resources */,
+				A274F1D622D468D3004CF0C8 /* eyeclose@3x.png in Resources */,
 				A272699822AE3C6A00E76E0A /* canceldetail@3x.png in Resources */,
 				A26FECB6229FF0EA003CCD7C /* nodata@3x.png in Resources */,
 				A25E6E4D22BCBC5C00D563A4 /* close@3x.png in Resources */,
@@ -1558,7 +1570,8 @@
 				A26FEC9D229F805B003CCD7C /* confirmdetail@2x.png in Resources */,
 				A26FEC9E229F805B003CCD7C /* wallet_hight@2x.png in Resources */,
 				A26FEC5B229F805A003CCD7C /* confirmed@3x.png in Resources */,
-				A2E0164C22CF2CE40086FFA2 /* eyeblackopen.png in Resources */,
+				A274F1D922D468D3004CF0C8 /* eyeopen@3x.png in Resources */,
+				A274F1CF22D46534004CF0C8 /* eyeblackclose@2x.png in Resources */,
 				A26FEC97229F805B003CCD7C /* vcash@2x.png in Resources */,
 				A26FEC86229F805B003CCD7C /* balancelogo@2x.png in Resources */,
 				A21189B622B8C5E700B88179 /* scan@2x.png in Resources */,
@@ -1567,7 +1580,9 @@
 				A26FEBC2229F7DE0003CCD7C /* ConfirmSeedphraseViewController.xib in Resources */,
 				A26FEC80229F805B003CCD7C /* ongoing@2x.png in Resources */,
 				A241824F22A7C1A600519F7D /* indicator@3x.png in Resources */,
+				A274F1CE22D46534004CF0C8 /* eyeblackopen@3x.png in Resources */,
 				A26FEC58229F805A003CCD7C /* send@3x.png in Resources */,
+				A274F1D122D46534004CF0C8 /* eyeblackopen@2x.png in Resources */,
 				A25E6E4922BCB88D00D563A4 /* TransactionDetailView.xib in Resources */,
 				A26FEC61229F805B003CCD7C /* eye@3x.png in Resources */,
 				A26FEC6C229F805B003CCD7C /* copy@2x.png in Resources */,
@@ -1591,6 +1606,7 @@
 				A26FECB5229FF0EA003CCD7C /* nodata@2x.png in Resources */,
 				A21189BE22B900E500B88179 /* headbg@3x.png in Resources */,
 				A26FEC70229F805B003CCD7C /* receivechose@2x.png in Resources */,
+				A274F1D722D468D3004CF0C8 /* eyeopen@2x.png in Resources */,
 				A26FEC7A229F805B003CCD7C /* logo@3x.png in Resources */,
 				A26FEC74229F805B003CCD7C /* rightindicator@3x.png in Resources */,
 				A26FECB0229FEC26003CCD7C /* process_suc_icon@2x.png in Resources */,
