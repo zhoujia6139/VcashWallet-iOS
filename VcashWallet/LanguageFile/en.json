@@ -175,6 +175,4 @@
     "deleteTxMsg":"The transaction will not be shown on your phone after being deleted",
     "Delete":"Delete",
     "deleting":"deleting",
-    "deleteSuc":"successfully deleted",
-    "deleteFailed":"failed to delete",
 }

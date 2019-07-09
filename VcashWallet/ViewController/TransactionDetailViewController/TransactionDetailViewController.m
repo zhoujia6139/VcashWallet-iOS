@@ -402,7 +402,13 @@
                         UIAlertController *alterVc = [UIAlertController alertControllerWithTitle:[LanguageService contentForKey:@"deleteTxTitle"] message:[LanguageService contentForKey:@"deleteTxMsg"] preferredStyle:UIAlertControllerStyleAlert];
                         [alterVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"cancel"] style:UIAlertActionStyleDefault handler:nil]];
                         [alterVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"ok"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                            [self deleteTransactionWith:self.txLog];
+                            BOOL cancelSuc = [WalletWrapper cancelTransaction:self.txLog.tx_slate_id];
+                            if (cancelSuc) {
+                                 [self deleteTransactionWith:self.txLog];
+                            }else{
+                                [MBHudHelper showTextTips:[LanguageService contentForKey:@"deleteFailed"] onView:nil withDuration:1.0];
+                            }
+                           
                         }]];
                         [self.navigationController presentViewController:alterVc animated:YES completion:nil];
                     }
