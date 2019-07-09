@@ -269,11 +269,34 @@
         self.tagBtn.backgroundColor = [UIColor colorWithRed:194 / 255.0 green:194 / 255.0 blue:194 / 255.0 alpha:1];
         return;
     }
+    NSArray *mnemonicArr = nil;
+    NSString *pasteString = textField.text;
+    pasteString = [pasteString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    pasteString = [pasteString stringByReplacingOccurrencesOfString:@"-" withString:@" "];
+    pasteString = [pasteString stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\s{2,}" options:NSRegularExpressionCaseInsensitive error:&error];
+
+    NSArray *arr = [regex matchesInString:pasteString options:NSMatchingReportCompletion range:NSMakeRange(0, pasteString.length)];
+
+    arr = [[arr reverseObjectEnumerator] allObjects];
+
+    for (NSTextCheckingResult *str in arr) {
+        pasteString = [pasteString stringByReplacingCharactersInRange:[str range] withString:@" "];
+    }
+    if ([pasteString containsString:@" "]) {
+        mnemonicArr = [pasteString componentsSeparatedByString:@" "];
+    }
+    if (mnemonicArr && mnemonicArr.count == 24) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kPastePhrase object:mnemonicArr];
+        return;
+    }
     textField.text = [textField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     textField.text = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-     _phrase = textField.text;
+    _phrase = textField.text;
     self.tagColor = [self checkWordIsValid:textField.text] ?  [UIColor colorWithHexString:@"#66CC33"] : [UIColor colorWithHexString:@"#FF3333"];
     self.textFieldColor = [self checkWordIsValid:textField.text] ? [UIColor darkTextColor] : [UIColor colorWithHexString:@"#FF3333"];
+    
 }
 
 #pragma mark - UITextFieldDelegate

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
+#define kPastePhrase @"kPastePhrase"
 
 @interface PhraseWordShowViewCreator : NSObject<UITextFieldDelegate>
 

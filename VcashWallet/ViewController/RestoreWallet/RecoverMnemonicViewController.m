@@ -88,6 +88,7 @@
         }
         self.navigationController.viewControllers = arrVcs;
     }
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pasteWordToTextField:) name:kPastePhrase object:nil];
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pasteWordsFromClipBoard) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
@@ -105,6 +106,25 @@
 
 - (void)setMnemonicKey:(NSString *)key{
     self.password = key;
+}
+
+- (void)pasteWordToTextField:(NSNotification *)noti{
+    NSArray *mnemonicArr =  noti.object;
+    [self.creator creatPhraseViewWithParentView:self.phraseView isCanEdit:YES mnemonicArr:mnemonicArr withCallBack:^(CGFloat height, NSInteger wordsCount){
+        __weak typeof(self) weakSelf = self;
+        __strong typeof(weakSelf) strongSlef = weakSelf;
+        if (wordsCount != 24) {
+            strongSlef.recoverBtn.userInteractionEnabled = NO;
+            [strongSlef.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
+        }else{
+            strongSlef.recoverBtn.userInteractionEnabled = YES;
+            [strongSlef.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
+        }
+    }];
+    if ([self.creator getAllInputWords].count == 24) {
+        self.recoverBtn.userInteractionEnabled = YES;
+        [self.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
+    }
 }
 
 - (void)pasteWordsFromClipBoard{
