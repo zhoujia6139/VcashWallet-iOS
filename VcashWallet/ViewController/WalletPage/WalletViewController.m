@@ -22,6 +22,7 @@
 #import "LeftMenuManager.h"
 #import "WalletPageSectionView.h"
 
+
 static NSString *const identifierSection = @"WalletPageSectionView";
 
 static NSString *const identifier = @"WalletCell";
@@ -354,22 +355,33 @@ static NSString *const identifier = @"WalletCell";
                 }
             }else{
                 VcashTxLog *model = (VcashTxLog *)tx;
-                BOOL result = [WalletWrapper deleteTxByTxid:model.tx_slate_id];
-                if (!result) {
-                    DDLogError(@"delete canceled transaction failed");
-                }else{
-                    if (model.tx_type == TxReceived && !model.parter_id && model.signed_slate_msg) {
-                        if (model.confirm_state != NetConfirmed) {
-                            UIAlertController *alterVc = [UIAlertController alertControllerWithTitle:[LanguageService contentForKey:@"deleteTxTitle"] message:[LanguageService contentForKey:@"deleteTxMsg"] preferredStyle:UIAlertControllerStyleAlert];
-                            [alterVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"cancel"] style:UIAlertActionStyleDefault handler:nil]];
-                            [alterVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"ok"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                                [self refreshMainView];
-                            }]];
-                            [self.navigationController presentViewController:alterVc animated:YES completion:nil];
-                        }
+                if (model.tx_type == TxReceived && !model.parter_id && model.signed_slate_msg) {
+                    if (model.confirm_state != NetConfirmed) {
+                        UIAlertController *alterVc = [UIAlertController alertControllerWithTitle:[LanguageService contentForKey:@"deleteTxTitle"] message:[LanguageService contentForKey:@"deleteTxMsg"] preferredStyle:UIAlertControllerStyleAlert];
+                        [alterVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"cancel"] style:UIAlertActionStyleDefault handler:nil]];
+                        [alterVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"ok"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                            [MBHudHelper startWorkProcessWithTextTips:[LanguageService contentForKey:@"deleting"]];
+                            BOOL cancelSuc = [WalletWrapper cancelTransaction:model.tx_slate_id];
+                            if (!cancelSuc) {
+                                [MBHudHelper
+                                 endWorkProcessWithSuc:NO andTextTips:[LanguageService contentForKey:@"deleteFailed"]];
+                            }else{
+                                BOOL result = [WalletWrapper deleteTxByTxid:model.tx_slate_id];
+                                NSString *tips = result ? [LanguageService contentForKey:@"deleteSuc"] :[LanguageService contentForKey:@"deleteFailed"];
+                                [MBHudHelper
+                                 endWorkProcessWithSuc:result andTextTips:tips];
+                                if(result){
+                                    [self refreshMainView];
+                                }else{
+                                    DDLogError(@"delete tx failed");
+                                }
+                            }
+                        }]];
+                        [self.navigationController presentViewController:alterVc animated:YES completion:nil];
                     }
-                   
                 }
+                   
+                
             }
             return;
         }

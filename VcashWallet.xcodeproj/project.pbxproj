@@ -1419,7 +1419,6 @@
 				EDA5148722686DEC0011138F /* Frameworks */,
 				EDA5148822686DEC0011138F /* Resources */,
 				9983C6080A551387D01B8650 /* [CP] Copy Pods Resources */,
-				226CE753F615CC7E4D8A1CF9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1602,25 +1601,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		226CE753F615CC7E4D8A1CF9 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VcashWallet/Pods-VcashWallet-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		577B08C2253932DE69383C1A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

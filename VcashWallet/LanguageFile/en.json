@@ -173,5 +173,8 @@
     "sendTo":"Send to",
     "deleteTxTitle":"Are you sure to delete the transaction?",
     "deleteTxMsg":"The transaction will not be shown on your phone after being deleted",
-    "Delete":"Delete"
+    "Delete":"Delete",
+    "deleting":"deleting",
+    "deleteSuc":"successfully deleted",
+    "deleteFailed":"failed to delete",
 }

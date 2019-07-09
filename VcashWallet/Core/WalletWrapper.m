@@ -432,11 +432,13 @@
         [txLog cancelTxlog];
         [[VcashDataManager shareInstance] saveTx:txLog];
         
-        [[ServerApi shareInstance] cancelTransaction:tx_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
-            if (!yesOrNo){
-                DDLogError(@"cancel tx to Server failed");
-            }
-        }];
+        if (txLog.parter_id){
+            [[ServerApi shareInstance] cancelTransaction:tx_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
+                if (!yesOrNo){
+                    DDLogError(@"cancel tx to Server failed");
+                }
+            }];
+        }
         
         return YES;
     }
