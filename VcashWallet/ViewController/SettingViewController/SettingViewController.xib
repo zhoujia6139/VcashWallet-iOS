@@ -65,14 +65,14 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightindicator.png" translatesAutoresizingMaskIntoConstraints="NO" id="Knx-s0-mfe">
-                            <rect key="frame" x="340" y="15" width="20" height="20"/>
+                            <rect key="frame" x="350" y="15" width="20" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="V1e-fa-RkH"/>
                                 <constraint firstAttribute="width" constant="20" id="lpj-EG-LJm"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Never" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pi1-Fg-e79">
-                            <rect key="frame" x="289.5" y="14.5" width="45.5" height="21"/>
+                            <rect key="frame" x="299.5" y="14.5" width="45.5" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -88,7 +88,7 @@
                         <constraint firstAttribute="bottom" secondItem="F2o-mV-oOS" secondAttribute="bottom" id="jY7-wR-hnn"/>
                         <constraint firstItem="Knx-s0-mfe" firstAttribute="centerY" secondItem="vL8-mY-7OQ" secondAttribute="centerY" id="pam-di-JLA"/>
                         <constraint firstItem="zhU-N9-pq8" firstAttribute="centerY" secondItem="vL8-mY-7OQ" secondAttribute="centerY" id="syW-AL-Iyw"/>
-                        <constraint firstAttribute="trailing" secondItem="Knx-s0-mfe" secondAttribute="trailing" constant="15" id="w2c-MF-R7j"/>
+                        <constraint firstAttribute="trailing" secondItem="Knx-s0-mfe" secondAttribute="trailing" constant="5" id="w2c-MF-R7j"/>
                         <constraint firstItem="zhU-N9-pq8" firstAttribute="leading" secondItem="vL8-mY-7OQ" secondAttribute="leading" constant="15" id="wP6-vD-ljx"/>
                         <constraint firstAttribute="trailing" secondItem="F2o-mV-oOS" secondAttribute="trailing" id="zOu-6C-GcG"/>
                     </constraints>
@@ -124,7 +124,7 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fp-MS-bYM">
-                    <rect key="frame" x="10" y="610" width="355" height="17"/>
+                    <rect key="frame" x="10" y="620" width="355" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -176,7 +176,7 @@
                 <constraint firstItem="jVo-wk-4Vh" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="k2Y-5k-hcX"/>
                 <constraint firstItem="lhL-UY-11w" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="ogq-l1-a0F"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="jVo-wk-4Vh" secondAttribute="trailing" id="rqi-f4-h11"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="2fp-MS-bYM" secondAttribute="bottom" constant="40" id="wlh-K0-nBp"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="2fp-MS-bYM" secondAttribute="bottom" constant="30" id="wlh-K0-nBp"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <point key="canvasLocation" x="55.200000000000003" y="48.125937031484263"/>

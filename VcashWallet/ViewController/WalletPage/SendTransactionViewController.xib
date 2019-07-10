@@ -83,7 +83,7 @@
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i4b-P1-4Ir">
-                            <rect key="frame" x="307" y="31.5" width="40" height="40"/>
+                            <rect key="frame" x="317" y="31.5" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="HJ1-Gt-wdw"/>
                                 <constraint firstAttribute="width" constant="40" id="YRA-Dz-RR2"/>
@@ -107,7 +107,7 @@
                     <constraints>
                         <constraint firstItem="g9O-nh-01K" firstAttribute="top" secondItem="zrg-pV-E6b" secondAttribute="top" id="CMz-lh-qsg"/>
                         <constraint firstItem="bPv-1N-TGU" firstAttribute="leading" secondItem="DzF-iA-TgO" secondAttribute="leading" constant="6" id="Csh-CD-3bW"/>
-                        <constraint firstAttribute="trailing" secondItem="i4b-P1-4Ir" secondAttribute="trailing" constant="28" id="EmW-FY-3n8"/>
+                        <constraint firstAttribute="trailing" secondItem="i4b-P1-4Ir" secondAttribute="trailing" constant="18" id="EmW-FY-3n8"/>
                         <constraint firstAttribute="trailing" secondItem="g9O-nh-01K" secondAttribute="trailing" constant="26" id="TNF-on-OPN"/>
                         <constraint firstAttribute="trailing" secondItem="dU0-U8-DR2" secondAttribute="trailing" constant="26" id="Xkt-bk-Css"/>
                         <constraint firstAttribute="bottom" secondItem="DzF-iA-TgO" secondAttribute="bottom" constant="3" id="YTN-wn-gF8"/>

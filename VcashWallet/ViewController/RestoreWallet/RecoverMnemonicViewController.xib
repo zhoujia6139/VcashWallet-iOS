@@ -27,7 +27,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfO-do-qEm">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="593"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gem-0A-xWB">
                             <rect key="frame" x="12" y="12" width="351" height="86"/>
@@ -75,8 +75,8 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="nKk-dw-JPs" secondAttribute="bottom" id="99A-Hg-WCv"/>
                         <constraint firstItem="nKk-dw-JPs" firstAttribute="leading" secondItem="jfO-do-qEm" secondAttribute="leading" constant="12" id="Ehm-iz-d4w"/>
+                        <constraint firstAttribute="bottom" secondItem="SLp-Ua-lYP" secondAttribute="bottom" constant="40" id="IAo-Ie-1kV"/>
                         <constraint firstItem="gem-0A-xWB" firstAttribute="leading" secondItem="jfO-do-qEm" secondAttribute="leading" constant="12" id="OqN-j6-Grt"/>
                         <constraint firstAttribute="trailing" secondItem="gem-0A-xWB" secondAttribute="trailing" constant="12" id="OvW-ER-iXY"/>
                         <constraint firstItem="nKk-dw-JPs" firstAttribute="top" secondItem="gem-0A-xWB" secondAttribute="bottom" constant="12" id="X9r-Np-Cca"/>
@@ -112,7 +112,7 @@
                 <constraint firstAttribute="bottom" secondItem="YLI-hd-uj4" secondAttribute="bottom" constant="30" id="UwH-dP-wsg"/>
                 <constraint firstItem="YLI-hd-uj4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="25" id="lXf-8e-IAo"/>
                 <constraint firstItem="YLI-hd-uj4" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="sUf-6d-eRp"/>
-                <constraint firstAttribute="bottom" secondItem="jfO-do-qEm" secondAttribute="bottom" id="xec-aQ-Idc"/>
+                <constraint firstAttribute="bottom" secondItem="jfO-do-qEm" secondAttribute="bottom" constant="74" id="xec-aQ-Idc"/>
             </constraints>
         </view>
     </objects>
