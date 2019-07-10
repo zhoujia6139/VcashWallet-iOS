@@ -64,7 +64,6 @@
 		A26FEBDD229F7DE0003CCD7C /* MessageNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBA5229F7DE0003CCD7C /* MessageNotificationView.m */; };
 		A26FEBDE229F7DE0003CCD7C /* PinPasswordInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBA7229F7DE0003CCD7C /* PinPasswordInputView.m */; };
 		A26FEBDF229F7DE0003CCD7C /* MessageNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBA8229F7DE0003CCD7C /* MessageNotificationView.xib */; };
-		A26FEBE0229F7DE0003CCD7C /* LeftMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBA9229F7DE0003CCD7C /* LeftMenuView.xib */; };
 		A26FEBE1229F7DE0003CCD7C /* SendTransactionConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBAA229F7DE0003CCD7C /* SendTransactionConfirmView.m */; };
 		A26FEBE2229F7DE0003CCD7C /* AlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEBAC229F7DE0003CCD7C /* AlertView.xib */; };
 		A26FEBE3229F7DE0003CCD7C /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEBAE229F7DE0003CCD7C /* AlertView.m */; };
@@ -369,7 +368,6 @@
 		A26FEBA6229F7DE0003CCD7C /* LeftMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuView.h; sourceTree = "<group>"; };
 		A26FEBA7229F7DE0003CCD7C /* PinPasswordInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinPasswordInputView.m; sourceTree = "<group>"; };
 		A26FEBA8229F7DE0003CCD7C /* MessageNotificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageNotificationView.xib; sourceTree = "<group>"; };
-		A26FEBA9229F7DE0003CCD7C /* LeftMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftMenuView.xib; sourceTree = "<group>"; };
 		A26FEBAA229F7DE0003CCD7C /* SendTransactionConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendTransactionConfirmView.m; sourceTree = "<group>"; };
 		A26FEBAC229F7DE0003CCD7C /* AlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertView.xib; sourceTree = "<group>"; };
 		A26FEBAD229F7DE0003CCD7C /* PhraseWordShowViewCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhraseWordShowViewCreator.h; sourceTree = "<group>"; };
@@ -846,7 +844,6 @@
 				A26FEBA8229F7DE0003CCD7C /* MessageNotificationView.xib */,
 				A26FEBA6229F7DE0003CCD7C /* LeftMenuView.h */,
 				A26FEBB2229F7DE0003CCD7C /* LeftMenuView.m */,
-				A26FEBA9229F7DE0003CCD7C /* LeftMenuView.xib */,
 				A26FEBB1229F7DE0003CCD7C /* PinPasswordInputView.h */,
 				A26FEBA7229F7DE0003CCD7C /* PinPasswordInputView.m */,
 				A241822C22A6367C00519F7D /* RefreshStateHeader.h */,
@@ -1529,7 +1526,6 @@
 				A26FEC99229F805B003CCD7C /* wallet@2x.png in Resources */,
 				A26FEC64229F805B003CCD7C /* receivechose@3x.png in Resources */,
 				A26FEBCC229F7DE0003CCD7C /* WalletCell.xib in Resources */,
-				A26FEBE0229F7DE0003CCD7C /* LeftMenuView.xib in Resources */,
 				A231645922B7470C00E690D1 /* cancel@2x.png in Resources */,
 				A241824622A7B15C00519F7D /* circle@2x.png in Resources */,
 				A26FEBC1229F7DE0003CCD7C /* WelcomePageViewController.xib in Resources */,

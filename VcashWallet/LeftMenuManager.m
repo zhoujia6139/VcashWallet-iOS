@@ -27,7 +27,7 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
-        self.leftMenuView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([LeftMenuView class]) owner:nil options:nil] firstObject];
+        self.leftMenuView = [[LeftMenuView alloc] initWithFrame:CGRectMake(-ScreenWidth * 3 / 4, 0, ScreenWidth * 3 / 4, ScreenHeight)];
     }
     return self;
 }
@@ -83,7 +83,7 @@
     [pan setTranslation:CGPointZero inView:pan.view];
     if (pan.state == UIGestureRecognizerStateEnded) {
         if (!isLeft) {
-            if (self.leftMenuView.frame.origin.x >= (- ScreenWidth * 3 /4.0 + 80)) {
+            if (self.leftMenuView.frame.origin.x >= (- ScreenWidth * 3 /4 + 80)) {
                 [self.leftMenuView showAnimation];
             }else{
                 [self.leftMenuView hiddenAnimation];

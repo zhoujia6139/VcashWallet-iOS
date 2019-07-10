@@ -15,7 +15,7 @@ static NSString * const identifier = @"LeftMenuCell";
 
 @interface LeftMenuView ()<UITableViewDataSource,UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *tableViewContainer;
+@property (strong, nonatomic) UITableView *tableViewContainer;
 
 @property (nonatomic, strong) UIView *viewAlpha;
 
@@ -35,27 +35,39 @@ static NSString * const identifier = @"LeftMenuCell";
 }
 */
 
-- (void)awakeFromNib{
-    [super awakeFromNib];
-   
-   
-    [self configData];
-    [self.tableViewContainer registerNib:[UINib nibWithNibName:NSStringFromClass([LeftMenuCell class]) bundle:nil] forCellReuseIdentifier:identifier];
-    
-    self.tableViewContainer.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _viewAlpha = [[UIView alloc] init];
-    _viewAlpha.backgroundColor = [UIColor blackColor];
-    _viewAlpha.alpha = 0.3;
-    _viewAlpha.hidden = YES;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenAnimation)];
-    [_viewAlpha addGestureRecognizer:tap];
-    
-    UIPanGestureRecognizer *panGestureViewAlpha = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
-    [_viewAlpha addGestureRecognizer:panGestureViewAlpha];
-    
-    UIPanGestureRecognizer *panGestureSelf = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
-    [self addGestureRecognizer:panGestureSelf];
+- (instancetype)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor whiteColor];
+        [self configData];
+        self.tableViewContainer = [[UITableView alloc] initWithFrame:CGRectMake(0, 44 + kStatusBarHeight, ScreenWidth * 3 / 4, ScreenHeight - 270 - 44) style:UITableViewStylePlain];
+        self.tableViewContainer.dataSource = self;
+        self.tableViewContainer.delegate = self;
+        [self addSubview:self.tableViewContainer];
+        
+        UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake((ScreenWidth * 3 / 4 - 95) / 2.0, ScreenHeight - 60 - 95, 95, 95)];
+        logoImageView.image = [UIImage imageNamed:@"vcash.png"];
+        [self addSubview:logoImageView];
+        
+        [self.tableViewContainer registerNib:[UINib nibWithNibName:NSStringFromClass([LeftMenuCell class]) bundle:nil] forCellReuseIdentifier:identifier];
+        
+        self.tableViewContainer.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _viewAlpha = [[UIView alloc] init];
+        _viewAlpha.backgroundColor = [UIColor blackColor];
+        _viewAlpha.alpha = 0.3;
+        _viewAlpha.hidden = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenAnimation)];
+        [_viewAlpha addGestureRecognizer:tap];
+        
+        UIPanGestureRecognizer *panGestureViewAlpha = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
+        [_viewAlpha addGestureRecognizer:panGestureViewAlpha];
+        
+        UIPanGestureRecognizer *panGestureSelf = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panLeftMenu:)];
+        [self addGestureRecognizer:panGestureSelf];
+    }
+    return self;
 }
+
 
 - (void)configData{
     NSArray *arrImageName = @[@"wallet.png",@"setting.png"];
@@ -134,6 +146,7 @@ static NSString * const identifier = @"LeftMenuCell";
     self.viewAlpha.frame = CGRectMake(0, 0, wd.size.width, wd.size.height);
     [wd addSubview:self];
     self.frame = CGRectMake(-wd.size.width * 3/4.0, 0, wd.size.width *3 / 4.0 , wd.size.height);
+    [self layoutIfNeeded];
 }
 
 - (void)showAnimation{
