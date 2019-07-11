@@ -1,0 +1,24 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Description of what the lane does"
+  lane :vcash do
+   build_app(export_method: "development")
+  		pgyer(api_key: "c79ee98819d9678563cad802f4b7adc0", user_key: "7aab23e6bac166fc7dbe75d21e04a267")
+  end
+end
