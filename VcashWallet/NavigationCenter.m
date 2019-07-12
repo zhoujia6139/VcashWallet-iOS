@@ -13,6 +13,7 @@
 #import "VcashNavigationViewController.h"
 #import "SettingViewController.h"
 #import "LeftMenuManager.h"
+#import "AddressBookViewController.h"
 
 static UINavigationController* curNavVC;
 
@@ -21,6 +22,8 @@ static UINavigationController* curNavVC;
 @property (nonatomic, strong) WalletViewController *walletVc;
 
 @property (nonatomic, strong) SettingViewController *settingVc;
+
+@property (nonatomic, strong) AddressBookViewController *addressBookVc;
 
 @end
 
@@ -95,10 +98,24 @@ static UINavigationController* curNavVC;
         UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
         keyWindow.rootViewController = curNavVC;
     }
-   
-    
-   
-   
+}
+
++ (void)showAddressBookVcPage{
+    AddressBookViewController *addressBookVc = [[AddressBookViewController alloc] init];
+    if (![[NavigationCenter shareInstance] addressBookVc]) {
+        if (curNavVC) {
+            curNavVC.viewControllers = @[addressBookVc];
+        }else{
+            VcashNavigationViewController* nav = [[VcashNavigationViewController alloc] initWithRootViewController:addressBookVc];
+            UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
+            keyWindow.rootViewController = nav;
+            curNavVC = nav;
+        }
+    }else{
+        curNavVC.viewControllers = @[[[NavigationCenter shareInstance] addressBookVc]];
+        UIWindow* keyWindow = [UIApplication sharedApplication].keyWindow;
+        keyWindow.rootViewController = curNavVC;
+    }
 }
 
 @end

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddAddressBookViewController">
+            <connections>
+                <outlet property="btnSave" destination="xpG-aJ-CIe" id="mxI-q5-uMT"/>
+                <outlet property="constraintTextViewHeight" destination="R8A-2I-n2v" id="6Ee-n3-5Zy"/>
+                <outlet property="labelPlaceHolder" destination="oBz-hJ-P5n" id="RhG-kx-EGF"/>
+                <outlet property="textFieldRemarkName" destination="uZH-tr-GF9" id="ygS-3x-xel"/>
+                <outlet property="textViewUserIDOrHttpAddress" destination="KPf-tk-ih8" id="iNY-Kn-YCn"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewLineRemark" destination="5Hl-VG-Eqv" id="Zdb-7u-TSa"/>
+                <outlet property="viewLineUserIdOrHttpAddress" destination="Zap-4G-Rxb" id="gL1-Xx-ULU"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w0x-3e-Akp">
+                    <rect key="frame" x="0.0" y="59" width="414" height="74.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remark name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V5n-W9-qqU" customClass="VcashLabel">
+                            <rect key="frame" x="26" y="0.0" width="238" height="21.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <color key="textColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localText" value="remarkName"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Hl-VG-Eqv">
+                            <rect key="frame" x="26" y="71.5" width="362" height="3"/>
+                            <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="3" id="3Yl-LO-bmG"/>
+                            </constraints>
+                        </view>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Please enter remark name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uZH-tr-GF9" customClass="VcashTextField">
+                            <rect key="frame" x="26" y="31.5" width="362" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="RKi-gZ-6S4"/>
+                            </constraints>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localPlaceholder" value="enterRemarkName"/>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="uZH-tr-GF9" secondAttribute="trailing" constant="26" id="2BV-30-aPD"/>
+                        <constraint firstItem="5Hl-VG-Eqv" firstAttribute="leading" secondItem="w0x-3e-Akp" secondAttribute="leading" constant="26" id="6it-h1-G1L"/>
+                        <constraint firstItem="V5n-W9-qqU" firstAttribute="top" secondItem="w0x-3e-Akp" secondAttribute="top" id="AJF-7V-vsz"/>
+                        <constraint firstItem="V5n-W9-qqU" firstAttribute="leading" secondItem="w0x-3e-Akp" secondAttribute="leading" constant="26" id="bYm-vl-bEB"/>
+                        <constraint firstAttribute="trailing" secondItem="5Hl-VG-Eqv" secondAttribute="trailing" constant="26" id="jpt-1u-6vY"/>
+                        <constraint firstAttribute="trailing" secondItem="V5n-W9-qqU" secondAttribute="trailing" constant="150" id="pRZ-pF-2gJ"/>
+                        <constraint firstItem="uZH-tr-GF9" firstAttribute="top" secondItem="V5n-W9-qqU" secondAttribute="bottom" constant="10" id="sEm-7Q-PXB"/>
+                        <constraint firstAttribute="bottom" secondItem="uZH-tr-GF9" secondAttribute="bottom" constant="3" id="uPh-KH-U7q"/>
+                        <constraint firstAttribute="bottom" secondItem="5Hl-VG-Eqv" secondAttribute="bottom" id="uZu-6f-ene"/>
+                        <constraint firstItem="uZH-tr-GF9" firstAttribute="leading" secondItem="w0x-3e-Akp" secondAttribute="leading" constant="26" id="xDz-Xw-wPJ"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vq6-Db-SM1">
+                    <rect key="frame" x="0.0" y="153.5" width="414" height="74.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User ID or http address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3yZ-Vl-XKs" customClass="VcashLabel">
+                            <rect key="frame" x="26" y="0.0" width="238" height="21.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <color key="textColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zap-4G-Rxb">
+                            <rect key="frame" x="26" y="71.5" width="362" height="3"/>
+                            <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="3" id="vat-N8-IgR"/>
+                            </constraints>
+                        </view>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KPf-tk-ih8">
+                            <rect key="frame" x="20" y="31.5" width="309" height="40"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="R8A-2I-n2v"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="imB-SA-jMs">
+                            <rect key="frame" x="356" y="31.5" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="Dmk-jm-qiX"/>
+                                <constraint firstAttribute="height" constant="40" id="Knc-d7-CR7"/>
+                            </constraints>
+                            <state key="normal" image="scan.png"/>
+                            <connections>
+                                <action selector="clickedBtnScanQR:" destination="-1" eventType="touchUpInside" id="EPt-me-abL"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Input the recipient’s ID or http address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBz-hJ-P5n" customClass="VcashLabel">
+                            <rect key="frame" x="26" y="41.5" width="248.5" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localText" value="enterOrScan"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="oBz-hJ-P5n" firstAttribute="leading" secondItem="KPf-tk-ih8" secondAttribute="leading" constant="6" id="8pe-kr-NQx"/>
+                        <constraint firstItem="oBz-hJ-P5n" firstAttribute="top" secondItem="3yZ-Vl-XKs" secondAttribute="bottom" constant="20" id="E6s-KT-CMz"/>
+                        <constraint firstItem="KPf-tk-ih8" firstAttribute="top" secondItem="3yZ-Vl-XKs" secondAttribute="bottom" constant="10" id="K4f-Qa-rzg"/>
+                        <constraint firstItem="KPf-tk-ih8" firstAttribute="leading" secondItem="Vq6-Db-SM1" secondAttribute="leading" constant="20" id="KSd-Xj-Hf7"/>
+                        <constraint firstAttribute="trailing" secondItem="imB-SA-jMs" secondAttribute="trailing" constant="18" id="MU6-rE-eTD"/>
+                        <constraint firstAttribute="trailing" secondItem="KPf-tk-ih8" secondAttribute="trailing" constant="85" id="TOK-z2-tye"/>
+                        <constraint firstItem="imB-SA-jMs" firstAttribute="centerY" secondItem="KPf-tk-ih8" secondAttribute="centerY" id="Wn1-UA-ie4"/>
+                        <constraint firstAttribute="bottom" secondItem="KPf-tk-ih8" secondAttribute="bottom" constant="3" id="XgC-Dm-Zgd"/>
+                        <constraint firstAttribute="trailing" secondItem="Zap-4G-Rxb" secondAttribute="trailing" constant="26" id="agB-my-1nb"/>
+                        <constraint firstItem="3yZ-Vl-XKs" firstAttribute="top" secondItem="Vq6-Db-SM1" secondAttribute="top" id="cYR-lV-kec"/>
+                        <constraint firstItem="Zap-4G-Rxb" firstAttribute="leading" secondItem="Vq6-Db-SM1" secondAttribute="leading" constant="26" id="h5A-Yw-Hms"/>
+                        <constraint firstItem="3yZ-Vl-XKs" firstAttribute="leading" secondItem="Vq6-Db-SM1" secondAttribute="leading" constant="26" id="mU7-7X-BDA"/>
+                        <constraint firstAttribute="trailing" secondItem="3yZ-Vl-XKs" secondAttribute="trailing" constant="150" id="twx-Os-cDE"/>
+                        <constraint firstAttribute="bottom" secondItem="Zap-4G-Rxb" secondAttribute="bottom" id="xrh-a4-LGd"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xpG-aJ-CIe" customClass="VcashButton">
+                    <rect key="frame" x="26" y="278" width="362" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="nIs-jI-xCz"/>
+                    </constraints>
+                    <state key="normal" title="Save"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localTitle" value="save"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="clickedSaveAddress:" destination="-1" eventType="touchUpInside" id="O2x-ro-hlf"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="xpG-aJ-CIe" firstAttribute="centerX" secondItem="Q5M-cg-NOt" secondAttribute="centerX" id="0ph-rd-W8p"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="Vq6-Db-SM1" secondAttribute="trailing" id="2fP-8O-OYy"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="w0x-3e-Akp" secondAttribute="trailing" id="6Et-sD-nQl"/>
+                <constraint firstItem="w0x-3e-Akp" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="15" id="7X2-xC-BiU"/>
+                <constraint firstItem="w0x-3e-Akp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="FMb-fk-kDM"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="xpG-aJ-CIe" secondAttribute="trailing" constant="26" id="H8h-bv-6Xa"/>
+                <constraint firstItem="Vq6-Db-SM1" firstAttribute="top" secondItem="w0x-3e-Akp" secondAttribute="bottom" constant="20" id="LsA-ea-4Ab"/>
+                <constraint firstItem="xpG-aJ-CIe" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="26" id="Xgi-iA-gZ4"/>
+                <constraint firstItem="xpG-aJ-CIe" firstAttribute="top" secondItem="Vq6-Db-SM1" secondAttribute="bottom" constant="50" id="jBw-mB-FqD"/>
+                <constraint firstItem="Vq6-Db-SM1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vsi-Og-7rN"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="scan.png" width="24" height="24"/>
+    </resources>
+</document>

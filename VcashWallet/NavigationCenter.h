@@ -20,6 +20,8 @@
 
 +(void)showSettingVcPage;
 
++ (void)showAddressBookVcPage;
+
 - (void)leftMenuSwitchWalltetPage;
 
 @end
