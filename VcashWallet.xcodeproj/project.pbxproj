@@ -2032,7 +2032,7 @@
 					"$(PROJECT_DIR)/VcashWallet/Core/CoreBitcoin/binaries/iOS",
 					"$(PROJECT_DIR)/VcashWallet/Core/CoreBitcoin/openssl/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.blockin.vcash;
+				PRODUCT_BUNDLE_IDENTIFIER = test.vc.vc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2084,7 +2084,7 @@
 					"$(PROJECT_DIR)/VcashWallet/Core/CoreBitcoin/binaries/iOS",
 					"$(PROJECT_DIR)/VcashWallet/Core/CoreBitcoin/openssl/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.blockin.vcash;
+				PRODUCT_BUNDLE_IDENTIFIER = test.vc.vc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
