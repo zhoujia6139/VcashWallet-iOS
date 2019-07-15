@@ -47,6 +47,8 @@ typedef enum {
 
 @property(assign, nonatomic)uint64_t confirm_time;
 
+@property(assign, nonatomic)uint64_t confirm_height;
+
 @property(assign, nonatomic)TxLogConfirmType confirm_state;
 
 @property(assign, nonatomic)ServerTxStatus status;
