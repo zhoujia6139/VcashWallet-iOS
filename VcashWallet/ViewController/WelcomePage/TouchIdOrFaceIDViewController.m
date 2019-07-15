@@ -8,6 +8,7 @@
 
 #import "TouchIdOrFaceIDViewController.h"
 #import "LocalAuthenticationManager.h"
+#import "LeftMenuManager.h"
 
 @interface TouchIdOrFaceIDViewController ()
 
@@ -31,6 +32,7 @@
     [[LocalAuthenticationManager shareInstance] verifyIdentidyWithComplete:^(BOOL success, NSError * _Nullable error) {
         if (success) {
             [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            [[LeftMenuManager shareInstance] addGestures];
         }
     }];
 }

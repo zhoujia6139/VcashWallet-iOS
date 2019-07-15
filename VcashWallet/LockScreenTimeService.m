@@ -93,6 +93,7 @@
 - (void)showTouchIDOrFaceIDVc{
     if ([[LocalAuthenticationManager shareInstance] getEnableAuthentication]) {
         [[[[AppHelper shareInstance] visibleViewController] navigationController] dismissViewControllerAnimated:NO completion:nil];
+        [[LeftMenuManager shareInstance] removeGestures];
         TouchIdOrFaceIDViewController *verifyVc = [[TouchIdOrFaceIDViewController alloc] init];
         [[[[AppHelper shareInstance] visibleViewController] navigationController] presentViewController:verifyVc animated:YES completion:nil];
     }
