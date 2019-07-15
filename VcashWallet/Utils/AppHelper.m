@@ -186,6 +186,10 @@
     }
 }
 
++ (void)resignFirstResonder{
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResonder) to:nil from:nil forEvent:nil];
+}
+
 + (BOOL)isPureInt:(NSString*)string{
     NSScanner* scan = [NSScanner scannerWithString:string];
     int val;

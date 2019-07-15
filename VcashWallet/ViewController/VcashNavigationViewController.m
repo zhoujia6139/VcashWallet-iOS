@@ -53,7 +53,7 @@
     if (self.childViewControllers.count > 1) {
         [[LeftMenuManager shareInstance] removeGestures];
     }else{
-        if ([viewController isKindOfClass:NSClassFromString(@"WalletViewController")] ||[viewController isKindOfClass:NSClassFromString(@"SettingViewController")] ) {
+        if ([viewController isKindOfClass:NSClassFromString(@"WalletViewController")] ||[viewController isKindOfClass:NSClassFromString(@"SettingViewController")] || [viewController isKindOfClass:NSClassFromString(@"AddressBookViewController")]) {
             [[LeftMenuManager shareInstance] addGestures];
         }else{
             [[LeftMenuManager shareInstance] removeGestures];

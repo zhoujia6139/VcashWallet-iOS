@@ -12,13 +12,14 @@
 #import "ScanViewController.h"
 #import "TransactionDetailViewController.h"
 #import "TransactionDetailView.h"
+#import "AddressBookViewController.h"
 
 
 #define CGrayColor [UIColor colorWithHexString:@"#EEEEEE"]
 
 #define COrangeColor  [UIColor colorWithHexString:@"#FF9502"]
 
-@interface SendTransactionViewController ()<UITextFieldDelegate,UITextViewDelegate,ScanViewControllerDelegate>
+@interface SendTransactionViewController ()<UITextFieldDelegate,UITextViewDelegate,ScanViewControllerDelegate,AddressBookViewControllerDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UIView *promptView;
@@ -79,7 +80,6 @@
 
 
 - (void)setTextViewHeight{
-    
     CGSize size = [self.targetAddressTextView sizeThatFits:CGSizeMake(ScreenWidth - 105, 1000)];
     CGFloat textViewHeight = size.height +13;
     if (textViewHeight > 40) {
@@ -137,8 +137,28 @@
     self.targetAddressTextView.text = result ? result : @"";
     self.labelPlaceHolder.hidden = result ? YES : NO;
     [self setTextViewHeight];
+    if (self.amountField.text.length > 0 && self.targetAddressTextView.text.length > 0) {
+        self.sendBtn.backgroundColor = COrangeColor;
+        self.sendBtn.userInteractionEnabled = YES;
+    }else{
+        self.sendBtn.backgroundColor = COrangeEnableColor;
+        self.sendBtn.userInteractionEnabled = NO;
+    }
 }
 
+#pragma mark - AddressBookViewControllerDelegate
+- (void)selectedAddressBook:(AddressBookModel *)model{
+    self.targetAddressTextView.text = model.address;
+    self.labelPlaceHolder.hidden = model.address.length > 0 ? YES : NO;
+    [self setTextViewHeight];
+    if (self.amountField.text.length > 0 && self.targetAddressTextView.text.length > 0) {
+        self.sendBtn.backgroundColor = COrangeColor;
+        self.sendBtn.userInteractionEnabled = YES;
+    }else{
+        self.sendBtn.backgroundColor = COrangeEnableColor;
+        self.sendBtn.userInteractionEnabled = NO;
+    }
+}
 
 - (void)enterAmount:(UITextField *)textField{
     NSRange ran = [textField.text rangeOfString:@"."];
@@ -212,6 +232,14 @@
     }
 }
 
+- (IBAction)clickedBtnAddressBook:(id)sender {
+    AddressBookViewController *addressBookVc = [[AddressBookViewController alloc] init];
+    addressBookVc.fromSendTxVc = YES;
+    addressBookVc.delegate = self;
+    [self.navigationController pushViewController:addressBookVc animated:YES];
+}
+
+
 - (BOOL)isUrlAddress:(NSString*)url{
     if ([url hasPrefix:@"http"]) {
         return YES;
@@ -219,12 +247,7 @@
     return NO;
 }
 
-
-
-
-
-- (BOOL)isNumber:(NSString *)strValue
-{
+- (BOOL)isNumber:(NSString *)strValue{
     if (strValue == nil || [strValue length] <= 0)
     {
         return NO;

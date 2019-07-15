@@ -70,9 +70,9 @@ static NSString * const identifier = @"LeftMenuCell";
 
 
 - (void)configData{
-    NSArray *arrImageName = @[@"wallet.png",@"setting.png"];
-    NSArray *arrHightImageName = @[@"wallet_hight.png",@"setting_hight.png"];
-    NSArray *arrTitle = @[[LanguageService contentForKey:@"VcashWallet"],[LanguageService contentForKey:@"setting"]];
+    NSArray *arrImageName = @[@"wallet.png",@"setting.png",@"adressbook.png"];
+    NSArray *arrHightImageName = @[@"wallet_hight.png",@"setting_hight.png",@"adressbook_hight.png"];
+    NSArray *arrTitle = @[[LanguageService contentForKey:@"VcashWallet"],[LanguageService contentForKey:@"setting"],[LanguageService contentForKey:@"addressBook"]];
     _arrData = [NSMutableArray array];
     for (NSInteger i = 0; i < arrTitle.count; i++) {
         LeftMenuModel *model = [LeftMenuModel new];
@@ -127,8 +127,12 @@ static NSString * const identifier = @"LeftMenuCell";
     }
     if ([model.title isEqualToString:[LanguageService contentForKey:@"setting"]]) {
         [NavigationCenter showSettingVcPage];
-        [self hiddenAnimation];
     }
+    
+    if ([model.title isEqualToString:[LanguageService contentForKey:@"addressBook"]]) {
+        [NavigationCenter showAddressBookVcPage];
+    }
+    [self hiddenAnimation];
     
 }
 

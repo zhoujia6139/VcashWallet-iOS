@@ -38,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIViewController *)visibleViewController;
 
++ (void)resignFirstResonder;
+
 + (BOOL)isPureInt:(NSString*)string;
 
 @end

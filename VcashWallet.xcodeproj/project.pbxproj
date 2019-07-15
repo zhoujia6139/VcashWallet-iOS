@@ -174,6 +174,14 @@
 		A274F1D722D468D3004CF0C8 /* eyeopen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A274F1D322D468D3004CF0C8 /* eyeopen@2x.png */; };
 		A274F1D822D468D3004CF0C8 /* eyeclose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A274F1D422D468D3004CF0C8 /* eyeclose@2x.png */; };
 		A274F1D922D468D3004CF0C8 /* eyeopen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A274F1D522D468D3004CF0C8 /* eyeopen@3x.png */; };
+		A274F1DD22D82887004CF0C8 /* AddressBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A274F1DB22D82887004CF0C8 /* AddressBookViewController.m */; };
+		A274F1DE22D82887004CF0C8 /* AddressBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A274F1DC22D82887004CF0C8 /* AddressBookViewController.xib */; };
+		A274F1E222D82C68004CF0C8 /* AddressBookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A274F1E022D82C68004CF0C8 /* AddressBookCell.m */; };
+		A274F1E322D82C68004CF0C8 /* AddressBookCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A274F1E122D82C68004CF0C8 /* AddressBookCell.xib */; };
+		A274F1E822D83277004CF0C8 /* AddAddressBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A274F1E622D83277004CF0C8 /* AddAddressBookViewController.m */; };
+		A274F1E922D83277004CF0C8 /* AddAddressBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A274F1E722D83277004CF0C8 /* AddAddressBookViewController.xib */; };
+		A274F1EC22D84FF9004CF0C8 /* AddressBookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A274F1EB22D84FF9004CF0C8 /* AddressBookManager.m */; };
+		A274F1EF22D85040004CF0C8 /* AddressBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A274F1EE22D85040004CF0C8 /* AddressBookModel.m */; };
 		A2B3A11722A0D8EF000F7495 /* ServerTransactionBlackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */; };
 		A2D1569222C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D1569022C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.m */; };
 		A2D1569322C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2D1569122C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib */; };
@@ -496,6 +504,19 @@
 		A274F1D322D468D3004CF0C8 /* eyeopen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eyeopen@2x.png"; sourceTree = "<group>"; };
 		A274F1D422D468D3004CF0C8 /* eyeclose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eyeclose@2x.png"; sourceTree = "<group>"; };
 		A274F1D522D468D3004CF0C8 /* eyeopen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eyeopen@3x.png"; sourceTree = "<group>"; };
+		A274F1DA22D82887004CF0C8 /* AddressBookViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBookViewController.h; sourceTree = "<group>"; };
+		A274F1DB22D82887004CF0C8 /* AddressBookViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressBookViewController.m; sourceTree = "<group>"; };
+		A274F1DC22D82887004CF0C8 /* AddressBookViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressBookViewController.xib; sourceTree = "<group>"; };
+		A274F1DF22D82C68004CF0C8 /* AddressBookCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBookCell.h; sourceTree = "<group>"; };
+		A274F1E022D82C68004CF0C8 /* AddressBookCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressBookCell.m; sourceTree = "<group>"; };
+		A274F1E122D82C68004CF0C8 /* AddressBookCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressBookCell.xib; sourceTree = "<group>"; };
+		A274F1E522D83277004CF0C8 /* AddAddressBookViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddAddressBookViewController.h; sourceTree = "<group>"; };
+		A274F1E622D83277004CF0C8 /* AddAddressBookViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddAddressBookViewController.m; sourceTree = "<group>"; };
+		A274F1E722D83277004CF0C8 /* AddAddressBookViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAddressBookViewController.xib; sourceTree = "<group>"; };
+		A274F1EA22D84FF9004CF0C8 /* AddressBookManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBookManager.h; sourceTree = "<group>"; };
+		A274F1EB22D84FF9004CF0C8 /* AddressBookManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressBookManager.m; sourceTree = "<group>"; };
+		A274F1ED22D85040004CF0C8 /* AddressBookModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressBookModel.h; sourceTree = "<group>"; };
+		A274F1EE22D85040004CF0C8 /* AddressBookModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressBookModel.m; sourceTree = "<group>"; };
 		A2B3A11522A0D8EF000F7495 /* ServerTransactionBlackManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerTransactionBlackManager.h; sourceTree = "<group>"; };
 		A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerTransactionBlackManager.m; sourceTree = "<group>"; };
 		A2D1568F22C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransactionFileSignedRecordViewController.h; sourceTree = "<group>"; };
@@ -792,6 +813,9 @@
 				A26FEB8A229F7DE0003CCD7C /* LeftMenuCell.h */,
 				A26FEB8C229F7DE0003CCD7C /* LeftMenuCell.m */,
 				A26FEB89229F7DE0003CCD7C /* LeftMenuCell.xib */,
+				A274F1DF22D82C68004CF0C8 /* AddressBookCell.h */,
+				A274F1E022D82C68004CF0C8 /* AddressBookCell.m */,
+				A274F1E122D82C68004CF0C8 /* AddressBookCell.xib */,
 			);
 			path = ViewCell;
 			sourceTree = "<group>";
@@ -799,6 +823,7 @@
 		A26FEB93229F7DE0003CCD7C /* SettingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				A274F1E422D8321A004CF0C8 /* AddressBook */,
 				A26FEB95229F7DE0003CCD7C /* SettingViewController.h */,
 				A26FEB99229F7DE0003CCD7C /* SettingViewController.m */,
 				A26FEB97229F7DE0003CCD7C /* SettingViewController.xib */,
@@ -816,6 +841,8 @@
 			children = (
 				A26FEB9E229F7DE0003CCD7C /* LeftMenuModel.h */,
 				A26FEB9D229F7DE0003CCD7C /* LeftMenuModel.m */,
+				A274F1ED22D85040004CF0C8 /* AddressBookModel.h */,
+				A274F1EE22D85040004CF0C8 /* AddressBookModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1027,6 +1054,19 @@
 				A274F1C722D323D5004CF0C8 /* Roboto-Bold.ttf */,
 			);
 			path = font;
+			sourceTree = "<group>";
+		};
+		A274F1E422D8321A004CF0C8 /* AddressBook */ = {
+			isa = PBXGroup;
+			children = (
+				A274F1DA22D82887004CF0C8 /* AddressBookViewController.h */,
+				A274F1DB22D82887004CF0C8 /* AddressBookViewController.m */,
+				A274F1DC22D82887004CF0C8 /* AddressBookViewController.xib */,
+				A274F1E522D83277004CF0C8 /* AddAddressBookViewController.h */,
+				A274F1E622D83277004CF0C8 /* AddAddressBookViewController.m */,
+				A274F1E722D83277004CF0C8 /* AddAddressBookViewController.xib */,
+			);
+			path = AddressBook;
 			sourceTree = "<group>";
 		};
 		A2C8001022B9EA0D00A27C25 /* CreateWallet */ = {
@@ -1339,6 +1379,8 @@
 				A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */,
 				A272699222AE2BCF00E76E0A /* LeftMenuManager.h */,
 				A272699322AE2BCF00E76E0A /* LeftMenuManager.m */,
+				A274F1EA22D84FF9004CF0C8 /* AddressBookManager.h */,
+				A274F1EB22D84FF9004CF0C8 /* AddressBookManager.m */,
 				A241822922A510D400519F7D /* LockScreenTimeService.h */,
 				A241822A22A510D400519F7D /* LockScreenTimeService.m */,
 				ED44BFBD226978C50042928E /* UserCenter.h */,
@@ -1534,6 +1576,7 @@
 				A26FEC6B229F805B003CCD7C /* scanscanBg.png in Resources */,
 				A26FEC5D229F805B003CCD7C /* walletleftimage@3x.png in Resources */,
 				A274F1D622D468D3004CF0C8 /* eyeclose@3x.png in Resources */,
+				A274F1E322D82C68004CF0C8 /* AddressBookCell.xib in Resources */,
 				A272699822AE3C6A00E76E0A /* canceldetail@3x.png in Resources */,
 				A26FECB6229FF0EA003CCD7C /* nodata@3x.png in Resources */,
 				A25E6E4D22BCBC5C00D563A4 /* close@3x.png in Resources */,
@@ -1560,6 +1603,7 @@
 				A26FEC81229F805B003CCD7C /* ongoing@3x.png in Resources */,
 				A26FEBD1229F7DE0003CCD7C /* PinPasswordSetViewController.xib in Resources */,
 				A2E0164E22CF4F310086FFA2 /* receivegif.gif in Resources */,
+				A274F1DE22D82887004CF0C8 /* AddressBookViewController.xib in Resources */,
 				EDA5149722686DEE0011138F /* Assets.xcassets in Resources */,
 				A26FEC7C229F805B003CCD7C /* adressbook@3x.png in Resources */,
 				A26FEC98229F805B003CCD7C /* adressbook_hight@2x.png in Resources */,
@@ -1595,6 +1639,7 @@
 				A26FEC88229F805B003CCD7C /* scanLine@2x.png in Resources */,
 				A2E0164622CF12370086FFA2 /* sendgif.gif in Resources */,
 				A26FEBC0229F7DE0003CCD7C /* SendTransactionViewController.xib in Resources */,
+				A274F1E922D83277004CF0C8 /* AddAddressBookViewController.xib in Resources */,
 				A26FEC83229F805B003CCD7C /* bg@3x.png in Resources */,
 				A26FEC93229F805B003CCD7C /* adressbook_hight@3x.png in Resources */,
 				A26FEBC6229F7DE0003CCD7C /* PinVerifyViewController.xib in Resources */,
@@ -1710,11 +1755,14 @@
 				ED44BF7622696CF50042928E /* BTCAssetType.m in Sources */,
 				ED44BFA122696CF50042928E /* BTCCurvePoint.m in Sources */,
 				ED44BF7722696CF50042928E /* BTCMnemonic+Tests.m in Sources */,
+				A274F1DD22D82887004CF0C8 /* AddressBookViewController.m in Sources */,
 				A26FEBD5229F7DE0003CCD7C /* SettingViewController.m in Sources */,
 				ED44BFB322696CF50042928E /* BTCData+Tests.m in Sources */,
 				A26FEBC8229F7DE0003CCD7C /* ScanViewController.m in Sources */,
 				ED44BFB522696CF50042928E /* BTCErrors.m in Sources */,
 				ED44BFFC226AFE160042928E /* VcashWallet.m in Sources */,
+				A274F1E822D83277004CF0C8 /* AddAddressBookViewController.m in Sources */,
+				A274F1E222D82C68004CF0C8 /* AddressBookCell.m in Sources */,
 				A26FEBE3229F7DE0003CCD7C /* AlertView.m in Sources */,
 				ED44BF8822696CF50042928E /* BTCNetwork.m in Sources */,
 				ED44BFA322696CF50042928E /* BTCMerkleTree+Tests.m in Sources */,
@@ -1734,6 +1782,7 @@
 				A26FEBFB229F7FBB003CCD7C /* LanguageManager.m in Sources */,
 				ED44BF7A22696CF50042928E /* BTCBlindSignature.m in Sources */,
 				ED44BF8722696CF50042928E /* BTCProtocolSerialization.m in Sources */,
+				A274F1EC22D84FF9004CF0C8 /* AddressBookManager.m in Sources */,
 				ED3C756D2271611400B42555 /* VcashWalletInfo.mm in Sources */,
 				A26FEBE6229F7DE0003CCD7C /* PinVerifyViewController.m in Sources */,
 				ED44BFAD22696CF50042928E /* BTCBase58.m in Sources */,
@@ -1793,6 +1842,7 @@
 				ED44BFAF22696CF50042928E /* BTCBlockchainInfo+Tests.m in Sources */,
 				A25E6E4322BC824100D563A4 /* ReceiveTransactionFileViewController.m in Sources */,
 				ED44BF9D22696CF50042928E /* BTCAddress+Tests.m in Sources */,
+				A274F1EF22D85040004CF0C8 /* AddressBookModel.m in Sources */,
 				A26FEBC7229F7DE0003CCD7C /* CreateMnemonicViewController.m in Sources */,
 				A26FEBDE229F7DE0003CCD7C /* PinPasswordInputView.m in Sources */,
 				ED44BF8622696CF50042928E /* BTCMnemonic.m in Sources */,
