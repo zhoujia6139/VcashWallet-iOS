@@ -8,6 +8,8 @@
 
 #import "LockScreenTimeService.h"
 #import "LeftMenuManager.h"
+#import "LocalAuthenticationManager.h"
+#import "TouchIdOrFaceIDViewController.h"
 
 #define storageLockTypePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"lockTypePath"]
 
@@ -16,8 +18,6 @@
 @property (nonatomic, assign) LockScreenType lockScreenType;
 
 @property (nonatomic, strong) NSDate *startDate;
-
-
 
 @end
 
@@ -59,18 +59,24 @@
         case LockScreenType30Seonds:{
             if (seconds > 30) {
                 [self showPasswordVerifyVc];
+            }else{
+                [self showTouchIDOrFaceIDVc];
             }
         }
             break;
         case LockScreenType1Minute:{
             if (seconds > 60) {
                 [self showPasswordVerifyVc];
+            }else{
+                [self showTouchIDOrFaceIDVc];
             }
         }
             break;
         case LockScreenType3Minutes:{
             if (seconds > 3 * 60) {
                 [self showPasswordVerifyVc];
+            }else{
+                [self showTouchIDOrFaceIDVc];
             }
         }
             break;
@@ -84,6 +90,13 @@
     self.startDate = [NSDate date];
 }
 
+- (void)showTouchIDOrFaceIDVc{
+    if ([[LocalAuthenticationManager shareInstance] getEnableAuthentication]) {
+        [[[[AppHelper shareInstance] visibleViewController] navigationController] dismissViewControllerAnimated:NO completion:nil];
+        TouchIdOrFaceIDViewController *verifyVc = [[TouchIdOrFaceIDViewController alloc] init];
+        [[[[AppHelper shareInstance] visibleViewController] navigationController] presentViewController:verifyVc animated:YES completion:nil];
+    }
+}
 
 - (void)showPasswordVerifyVc{
     if ([[UserCenter sharedInstance] checkUserHaveWallet]){
@@ -112,11 +125,6 @@
 - (LockScreenType)readLockScreenType{
    return  [[NSKeyedUnarchiver unarchiveObjectWithFile:storageLockTypePath] integerValue];
 }
-
-
-
-
-
 
 
 

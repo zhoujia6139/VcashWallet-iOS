@@ -31,6 +31,9 @@
 		A25E6E5022BCBE1700D563A4 /* ReceiverSignTransactionFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A25E6E4F22BCBE1700D563A4 /* ReceiverSignTransactionFileViewController.m */; };
 		A25E6E5322BCC2B700D563A4 /* copyorange@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A25E6E5122BCC2B700D563A4 /* copyorange@3x.png */; };
 		A25E6E5422BCC2B700D563A4 /* copyorange@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A25E6E5222BCC2B700D563A4 /* copyorange@2x.png */; };
+		A269C07722DC1E4700778836 /* LocalAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A269C07622DC1E4700778836 /* LocalAuthenticationManager.m */; };
+		A269C07B22DC4BC200778836 /* TouchIdOrFaceIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A269C07922DC4BC200778836 /* TouchIdOrFaceIDViewController.m */; };
+		A269C07C22DC4BC200778836 /* TouchIdOrFaceIDViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A269C07A22DC4BC200778836 /* TouchIdOrFaceIDViewController.xib */; };
 		A26FEBBD229F7DE0003CCD7C /* WalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB70229F7DE0003CCD7C /* WalletViewController.xib */; };
 		A26FEBBE229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB71229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m */; };
 		A26FEBBF229F7DE0003CCD7C /* HandleSlateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB73229F7DE0003CCD7C /* HandleSlateViewController.xib */; };
@@ -326,6 +329,11 @@
 		A25E6E4F22BCBE1700D563A4 /* ReceiverSignTransactionFileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReceiverSignTransactionFileViewController.m; sourceTree = "<group>"; };
 		A25E6E5122BCC2B700D563A4 /* copyorange@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "copyorange@3x.png"; sourceTree = "<group>"; };
 		A25E6E5222BCC2B700D563A4 /* copyorange@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "copyorange@2x.png"; sourceTree = "<group>"; };
+		A269C07522DC1E4700778836 /* LocalAuthenticationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalAuthenticationManager.h; sourceTree = "<group>"; };
+		A269C07622DC1E4700778836 /* LocalAuthenticationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocalAuthenticationManager.m; sourceTree = "<group>"; };
+		A269C07822DC4BC200778836 /* TouchIdOrFaceIDViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchIdOrFaceIDViewController.h; sourceTree = "<group>"; };
+		A269C07922DC4BC200778836 /* TouchIdOrFaceIDViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchIdOrFaceIDViewController.m; sourceTree = "<group>"; };
+		A269C07A22DC4BC200778836 /* TouchIdOrFaceIDViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TouchIdOrFaceIDViewController.xib; sourceTree = "<group>"; };
 		A26FEB70229F7DE0003CCD7C /* WalletViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletViewController.xib; sourceTree = "<group>"; };
 		A26FEB71229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmSeedphraseViewController.m; sourceTree = "<group>"; };
 		A26FEB72229F7DE0003CCD7C /* CreateWalletNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateWalletNoteViewController.h; sourceTree = "<group>"; };
@@ -1107,6 +1115,9 @@
 				A26FEB80229F7DE0003CCD7C /* PinVerifyViewController.h */,
 				A26FEBB6229F7DE0003CCD7C /* PinVerifyViewController.m */,
 				A26FEB7F229F7DE0003CCD7C /* PinVerifyViewController.xib */,
+				A269C07822DC4BC200778836 /* TouchIdOrFaceIDViewController.h */,
+				A269C07922DC4BC200778836 /* TouchIdOrFaceIDViewController.m */,
+				A269C07A22DC4BC200778836 /* TouchIdOrFaceIDViewController.xib */,
 			);
 			path = WelcomePage;
 			sourceTree = "<group>";
@@ -1383,6 +1394,8 @@
 				A274F1EB22D84FF9004CF0C8 /* AddressBookManager.m */,
 				A241822922A510D400519F7D /* LockScreenTimeService.h */,
 				A241822A22A510D400519F7D /* LockScreenTimeService.m */,
+				A269C07522DC1E4700778836 /* LocalAuthenticationManager.h */,
+				A269C07622DC1E4700778836 /* LocalAuthenticationManager.m */,
 				ED44BFBD226978C50042928E /* UserCenter.h */,
 				ED44BFB8226978C50042928E /* UserCenter.m */,
 				ED44BFBA226978C50042928E /* UtilsMacros.h */,
@@ -1607,6 +1620,7 @@
 				EDA5149722686DEE0011138F /* Assets.xcassets in Resources */,
 				A26FEC7C229F805B003CCD7C /* adressbook@3x.png in Resources */,
 				A26FEC98229F805B003CCD7C /* adressbook_hight@2x.png in Resources */,
+				A269C07C22DC4BC200778836 /* TouchIdOrFaceIDViewController.xib in Resources */,
 				A26FEC9D229F805B003CCD7C /* confirmdetail@2x.png in Resources */,
 				A26FEC9E229F805B003CCD7C /* wallet_hight@2x.png in Resources */,
 				A26FEC5B229F805A003CCD7C /* confirmed@3x.png in Resources */,
@@ -1721,6 +1735,7 @@
 				A241822E22A6367C00519F7D /* RefreshStateHeader.m in Sources */,
 				ED44BF7F22696CF50042928E /* BTCBigNumber+Tests.m in Sources */,
 				ED44BFB222696CF50042928E /* BTCKey.m in Sources */,
+				A269C07B22DC4BC200778836 /* TouchIdOrFaceIDViewController.m in Sources */,
 				ED44BF7522696CF50042928E /* BTCTransactionBuilder.m in Sources */,
 				A27269AF22B3B22F00E76E0A /* ProgressView.m in Sources */,
 				ED44BFAC22696CF50042928E /* BTCPaymentProtocol.m in Sources */,
@@ -1822,6 +1837,7 @@
 				ED44BFA422696CF50042928E /* BTCTransactionOutput.m in Sources */,
 				ED44BFBE226978C50042928E /* UserCenter.m in Sources */,
 				ED44BF8B22696CF50042928E /* BTCPriceSource.m in Sources */,
+				A269C07722DC1E4700778836 /* LocalAuthenticationManager.m in Sources */,
 				ED44BF9222696CF50042928E /* BTCChainCom.m in Sources */,
 				ED3C7557226EC78B00B42555 /* VcashOutput.mm in Sources */,
 				ED44BFA922696CF50042928E /* BTCHashID.m in Sources */,

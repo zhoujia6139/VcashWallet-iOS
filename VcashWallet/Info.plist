@@ -31,6 +31,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Need to access your camera to scan the QR code</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Face ID is used to verify identity</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Need to access the album to scan the QR code</string>
 	<key>UIAppFonts</key>

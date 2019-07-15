@@ -10,6 +10,7 @@
 #import "ChangePasswordViewController.h"
 #import "LockScreenSetViewController.h"
 #import "LockScreenTimeService.h"
+#import "LocalAuthenticationManager.h"
 
 @interface SettingViewController ()
 
@@ -24,8 +25,16 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *btnRecoverPhrase;
 
+@property (weak, nonatomic) IBOutlet UIView *viewTouchIDOrFaceID;
+
+@property (weak, nonatomic) IBOutlet UISwitch *switchTouchIDOrFaceID;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintViewTouchIDOrFaceIDHeight;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *labelVersion;
+
+
 
 @end
 
@@ -40,6 +49,8 @@
     [self.btnChangePassword setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#9C9D9D"]] forState:UIControlStateHighlighted];
     [self.btnRecoverPhrase setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#9C9D9D"]] forState:UIControlStateHighlighted];
     self.labelVersion.text = [NSString stringWithFormat:@"App Version:%@",AppVersion];
+    [self.switchTouchIDOrFaceID addTarget:self action:@selector(openOrCloseTouchIDAndFaceID:) forControlEvents:UIControlEventValueChanged];
+  
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -69,8 +80,26 @@
             break;
     }
     self.labelLockScreenTitle.text = lockScreenTitle;
+    BOOL support = [[LocalAuthenticationManager shareInstance] supportTouchIDOrFaceID];
+    self.switchTouchIDOrFaceID.on = [[LocalAuthenticationManager shareInstance] getEnableAuthentication];
+    self.viewTouchIDOrFaceID.hidden = !support;
+    self.constraintViewTouchIDOrFaceIDHeight.constant = support ? 50 : 0;
 }
 
+
+- (void)openOrCloseTouchIDAndFaceID:(UISwitch *)sw{
+    if(sw.on){
+        [[LocalAuthenticationManager shareInstance] verifyIdentidyWithComplete:^(BOOL success, NSError * _Nullable error) {
+            if(success){
+                [[LocalAuthenticationManager shareInstance] saveEnableAuthentication:YES];
+            }else{
+                sw.on = NO;
+            }
+        }];
+    }else{
+        [[LocalAuthenticationManager shareInstance] saveEnableAuthentication:NO];
+    }
+}
 
 
 - (IBAction)clickedBtnLockScreen:(id)sender {

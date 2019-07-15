@@ -187,5 +187,6 @@
     "addSuc":"Added successfully",
     "remarkName":"Remark name",
     "enterRemarkName":"Please enter remark name",
-    
+    "touchIDLocked":"Touch ID  has been locked!",
+    "faceIDLocked":"Face ID  has been locked!",
 }
