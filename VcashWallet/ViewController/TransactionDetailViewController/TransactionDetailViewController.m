@@ -184,8 +184,10 @@
         [self.labelRecipient addGestureRecognizer:tap];
     }else{
         self.labelSender.userInteractionEnabled = YES;
-        self.labelSender.textColor = [UIColor colorWithHexString:@"#3399CC"];
-        [self.labelSender addGestureRecognizer:tap];
+        if (![self.labelSender.text isEqualToString:[LanguageService contentForKey:@"unreachable"]]) {
+            self.labelSender.textColor = [UIColor colorWithHexString:@"#3399CC"];
+            [self.labelSender addGestureRecognizer:tap];
+        }
     }
    
 }
@@ -339,7 +341,7 @@
 
 - (void)copyAndSaveAddress:(UITapGestureRecognizer *)tap{
     UILabel *label = (UILabel *)[tap view];
-    if (label.text.length > 0 && ![label.text isEqualToString:[LanguageService contentForKey:@"unreachable"]]) {
+    if (label.text.length > 0) {
         UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         [alertVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"copy"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [[UIPasteboard generalPasteboard] setString:label.text];
