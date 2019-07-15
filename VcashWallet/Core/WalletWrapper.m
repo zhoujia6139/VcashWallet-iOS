@@ -72,6 +72,7 @@
                     VcashTxLog* tx = [VcashTxLog new];
                     tx.tx_id = [[VcashWallet shareInstance] getNextLogId];
                     tx.create_time = [[NSDate date] timeIntervalSince1970];
+                    tx.confirm_height = item.height;
                     tx.confirm_state = NetConfirmed;
                     tx.amount_credited = item.value;
                     tx.tx_type = item.is_coinbase?ConfirmedCoinbase:TxReceived;
@@ -509,6 +510,7 @@
                         if (tx){
                             tx.confirm_state = NetConfirmed;
                             tx.confirm_time = [[NSDate date] timeIntervalSince1970];
+                            tx.confirm_height = nodeOutput.height;
                             tx.status = TxFinalized;
                         }
                         item.height = nodeOutput.height;
@@ -536,6 +538,14 @@
                             tx.confirm_state = NetConfirmed;
                             tx.confirm_time = [[NSDate date] timeIntervalSince1970];
                             tx.status = TxFinalized;
+                            [[NodeApi shareInstance] getOutputsByCommitArr:tx.outputs WithComplete:^(BOOL yesOrNO, id data) {
+                                if (yesOrNO){
+                                    NSArray* apiOutputs = data;
+                                    NodeRefreshOutput* output = apiOutputs.firstObject;
+                                    tx.confirm_height = output.height;
+                                    [[VcashDataManager shareInstance] saveTx:tx];
+                                }
+                            }];
                         }
                         item.status = Spent;
                         hasChange = YES;

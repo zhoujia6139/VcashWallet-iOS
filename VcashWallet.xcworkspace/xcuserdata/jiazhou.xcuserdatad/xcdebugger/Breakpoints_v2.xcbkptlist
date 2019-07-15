@@ -106,27 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Core/Node/NodeApi.m"
-            timestampString = "583900046.754343"
+            timestampString = "584614203.044018"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "-getOutputsByPmmrIndex:retArr:WithComplete:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VcashWallet/Core/Node/NodeApi.m"
-            timestampString = "583900046.7543941"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "-postTx:WithComplete:"
             landmarkType = "7">
          </BreakpointContent>
@@ -137,13 +121,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VcashWallet/Core/WalletWrapper.m"
-            timestampString = "583900046.754434"
+            filePath = "VcashWallet/Core/Node/NodeApi.m"
+            timestampString = "584614203.044091"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "393"
-            endingLineNumber = "393"
-            landmarkName = "+finalizeTransaction:withComplete:"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "-getOutputsByPmmrIndex:retArr:WithComplete:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -153,13 +137,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VcashWallet/Core/VcashSlate.m"
-            timestampString = "583900046.754743"
+            filePath = "VcashWallet/Core/WalletWrapper.m"
+            timestampString = "584615245.4177099"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
-            landmarkName = "-fillRound2:participantId:"
+            startingLineNumber = "486"
+            endingLineNumber = "486"
+            landmarkName = "+updateOutputStatusWithComplete:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

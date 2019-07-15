@@ -257,11 +257,13 @@
         NSString *className2 = NSStringFromClass(VcashTxLog.class);
         NSString *tableName2 = className2;
         isExist = [_database isTableExists:tableName2];
-        if (!isExist)
-        {
-            BOOL ret = [_database createTableAndIndexesOfName:tableName2 withClass:VcashTxLog.class];
-            assert(ret);
-        }
+        BOOL ret = [_database createTableAndIndexesOfName:tableName2 withClass:VcashTxLog.class];
+        assert(ret);
+//        if (!isExist)
+//        {
+//            BOOL ret = [_database createTableAndIndexesOfName:tableName2 withClass:VcashTxLog.class];
+//            assert(ret);
+//        }
         
         NSString *className3 = NSStringFromClass(VcashContext.class);
         NSString *tableName3 = className3;
