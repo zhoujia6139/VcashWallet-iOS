@@ -10,6 +10,7 @@
 #import "ServerType.h"
 #import "ServerTransactionBlackManager.h"
 #import "ServerTxManager.h"
+#import "AddAddressBookViewController.h"
 
 @interface TransactionDetailViewController ()
 
@@ -168,6 +169,25 @@
     }else{
         self.constraintViewBottomHeight.constant = 144;
     }
+    
+    BOOL isSend = NO;
+    if (self.serverTx) {
+        isSend = self.serverTx.isSend;
+    }
+    if (self.txLog) {
+        isSend = (self.txLog.tx_type == TxSent || self.txLog.tx_type == TxSentCancelled);
+    }
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(copyAndSaveAddress:)];
+    if (isSend) {
+        self.labelRecipient.userInteractionEnabled = YES;
+        self.labelRecipient.textColor = [UIColor colorWithHexString:@"#3399CC"];
+        [self.labelRecipient addGestureRecognizer:tap];
+    }else{
+        self.labelSender.userInteractionEnabled = YES;
+        self.labelSender.textColor = [UIColor colorWithHexString:@"#3399CC"];
+        [self.labelSender addGestureRecognizer:tap];
+    }
+   
 }
 
 - (void)configDataFromServerTransaction{
@@ -315,6 +335,25 @@
         default:
             break;
     }
+}
+
+- (void)copyAndSaveAddress:(UITapGestureRecognizer *)tap{
+    UILabel *label = (UILabel *)[tap view];
+    if (label.text.length > 0 && ![label.text isEqualToString:[LanguageService contentForKey:@"unreachable"]]) {
+        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        [alertVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"copy"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[UIPasteboard generalPasteboard] setString:label.text];
+            [self.view makeToast:[LanguageService contentForKey:@"copiedToClipboard"]];
+        }]];
+        [alertVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"saveToAddressBook"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            AddAddressBookViewController *addAddressBookVc = [[AddAddressBookViewController alloc] init];
+            addAddressBookVc.address = label.text;
+            [self.navigationController pushViewController:addAddressBookVc animated:YES];
+        }]];
+        [alertVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"cancel"] style:UIAlertActionStyleCancel handler:nil]];
+        [self.navigationController presentViewController:alertVc animated:YES completion:nil];
+    }
+    
 }
 
 - (IBAction)clickedBtnCopySignedTxContent:(id)sender {

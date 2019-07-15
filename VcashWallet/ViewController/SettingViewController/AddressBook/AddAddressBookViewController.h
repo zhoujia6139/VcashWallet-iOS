@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AddAddressBookViewController : BaseViewController
 
+@property (nonatomic, strong) NSString *address;
+
 @end
 
 NS_ASSUME_NONNULL_END

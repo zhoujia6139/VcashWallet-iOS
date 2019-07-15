@@ -50,6 +50,7 @@
     [self.btnRecoverPhrase setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#9C9D9D"]] forState:UIControlStateHighlighted];
     self.labelVersion.text = [NSString stringWithFormat:@"App Version:%@",AppVersion];
     [self.switchTouchIDOrFaceID addTarget:self action:@selector(openOrCloseTouchIDAndFaceID:) forControlEvents:UIControlEventValueChanged];
+    [AppHelper addLineTopWithParentView:self.viewTouchIDOrFaceID];
   
 }
 

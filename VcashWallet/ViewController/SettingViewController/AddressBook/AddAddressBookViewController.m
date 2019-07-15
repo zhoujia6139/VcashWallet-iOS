@@ -39,6 +39,11 @@
     self.textFieldRemarkName.delegate = self;
     [self.textFieldRemarkName addTarget:self action:@selector(enterRemarkName:) forControlEvents:UIControlEventEditingChanged];
     self.textViewUserIDOrHttpAddress.delegate = self;
+    if (self.address && self.address.length > 0) {
+        self.labelPlaceHolder.hidden = YES;
+        self.textViewUserIDOrHttpAddress.text = self.address;
+        [self setTextViewHeight];
+    }
     self.btnSave.backgroundColor = COrangeEnableColor;
     self.btnSave.userInteractionEnabled = NO;
     ViewRadius(self.btnSave, 4.0);
