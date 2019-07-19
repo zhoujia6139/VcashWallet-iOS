@@ -9,7 +9,7 @@
 #import "LockScreenTimeService.h"
 #import "LeftMenuManager.h"
 #import "LocalAuthenticationManager.h"
-#import "TouchIdOrFaceIDViewController.h"
+#import "PinVerifyViewController.h"
 
 #define storageLockTypePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"lockTypePath"]
 
@@ -94,8 +94,9 @@
     if ([[LocalAuthenticationManager shareInstance] getEnableAuthentication]) {
         [[[[AppHelper shareInstance] visibleViewController] navigationController] dismissViewControllerAnimated:NO completion:nil];
         [[LeftMenuManager shareInstance] removeGestures];
-        TouchIdOrFaceIDViewController *verifyVc = [[TouchIdOrFaceIDViewController alloc] init];
-        [[[[AppHelper shareInstance] visibleViewController] navigationController] presentViewController:verifyVc animated:YES completion:nil];
+        PinVerifyViewController *verifyVc = [[PinVerifyViewController alloc] init];
+        verifyVc.startTouch = YES;
+        [[[[AppHelper shareInstance] visibleViewController] navigationController] presentViewController:verifyVc animated:NO completion:nil];
     }
 }
 

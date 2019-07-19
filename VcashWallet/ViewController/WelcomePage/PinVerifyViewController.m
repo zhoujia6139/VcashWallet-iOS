@@ -10,6 +10,8 @@
 #import "PinPasswordInputView.h"
 #import "RecoverMnemonicViewController.h"
 #import "AlertView.h"
+#import "LocalAuthenticationManager.h"
+#import "LeftMenuManager.h"
 
 
 
@@ -22,7 +24,6 @@
 
 @property (weak, nonatomic) IBOutlet UIView *viewLine;
 
-@property (nonatomic, strong) PinPasswordInputView *pasView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintImageBgTop;
 
@@ -33,6 +34,13 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewEye;
 
 @property (nonatomic, assign) BOOL openEye;
+
+@property (weak, nonatomic) IBOutlet VcashButton *btnRestore;
+
+
+@property (weak, nonatomic) IBOutlet UIButton *btnTouchId;
+
+@property (weak, nonatomic) IBOutlet UILabel *labelTouchId;
 
 @end
 
@@ -49,6 +57,7 @@
     [self.textFieldPassword addTarget:self action:@selector(enterPassword:) forControlEvents:UIControlEventEditingChanged];
     [self.btnOpenWallet setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
     [self.btnOpenWallet setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
+    [self.btnTouchId setImage:[UIImage imageNamed:@"touchid.png"] forState:UIControlStateNormal];
     ViewRadius(self.btnOpenWallet, 4.0);
     self.textFieldPassword.delegate  = self;
     self.constraintImageBgTop.constant = kTopHeight;
@@ -61,6 +70,9 @@
         strongSelf.textFieldPassword.secureTextEntry = !strongSelf.openEye;
     }];
     [self.imageViewEye addGestureRecognizer:tap];
+    self.btnRestore.hidden = self.startTouch;
+    self.btnTouchId.hidden = !self.startTouch;
+    self.labelTouchId.hidden = !self.startTouch;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -76,7 +88,9 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self.pasView openKeyboard];
+    if (self.startTouch) {
+        [self verifyIdentifier];
+    }
 }
 
 
@@ -113,12 +127,36 @@
 }
 
 
+- (IBAction)clickedTouchId:(id)sender {
+    [self verifyIdentifier];
+}
 
 
 - (IBAction)clickedEnterWallet:(id)sender {
     [self checkPassword:self.textFieldPassword.text];
 }
 
+- (void)verifyIdentifier{
+    __weak typeof(self) weakSelf = self;
+    [self.btnTouchId setImage:[UIImage imageNamed:@"touchid.png"] forState:UIControlStateNormal];
+    [[LocalAuthenticationManager shareInstance] verifyIdentidyWithComplete:^(BOOL success, NSError * _Nullable error) {
+        if (success) {
+            [weakSelf dismissViewControllerAnimated:NO completion:nil];
+            [[LeftMenuManager shareInstance] addGestures];
+        }else{
+            if (@available(iOS 11.0, *)) {
+                if (error.code == LAErrorAuthenticationFailed || error.code == LAErrorTouchIDLockout || error.code == LAErrorBiometryLockout) {
+                    [self.btnTouchId setImage:[UIImage imageNamed:@"touchidseleted.png"] forState:UIControlStateNormal];
+                }
+            } else {
+                // Fallback on earlier versions
+                if (error.code == LAErrorAuthenticationFailed || error.code == LAErrorTouchIDLockout) {
+                    [self.btnTouchId setImage:[UIImage imageNamed:@"touchidseleted.png"] forState:UIControlStateNormal];
+                }
+            }
+        }
+    }];
+}
 
 -(void)checkPassword:(NSString*)password
 {
@@ -137,7 +175,6 @@
         NSString *tips = password.length > 0 ? [LanguageService contentForKey:@"passwordIsWrong"] : [LanguageService contentForKey:@"fillPasswordWarning"];
         self.labelPasswordWrong.text = tips;
         self.viewLine.backgroundColor = [UIColor colorWithHexString:@"#FF3333"];
-        [self.pasView clearUpPassword];
     }
 }
 
@@ -155,11 +192,6 @@
    
 }
 
-- (void)btnAction
-{
-    NSString* password = [self.pasView getInput];
-    [self checkPassword:password];
-}
 
 -(void)PinPasswordView:(PinPasswordInputView*)inputview didGetPassword:(NSString*)password
 {
