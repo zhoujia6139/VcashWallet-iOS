@@ -34,6 +34,7 @@
 		A269C07722DC1E4700778836 /* LocalAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A269C07622DC1E4700778836 /* LocalAuthenticationManager.m */; };
 		A269C07B22DC4BC200778836 /* TouchIdOrFaceIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A269C07922DC4BC200778836 /* TouchIdOrFaceIDViewController.m */; };
 		A269C07C22DC4BC200778836 /* TouchIdOrFaceIDViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A269C07A22DC4BC200778836 /* TouchIdOrFaceIDViewController.xib */; };
+		A269C09222E1895E00778836 /* ContainWordView.m in Sources */ = {isa = PBXBuildFile; fileRef = A269C09122E1895E00778836 /* ContainWordView.m */; };
 		A26FEBBD229F7DE0003CCD7C /* WalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB70229F7DE0003CCD7C /* WalletViewController.xib */; };
 		A26FEBBE229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A26FEB71229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m */; };
 		A26FEBBF229F7DE0003CCD7C /* HandleSlateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26FEB73229F7DE0003CCD7C /* HandleSlateViewController.xib */; };
@@ -334,6 +335,8 @@
 		A269C07822DC4BC200778836 /* TouchIdOrFaceIDViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchIdOrFaceIDViewController.h; sourceTree = "<group>"; };
 		A269C07922DC4BC200778836 /* TouchIdOrFaceIDViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchIdOrFaceIDViewController.m; sourceTree = "<group>"; };
 		A269C07A22DC4BC200778836 /* TouchIdOrFaceIDViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TouchIdOrFaceIDViewController.xib; sourceTree = "<group>"; };
+		A269C09022E1895E00778836 /* ContainWordView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContainWordView.h; sourceTree = "<group>"; };
+		A269C09122E1895E00778836 /* ContainWordView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContainWordView.m; sourceTree = "<group>"; };
 		A26FEB70229F7DE0003CCD7C /* WalletViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletViewController.xib; sourceTree = "<group>"; };
 		A26FEB71229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmSeedphraseViewController.m; sourceTree = "<group>"; };
 		A26FEB72229F7DE0003CCD7C /* CreateWalletNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateWalletNoteViewController.h; sourceTree = "<group>"; };
@@ -863,6 +866,8 @@
 				A26FEBAC229F7DE0003CCD7C /* AlertView.xib */,
 				A2E0164222CF01B10086FFA2 /* WalletPageSectionView.h */,
 				A2E0164322CF01B10086FFA2 /* WalletPageSectionView.m */,
+				A269C09022E1895E00778836 /* ContainWordView.h */,
+				A269C09122E1895E00778836 /* ContainWordView.m */,
 				A25E6E4522BCB87800D563A4 /* TransactionDetailView.h */,
 				A25E6E4622BCB87800D563A4 /* TransactionDetailView.m */,
 				A25E6E4822BCB88D00D563A4 /* TransactionDetailView.xib */,
@@ -1798,6 +1803,7 @@
 				ED44BF7A22696CF50042928E /* BTCBlindSignature.m in Sources */,
 				ED44BF8722696CF50042928E /* BTCProtocolSerialization.m in Sources */,
 				A274F1EC22D84FF9004CF0C8 /* AddressBookManager.m in Sources */,
+				A269C09222E1895E00778836 /* ContainWordView.m in Sources */,
 				ED3C756D2271611400B42555 /* VcashWalletInfo.mm in Sources */,
 				A26FEBE6229F7DE0003CCD7C /* PinVerifyViewController.m in Sources */,
 				ED44BFAD22696CF50042928E /* BTCBase58.m in Sources */,

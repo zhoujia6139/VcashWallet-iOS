@@ -193,6 +193,10 @@
 
 @property (nonatomic, strong) UITextField *textField;
 
+@property (nonatomic, strong) NSMutableArray *arrPrefix;
+
+@property (nonatomic, strong) ContainWordView *containWordView;
+
 
 @end
 
@@ -212,7 +216,6 @@
         [_clickBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
-        
         
         _tagBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _tagBtn.userInteractionEnabled = NO;
@@ -240,6 +243,7 @@
             make.height.mas_equalTo(16);
         }];
         
+        
         [AppHelper addLineWithParentView:self];
         [AppHelper addLineRightWithParentView:self];
         __weak typeof(self) weakSelf = self;
@@ -265,6 +269,7 @@
 - (void)enterPhrase:(UITextField *)textField{
    
     if (textField.text.length == 0) {
+        [self.containWordView removeViewFromSuperview];
         self.textField.textColor = [UIColor darkTextColor];
         self.tagBtn.backgroundColor = [UIColor colorWithRed:194 / 255.0 green:194 / 255.0 blue:194 / 255.0 alpha:1];
         return;
@@ -296,11 +301,35 @@
     _phrase = textField.text;
     self.tagColor = [self checkWordIsValid:textField.text] ?  [UIColor colorWithHexString:@"#66CC33"] : [UIColor colorWithHexString:@"#FF3333"];
     self.textFieldColor = [self checkWordIsValid:textField.text] ? [UIColor darkTextColor] : [UIColor colorWithHexString:@"#FF3333"];
-    
+    [self.arrPrefix removeAllObjects];
+    for (NSString *word in allWords) {
+        if ([word hasPrefix:[textField.text lowercaseString]]) {
+            if (![self.arrPrefix containsObject:word]) {
+                [self.arrPrefix addObject:word];
+            }
+        }
+    }
+    if (self.containWordView) {
+        if (!self.containWordView.superview) {
+             [self.containWordView show];
+        }
+        [self.containWordView updateDataWith:self.arrPrefix];
+    }else{
+         _containWordView = [[ContainWordView alloc] initWithArrData:self.arrPrefix];
+    }
+    __weak typeof(self) weakSelf = self;
+    self.containWordView.seletedWordCallBack = ^(NSString * _Nonnull word) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        strongSelf.textField.text = word;
+        strongSelf.tagColor =  [UIColor colorWithHexString:@"#66CC33"];
+        strongSelf.textFieldColor =  [UIColor darkTextColor];
+    };
+    [self.containWordView show];
 }
 
 #pragma mark - UITextFieldDelegate
 - (void)textFieldDidEndEditing:(UITextField *)textField{
+    [self.containWordView removeViewFromSuperview];
     if (self.didEndEditingCallBack) {
         self.didEndEditingCallBack();
     }
@@ -371,6 +400,15 @@
         self.clickPhraseCallBack(index);
     }
 }
+
+- (NSMutableArray *)arrPrefix{
+    if (!_arrPrefix) {
+        _arrPrefix = [NSMutableArray array];
+    }
+    return _arrPrefix;
+}
+
+
 
 
 
