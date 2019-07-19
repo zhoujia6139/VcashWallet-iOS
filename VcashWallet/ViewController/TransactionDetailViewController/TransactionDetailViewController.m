@@ -11,6 +11,7 @@
 #import "ServerTransactionBlackManager.h"
 #import "ServerTxManager.h"
 #import "AddAddressBookViewController.h"
+#import "AddressBookManager.h"
 
 @interface TransactionDetailViewController ()
 
@@ -55,6 +56,11 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintViewBottomHeight;
 
+@property (weak, nonatomic) IBOutlet UIButton *btnTagSender;
+
+@property (weak, nonatomic) IBOutlet UIButton *btnTagRecipient;
+
+@property (weak, nonatomic) IBOutlet UILabel *labelConfirmations;
 
 @end
 
@@ -67,6 +73,7 @@
     uint64_t amount;
     uint64_t fee;
     uint64_t create_time;
+    NSInteger confirmations;
 }
 
 - (void)viewDidLoad {
@@ -123,6 +130,13 @@
         self.navigationItem.rightBarButtonItem = rightButtonItem;
     }
     self.constraintViewStatusWidth.constant = ScreenWidth;
+    self.btnTagSender.contentEdgeInsets = UIEdgeInsetsMake(2, 3, 2, 3);
+    self.btnTagRecipient.contentEdgeInsets = UIEdgeInsetsMake(2, 3, 2, 3);
+    UIColor *tagColor = [UIColor colorWithHexString:@"#3399CC"];
+    [self.btnTagSender setTitleColor:tagColor forState:UIControlStateNormal];
+    [self.btnTagRecipient setTitleColor:tagColor forState:UIControlStateNormal];
+    ViewBorderRadius(self.btnTagSender, 4.0, 1, tagColor);
+    ViewBorderRadius(self.btnTagRecipient, 4.0, 1, tagColor);
     [self configDataFromServerTransaction];
     [self configDataFromVcashTxLog];
     [self modifyBtnConstraint];
@@ -132,6 +146,8 @@
     self.labelTxid.text = tx_id;
     self.labelSender.text = sender_id;
     self.labelRecipient.text = receiver_id;
+    self.labelConfirmations.font = [UIFont robotoBoldWithSize:14];
+    self.labelConfirmations.text = [NSString stringWithFormat:@"%ld",confirmations];
     NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
      NSAttributedString *unitAttributrStr = [[NSAttributedString alloc] initWithString:@" VCash" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
     NSMutableAttributedString *amountAttributeStr = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:14]}];
@@ -182,20 +198,50 @@
         self.labelRecipient.userInteractionEnabled = YES;
         self.labelRecipient.textColor = [UIColor colorWithHexString:@"#3399CC"];
         [self.labelRecipient addGestureRecognizer:tap];
+        AddressBookModel *model = [self getAddressBookModelByAddress:receiver_id];
+        if (model) {
+            [self.btnTagRecipient setTitle:model.remarkName forState:UIControlStateNormal];
+        }else{
+             self.btnTagRecipient.hidden = YES;
+        }
+        [self.btnTagSender setTitle:@"me" forState:UIControlStateNormal];
     }else{
         self.labelSender.userInteractionEnabled = YES;
         if (![self.labelSender.text isEqualToString:[LanguageService contentForKey:@"unreachable"]]) {
             self.labelSender.textColor = [UIColor colorWithHexString:@"#3399CC"];
             [self.labelSender addGestureRecognizer:tap];
+            AddressBookModel *model = [self getAddressBookModelByAddress:sender_id];
+            if (model) {
+                [self.btnTagSender setTitle:model.remarkName forState:UIControlStateNormal];
+            }else{
+                self.btnTagSender.hidden = YES;
+            }
+            [self.btnTagRecipient setTitle:@"me" forState:UIControlStateNormal];
         }
     }
-   
+}
+
+- (AddressBookModel *)getAddressBookModelByAddress:(NSString *)address{
+    if (!address) {
+        return nil;
+    }
+    NSArray *arrAddressBook = [[AddressBookManager shareInstance] getAddressBook];
+    if (!arrAddressBook) {
+        return nil;
+    }
+    for (AddressBookModel *model in arrAddressBook) {
+        if ([model.address isEqualToString:address]) {
+            return model;
+        }
+    }
+    return nil;
 }
 
 - (void)configDataFromServerTransaction{
     if (!self.serverTx) {
         return;
     }
+    confirmations = 0;
     imageTxStatus = [UIImage imageNamed:@"ongoingdetail.png"];
     self.btnSignature.localTitle = self.serverTx.isSend ? @"verifySign" :  @"reveiveSign";
     self.btnCancelTx.hidden = !self.serverTx.isSend;
@@ -253,6 +299,7 @@
             break;
         case LoalConfirmed:{
             //tx has benn post, but not confirm by node
+            confirmations = 0;
             txStatus = [LanguageService contentForKey:@"waitingConfirming"];
             imageTxStatus = [UIImage imageNamed:@"ongoingdetail.png"];
             self.btnSignature.hidden = YES;
@@ -262,6 +309,7 @@
             break;
         case NetConfirmed:{
             //confirm by node
+            confirmations = [WalletWrapper getCurChainHeight] - self.txLog.confirm_height + 1;
             txStatus = [LanguageService contentForKey:@"transactionCompleted"];
             imageTxStatus = [UIImage imageNamed:@"confirmdetail.png"];
             self.btnSignature.hidden = YES;
