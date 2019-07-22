@@ -37,8 +37,12 @@
     // Do any additional setup after loading the view from its nib.
     self.title = [LanguageService contentForKey:@"addAddressTitle"];
     self.textFieldRemarkName.delegate = self;
+    if (self.remarkName && self.remarkName.length > 0) {
+        self.textFieldRemarkName.text = self.remarkName;
+    }
     [self.textFieldRemarkName addTarget:self action:@selector(enterRemarkName:) forControlEvents:UIControlEventEditingChanged];
     self.textViewUserIDOrHttpAddress.delegate = self;
+    self.textViewUserIDOrHttpAddress.editable = !self.edit;
     if (self.address && self.address.length > 0) {
         self.labelPlaceHolder.hidden = YES;
         self.textViewUserIDOrHttpAddress.text = self.address;
@@ -144,14 +148,17 @@
     AddressBookModel *model = [AddressBookModel new];
     model.remarkName = self.textFieldRemarkName.text;
     model.address = self.textViewUserIDOrHttpAddress.text;
-    if ([[AddressBookManager shareInstance] isExistByAddressBookModel:model]) {
+    if ([[AddressBookManager shareInstance] isExistByAddressBookModel:model] && !self.edit) {
         [AppHelper resignFirstResonder];
         [MBHudHelper showTextTips:[LanguageService contentForKey:@"addressAlreadyExist"] onView:nil withDuration:1.0];
         return;
     }
     BOOL success =  [[AddressBookManager shareInstance] writeAddressBookModel:model];
     if (success) {
-        [MBHudHelper showTextTips:[LanguageService contentForKey:@"addSuc"] onView:nil withDuration:1.0];
+        [MBHudHelper showTextTips:self.edit ? [LanguageService contentForKey:@"editSuc"] : [LanguageService contentForKey:@"addSuc"] onView:nil withDuration:1.0];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(saveSucWithAddressBookModel:)]) {
+            [self.delegate saveSucWithAddressBookModel:model];
+        }
         [self.navigationController popViewControllerAnimated:YES];
     }
    

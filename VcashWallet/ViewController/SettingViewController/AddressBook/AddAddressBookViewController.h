@@ -10,9 +10,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class AddressBookModel;
+
+@protocol AddAddressBookViewControllerDelegate <NSObject>
+
+- (void)saveSucWithAddressBookModel:(AddressBookModel *)model;
+
+@end
+
 @interface AddAddressBookViewController : BaseViewController
 
+@property (nonatomic, assign) BOOL edit;
+
+@property (nonatomic, strong) NSString *remarkName;
+
 @property (nonatomic, strong) NSString *address;
+
+@property (nonatomic, weak) id<AddAddressBookViewControllerDelegate> delegate;
+
 
 @end
 

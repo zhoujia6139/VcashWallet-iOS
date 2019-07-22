@@ -106,7 +106,7 @@
                             <rect key="frame" x="262" y="-4" width="95" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="Address book">
-                                <color key="titleColor" red="1" green="0.58431372550000005" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="0.20000000000000001" green="0.59999999999999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="clickedBtnAddressBook:" destination="-1" eventType="touchUpInside" id="hSt-C0-9r6"/>

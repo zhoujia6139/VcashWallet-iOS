@@ -13,7 +13,7 @@
 #import "AddAddressBookViewController.h"
 #import "AddressBookManager.h"
 
-@interface TransactionDetailViewController ()
+@interface TransactionDetailViewController ()<AddAddressBookViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewTxStatus;
 
@@ -56,11 +56,9 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintViewBottomHeight;
 
-@property (weak, nonatomic) IBOutlet UIButton *btnTagSender;
-
-@property (weak, nonatomic) IBOutlet UIButton *btnTagRecipient;
-
 @property (weak, nonatomic) IBOutlet UILabel *labelConfirmations;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintLabelSenderLeading;
 
 @end
 
@@ -116,6 +114,10 @@
 
 - (void)configView{
     self.title = [LanguageService contentForKey:@"txDetailTitle"];
+    for (NSInteger i = 100; i <= 106; i++) {
+        UIView *iv = [self.view viewWithTag:i];
+        [AppHelper addLineBottomWithParentView:iv leftMargin:20 rightMargin:20];
+    }
     ViewRadius(self.btnSignature, 4.0f);
     ViewBorderRadius(self.btnCancelTx, 4.0, 1.0, [UIColor colorWithHexString:@"#FF3333"]);
     if (self.isFromSendTxVc) {
@@ -130,13 +132,6 @@
         self.navigationItem.rightBarButtonItem = rightButtonItem;
     }
     self.constraintViewStatusWidth.constant = ScreenWidth;
-    self.btnTagSender.contentEdgeInsets = UIEdgeInsetsMake(2, 3, 2, 3);
-    self.btnTagRecipient.contentEdgeInsets = UIEdgeInsetsMake(2, 3, 2, 3);
-    UIColor *tagColor = [UIColor colorWithHexString:@"#3399CC"];
-    [self.btnTagSender setTitleColor:tagColor forState:UIControlStateNormal];
-    [self.btnTagRecipient setTitleColor:tagColor forState:UIControlStateNormal];
-    ViewBorderRadius(self.btnTagSender, 4.0, 1, tagColor);
-    ViewBorderRadius(self.btnTagRecipient, 4.0, 1, tagColor);
     [self configDataFromServerTransaction];
     [self configDataFromVcashTxLog];
     [self modifyBtnConstraint];
@@ -144,8 +139,8 @@
     self.labelTxStatus.text = txStatus;
     self.imageViewTxStatus.image = imageTxStatus;
     self.labelTxid.text = tx_id;
-    self.labelSender.text = sender_id;
-    self.labelRecipient.text = receiver_id;
+//    self.labelSender.text = sender_id;
+//    self.labelRecipient.text = receiver_id;
     self.labelConfirmations.font = [UIFont robotoBoldWithSize:14];
     self.labelConfirmations.text = [NSString stringWithFormat:@"%ld",confirmations];
     NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
@@ -182,6 +177,12 @@
     }
     if (self.btnSignature.hidden && self.btnCancelTx.hidden) {
         self.constraintViewBottomHeight.constant = 0;
+    }else if(!self.btnSignature.hidden && self.btnCancelTx.hidden){
+        self.constraintBtnSignatureBottomWithSuperView.active = YES;
+        self.constraintBtnSignatureBottomWithBtnCancel.active = NO;
+         self.constraintViewBottomHeight.constant = 84;
+    }else if (self.btnSignature.hidden && !self.btnCancelTx.hidden){
+        self.constraintViewBottomHeight.constant = 84;
     }else{
         self.constraintViewBottomHeight.constant = 144;
     }
@@ -199,25 +200,38 @@
         self.labelRecipient.textColor = [UIColor colorWithHexString:@"#3399CC"];
         [self.labelRecipient addGestureRecognizer:tap];
         AddressBookModel *model = [self getAddressBookModelByAddress:receiver_id];
+        NSMutableAttributedString *recipientAttritedStr = [[NSMutableAttributedString alloc] initWithString:receiver_id attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#3399CC"]}];
         if (model) {
-            [self.btnTagRecipient setTitle:model.remarkName forState:UIControlStateNormal];
+            NSAttributedString *remarkAttributeStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"(%@)",model.remarkName] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#3399CC"]}];
+            [recipientAttritedStr appendAttributedString:remarkAttributeStr];
+            self.labelRecipient.attributedText = recipientAttritedStr;
         }else{
-             self.btnTagRecipient.hidden = YES;
+            self.labelRecipient.attributedText = recipientAttritedStr;
         }
-        [self.btnTagSender setTitle:@"me" forState:UIControlStateNormal];
+         NSMutableAttributedString *senderAttributedStr = [[NSMutableAttributedString alloc] initWithString:sender_id attributes:@{NSForegroundColorAttributeName:[UIColor darkTextColor]}];
+         NSAttributedString *attributedStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"(%@)",[LanguageService contentForKey:@"me"]] attributes:@{NSForegroundColorAttributeName:[UIColor darkTextColor]}];
+        [senderAttributedStr appendAttributedString:attributedStr];
+        self.labelSender.attributedText = senderAttributedStr;
     }else{
         self.labelSender.userInteractionEnabled = YES;
-        if (![self.labelSender.text isEqualToString:[LanguageService contentForKey:@"unreachable"]]) {
+        if (![sender_id isEqualToString:[LanguageService contentForKey:@"unreachable"]]) {
             self.labelSender.textColor = [UIColor colorWithHexString:@"#3399CC"];
             [self.labelSender addGestureRecognizer:tap];
             AddressBookModel *model = [self getAddressBookModelByAddress:sender_id];
+            NSMutableAttributedString *senderAttributedStr = [[NSMutableAttributedString alloc] initWithString:sender_id attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#3399CC"]}];
             if (model) {
-                [self.btnTagSender setTitle:model.remarkName forState:UIControlStateNormal];
-            }else{
-                self.btnTagSender.hidden = YES;
+                NSAttributedString *remarkAttributeStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"(%@)",model.remarkName] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#3399CC"]}];
+                [senderAttributedStr appendAttributedString:remarkAttributeStr];
             }
-            [self.btnTagRecipient setTitle:@"me" forState:UIControlStateNormal];
+             self.labelSender.attributedText = senderAttributedStr;
+        }else{
+            self.labelSender.text = sender_id;
+            self.constraintLabelSenderLeading.active = NO;
         }
+         NSMutableAttributedString *recipientAttritedStr = [[NSMutableAttributedString alloc] initWithString:receiver_id attributes:@{NSForegroundColorAttributeName:[UIColor darkTextColor]}];
+        NSAttributedString *attributedStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"(%@)",[LanguageService contentForKey:@"me"]] attributes:@{NSForegroundColorAttributeName:[UIColor darkTextColor]}];
+        [recipientAttritedStr appendAttributedString:attributedStr];
+         self.labelRecipient.attributedText = recipientAttritedStr;
     }
 }
 
@@ -387,19 +401,54 @@
     }
 }
 
+#pragma mark - AddAddressBookViewControllerDelegate
+- (void)saveSucWithAddressBookModel:(AddressBookModel *)model{
+    BOOL isSend = NO;
+    if (self.serverTx) {
+        isSend = self.serverTx.isSend;
+    }
+    if (self.txLog) {
+        isSend = (self.txLog.tx_type == TxSent || self.txLog.tx_type == TxSentCancelled);
+    }
+    if (isSend) {
+        NSMutableAttributedString *recipientAttritedStr = [[NSMutableAttributedString alloc] initWithString:receiver_id attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#3399CC"]}];
+        NSAttributedString *remarkAttributeStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"(%@)",model.remarkName] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#3399CC"]}];
+        [recipientAttritedStr appendAttributedString:remarkAttributeStr];
+        self.labelRecipient.attributedText = recipientAttritedStr;
+    }else{
+        if (![sender_id isEqualToString:[LanguageService contentForKey:@"unreachable"]]) {
+            NSMutableAttributedString *senderAttributedStr = [[NSMutableAttributedString alloc] initWithString:sender_id attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#3399CC"]}];
+            if (model) {
+                NSAttributedString *remarkAttributeStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"(%@)",model.remarkName] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#3399CC"]}];
+                [senderAttributedStr appendAttributedString:remarkAttributeStr];
+            }
+            self.labelSender.attributedText = senderAttributedStr;
+        }
+    }
+}
+
 - (void)copyAndSaveAddress:(UITapGestureRecognizer *)tap{
     UILabel *label = (UILabel *)[tap view];
-    if (label.text.length > 0) {
+    NSString *copyStr;
+    if (label == self.labelSender) {
+        copyStr = sender_id;
+    }else if (label == self.labelRecipient){
+        copyStr = receiver_id;
+    }
+    if (copyStr.length > 0) {
         UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         [alertVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"copy"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [[UIPasteboard generalPasteboard] setString:label.text];
+            [[UIPasteboard generalPasteboard] setString:copyStr];
             [self.view makeToast:[LanguageService contentForKey:@"copiedToClipboard"]];
         }]];
-        [alertVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"saveToAddressBook"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            AddAddressBookViewController *addAddressBookVc = [[AddAddressBookViewController alloc] init];
-            addAddressBookVc.address = label.text;
-            [self.navigationController pushViewController:addAddressBookVc animated:YES];
-        }]];
+        if (label.text.length == copyStr.length) {
+            [alertVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"saveToAddressBook"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                AddAddressBookViewController *addAddressBookVc = [[AddAddressBookViewController alloc] init];
+                addAddressBookVc.delegate = self;
+                addAddressBookVc.address = copyStr;
+                [self.navigationController pushViewController:addAddressBookVc animated:YES];
+            }]];
+        }
         [alertVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"cancel"] style:UIAlertActionStyleCancel handler:nil]];
         [self.navigationController presentViewController:alertVc animated:YES completion:nil];
     }

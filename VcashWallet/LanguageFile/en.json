@@ -190,4 +190,8 @@
     "touchIDLocked":"Touch ID  has been locked!",
     "faceIDLocked":"Face ID  has been locked!",
     "saveToAddressBook":"Save to address book",
+    "copyAddress":"Copy Address",
+    "edit":"Edit",
+    "me":"me",
+    "editSuc":"Successful editing",
 }

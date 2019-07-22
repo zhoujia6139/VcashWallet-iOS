@@ -141,8 +141,13 @@
     [self.btnTouchId setImage:[UIImage imageNamed:@"touchid.png"] forState:UIControlStateNormal];
     [[LocalAuthenticationManager shareInstance] verifyIdentidyWithComplete:^(BOOL success, NSError * _Nullable error) {
         if (success) {
-            [weakSelf dismissViewControllerAnimated:NO completion:nil];
-            [[LeftMenuManager shareInstance] addGestures];
+            [weakSelf dismissViewControllerAnimated:NO completion:^{
+                UIViewController *currentVc = [[AppHelper shareInstance] visibleViewController];
+                if ([currentVc isKindOfClass:NSClassFromString(@"WalletViewController")] ||[currentVc isKindOfClass:NSClassFromString(@"SettingViewController")] || [currentVc isKindOfClass:NSClassFromString(@"AddressBookViewController")]) {
+                    [[LeftMenuManager shareInstance] addGestures];
+                }
+            }];
+           
         }else{
             if (@available(iOS 11.0, *)) {
                 if (error.code == LAErrorAuthenticationFailed || error.code == LAErrorTouchIDLockout || error.code == LAErrorBiometryLockout) {
