@@ -58,6 +58,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *labelConfirmations;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintLabelTxidLeading;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintLabelSenderLeading;
 
 @end
@@ -138,6 +140,9 @@
     
     self.labelTxStatus.text = txStatus;
     self.imageViewTxStatus.image = imageTxStatus;
+    if ([tx_id isEqualToString:[LanguageService contentForKey:@"unreachable"]]) {
+        self.constraintLabelTxidLeading.active = NO;
+    }
     self.labelTxid.text = tx_id;
 //    self.labelSender.text = sender_id;
 //    self.labelRecipient.text = receiver_id;

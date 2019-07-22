@@ -180,7 +180,12 @@ static NSString * const identifier = @"UITableViewCell";
                 make.bottom.equalTo(self.releativeView.mas_top);
                 make.centerX.equalTo(self.releativeView);
                 make.width.mas_equalTo(self.releativeView);
-                make.height.mas_equalTo([self.releativeView superview].origin.y + self.releativeView.origin.y);
+                if ([self.releativeView superview].origin.y + self.releativeView.origin.y > [self height]) {
+                     make.height.mas_equalTo([self height]);
+                }else{
+                    make.height.mas_equalTo([self.releativeView superview].origin.y + self.releativeView.origin.y);
+                }
+               
             }];
         }
     }
