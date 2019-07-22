@@ -23,7 +23,7 @@ typedef void(^SeletedWordCallBack)(NSString *word);
 
 - (void)removeViewFromSuperview;
 
-- (void)show;
+- (void)showInView:(UIView *)parentView releativeView:(UIView *)releativeView;
 
 @end
 

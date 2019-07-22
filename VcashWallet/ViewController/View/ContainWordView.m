@@ -10,7 +10,12 @@
 
 static NSString * const identifier = @"UITableViewCell";
 
+
 @interface ContainWordView ()<UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic, strong) UIView *parentView;
+
+@property (nonatomic, strong) UIView *releativeView;
 
 @property (nonatomic, strong) UITableView *tableViewContainer;
 
@@ -33,18 +38,25 @@ static NSString * const identifier = @"UITableViewCell";
 - (instancetype)initWithArrData:(NSArray *)arrData{
     self = [super init];
     if (self) {
+        self.backgroundColor = [UIColor colorWithHexString:@"#F5F5F5"];
+        self.layer.shadowColor = [UIColor grayColor].CGColor;
+        self.layer.shadowOffset = CGSizeZero;
+        self.layer.shadowOpacity = 0.8;
+        self.layer.shadowRadius = 4.0f;
         _arrData = arrData;
         _alphaView= [[UIView alloc]init];
         _alphaView.backgroundColor = [UIColor clearColor];
         _tableViewContainer = [[UITableView alloc] initWithFrame:self.bounds style:UITableViewStylePlain];
+        _tableViewContainer.backgroundColor = [UIColor colorWithHexString:@"#F5F5F5"];
         _tableViewContainer.dataSource = self;
         _tableViewContainer.delegate = self;
+        _tableViewContainer.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self addSubview:self.tableViewContainer];
         [self.tableViewContainer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
         
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeFromSuperview)];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewFromSuperview)];
         [self.alphaView addGestureRecognizer:tap];
     }
     return self;
@@ -53,16 +65,18 @@ static NSString * const identifier = @"UITableViewCell";
 - (void)updateDataWith:(NSArray *)arrData{
     _arrData = arrData;
     if (_arrData.count == 0) {
-        [self removeFromSuperview];
+        [self removeViewFromSuperview];
         return;
     }
-    UIWindow *wd = [UIApplication sharedApplication].keyWindow;
-    [self mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(wd).offset(10);
-        make.width.mas_equalTo(150);
-        make.height.mas_equalTo([self getHeight]);
-        make.bottom.equalTo(wd).offset(-380);
-    }];
+    [self setWordViewFrame];
+//    UIWindow *wd = [UIApplication sharedApplication].keyWindow;
+//    CGFloat keyBoardHeight = [[YYTextKeyboardManager defaultManager] keyboardFrame].size.height;
+//    [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(wd).offset(10);
+//        make.width.mas_equalTo(150);
+//        make.height.mas_equalTo([self getHeight]);
+//        make.bottom.equalTo(wd).offset(-keyBoardHeight);
+//    }];
     [self.tableViewContainer reloadData];
 }
 
@@ -82,14 +96,31 @@ static NSString * const identifier = @"UITableViewCell";
     if (!cell) {
         cell = [[UITableViewCell  alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    cell.textLabel.text = self.arrData[indexPath.row];
+    cell.backgroundColor =  [UIColor colorWithHexString:@"#F5F5F5"];
+    NSString *str = self.arrData[indexPath.row];
+    NSString *prefixStr;
+    if (self.releativeView) {
+        for (UIView *iv in self.releativeView.subviews) {
+            if ([iv isKindOfClass:[UITextField class]]) {
+                UITextField *textField = (UITextField *)iv;
+                prefixStr = textField.text;
+                break;
+            }
+        }
+        str = [str stringByReplacingOccurrencesOfString:[prefixStr lowercaseString] withString:@""];
+        NSMutableAttributedString *mutableAttributedStr = [[NSMutableAttributedString alloc] initWithString:[prefixStr lowercaseString] attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18]}];
+        NSAttributedString *attributedStr = [[NSAttributedString alloc] initWithString:str attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]}];
+        [mutableAttributedStr appendAttributedString:attributedStr];
+        
+        cell.textLabel.attributedText = mutableAttributedStr;
+    }
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 44;
+    return 40;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -102,29 +133,57 @@ static NSString * const identifier = @"UITableViewCell";
 }
 
 - (CGFloat)getHeight{
-    CGFloat height = 44 * self.arrData.count;
-    if (height > ScreenHeight - kTopHeight - 380) {
-        height = ScreenHeight - kTopHeight - 380;
+    float count = self.arrData.count;
+    if (count > 4) {
+        count = 4.5;
     }
+    CGFloat height = 40 * count;
     return height;
 }
 
-- (void)show{
+- (void)showInView:(UIView *)parentView releativeView:(UIView *)releativeView{
     if (self.superview) {
         return;
     }
-    UIWindow *wd = [UIApplication sharedApplication].keyWindow;
-    [wd addSubview:self.alphaView];
+    _parentView = parentView;
+    _releativeView = releativeView;
+    [self.parentView addSubview:self.alphaView];
     [self.alphaView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(wd);
+        make.edges.equalTo(self.parentView);
     }];
     
-    [wd addSubview:self];
-    [self mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(wd).offset(10);
-        make.width.mas_equalTo(150);
+    [self.parentView addSubview:self];
+    [self setWordViewFrame];
+   
+}
+
+- (void)setWordViewFrame{
+    CGFloat keyBoardHeight = [[YYTextKeyboardManager defaultManager] keyboardFrame].size.height;
+    [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.releativeView.mas_bottom);
+        make.centerX.equalTo(self.releativeView);
+        make.width.mas_equalTo(self.releativeView);
         make.height.mas_equalTo([self getHeight]);
-        make.bottom.equalTo(wd).offset(-380);
     }];
+    [self.parentView layoutIfNeeded];
+    if (ScreenHeight - self.origin.y - [self getHeight]  - kTopHeight < keyBoardHeight) {
+        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.releativeView.mas_top);
+            make.centerX.equalTo(self.releativeView);
+            make.width.mas_equalTo(self.releativeView);
+            make.height.mas_equalTo([self getHeight]);
+        }];
+        [self.parentView layoutIfNeeded];
+        if (self.origin.y < kTopHeight) {
+            [[self.releativeView superview] layoutIfNeeded];
+            [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.releativeView.mas_top);
+                make.centerX.equalTo(self.releativeView);
+                make.width.mas_equalTo(self.releativeView);
+                make.height.mas_equalTo([self.releativeView superview].origin.y + self.releativeView.origin.y);
+            }];
+        }
+    }
+    
 }
 @end

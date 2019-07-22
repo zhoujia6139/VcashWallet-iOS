@@ -267,7 +267,6 @@
 }
 
 - (void)enterPhrase:(UITextField *)textField{
-   
     if (textField.text.length == 0) {
         [self.containWordView removeViewFromSuperview];
         self.textField.textColor = [UIColor darkTextColor];
@@ -311,7 +310,7 @@
     }
     if (self.containWordView) {
         if (!self.containWordView.superview) {
-             [self.containWordView show];
+             [self.containWordView showInView:[[[AppHelper shareInstance] visibleViewController] view] releativeView:self];
         }
         [self.containWordView updateDataWith:self.arrPrefix];
     }else{
@@ -324,7 +323,7 @@
         strongSelf.tagColor =  [UIColor colorWithHexString:@"#66CC33"];
         strongSelf.textFieldColor =  [UIColor darkTextColor];
     };
-    [self.containWordView show];
+    [self.containWordView showInView:[[[AppHelper shareInstance] visibleViewController] view] releativeView:self];
 }
 
 #pragma mark - UITextFieldDelegate

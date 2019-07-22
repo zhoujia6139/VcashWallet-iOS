@@ -48,8 +48,13 @@
         self.textViewUserIDOrHttpAddress.text = self.address;
         [self setTextViewHeight];
     }
-    self.btnSave.backgroundColor = COrangeEnableColor;
-    self.btnSave.userInteractionEnabled = NO;
+    if (self.remarkName.length > 0 && self.address.length > 0) {
+        self.btnSave.backgroundColor = COrangeColor;
+        self.btnSave.userInteractionEnabled = YES;
+    }else{
+        self.btnSave.backgroundColor = COrangeEnableColor;
+        self.btnSave.userInteractionEnabled = NO;
+    }
     ViewRadius(self.btnSave, 4.0);
 }
 
