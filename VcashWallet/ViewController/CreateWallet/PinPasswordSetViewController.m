@@ -59,7 +59,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.translucent = NO;
     self.startUseWalletBtn.userInteractionEnabled = NO;
-    self.startUseWalletBtn.backgroundColor = CGrayColor;
+    self.startUseWalletBtn.backgroundColor = COrangeEnableColor;
     ViewRadius(self.startUseWalletBtn, 4.0);
     
     if (self.isChangePassword) {
@@ -159,7 +159,7 @@
         self.startUseWalletBtn.backgroundColor = COrangeColor;
     }else{
         self.startUseWalletBtn.userInteractionEnabled = NO;
-        self.startUseWalletBtn.backgroundColor = CGrayColor;
+        self.startUseWalletBtn.backgroundColor = COrangeEnableColor;
     }
 }
 
