@@ -90,6 +90,12 @@
 }
 
 - (void)enterBackground{
+    if ([[[AppHelper shareInstance] visibleViewController] isKindOfClass:[PinVerifyViewController class]]) {
+        PinVerifyViewController *verifyVc = (PinVerifyViewController *)[[AppHelper shareInstance] visibleViewController];
+        if (!verifyVc.startTouch) {
+            return;
+        }
+    }
     self.startDate = [NSDate date];
 }
 
