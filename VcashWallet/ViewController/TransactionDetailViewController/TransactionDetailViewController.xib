@@ -84,7 +84,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YfX-Z1-equ">
-                                    <rect key="frame" x="100" y="15" width="255" height="17"/>
+                                    <rect key="frame" x="120" y="15" width="235" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -97,7 +97,7 @@
                                 <constraint firstItem="YfX-Z1-equ" firstAttribute="top" secondItem="gkQ-A0-7BR" secondAttribute="top" constant="15" id="800-Wg-UVa"/>
                                 <constraint firstAttribute="trailing" secondItem="YfX-Z1-equ" secondAttribute="trailing" constant="20" id="DUo-aR-CMy"/>
                                 <constraint firstAttribute="bottom" secondItem="YfX-Z1-equ" secondAttribute="bottom" constant="15" id="iOs-1l-c4d"/>
-                                <constraint firstItem="YfX-Z1-equ" firstAttribute="leading" secondItem="gkQ-A0-7BR" secondAttribute="leading" constant="100" id="qmL-x6-SL2"/>
+                                <constraint firstItem="YfX-Z1-equ" firstAttribute="leading" secondItem="gkQ-A0-7BR" secondAttribute="leading" constant="120" id="qmL-x6-SL2"/>
                             </constraints>
                         </view>
                         <view tag="101" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qg3-JW-k0i">
@@ -113,7 +113,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OtP-76-ta1">
-                                    <rect key="frame" x="100" y="15" width="255" height="17"/>
+                                    <rect key="frame" x="120" y="15" width="235" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -127,7 +127,7 @@
                                 <constraint firstItem="4do-4s-YcH" firstAttribute="leading" secondItem="qg3-JW-k0i" secondAttribute="leading" constant="20" id="KBv-cB-9db"/>
                                 <constraint firstItem="OtP-76-ta1" firstAttribute="top" secondItem="qg3-JW-k0i" secondAttribute="top" constant="15" id="NbK-9s-Rzt"/>
                                 <constraint firstAttribute="bottom" secondItem="OtP-76-ta1" secondAttribute="bottom" constant="15" id="OAO-lM-mcd"/>
-                                <constraint firstItem="OtP-76-ta1" firstAttribute="leading" secondItem="qg3-JW-k0i" secondAttribute="leading" constant="100" id="q4r-JN-SsY"/>
+                                <constraint firstItem="OtP-76-ta1" firstAttribute="leading" secondItem="qg3-JW-k0i" secondAttribute="leading" constant="120" id="q4r-JN-SsY"/>
                             </constraints>
                         </view>
                         <view tag="102" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="etB-Xb-nV0">
@@ -143,7 +143,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SDo-Oy-MPa">
-                                    <rect key="frame" x="100" y="15" width="255" height="17"/>
+                                    <rect key="frame" x="120" y="15" width="235" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -153,7 +153,7 @@
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="SDo-Oy-MPa" secondAttribute="trailing" constant="20" id="AUV-ch-ISD"/>
                                 <constraint firstItem="EbB-Mq-9i8" firstAttribute="centerY" secondItem="etB-Xb-nV0" secondAttribute="centerY" id="B43-0G-c3j"/>
-                                <constraint firstItem="SDo-Oy-MPa" firstAttribute="leading" secondItem="etB-Xb-nV0" secondAttribute="leading" constant="100" id="KaF-oS-rnQ"/>
+                                <constraint firstItem="SDo-Oy-MPa" firstAttribute="leading" secondItem="etB-Xb-nV0" secondAttribute="leading" constant="120" id="KaF-oS-rnQ"/>
                                 <constraint firstItem="SDo-Oy-MPa" firstAttribute="top" secondItem="etB-Xb-nV0" secondAttribute="top" constant="15" id="d7T-5j-GMl"/>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="37" id="i9K-JR-6FR"/>
                                 <constraint firstAttribute="bottom" secondItem="SDo-Oy-MPa" secondAttribute="bottom" constant="15" id="lJb-ea-S3b"/>
