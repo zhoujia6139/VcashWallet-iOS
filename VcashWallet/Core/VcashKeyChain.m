@@ -31,22 +31,56 @@
     return key;
 }
 
--(VcashSecretKey*)deriveKey:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath{
+-(VcashSecretKey*)deriveKey:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath andSwitchType:(SwitchCommitmentType)switchType{
     BTCKey* key = [self deriveBTCKeyWithKeypath:keypath];
-    NSData* data = [_secp blindSwitch:amount withKey:[[VcashSecretKey alloc] initWithData:key.privateKey]];
-    return [[VcashSecretKey alloc] initWithData:data];
+    if (switchType == SwitchCommitmentTypeRegular){
+        NSData* data = [_secp blindSwitch:amount withKey:[[VcashSecretKey alloc] initWithData:key.privateKey]];
+        return [[VcashSecretKey alloc] initWithData:data];
+    }
+    else if(switchType == SwitchCommitmentTypeNone){
+        return [[VcashSecretKey alloc] initWithData:key.privateKey];
+    }
+    else{
+        return nil;
+    }
 }
 
--(NSData*)createCommitment:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath{
-    VcashSecretKey* secretKey = [self deriveKey:amount andKeypath:keypath];
+-(NSData*)createCommitment:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath andSwitchType:(SwitchCommitmentType)switchType{
+    VcashSecretKey* secretKey = [self deriveKey:amount andKeypath:keypath andSwitchType:switchType];
     NSData* commit = [_secp commitment:amount withKey:secretKey];
     return commit;
 }
 
 -(VcashSecretKey*)createNonce:(NSData*)commitment {
-    VcashSecretKey* rootKey = [self deriveKey:0 andKeypath:[self rootKeyPath]];
+    VcashSecretKey* rootKey = [self deriveKey:0 andKeypath:[self rootKeyPath] andSwitchType:SwitchCommitmentTypeRegular];
     uint8_t ret[SECRET_KEY_SIZE];
     if( blake2b( ret, rootKey.data.bytes, commitment.bytes, SECRET_KEY_SIZE, SECRET_KEY_SIZE, PEDERSEN_COMMITMENT_SIZE ) < 0)
+    {
+        return nil;
+    }
+    NSData* keydata = [NSData dataWithBytes:ret length:SECRET_KEY_SIZE];
+    return [[VcashSecretKey alloc] initWithData:keydata];
+}
+
+-(VcashSecretKey*)createNonceV2:(NSData*)commitment forPrivate:(BOOL)forPrivate{
+    VcashSecretKey* rootKey = [self deriveKey:0 andKeypath:[self rootKeyPath] andSwitchType:SwitchCommitmentTypeNone];
+    uint8_t keyHashData[SECRET_KEY_SIZE];
+    if (forPrivate){
+        if( blake2b( keyHashData, rootKey.data.bytes, NULL, SECRET_KEY_SIZE, SECRET_KEY_SIZE, 0 ) < 0)
+        {
+            return nil;
+        }
+    }
+    else{
+        NSData* rootPubkey = [_secp getPubkeyFormSecretKey:rootKey];
+        NSData* compressPubkey = [_secp getCompressedPubkey:rootPubkey];
+        if( blake2b( keyHashData, compressPubkey.bytes, NULL, SECRET_KEY_SIZE, compressPubkey.length, 0 ) < 0)
+        {
+            return nil;
+        }
+    }
+    uint8_t ret[SECRET_KEY_SIZE];
+    if( blake2b( ret, keyHashData, commitment.bytes, SECRET_KEY_SIZE, SECRET_KEY_SIZE, PEDERSEN_COMMITMENT_SIZE ) < 0)
     {
         return nil;
     }
@@ -57,20 +91,37 @@
 #pragma proof
 
 -(NSData*)createRangeProof:(uint64_t)amount withKeyPath:(VcashKeychainPath*)path{
-    NSData* commit = [self createCommitment:amount andKeypath:path];
-    VcashSecretKey* secretKey = [self deriveKey:amount andKeypath:path];
-    VcashSecretKey* nounce = [self createNonce:commit];
-    NSData* rangeProof = [_secp createBulletProof:amount key:secretKey nounce:nounce andMessage:path.pathData];
+    NSData* commit = [self createCommitment:amount andKeypath:path andSwitchType:SwitchCommitmentTypeRegular];
+    VcashSecretKey* secretKey = [self deriveKey:amount andKeypath:path andSwitchType:SwitchCommitmentTypeRegular];
+    VcashSecretKey* rewindNounce = [self createNonceV2:commit forPrivate:NO];
+    VcashSecretKey* privateNounce = [self createNonceV2:commit forPrivate:YES];
+    /// Message bytes:
+    ///     0: reserved for future use
+    ///     1: wallet type (0 for standard)
+    ///     2: switch commitment type
+    ///     3: path depth
+    ///  4-19: derivation path
+    uint8_t tmp[4];
+    tmp[0] = 0;
+    tmp[1] = 0;
+    tmp[2] = SwitchCommitmentTypeRegular;
+    tmp[3] = 3;
+    NSMutableData* msgData = [NSMutableData dataWithBytes:tmp length:4];
+    [msgData appendData:path.pathData];
+    NSData* rangeProof = [_secp createBulletProof:amount key:secretKey rewindNounce:rewindNounce privateNounce:privateNounce andMessage:msgData];
     return rangeProof;
 }
 
--(BOOL)verifyProof:(NSData*)commitment withProof:(NSData*)proof{
-    return [_secp verifyBulletProof:commitment withProof:proof];
-}
-
 -(VcashProofInfo*)rewindProof:(NSData*)commitment withProof:(NSData*)proof{
+    //first rewind by legacy version
     VcashSecretKey* nounce = [self createNonce:commitment];
     VcashProofInfo* proofInfo = [_secp rewindBulletProof:commitment nounce:nounce withProof:proof];
+    if (!proofInfo){
+        //rewind by new version
+        VcashSecretKey* rewindNounce = [self createNonceV2:commitment forPrivate:NO];
+        proofInfo = [_secp rewindBulletProof:commitment nounce:rewindNounce withProof:proof];
+        proofInfo.version = 1;
+    }
     return proofInfo;
 }
 

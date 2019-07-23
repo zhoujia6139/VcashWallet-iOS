@@ -15,7 +15,7 @@
 
 #define MAX_PROOF_SIZE 5134
 
-#define BULLET_PROOF_MSG_SIZE 16
+#define BULLET_PROOF_MSG_SIZE 20
 
 #define MAX_WIDTH (1 << 20)
 
@@ -350,13 +350,12 @@
 }
 
 #pragma proof
--(NSData*)createBulletProof:(uint64_t)value key:(VcashSecretKey*)key nounce:(VcashSecretKey*)nounce andMessage:(NSData*)message{
+-(NSData*)createBulletProof:(uint64_t)value key:(VcashSecretKey*)key rewindNounce:(VcashSecretKey*)rewindNounce privateNounce:(VcashSecretKey*)privateNounce andMessage:(NSData*)message{
     uint8_t proof[MAX_PROOF_SIZE];
     size_t proofSize = MAX_PROOF_SIZE;
     
     const unsigned char* key_point = key.data.bytes;
     const unsigned char* const* key_points = &key_point;
-    //const unsigned char* const* temp = &((const unsigned char*)key.data.bytes);
     
     secp256k1_scratch_space* scratch = secp256k1_scratch_space_create(_context, SCRATCH_SPACE_SIZE);
     int ret = secp256k1_bulletproof_rangeproof_prove(_context,
@@ -374,8 +373,8 @@
                                            1,
                                            &secp256k1_generator_const_h,
                                            64,
-                                           nounce.data.bytes,
-                                           nil,
+                                           rewindNounce.data.bytes,
+                                           privateNounce.data.bytes,
                                            nil,
                                            0,
                                            message.bytes);
@@ -412,9 +411,8 @@
     uint64_t value = 0;
     uint8_t messageOut[BULLET_PROOF_MSG_SIZE];
     
-    //secp256k1_scratch_space* scratch = secp256k1_scratch_space_create(_context, SCRATCH_SPACE_SIZE);
+    secp256k1_scratch_space* scratch = secp256k1_scratch_space_create(_context, SCRATCH_SPACE_SIZE);
     int ret = secp256k1_bulletproof_rangeproof_rewind(_context,
-                                            [self sharedGenerators],
                                             &value,
                                             blindOut,
                                             proof.bytes,
@@ -426,7 +424,7 @@
                                             nil,
                                             0,
                                             messageOut);
-    //secp256k1_scratch_space_destroy(scratch);
+    secp256k1_scratch_space_destroy(scratch);
     if (ret == 1){
         VcashProofInfo* info = [VcashProofInfo new];
         info.isSuc = YES;

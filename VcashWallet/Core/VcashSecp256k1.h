@@ -64,7 +64,7 @@ enum ContextFlag {
 -(NSData*)getPubkeyFormSecretKey:(VcashSecretKey*)key;
 
 //pragma proof
--(NSData*)createBulletProof:(uint64_t)value key:(VcashSecretKey*)key nounce:(VcashSecretKey*)nounce andMessage:(NSData*)message;
+-(NSData*)createBulletProof:(uint64_t)value key:(VcashSecretKey*)key rewindNounce:(VcashSecretKey*)rewindNounce privateNounce:(VcashSecretKey*)privateNounce andMessage:(NSData*)message;
 
 -(BOOL)verifyBulletProof:(NSData*)commitment withProof:(NSData*)proof;
 

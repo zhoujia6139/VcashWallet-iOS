@@ -153,10 +153,25 @@ static VcashWallet* walletInstance = nil;
     NSData* commit = BTCDataFromHex(nodeOutput.commit);
     NSData* proof = BTCDataFromHex(nodeOutput.proof);
     VcashProofInfo* info = [self.mKeyChain rewindProof:commit withProof:proof];
-    if (info.isSuc){
+    if (info.isSuc && info.message.length == 20){
+        VcashKeychainPath* keyPath;
+        uint8_t switchType = SwitchCommitmentTypeRegular;
+        if (info.version == 0){
+            keyPath = [[VcashKeychainPath alloc] initWithDepth:3 andPathData:[info.message subdataWithRange:NSMakeRange(4, 16)]];
+        }
+        else if(info.version == 1){
+            switchType = *(uint8_t*)&info.message.bytes[2];
+            uint8_t* depth = (uint8_t*)&info.message.bytes[3];
+            keyPath = [[VcashKeychainPath alloc] initWithDepth:*depth andPathData:[info.message subdataWithRange:NSMakeRange(4, 16)]];
+        }
+        NSData* retCommit = [self.mKeyChain createCommitment:info.value andKeypath:keyPath andSwitchType:switchType];
+        if (![nodeOutput.commit isEqualToString:BTCHexFromData(retCommit)]){
+            DDLogError(@"rewindProof suc, but message data is invalid. commit = %@", nodeOutput.commit);
+            return nil;
+        }
         VcashOutput* output = [VcashOutput new];
         output.commitment = nodeOutput.commit;
-        output.keyPath = [[VcashKeychainPath alloc] initWithDepth:3 andPathData:info.message].pathStr;
+        output.keyPath = keyPath.pathStr;
         output.mmr_index = nodeOutput.mmr_index;
         output.value = info.value;
         output.height = nodeOutput.block_height;

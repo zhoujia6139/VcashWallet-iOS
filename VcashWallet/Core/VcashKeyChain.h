@@ -15,6 +15,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef enum{
+    SwitchCommitmentTypeNone = 0,
+    SwitchCommitmentTypeRegular = 1,
+}SwitchCommitmentType;
+
 @interface VcashKeyChain : NSObject
 
 @property(readonly, strong, nonatomic)VcashSecp256k1* secp;
@@ -23,16 +28,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(BTCKey*)deriveBTCKeyWithKeypath:(VcashKeychainPath*)keypath;
 
--(VcashSecretKey*)deriveKey:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath;
+-(VcashSecretKey*)deriveKey:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath andSwitchType:(SwitchCommitmentType)switchType;
 
--(NSData*)createCommitment:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath;
-
--(VcashSecretKey*)createNonce:(NSData*)commitment;
+-(NSData*)createCommitment:(uint64_t)amount andKeypath:(VcashKeychainPath*)keypath andSwitchType:(SwitchCommitmentType)switchType;
 
 //proof
 -(NSData*)createRangeProof:(uint64_t)amount withKeyPath:(VcashKeychainPath*)path;
-
--(BOOL)verifyProof:(NSData*)commitment withProof:(NSData*)proof;
 
 -(VcashProofInfo*)rewindProof:(NSData*)commitment withProof:(NSData*)proof;
 

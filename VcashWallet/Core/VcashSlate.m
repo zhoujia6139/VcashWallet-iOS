@@ -60,13 +60,13 @@
             continue;
         }
         VcashKeychainPath* keypath = [[VcashKeychainPath alloc] initWithPathstr:item.keyPath];
-        NSData*commitment = [[VcashWallet shareInstance].mKeyChain createCommitment:item.value andKeypath:keypath];
+        NSData*commitment = [[VcashWallet shareInstance].mKeyChain createCommitment:item.value andKeypath:keypath andSwitchType:SwitchCommitmentTypeRegular];
         Input* input = [Input new];
         input.commit = commitment;
         input.features = (item.is_coinbase?OutputFeatureCoinbase:OutputFeaturePlain);
         
         [temptx.body.inputs addObject:input];
-        VcashSecretKey* secKey = [[VcashWallet shareInstance].mKeyChain deriveKey:item.value andKeypath:keypath];
+        VcashSecretKey* secKey = [[VcashWallet shareInstance].mKeyChain deriveKey:item.value andKeypath:keypath andSwitchType:SwitchCommitmentTypeRegular];
         [negativeArr addObject:secKey.data];
         
         [lockOutput addObject:item];
@@ -194,7 +194,7 @@
 -(VcashSecretKey*)createTxOutputWithAmount:(uint64_t)amount{
     VcashTransaction* temptx = self.tx;
     VcashKeychainPath* keypath = [[VcashWallet shareInstance] nextChild];
-    NSData*commitment = [[VcashWallet shareInstance].mKeyChain createCommitment:amount andKeypath:keypath];
+    NSData*commitment = [[VcashWallet shareInstance].mKeyChain createCommitment:amount andKeypath:keypath andSwitchType:SwitchCommitmentTypeRegular];
     NSData*proof = [[VcashWallet shareInstance].mKeyChain createRangeProof:amount withKeyPath:keypath];
     Output* output = [Output new];
     output.features = OutputFeaturePlain;
@@ -202,7 +202,7 @@
     output.proof = proof;
     
     [temptx.body.outputs addObject:output];
-    VcashSecretKey* secKey = [[VcashWallet shareInstance].mKeyChain deriveKey:amount andKeypath:keypath];
+    VcashSecretKey* secKey = [[VcashWallet shareInstance].mKeyChain deriveKey:amount andKeypath:keypath andSwitchType:SwitchCommitmentTypeRegular];
     
     __weak typeof (self) weak_self = self;
     self.createNewOutputsFn = ^{

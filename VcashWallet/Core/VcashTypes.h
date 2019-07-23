@@ -110,6 +110,8 @@ typedef enum{
 
 @property(assign, nonatomic)BOOL isSuc;
 
+@property(assign, nonatomic)uint8_t version;
+
 @property(assign, nonatomic)uint64_t value;
 
 @property(strong, nonatomic)VcashSecretKey* secretKey;
