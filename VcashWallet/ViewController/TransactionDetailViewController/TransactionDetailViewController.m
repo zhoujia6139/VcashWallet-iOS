@@ -207,14 +207,14 @@
         AddressBookModel *model = [self getAddressBookModelByAddress:receiver_id];
         NSMutableAttributedString *recipientAttritedStr = [[NSMutableAttributedString alloc] initWithString:receiver_id attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#3399CC"]}];
         if (model) {
-            NSAttributedString *remarkAttributeStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"(%@)",model.remarkName] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#3399CC"]}];
+            NSAttributedString *remarkAttributeStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (%@)",model.remarkName] attributes:@{NSForegroundColorAttributeName:COrangeColor}];
             [recipientAttritedStr appendAttributedString:remarkAttributeStr];
             self.labelRecipient.attributedText = recipientAttritedStr;
         }else{
             self.labelRecipient.attributedText = recipientAttritedStr;
         }
          NSMutableAttributedString *senderAttributedStr = [[NSMutableAttributedString alloc] initWithString:sender_id attributes:@{NSForegroundColorAttributeName:[UIColor darkTextColor]}];
-         NSAttributedString *attributedStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"(%@)",[LanguageService contentForKey:@"me"]] attributes:@{NSForegroundColorAttributeName:[UIColor darkTextColor]}];
+         NSAttributedString *attributedStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (%@)",[LanguageService contentForKey:@"me"]] attributes:@{NSForegroundColorAttributeName:COrangeColor}];
         [senderAttributedStr appendAttributedString:attributedStr];
         self.labelSender.attributedText = senderAttributedStr;
     }else{
@@ -225,7 +225,7 @@
             AddressBookModel *model = [self getAddressBookModelByAddress:sender_id];
             NSMutableAttributedString *senderAttributedStr = [[NSMutableAttributedString alloc] initWithString:sender_id attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#3399CC"]}];
             if (model) {
-                NSAttributedString *remarkAttributeStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"(%@)",model.remarkName] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#3399CC"]}];
+                NSAttributedString *remarkAttributeStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (%@)",model.remarkName] attributes:@{NSForegroundColorAttributeName:COrangeColor}];
                 [senderAttributedStr appendAttributedString:remarkAttributeStr];
             }
              self.labelSender.attributedText = senderAttributedStr;
@@ -234,7 +234,7 @@
             self.constraintLabelSenderLeading.active = NO;
         }
          NSMutableAttributedString *recipientAttritedStr = [[NSMutableAttributedString alloc] initWithString:receiver_id attributes:@{NSForegroundColorAttributeName:[UIColor darkTextColor]}];
-        NSAttributedString *attributedStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"(%@)",[LanguageService contentForKey:@"me"]] attributes:@{NSForegroundColorAttributeName:[UIColor darkTextColor]}];
+        NSAttributedString *attributedStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (%@)",[LanguageService contentForKey:@"me"]] attributes:@{NSForegroundColorAttributeName:COrangeColor}];
         [recipientAttritedStr appendAttributedString:attributedStr];
          self.labelRecipient.attributedText = recipientAttritedStr;
     }
