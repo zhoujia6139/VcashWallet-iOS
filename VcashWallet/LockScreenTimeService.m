@@ -9,7 +9,7 @@
 #import "LockScreenTimeService.h"
 #import "LeftMenuManager.h"
 #import "LocalAuthenticationManager.h"
-#import "TouchIdOrFaceIDViewController.h"
+#import "PinVerifyViewController.h"
 
 #define storageLockTypePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"lockTypePath"]
 
@@ -32,11 +32,6 @@
     return service;
 }
 
-- (void)addObserver{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
-}
-
 - (instancetype)init{
     self = [super init];
     if (self) {
@@ -45,6 +40,14 @@
     return self;
 }
 
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)addObserver{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+}
 
 - (void)enterForeground{
     if (!self.startDate) {
@@ -87,6 +90,13 @@
 }
 
 - (void)enterBackground{
+     [[LeftMenuManager shareInstance] hiddenAnimation];
+    if ([[[AppHelper shareInstance] visibleViewController] isKindOfClass:[PinVerifyViewController class]]) {
+        PinVerifyViewController *verifyVc = (PinVerifyViewController *)[[AppHelper shareInstance] visibleViewController];
+        if (!verifyVc.startTouch) {
+            return;
+        }
+    }
     self.startDate = [NSDate date];
 }
 
@@ -94,8 +104,9 @@
     if ([[LocalAuthenticationManager shareInstance] getEnableAuthentication]) {
         [[[[AppHelper shareInstance] visibleViewController] navigationController] dismissViewControllerAnimated:NO completion:nil];
         [[LeftMenuManager shareInstance] removeGestures];
-        TouchIdOrFaceIDViewController *verifyVc = [[TouchIdOrFaceIDViewController alloc] init];
-        [[[[AppHelper shareInstance] visibleViewController] navigationController] presentViewController:verifyVc animated:YES completion:nil];
+        PinVerifyViewController *verifyVc = [[PinVerifyViewController alloc] init];
+        verifyVc.startTouch = YES;
+        [[[[AppHelper shareInstance] visibleViewController] navigationController] presentViewController:verifyVc animated:NO completion:nil];
     }
 }
 

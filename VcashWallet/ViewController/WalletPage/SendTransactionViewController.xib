@@ -55,7 +55,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zrg-pV-E6b">
-                    <rect key="frame" x="0.0" y="162" width="375" height="74.5"/>
+                    <rect key="frame" x="0.0" y="162" width="375" height="64.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send to" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g9O-nh-01K" customClass="VcashLabel">
                             <rect key="frame" x="26" y="0.0" width="199" height="21.5"/>
@@ -67,23 +67,23 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dU0-U8-DR2">
-                            <rect key="frame" x="26" y="71.5" width="323" height="3"/>
+                            <rect key="frame" x="26" y="62.5" width="323" height="2"/>
                             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="3" id="kut-Bc-lpR"/>
+                                <constraint firstAttribute="height" constant="2" id="kut-Bc-lpR"/>
                             </constraints>
                         </view>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DzF-iA-TgO">
-                            <rect key="frame" x="20" y="31.5" width="270" height="40"/>
+                            <rect key="frame" x="20" y="31.5" width="270" height="30"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="40" id="Gc8-70-jKf"/>
+                                <constraint firstAttribute="height" constant="30" id="Gc8-70-jKf"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i4b-P1-4Ir">
-                            <rect key="frame" x="317" y="31.5" width="40" height="40"/>
+                            <rect key="frame" x="317" y="26.5" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="HJ1-Gt-wdw"/>
                                 <constraint firstAttribute="width" constant="40" id="YRA-Dz-RR2"/>
@@ -106,7 +106,7 @@
                             <rect key="frame" x="262" y="-4" width="95" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="Address book">
-                                <color key="titleColor" red="1" green="0.58431372550000005" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="0.20000000000000001" green="0.59999999999999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="clickedBtnAddressBook:" destination="-1" eventType="touchUpInside" id="hSt-C0-9r6"/>
@@ -134,13 +134,13 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Both recipient's ID and &quot;http&quot; methods are supported." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APr-Mf-sCF">
-                    <rect key="frame" x="26" y="242.5" width="323" height="14.5"/>
+                    <rect key="frame" x="26" y="232.5" width="323" height="14.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" red="0.12156862745098039" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dmR-Lj-w93">
-                    <rect key="frame" x="0.0" y="286.5" width="375" height="74.5"/>
+                    <rect key="frame" x="0.0" y="276.5" width="375" height="64.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfI-HJ-msy" customClass="VcashLabel">
                             <rect key="frame" x="26" y="0.0" width="63.5" height="21.5"/>
@@ -152,16 +152,16 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ooY-S2-Qmq">
-                            <rect key="frame" x="26" y="71.5" width="323" height="3"/>
+                            <rect key="frame" x="26" y="62.5" width="323" height="2"/>
                             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="3" id="YR2-H7-iSV"/>
+                                <constraint firstAttribute="height" constant="2" id="YR2-H7-iSV"/>
                             </constraints>
                         </view>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="enter amount" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YRG-CG-Brs" customClass="VcashTextField">
-                            <rect key="frame" x="26" y="31.5" width="264" height="40"/>
+                            <rect key="frame" x="26" y="31.5" width="264" height="30"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="40" id="yZC-89-Zu9"/>
+                                <constraint firstAttribute="height" constant="30" id="yZC-89-Zu9"/>
                             </constraints>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -174,7 +174,7 @@
                             </connections>
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VCash" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVb-N6-bqL" customClass="VcashLabel">
-                            <rect key="frame" x="302.5" y="42.5" width="44.5" height="18"/>
+                            <rect key="frame" x="302.5" y="37.5" width="44.5" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>

@@ -10,6 +10,7 @@
 #import "PinPasswordInputView.h"
 #import "AlertView.h"
 #import "ProgressView.h"
+#import "LockScreenTimeService.h"
 
 #define CGrayColor [UIColor colorWithHexString:@"#EEEEEE"]
 #define COrangeColor  [UIColor colorWithHexString:@"#FF9502"]
@@ -59,7 +60,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.translucent = NO;
     self.startUseWalletBtn.userInteractionEnabled = NO;
-    self.startUseWalletBtn.backgroundColor = CGrayColor;
+    self.startUseWalletBtn.backgroundColor = COrangeEnableColor;
     ViewRadius(self.startUseWalletBtn, 4.0);
     
     if (self.isChangePassword) {
@@ -159,7 +160,7 @@
         self.startUseWalletBtn.backgroundColor = COrangeColor;
     }else{
         self.startUseWalletBtn.userInteractionEnabled = NO;
-        self.startUseWalletBtn.backgroundColor = CGrayColor;
+        self.startUseWalletBtn.backgroundColor = COrangeEnableColor;
     }
 }
 
@@ -212,6 +213,7 @@
                 self.progressView.progress = 1;
                  [[UserCenter sharedInstance] writeRecoverStatusWithFailed:NO];
                  [NavigationCenter showWalletPage:self.isRecover createNewWallet:NO];
+                 [[LockScreenTimeService shareInstance] addObserver];
             }else if(yesOrNo && [ret isKindOfClass:[NSNumber class]]){
                 self.progressView.progress = [ret floatValue];
             }else{
@@ -225,6 +227,7 @@
     }
     [[UserCenter sharedInstance] writeRecoverStatusWithFailed:NO];
     [NavigationCenter showWalletPage:self.isRecover createNewWallet:YES];
+    [[LockScreenTimeService shareInstance] addObserver];
 }
 
 

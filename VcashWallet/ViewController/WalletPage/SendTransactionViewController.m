@@ -81,12 +81,12 @@
 
 - (void)setTextViewHeight{
     CGSize size = [self.targetAddressTextView sizeThatFits:CGSizeMake(ScreenWidth - 105, 1000)];
-    CGFloat textViewHeight = size.height +13;
-    if (textViewHeight > 40) {
+    CGFloat textViewHeight = size.height + 5;
+    if (textViewHeight > 30) {
         self.constraintTextViewHeight.constant = textViewHeight;
     }else{
-        textViewHeight = 40;
-        self.constraintTextViewHeight.constant = 40;
+        textViewHeight = 30;
+        self.constraintTextViewHeight.constant = 30;
     }
     self.targetAddressTextView.contentSize = CGSizeMake(ScreenWidth - 105, textViewHeight);
 }

@@ -28,28 +28,28 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w0x-3e-Akp">
-                    <rect key="frame" x="0.0" y="59" width="414" height="74.5"/>
+                    <rect key="frame" x="0.0" y="59" width="414" height="55"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remark name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V5n-W9-qqU" customClass="VcashLabel">
-                            <rect key="frame" x="26" y="0.0" width="238" height="21.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <color key="textColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="26" y="0.0" width="238" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localText" value="remarkName"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Hl-VG-Eqv">
-                            <rect key="frame" x="26" y="71.5" width="362" height="3"/>
+                            <rect key="frame" x="26" y="53" width="362" height="2"/>
                             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="3" id="3Yl-LO-bmG"/>
+                                <constraint firstAttribute="height" constant="2" id="3Yl-LO-bmG"/>
                             </constraints>
                         </view>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Please enter remark name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uZH-tr-GF9" customClass="VcashTextField">
-                            <rect key="frame" x="26" y="31.5" width="362" height="40"/>
+                            <rect key="frame" x="26" y="22" width="362" height="30"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="40" id="RKi-gZ-6S4"/>
+                                <constraint firstAttribute="height" constant="30" id="RKi-gZ-6S4"/>
                             </constraints>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -67,39 +67,39 @@
                         <constraint firstItem="V5n-W9-qqU" firstAttribute="leading" secondItem="w0x-3e-Akp" secondAttribute="leading" constant="26" id="bYm-vl-bEB"/>
                         <constraint firstAttribute="trailing" secondItem="5Hl-VG-Eqv" secondAttribute="trailing" constant="26" id="jpt-1u-6vY"/>
                         <constraint firstAttribute="trailing" secondItem="V5n-W9-qqU" secondAttribute="trailing" constant="150" id="pRZ-pF-2gJ"/>
-                        <constraint firstItem="uZH-tr-GF9" firstAttribute="top" secondItem="V5n-W9-qqU" secondAttribute="bottom" constant="10" id="sEm-7Q-PXB"/>
+                        <constraint firstItem="uZH-tr-GF9" firstAttribute="top" secondItem="V5n-W9-qqU" secondAttribute="bottom" constant="5" id="sEm-7Q-PXB"/>
                         <constraint firstAttribute="bottom" secondItem="uZH-tr-GF9" secondAttribute="bottom" constant="3" id="uPh-KH-U7q"/>
                         <constraint firstAttribute="bottom" secondItem="5Hl-VG-Eqv" secondAttribute="bottom" id="uZu-6f-ene"/>
                         <constraint firstItem="uZH-tr-GF9" firstAttribute="leading" secondItem="w0x-3e-Akp" secondAttribute="leading" constant="26" id="xDz-Xw-wPJ"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vq6-Db-SM1">
-                    <rect key="frame" x="0.0" y="153.5" width="414" height="74.5"/>
+                    <rect key="frame" x="0.0" y="134" width="414" height="55"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User ID or http address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3yZ-Vl-XKs" customClass="VcashLabel">
-                            <rect key="frame" x="26" y="0.0" width="238" height="21.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <color key="textColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="26" y="0.0" width="238" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zap-4G-Rxb">
-                            <rect key="frame" x="26" y="71.5" width="362" height="3"/>
+                            <rect key="frame" x="26" y="53" width="362" height="2"/>
                             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="3" id="vat-N8-IgR"/>
+                                <constraint firstAttribute="height" constant="2" id="vat-N8-IgR"/>
                             </constraints>
                         </view>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KPf-tk-ih8">
-                            <rect key="frame" x="20" y="31.5" width="309" height="40"/>
+                            <rect key="frame" x="20" y="22" width="309" height="30"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="40" id="R8A-2I-n2v"/>
+                                <constraint firstAttribute="height" constant="30" id="R8A-2I-n2v"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="imB-SA-jMs">
-                            <rect key="frame" x="356" y="31.5" width="40" height="40"/>
+                            <rect key="frame" x="356" y="17" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="40" id="Dmk-jm-qiX"/>
                                 <constraint firstAttribute="height" constant="40" id="Knc-d7-CR7"/>
@@ -110,7 +110,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Input the recipient’s ID or http address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBz-hJ-P5n" customClass="VcashLabel">
-                            <rect key="frame" x="26" y="41.5" width="248.5" height="17"/>
+                            <rect key="frame" x="26" y="29" width="248.5" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -122,8 +122,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="oBz-hJ-P5n" firstAttribute="leading" secondItem="KPf-tk-ih8" secondAttribute="leading" constant="6" id="8pe-kr-NQx"/>
-                        <constraint firstItem="oBz-hJ-P5n" firstAttribute="top" secondItem="3yZ-Vl-XKs" secondAttribute="bottom" constant="20" id="E6s-KT-CMz"/>
-                        <constraint firstItem="KPf-tk-ih8" firstAttribute="top" secondItem="3yZ-Vl-XKs" secondAttribute="bottom" constant="10" id="K4f-Qa-rzg"/>
+                        <constraint firstItem="KPf-tk-ih8" firstAttribute="top" secondItem="3yZ-Vl-XKs" secondAttribute="bottom" constant="5" id="K4f-Qa-rzg"/>
                         <constraint firstItem="KPf-tk-ih8" firstAttribute="leading" secondItem="Vq6-Db-SM1" secondAttribute="leading" constant="20" id="KSd-Xj-Hf7"/>
                         <constraint firstAttribute="trailing" secondItem="imB-SA-jMs" secondAttribute="trailing" constant="18" id="MU6-rE-eTD"/>
                         <constraint firstAttribute="trailing" secondItem="KPf-tk-ih8" secondAttribute="trailing" constant="85" id="TOK-z2-tye"/>
@@ -132,13 +131,14 @@
                         <constraint firstAttribute="trailing" secondItem="Zap-4G-Rxb" secondAttribute="trailing" constant="26" id="agB-my-1nb"/>
                         <constraint firstItem="3yZ-Vl-XKs" firstAttribute="top" secondItem="Vq6-Db-SM1" secondAttribute="top" id="cYR-lV-kec"/>
                         <constraint firstItem="Zap-4G-Rxb" firstAttribute="leading" secondItem="Vq6-Db-SM1" secondAttribute="leading" constant="26" id="h5A-Yw-Hms"/>
+                        <constraint firstItem="oBz-hJ-P5n" firstAttribute="top" secondItem="KPf-tk-ih8" secondAttribute="top" constant="7" id="jGy-B8-Imi"/>
                         <constraint firstItem="3yZ-Vl-XKs" firstAttribute="leading" secondItem="Vq6-Db-SM1" secondAttribute="leading" constant="26" id="mU7-7X-BDA"/>
                         <constraint firstAttribute="trailing" secondItem="3yZ-Vl-XKs" secondAttribute="trailing" constant="150" id="twx-Os-cDE"/>
                         <constraint firstAttribute="bottom" secondItem="Zap-4G-Rxb" secondAttribute="bottom" id="xrh-a4-LGd"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xpG-aJ-CIe" customClass="VcashButton">
-                    <rect key="frame" x="26" y="278" width="362" height="44"/>
+                    <rect key="frame" x="26" y="239" width="362" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="nIs-jI-xCz"/>
                     </constraints>

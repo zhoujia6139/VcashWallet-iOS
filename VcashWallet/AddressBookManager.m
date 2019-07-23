@@ -66,22 +66,19 @@
 
 - (BOOL)writeAddressBookModel:(AddressBookModel *)model{
     AddressBookModel *addressModel = [self.dicData objectForKey:model.address];
-    if (!addressModel) {
-        [self.dicData setObject:model forKey:model.address];
-        NSURL *url = [NSURL URLWithString:storagePath];
-        NSError *error = nil;
-        BOOL success = [url setResourceValue: [NSNumber numberWithBool: YES]
-                                      forKey: NSURLIsExcludedFromBackupKey error: &error];
-        if (!success) {
-            DDLogError(@"Error excluding %@ from backup %@", [url lastPathComponent], error);
-        }
-        BOOL storageSuc = [NSKeyedArchiver archiveRootObject:self.dicData toFile:storagePath];
-        if (!storageSuc) {
-            DDLogError(@"storage addressBookModel failed");
-        }
-        return storageSuc;
+    [self.dicData setObject:model forKey:model.address];
+    NSURL *url = [NSURL URLWithString:storagePath];
+    NSError *error = nil;
+    BOOL success = [url setResourceValue: [NSNumber numberWithBool: YES]
+                                  forKey: NSURLIsExcludedFromBackupKey error: &error];
+    if (!success) {
+        DDLogError(@"Error excluding %@ from backup %@", [url lastPathComponent], error);
     }
-    return NO;
+    BOOL storageSuc = [NSKeyedArchiver archiveRootObject:self.dicData toFile:storagePath];
+    if (!storageSuc) {
+        DDLogError(@"storage addressBookModel failed");
+    }
+    return storageSuc;
 }
 
 - (NSArray<AddressBookModel *> *)getAddressBook{

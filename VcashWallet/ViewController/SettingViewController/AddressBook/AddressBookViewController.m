@@ -30,8 +30,8 @@ static NSString *const identifier = @"AddressBookCell";
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = [LanguageService contentForKey:@"addressBookTitle"];
-    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    [rightBtn setTitle:@"add" forState:UIControlStateNormal];
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightBtn setImage:[UIImage imageNamed:@"addblack.png"] forState:UIControlStateNormal];
     rightBtn.frame = CGRectMake(0, 0, 40, 40);
     [rightBtn addTarget:self action:@selector(pushAddAddressBookVc) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
@@ -81,10 +81,18 @@ static NSString *const identifier = @"AddressBookCell";
         return;
     }
     UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    [alertVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"copy"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [alertVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"copyAddress"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[UIPasteboard generalPasteboard] setString:model.address];
         [self.view makeToast:[LanguageService contentForKey:@"copiedToClipboard"]];
     }]];
+    [alertVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"edit"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        AddAddressBookViewController *addAddressVc = [[AddAddressBookViewController alloc] init];
+        addAddressVc.edit = YES;
+        addAddressVc.remarkName = model.remarkName;
+        addAddressVc.address = model.address;
+        [self.navigationController pushViewController:addAddressVc animated:YES];
+    }]];
+    
     [alertVc addAction:[UIAlertAction actionWithTitle:[LanguageService contentForKey:@"Delete"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         BOOL deleteSuc = [[AddressBookManager shareInstance] deleteAddressBookModel:model];
         if (deleteSuc) {

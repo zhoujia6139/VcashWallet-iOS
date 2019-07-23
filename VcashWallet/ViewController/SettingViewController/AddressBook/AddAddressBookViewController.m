@@ -37,15 +37,28 @@
     // Do any additional setup after loading the view from its nib.
     self.title = [LanguageService contentForKey:@"addAddressTitle"];
     self.textFieldRemarkName.delegate = self;
+    if (self.remarkName && self.remarkName.length > 0) {
+        self.textFieldRemarkName.text = self.remarkName;
+    }
     [self.textFieldRemarkName addTarget:self action:@selector(enterRemarkName:) forControlEvents:UIControlEventEditingChanged];
     self.textViewUserIDOrHttpAddress.delegate = self;
+    self.textViewUserIDOrHttpAddress.editable = !self.edit;
+    self.textViewUserIDOrHttpAddress.contentInset = UIEdgeInsetsZero;
+    self.textViewUserIDOrHttpAddress.scrollEnabled  = NO;
+    self.textViewUserIDOrHttpAddress.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.textViewUserIDOrHttpAddress.textContainerInset = UIEdgeInsetsMake(7, 0, 0, 0);
     if (self.address && self.address.length > 0) {
         self.labelPlaceHolder.hidden = YES;
         self.textViewUserIDOrHttpAddress.text = self.address;
         [self setTextViewHeight];
     }
-    self.btnSave.backgroundColor = COrangeEnableColor;
-    self.btnSave.userInteractionEnabled = NO;
+    if (self.remarkName.length > 0 && self.address.length > 0) {
+        self.btnSave.backgroundColor = COrangeColor;
+        self.btnSave.userInteractionEnabled = YES;
+    }else{
+        self.btnSave.backgroundColor = COrangeEnableColor;
+        self.btnSave.userInteractionEnabled = NO;
+    }
     ViewRadius(self.btnSave, 4.0);
 }
 
@@ -113,12 +126,12 @@
 
 - (void)setTextViewHeight{
     CGSize size = [self.textViewUserIDOrHttpAddress sizeThatFits:CGSizeMake(ScreenWidth - 105, 1000)];
-    CGFloat textViewHeight = size.height +13;
-    if (textViewHeight > 40) {
+    CGFloat textViewHeight = size.height + 7;
+    if (textViewHeight > 30) {
         self.constraintTextViewHeight.constant = textViewHeight;
     }else{
-        textViewHeight = 40;
-        self.constraintTextViewHeight.constant = 40;
+        textViewHeight = 30;
+        self.constraintTextViewHeight.constant = 30;
     }
     self.textViewUserIDOrHttpAddress.contentSize = CGSizeMake(ScreenWidth - 105, textViewHeight);
 }
@@ -144,14 +157,17 @@
     AddressBookModel *model = [AddressBookModel new];
     model.remarkName = self.textFieldRemarkName.text;
     model.address = self.textViewUserIDOrHttpAddress.text;
-    if ([[AddressBookManager shareInstance] isExistByAddressBookModel:model]) {
+    if ([[AddressBookManager shareInstance] isExistByAddressBookModel:model] && !self.edit) {
         [AppHelper resignFirstResonder];
         [MBHudHelper showTextTips:[LanguageService contentForKey:@"addressAlreadyExist"] onView:nil withDuration:1.0];
         return;
     }
     BOOL success =  [[AddressBookManager shareInstance] writeAddressBookModel:model];
     if (success) {
-        [MBHudHelper showTextTips:[LanguageService contentForKey:@"addSuc"] onView:nil withDuration:1.0];
+        [MBHudHelper showTextTips:self.edit ? [LanguageService contentForKey:@"editSuc"] : [LanguageService contentForKey:@"addSuc"] onView:nil withDuration:1.0];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(saveSucWithAddressBookModel:)]) {
+            [self.delegate saveSucWithAddressBookModel:model];
+        }
         [self.navigationController popViewControllerAnimated:YES];
     }
    

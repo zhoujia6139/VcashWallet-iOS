@@ -66,7 +66,7 @@
 - (void)verifyIdentidyWithComplete:(void(^)(BOOL success, NSError * __nullable error))complete{
     _context = [[LAContext alloc] init];
     _context.localizedFallbackTitle = @"";
-    [self.context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:@"验证" reply:^(BOOL success, NSError * _Nullable error) {
+    [self.context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:[LanguageService contentForKey:@"touchIDReason"] reply:^(BOOL success, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (complete) {
                 complete(success,error);

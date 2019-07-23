@@ -34,6 +34,8 @@ typedef void (^PhraseWordFillAllCallBack)(NSString *title);
 typedef void(^ClickPhraseCallBack)(NSInteger index);
 typedef void(^DidEndEditingCallBack)(void);
 
+#import "ContainWordView.h"
+
 @interface PhraseWordItemView:UIView
 
 @property (nonatomic, strong) NSString *phrase;

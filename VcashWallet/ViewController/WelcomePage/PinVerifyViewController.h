@@ -10,4 +10,6 @@
 
 @interface PinVerifyViewController : BaseViewController
 
+@property (nonatomic, assign) BOOL startTouch;
+
 @end

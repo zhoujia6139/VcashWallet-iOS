@@ -51,6 +51,10 @@
     [wd addGestureRecognizer:self.panGesture];
 }
 
+- (void)hiddenAnimation{
+    [self.leftMenuView hiddenAnimation];
+}
+
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{

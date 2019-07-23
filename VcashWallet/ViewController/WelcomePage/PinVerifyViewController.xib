@@ -12,10 +12,13 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PinVerifyViewController">
             <connections>
                 <outlet property="btnOpenWallet" destination="8DH-ak-S48" id="Vj9-z9-3DX"/>
+                <outlet property="btnRestore" destination="b0Y-Wg-Eu3" id="iKc-De-sYD"/>
+                <outlet property="btnTouchId" destination="BqU-Q3-8Gd" id="h2J-m7-WOZ"/>
                 <outlet property="constraintImageBgTop" destination="Wuy-ob-35y" id="7gW-sV-QJI"/>
                 <outlet property="imageViewEye" destination="r6A-8X-PFk" id="bEP-yZ-Meh"/>
                 <outlet property="labelPasswordWrong" destination="97e-0u-jcO" id="7jh-T4-4xJ"/>
                 <outlet property="labelPrompt" destination="mJ8-7j-bBv" id="Uqm-eJ-Vwi"/>
+                <outlet property="labelTouchId" destination="AhJ-fb-NXd" id="egg-CU-ZyG"/>
                 <outlet property="textFieldPassword" destination="n9N-Va-7bp" id="KRn-Cz-2ZQ"/>
                 <outlet property="view" destination="iN0-l3-epB" id="pn2-Ut-DL7"/>
                 <outlet property="viewLine" destination="jAy-qY-FvC" id="LYi-eD-wZL"/>
@@ -134,6 +137,19 @@
                         <action selector="clickedRestoreWallet:" destination="-1" eventType="touchUpInside" id="hZc-DH-LJN"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BqU-Q3-8Gd">
+                    <rect key="frame" x="167.5" y="552" width="40" height="40"/>
+                    <state key="normal" image="touchid.png"/>
+                    <connections>
+                        <action selector="clickedTouchId:" destination="-1" eventType="touchUpInside" id="rj3-0h-aYk"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Touch ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AhJ-fb-NXd">
+                    <rect key="frame" x="162.5" y="602" width="50" height="14.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="0.792156862745098" green="0.792156862745098" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -141,6 +157,9 @@
                 <constraint firstItem="b0Y-Wg-Eu3" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4r0-Vv-T7y"/>
                 <constraint firstItem="PQh-5U-aDO" firstAttribute="centerX" secondItem="FAZ-Rn-ChE" secondAttribute="centerX" id="70C-6s-d7d"/>
                 <constraint firstItem="8DH-ak-S48" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="33" id="DhP-Fe-Who"/>
+                <constraint firstItem="AhJ-fb-NXd" firstAttribute="top" secondItem="BqU-Q3-8Gd" secondAttribute="bottom" constant="10" id="G94-Mn-Zjc"/>
+                <constraint firstItem="BqU-Q3-8Gd" firstAttribute="top" secondItem="8DH-ak-S48" secondAttribute="bottom" constant="25" id="GYf-Vg-oYc"/>
+                <constraint firstItem="AhJ-fb-NXd" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Kdd-hS-Xbl"/>
                 <constraint firstItem="8DH-ak-S48" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Klm-CE-U6j"/>
                 <constraint firstItem="1ha-oY-4um" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Mb1-UQ-ww2"/>
                 <constraint firstItem="1ha-oY-4um" firstAttribute="top" secondItem="FAZ-Rn-ChE" secondAttribute="bottom" constant="-60" id="NHc-ET-e9j"/>
@@ -149,6 +168,7 @@
                 <constraint firstAttribute="trailing" secondItem="1ha-oY-4um" secondAttribute="trailing" id="YAY-aH-myR"/>
                 <constraint firstItem="FAZ-Rn-ChE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Z0q-zk-PIC"/>
                 <constraint firstItem="PQh-5U-aDO" firstAttribute="top" secondItem="FAZ-Rn-ChE" secondAttribute="top" constant="95" id="ZBG-lt-IhC"/>
+                <constraint firstItem="BqU-Q3-8Gd" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="gGa-U5-Imr"/>
                 <constraint firstItem="8DH-ak-S48" firstAttribute="top" secondItem="1ha-oY-4um" secondAttribute="bottom" constant="33" id="gdh-Ta-rGj"/>
                 <constraint firstItem="b0Y-Wg-Eu3" firstAttribute="top" secondItem="8DH-ak-S48" secondAttribute="bottom" constant="40" id="nWO-FB-sI6"/>
             </constraints>
@@ -157,7 +177,8 @@
     </objects>
     <resources>
         <image name="bg2.png" width="375" height="451"/>
-        <image name="eyeclose.png" width="48" height="48"/>
+        <image name="eyeclose.png" width="24" height="24"/>
         <image name="logo.png" width="301" height="156"/>
+        <image name="touchid.png" width="40" height="40"/>
     </resources>
 </document>
