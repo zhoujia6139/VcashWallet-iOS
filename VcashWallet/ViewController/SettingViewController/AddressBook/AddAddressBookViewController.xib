@@ -110,7 +110,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Input the recipient’s ID or http address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBz-hJ-P5n" customClass="VcashLabel">
-                            <rect key="frame" x="26" y="32" width="248.5" height="17"/>
+                            <rect key="frame" x="26" y="29" width="248.5" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -131,7 +131,7 @@
                         <constraint firstAttribute="trailing" secondItem="Zap-4G-Rxb" secondAttribute="trailing" constant="26" id="agB-my-1nb"/>
                         <constraint firstItem="3yZ-Vl-XKs" firstAttribute="top" secondItem="Vq6-Db-SM1" secondAttribute="top" id="cYR-lV-kec"/>
                         <constraint firstItem="Zap-4G-Rxb" firstAttribute="leading" secondItem="Vq6-Db-SM1" secondAttribute="leading" constant="26" id="h5A-Yw-Hms"/>
-                        <constraint firstItem="oBz-hJ-P5n" firstAttribute="top" secondItem="KPf-tk-ih8" secondAttribute="top" constant="10" id="jGy-B8-Imi"/>
+                        <constraint firstItem="oBz-hJ-P5n" firstAttribute="top" secondItem="KPf-tk-ih8" secondAttribute="top" constant="7" id="jGy-B8-Imi"/>
                         <constraint firstItem="3yZ-Vl-XKs" firstAttribute="leading" secondItem="Vq6-Db-SM1" secondAttribute="leading" constant="26" id="mU7-7X-BDA"/>
                         <constraint firstAttribute="trailing" secondItem="3yZ-Vl-XKs" secondAttribute="trailing" constant="150" id="twx-Os-cDE"/>
                         <constraint firstAttribute="bottom" secondItem="Zap-4G-Rxb" secondAttribute="bottom" id="xrh-a4-LGd"/>
