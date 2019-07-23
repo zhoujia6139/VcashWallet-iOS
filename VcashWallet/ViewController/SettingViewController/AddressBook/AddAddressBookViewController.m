@@ -43,6 +43,10 @@
     [self.textFieldRemarkName addTarget:self action:@selector(enterRemarkName:) forControlEvents:UIControlEventEditingChanged];
     self.textViewUserIDOrHttpAddress.delegate = self;
     self.textViewUserIDOrHttpAddress.editable = !self.edit;
+    self.textViewUserIDOrHttpAddress.contentInset = UIEdgeInsetsZero;
+    self.textViewUserIDOrHttpAddress.scrollEnabled  = NO;
+    self.textViewUserIDOrHttpAddress.contentInset = UIEdgeInsetsMake(0, 0, 3, 0);
+    self.textViewUserIDOrHttpAddress.textContainerInset = UIEdgeInsetsMake(10, 0, 0, 0);
     if (self.address && self.address.length > 0) {
         self.labelPlaceHolder.hidden = YES;
         self.textViewUserIDOrHttpAddress.text = self.address;
@@ -122,12 +126,12 @@
 
 - (void)setTextViewHeight{
     CGSize size = [self.textViewUserIDOrHttpAddress sizeThatFits:CGSizeMake(ScreenWidth - 105, 1000)];
-    CGFloat textViewHeight = size.height +13;
-    if (textViewHeight > 40) {
+    CGFloat textViewHeight = size.height + 5;
+    if (textViewHeight > 30) {
         self.constraintTextViewHeight.constant = textViewHeight;
     }else{
-        textViewHeight = 40;
-        self.constraintTextViewHeight.constant = 40;
+        textViewHeight = 30;
+        self.constraintTextViewHeight.constant = 30;
     }
     self.textViewUserIDOrHttpAddress.contentSize = CGSizeMake(ScreenWidth - 105, textViewHeight);
 }

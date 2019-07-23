@@ -135,7 +135,7 @@ static NSString * const identifier = @"UITableViewCell";
 - (CGFloat)getHeight{
     float count = self.arrData.count;
     if (count > 4) {
-        count = 4.5;
+        count = 4;
     }
     CGFloat height = 40 * count;
     return height;

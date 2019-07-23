@@ -146,8 +146,8 @@
     self.labelTxid.text = tx_id;
 //    self.labelSender.text = sender_id;
 //    self.labelRecipient.text = receiver_id;
-    self.labelConfirmations.font = [UIFont robotoBoldWithSize:14];
-    self.labelConfirmations.text = [NSString stringWithFormat:@"%ld",confirmations];
+//    self.labelConfirmations.font = [UIFont robotoBoldWithSize:14];
+    self.labelConfirmations.text = [NSString stringWithFormat:@"%d",confirmations];
     NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
      NSAttributedString *unitAttributrStr = [[NSAttributedString alloc] initWithString:@" VCash" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
     NSMutableAttributedString *amountAttributeStr = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:14]}];

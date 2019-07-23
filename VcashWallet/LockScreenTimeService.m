@@ -90,6 +90,7 @@
 }
 
 - (void)enterBackground{
+     [[LeftMenuManager shareInstance] hiddenAnimation];
     if ([[[AppHelper shareInstance] visibleViewController] isKindOfClass:[PinVerifyViewController class]]) {
         PinVerifyViewController *verifyVc = (PinVerifyViewController *)[[AppHelper shareInstance] visibleViewController];
         if (!verifyVc.startTouch) {
