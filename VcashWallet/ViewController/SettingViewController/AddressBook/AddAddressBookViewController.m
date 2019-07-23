@@ -45,8 +45,8 @@
     self.textViewUserIDOrHttpAddress.editable = !self.edit;
     self.textViewUserIDOrHttpAddress.contentInset = UIEdgeInsetsZero;
     self.textViewUserIDOrHttpAddress.scrollEnabled  = NO;
-    self.textViewUserIDOrHttpAddress.contentInset = UIEdgeInsetsMake(0, 0, 3, 0);
-    self.textViewUserIDOrHttpAddress.textContainerInset = UIEdgeInsetsMake(10, 0, 0, 0);
+    self.textViewUserIDOrHttpAddress.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.textViewUserIDOrHttpAddress.textContainerInset = UIEdgeInsetsMake(7, 0, 0, 0);
     if (self.address && self.address.length > 0) {
         self.labelPlaceHolder.hidden = YES;
         self.textViewUserIDOrHttpAddress.text = self.address;
@@ -126,7 +126,7 @@
 
 - (void)setTextViewHeight{
     CGSize size = [self.textViewUserIDOrHttpAddress sizeThatFits:CGSizeMake(ScreenWidth - 105, 1000)];
-    CGFloat textViewHeight = size.height + 5;
+    CGFloat textViewHeight = size.height + 7;
     if (textViewHeight > 30) {
         self.constraintTextViewHeight.constant = textViewHeight;
     }else{
