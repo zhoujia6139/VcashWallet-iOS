@@ -41,6 +41,10 @@
         self.textFieldRemarkName.text = self.remarkName;
     }
     [self.textFieldRemarkName addTarget:self action:@selector(enterRemarkName:) forControlEvents:UIControlEventEditingChanged];
+    NSMutableAttributedString *placeholder = [[NSMutableAttributedString alloc] initWithString:[LanguageService contentForKey:@"enterRemarkName"]];
+    [placeholder addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, placeholder.length)];
+    [placeholder addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, placeholder.length)];
+    self.textFieldRemarkName.attributedPlaceholder = placeholder;
     self.textViewUserIDOrHttpAddress.delegate = self;
     self.textViewUserIDOrHttpAddress.editable = !self.edit;
     self.textViewUserIDOrHttpAddress.contentInset = UIEdgeInsetsZero;
