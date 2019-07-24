@@ -42,7 +42,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
     _confirmPhraseArr = [self randomConfirmPhraseArr];
     
     _needConfirmPhraseArr = [self getNeedConfimPhraseArray:self.confirmPhraseArr];
@@ -246,7 +245,9 @@
     NSMutableArray *sortArray = [NSMutableArray array];
     for (NSString *phrase in self.mnemonicWordsArr) {
         if ([arr containsObject:phrase]) {
-            [sortArray addObject:phrase];
+            if (![sortArray containsObject:phrase]) {
+                [sortArray addObject:phrase];
+            }
         }
     }
     return sortArray;
