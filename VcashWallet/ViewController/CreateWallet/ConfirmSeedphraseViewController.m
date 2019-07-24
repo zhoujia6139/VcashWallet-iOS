@@ -36,6 +36,7 @@
 
 @implementation ConfirmSeedphraseViewController{
     PhraseWordShowViewCreator  *creator;
+    NSMutableDictionary *randomDic;
     
 }
 
@@ -232,24 +233,31 @@
 
 - (NSArray *)randomConfirmPhraseArr{
     NSArray *array = self.mnemonicWordsArr;
-    NSMutableSet *randomSet = [[NSMutableSet alloc] init];
-    while ([randomSet count] < 6) {
+    randomDic = [NSMutableDictionary dictionary];
+    while ([[randomDic allValues] count] < 6) {
         int r = arc4random() % [array count];
-        [randomSet addObject:[array objectAtIndex:r]];
+        [randomDic setObject:@(r) forKey:[array objectAtIndex:r]];
     }
-    NSArray *randomArr = [randomSet allObjects];
+    NSArray *randomArr = [randomDic allKeys];
     return randomArr;
 }
 
 - (NSArray *)getNeedConfimPhraseArray:(NSArray *)arr{
     NSMutableArray *sortArray = [NSMutableArray array];
-    for (NSString *phrase in self.mnemonicWordsArr) {
-        if ([arr containsObject:phrase]) {
-            if (![sortArray containsObject:phrase]) {
-                [sortArray addObject:phrase];
-            }
-        }
+    NSMutableArray *indexArray = [NSMutableArray array];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    for (NSString *phrase in arr) {
+        [indexArray addObject:[randomDic objectForKey:phrase]];
+        [dic setObject:phrase forKey:[randomDic objectForKey:phrase]];
     }
+    [indexArray sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [obj1 compare:obj2];
+    }];
+    
+    for (NSNumber *num in indexArray) {
+        [sortArray addObject:[dic objectForKey:num]];
+    }
+    
     return sortArray;
 }
 
