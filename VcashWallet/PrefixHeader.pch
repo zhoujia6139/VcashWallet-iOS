@@ -33,7 +33,7 @@
 #import "LanguageManager.h"
 #import "UIFont+Roboto.h"
 
-//#define isInTestNet 1
+#define isInTestNet 1
 
 
 // Include any system framework and library headers here that should be included in all compilation units.

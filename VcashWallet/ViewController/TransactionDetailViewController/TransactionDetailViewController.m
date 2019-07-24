@@ -62,6 +62,9 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintLabelSenderLeading;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintLabelRecipientLeading;
+
+
 @end
 
 @implementation TransactionDetailViewController{
@@ -202,17 +205,21 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(copyAndSaveAddress:)];
     if (isSend) {
         self.labelRecipient.userInteractionEnabled = YES;
-        self.labelRecipient.textColor = [UIColor colorWithHexString:@"#3399CC"];
-        [self.labelRecipient addGestureRecognizer:tap];
-        AddressBookModel *model = [self getAddressBookModelByAddress:receiver_id];
-        NSMutableAttributedString *recipientAttritedStr = [[NSMutableAttributedString alloc] initWithString:receiver_id attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#3399CC"]}];
-        if (model) {
-            NSAttributedString *remarkAttributeStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (%@)",model.remarkName] attributes:@{NSForegroundColorAttributeName:COrangeColor}];
-            [recipientAttritedStr appendAttributedString:remarkAttributeStr];
+        if (![receiver_id isEqualToString:[LanguageService contentForKey:@"unreachable"]]) {
+            self.labelRecipient.textColor = [UIColor colorWithHexString:@"#3399CC"];
+            [self.labelRecipient addGestureRecognizer:tap];
+            AddressBookModel *model = [self getAddressBookModelByAddress:receiver_id];
+            NSMutableAttributedString *recipientAttritedStr = [[NSMutableAttributedString alloc] initWithString:receiver_id attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#3399CC"]}];
+            if (model) {
+                NSAttributedString *remarkAttributeStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (%@)",model.remarkName] attributes:@{NSForegroundColorAttributeName:COrangeColor}];
+                [recipientAttritedStr appendAttributedString:remarkAttributeStr];
+            }
             self.labelRecipient.attributedText = recipientAttritedStr;
         }else{
-            self.labelRecipient.attributedText = recipientAttritedStr;
+            self.labelRecipient.text = receiver_id;
+            self.constraintLabelRecipientLeading.active = NO;
         }
+        
          NSMutableAttributedString *senderAttributedStr = [[NSMutableAttributedString alloc] initWithString:sender_id attributes:@{NSForegroundColorAttributeName:[UIColor darkTextColor]}];
          NSAttributedString *attributedStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (%@)",[LanguageService contentForKey:@"me"]] attributes:@{NSForegroundColorAttributeName:COrangeColor}];
         [senderAttributedStr appendAttributedString:attributedStr];

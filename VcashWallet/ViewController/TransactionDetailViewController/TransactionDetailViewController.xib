@@ -15,6 +15,7 @@
                 <outlet property="btnSignature" destination="jfG-Mg-Nj0" id="2gW-41-UbQ"/>
                 <outlet property="constraintBtnSignatureBottomWithBtnCancel" destination="dL1-UV-0LV" id="FHo-q3-pIv"/>
                 <outlet property="constraintBtnSignatureBottomWithSuperView" destination="RFV-bR-c9E" id="z7i-HR-fCB"/>
+                <outlet property="constraintLabelRecipientLeading" destination="KaF-oS-rnQ" id="JBc-Id-rGL"/>
                 <outlet property="constraintLabelSenderLeading" destination="q4r-JN-SsY" id="TpU-c9-41E"/>
                 <outlet property="constraintLabelTxidLeading" destination="qmL-x6-SL2" id="jPL-7Z-QJk"/>
                 <outlet property="constraintTextSignFileContentBottomWithScrollView" destination="lMc-bh-R4d" id="xom-Wf-VE9"/>
@@ -273,10 +274,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1vh-fA-ef4">
-                            <rect key="frame" x="0.0" y="403.5" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="413.5" width="375" height="44"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signed transaction file" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rmU-x2-rLY" customClass="VcashLabel">
-                                    <rect key="frame" x="25" y="11.5" width="171" height="21"/>
+                                    <rect key="frame" x="20" y="11.5" width="171" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -299,7 +300,7 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstItem="rmU-x2-rLY" firstAttribute="leading" secondItem="1vh-fA-ef4" secondAttribute="leading" constant="25" id="CJ4-7z-ogG"/>
+                                <constraint firstItem="rmU-x2-rLY" firstAttribute="leading" secondItem="1vh-fA-ef4" secondAttribute="leading" constant="20" id="CJ4-7z-ogG"/>
                                 <constraint firstAttribute="height" constant="44" id="Gpb-Ch-Sbs"/>
                                 <constraint firstAttribute="trailing" secondItem="n8Y-yr-kTw" secondAttribute="trailing" constant="25" id="ddz-5p-971"/>
                                 <constraint firstItem="rmU-x2-rLY" firstAttribute="centerY" secondItem="1vh-fA-ef4" secondAttribute="centerY" id="deL-C3-DGX"/>
@@ -307,7 +308,7 @@
                             </constraints>
                         </view>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ETc-EL-9dj">
-                            <rect key="frame" x="25" y="447.5" width="325" height="200"/>
+                            <rect key="frame" x="25" y="457.5" width="325" height="200"/>
                             <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="200" id="SwH-na-6u1"/>
@@ -320,7 +321,6 @@
                     <constraints>
                         <constraint firstItem="gkQ-A0-7BR" firstAttribute="leading" secondItem="fvj-aZ-hDz" secondAttribute="leading" id="0WQ-9Q-0ji"/>
                         <constraint firstAttribute="trailing" secondItem="8sb-so-UKq" secondAttribute="trailing" id="3Ef-Js-ba0"/>
-                        <constraint firstItem="1vh-fA-ef4" firstAttribute="top" secondItem="dU1-tT-Dlh" secondAttribute="bottom" constant="47" id="5kh-qY-8TZ"/>
                         <constraint firstAttribute="trailing" secondItem="GrY-Zo-j3K" secondAttribute="trailing" id="8Kv-an-GKd"/>
                         <constraint firstAttribute="trailing" secondItem="iOo-BM-xoN" secondAttribute="trailing" id="AAG-NQ-xwc"/>
                         <constraint firstAttribute="trailing" secondItem="dU1-tT-Dlh" secondAttribute="trailing" id="Ard-4o-ANw"/>
@@ -344,6 +344,7 @@
                         <constraint firstAttribute="trailing" secondItem="qg3-JW-k0i" secondAttribute="trailing" id="heE-5t-BJ2"/>
                         <constraint firstItem="8sb-so-UKq" firstAttribute="leading" secondItem="fvj-aZ-hDz" secondAttribute="leading" id="hsX-HT-rti"/>
                         <constraint firstAttribute="bottom" secondItem="ETc-EL-9dj" secondAttribute="bottom" priority="250" constant="30" id="lMc-bh-R4d"/>
+                        <constraint firstItem="1vh-fA-ef4" firstAttribute="top" secondItem="EZy-8r-dcB" secondAttribute="bottom" constant="10" id="lcR-hn-8gR"/>
                         <constraint firstItem="qg3-JW-k0i" firstAttribute="top" secondItem="gkQ-A0-7BR" secondAttribute="bottom" id="nyc-1B-fQZ"/>
                         <constraint firstItem="ETc-EL-9dj" firstAttribute="leading" secondItem="fvj-aZ-hDz" secondAttribute="leading" constant="25" id="o6q-Gr-Ets"/>
                         <constraint firstAttribute="trailing" secondItem="1vh-fA-ef4" secondAttribute="trailing" id="oF2-pW-QUJ"/>
