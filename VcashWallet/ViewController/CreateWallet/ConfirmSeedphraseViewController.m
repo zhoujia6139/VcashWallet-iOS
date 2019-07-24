@@ -247,8 +247,9 @@
     NSMutableArray *indexArray = [NSMutableArray array];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     for (NSString *phrase in arr) {
-        [indexArray addObject:[randomDic objectForKey:phrase]];
-        [dic setObject:phrase forKey:[randomDic objectForKey:phrase]];
+        NSNumber *num = [randomDic objectForKey:phrase];
+        [indexArray addObject:num];
+        [dic setObject:phrase forKey:num];
     }
     [indexArray sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [obj1 compare:obj2];
