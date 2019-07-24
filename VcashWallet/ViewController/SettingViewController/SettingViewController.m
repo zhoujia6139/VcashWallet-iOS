@@ -81,14 +81,34 @@
             break;
     }
     self.labelLockScreenTitle.text = lockScreenTitle;
-    BOOL support = [[LocalAuthenticationManager shareInstance] supportTouchIDOrFaceID];
-    self.switchTouchIDOrFaceID.on = [[LocalAuthenticationManager shareInstance] getEnableAuthentication];
-    self.viewTouchIDOrFaceID.hidden = !support;
-    self.constraintViewTouchIDOrFaceIDHeight.constant = support ? 50 : 0;
+     self.switchTouchIDOrFaceID.on = [[LocalAuthenticationManager shareInstance] getEnableAuthentication];
+    [[LocalAuthenticationManager shareInstance] supportTouchIDOrFaceIDWithSupport:^(BOOL support) {
+        if (!support) {
+            self.viewTouchIDOrFaceID.hidden = !support;
+            self.constraintViewTouchIDOrFaceIDHeight.constant = support ? 50 : 0;
+        }
+    } Error:^(NSError * _Nonnull error) {
+        if (error.code == -7) {
+            self.viewTouchIDOrFaceID.hidden = YES;
+            self.constraintViewTouchIDOrFaceIDHeight.constant = 0;
+        }
+    }];
+  
 }
 
 
 - (void)openOrCloseTouchIDAndFaceID:(UISwitch *)sw{
+    [[LocalAuthenticationManager shareInstance] supportTouchIDOrFaceIDWithSupport:^(BOOL support) {
+        
+    } Error:^(NSError * _Nonnull error) {
+        if (@available(iOS 11.0, *)) {
+            if (error.code == LAErrorBiometryNotAvailable) {
+                [MBHudHelper showTextTips:[LanguageService contentForKey:@"faceIDUnauthorized"] onView:nil withDuration:1.5];
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+    }];
     if(sw.on){
         [[LocalAuthenticationManager shareInstance] verifyIdentidyWithComplete:^(BOOL success, NSError * _Nullable error) {
             if(success){

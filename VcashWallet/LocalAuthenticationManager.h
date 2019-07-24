@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (id)shareInstance;
 
-- (BOOL)supportTouchIDOrFaceID;
+- (void)supportTouchIDOrFaceIDWithSupport:(void(^)(BOOL support))support Error:(void(^)(NSError *error))error;
 
 - (void)saveEnableAuthentication:(BOOL)enable;
 

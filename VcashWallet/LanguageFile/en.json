@@ -203,4 +203,5 @@
     "me":"me",
     "editSuc":"Successful editing",
     "touchIDReason":"Confirm your fingerprint to anthenticate",
+    "faceIDUnauthorized":"Unauthorized, please go to the settings to authorize",
 }

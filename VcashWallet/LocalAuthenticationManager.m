@@ -29,37 +29,20 @@
     return manager;
 }
 
-- (BOOL)supportTouchIDOrFaceID{
+- (void)supportTouchIDOrFaceIDWithSupport:(void(^)(BOOL support))support Error:(void(^)(NSError *error))error{
     if (@available(iOS 9.0,*)) {
         NSError *authError = nil;
         _context = [[LAContext alloc] init];
         _context.localizedFallbackTitle = @"";
         BOOL isCanEvaluatePolicy = [self.context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError];
-        if (!authError) {
-            if (isCanEvaluatePolicy) {
-                if (@available(iOS 11.0,*)) {
-                    switch (self.context.biometryType) {
-                        case LABiometryNone:
-                            return NO;
-                            break;
-                        case LABiometryTypeTouchID:
-                        case LABiometryTypeFaceID:
-                            return YES;
-                            break;
-                        default:
-                            break;
-                    }
-                }else{
-                    return YES;
-                }
-            }
+        if (error) {
+            error(authError);
         }else{
-            return NO;
+            support(isCanEvaluatePolicy);
         }
     }else{
-        return NO;
+        return support(NO);
     }
-    return NO;
 }
 
 
