@@ -208,15 +208,18 @@
     if (self.isRecover) {
         [self.progressView show];
         [[UserCenter sharedInstance] writeRecoverStatusWithFailed:YES];
+        [UIApplication sharedApplication].idleTimerDisabled = YES;
         [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
             if (yesOrNo && [ret isKindOfClass:[NSArray class]]) {
                 self.progressView.progress = 1;
                  [[UserCenter sharedInstance] writeRecoverStatusWithFailed:NO];
                  [NavigationCenter showWalletPage:self.isRecover createNewWallet:NO];
                  [[LockScreenTimeService shareInstance] addObserver];
+                [UIApplication sharedApplication].idleTimerDisabled = NO;
             }else if(yesOrNo && [ret isKindOfClass:[NSNumber class]]){
                 self.progressView.progress = [ret floatValue];
             }else{
+                [UIApplication sharedApplication].idleTimerDisabled = NO;
                 [MBHudHelper showTextTips:[LanguageService contentForKey:@"recoveryFailure"] onView:nil withDuration:1.5];
                 [self.progressView removeFromSuperview];
                 self.progressView = nil;
