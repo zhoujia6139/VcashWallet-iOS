@@ -26,7 +26,7 @@ WCDB_PRIMARY(VcashOutput, commitment)
 
 -(BOOL)isSpendable{
     if (self.status == Unspent &&
-        self.lock_height < [VcashWallet shareInstance].curChainHeight){
+        self.lock_height <= [VcashWallet shareInstance].curChainHeight){
         return YES;
     }
     return NO;

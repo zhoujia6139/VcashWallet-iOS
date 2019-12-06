@@ -11,6 +11,7 @@
 #import "VcashKeyChain.h"
 #import "NodeApi.h"
 #import "ServerApi.h"
+#import "JsonRpc.h"
 
 @interface BTCMnemonic (Words)
 +(NSArray*) englishWordList;
@@ -94,11 +95,50 @@
     }];
 }
 
++(void)checkWalletTokenUtxoWithComplete:(RequestCompleteBlock)block{
+    NSMutableArray* arr = [NSMutableArray new];
+    [[NodeApi shareInstance] getTokenOutputsByPmmrIndex:0 retArr:arr WithComplete:^(BOOL yesOrNo, id result) {
+        if (yesOrNo){
+            if ([result isKindOfClass:[NSArray class]]){
+                NSMutableArray* txArr = [NSMutableArray new];
+                for (VcashTokenOutput* item in (NSArray*)result){
+                    VcashTokenTxLog* tx = [VcashTokenTxLog new];
+                    tx.tx_id = [[VcashWallet shareInstance] getNextLogId];
+                    tx.create_time = [[NSDate date] timeIntervalSince1970];
+                    tx.confirm_height = item.height;
+                    tx.confirm_state = NetConfirmed;
+                    tx.token_amount_credited = item.value;
+                    tx.tx_type = item.is_token_issue?TokenIssue:TokenTxReceived;
+                    tx.token_type = item.token_type;
+                    
+                    item.tx_log_id = tx.tx_id;
+                    
+                    [txArr addObject:tx];
+                }
+                [[VcashWallet shareInstance] setChainTokenOutputs:(NSArray*)result];
+                [[VcashDataManager shareInstance] saveTokenTxDataArr:txArr];
+                block?block(YES, txArr):nil;
+            }
+            else{
+                block?block(YES, result):nil;
+            }
+        }
+        else{
+            block?block(NO, result):nil;
+        }
+    }];
+}
+
 +(void)createSendTransaction:(uint64_t)amount fee:(uint64_t)fee withComplete:(RequestCompleteBlock)block{
     return [[VcashWallet shareInstance] sendTransaction:amount andFee:fee withComplete:^(BOOL yesOrNO, id data) {
         block?block(yesOrNO, data):nil;
     }];
+}
 
++(void)createSendTokenTransaction:(NSString*)tokenType andAmount:(uint64_t)amount withComplete:(RequestCompleteBlock)block{
+    return [[VcashWallet shareInstance] sendTokenTransaction:tokenType andAmount:amount withComplete:^(BOOL yesOrNO, id data) {
+        block?block(yesOrNO, data):nil;
+    }];
 }
 
 +(void)sendTransaction:(VcashSlate*)slate forUrl:(NSString*)url withComplete:(RequestCompleteBlock)block{
@@ -112,6 +152,7 @@
     dispatch_block_t rollbackBlock = ^{
         [[VcashDataManager shareInstance] rollbackDataTransaction];
         [[VcashWallet shareInstance] reloadOutputInfo];
+        [[VcashWallet shareInstance] reloadTokenOutputInfo];
     };
     
     [self sendTx:slate withComplete:^(BOOL yesOrNO, id _Nullable data) {
@@ -125,31 +166,37 @@
                 sessionManager.securityPolicy.allowInvalidCertificates = YES;
                 sessionManager.securityPolicy.validatesDomainName = NO;
             }
-            NSString* postUrl = [NSString stringWithFormat:@"%@/v1/wallet/foreign/receive_tx", url];
-            NSString* param = [slate modelToJSONObject];
+            NSString* postUrl = [NSString stringWithFormat:@"%@/v2/foreign", url];
+            NSString* slate_str = [slate modelToJSONObject];
+            JsonRpc* rpc = [[JsonRpc alloc] initWithParam:slate_str];
+            NSString* param = [rpc modelToJSONObject];
             [sessionManager POST:postUrl parameters:param progress:^(NSProgress * _Nonnull uploadProgress) {
                 
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                DDLogWarn(@"sendTransaction post to %@ suc!", postUrl);
-                NSString*slateStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-                if ([slateStr hasPrefix:@"\""]){
-                    slateStr = [slateStr stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@""];
-                    slateStr = [slateStr stringByReplacingCharactersInRange:NSMakeRange(slateStr.length-1, 1) withString:@""];
-                    slateStr = [slateStr stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+                
+                NSString*resStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+                JsonRpcRes* res = [JsonRpcRes modelWithJSON:resStr];
+                if (res.error){
+                    DDLogWarn(@"sendTransaction post to %@ fail:%@!", postUrl, res.error);
+                    rollbackBlock();
+                    block?block(NO, data):nil;
+                } else {
+                    DDLogWarn(@"sendTransaction post to %@ suc!", postUrl);
+                    NSString* slateStr = res.result[@"Ok"];
+                    VcashSlate* resSlate = [VcashSlate modelWithJSON:slateStr];
+                    [self finalizeTransaction:resSlate withComplete:^(BOOL yesOrNO, id _Nullable data) {
+                        if (yesOrNO){
+                            DDLogWarn(@"finalizeTransaction sec!");
+                            [[VcashDataManager shareInstance] commitDatabaseTransaction];
+                            block?block(YES, nil):nil;
+                        }
+                        else{
+                            DDLogError(@"finalizeTransaction failed!");
+                            rollbackBlock();
+                            block?block(NO, data):nil;
+                        }
+                    }];
                 }
-                VcashSlate* resSlate = [VcashSlate modelWithJSON:slateStr];
-                [self finalizeTransaction:resSlate withComplete:^(BOOL yesOrNO, id _Nullable data) {
-                    if (yesOrNO){
-                        DDLogWarn(@"finalizeTransaction sec!");
-                        [[VcashDataManager shareInstance] commitDatabaseTransaction];
-                        block?block(YES, nil):nil;
-                    }
-                    else{
-                        DDLogError(@"finalizeTransaction failed!");
-                        rollbackBlock();
-                        block?block(NO, data):nil;
-                    }
-                }];
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 DDLogError(@"sendTx to url failed! url = %@ error = %@", postUrl, error);
                 rollbackBlock();
@@ -175,6 +222,7 @@
     dispatch_block_t rollbackBlock = ^{
         [[VcashDataManager shareInstance] rollbackDataTransaction];
         [[VcashWallet shareInstance] reloadOutputInfo];
+        [[VcashWallet shareInstance] reloadTokenOutputInfo];
     };
     
     slate.txLog.parter_id = user;
@@ -216,6 +264,7 @@
     dispatch_block_t rollbackBlock = ^{
         [[VcashDataManager shareInstance] rollbackDataTransaction];
         [[VcashWallet shareInstance] reloadOutputInfo];
+        [[VcashWallet shareInstance] reloadTokenOutputInfo];
     };
     
     [self sendTx:slate withComplete:^(BOOL yesOrNO, id _Nullable data) {
@@ -235,20 +284,33 @@
 
 +(void)sendTx:(VcashSlate*)slate withComplete:(RequestCompleteBlock)block{
     slate.lockOutputsFn?slate.lockOutputsFn():nil;
+    slate.lockTokenOutputsFn?slate.lockTokenOutputsFn():nil;
     slate.createNewOutputsFn?slate.createNewOutputsFn():nil;
-    //save txLog
-    slate.txLog.status = TxDefaultStatus;
-    int ret = [[VcashDataManager shareInstance] saveTx:slate.txLog];
-    if (!ret){
-        block?block(NO, @"Db error:saveTx failed"):nil;
-        return;
-    }
+    slate.createNewTokenOutputsFn?slate.createNewTokenOutputsFn():nil;
     
+    //save txLog
+    if (slate.txLog) {
+        slate.txLog.status = TxDefaultStatus;
+        int ret = [[VcashDataManager shareInstance] saveTx:slate.txLog];
+        if (!ret){
+            block?block(NO, @"Db error:saveTx failed"):nil;
+            return;
+        }
+    } else {
+        slate.tokenTxLog.status = TxDefaultStatus;
+        int ret = [[VcashDataManager shareInstance] saveTokenTx:slate.tokenTxLog];
+        if (!ret){
+            block?block(NO, @"Db error:saveTokenTx failed"):nil;
+            return;
+        }
+    }
+
     //save output status
     [[VcashWallet shareInstance] syncOutputInfo];
+    [[VcashWallet shareInstance] syncTokenOutputInfo];
     
     //save context
-    ret = [[VcashDataManager shareInstance] saveContext:slate.context];
+    int ret = [[VcashDataManager shareInstance] saveContext:slate.context];
     if (!ret){
         block?block(NO, @"Db error:save context failed"):nil;
         return;
@@ -271,6 +333,12 @@
         return;
     }
     
+    VcashTokenTxLog* tokenTxLog = [[VcashDataManager shareInstance] getTokenTxBySlateId:slate.uuid];
+    if (tokenTxLog){
+        block?block(NO, @"Duplicate Tx"):nil;
+        return;
+    }
+    
     block?block(YES, slate):nil;
 }
 
@@ -281,10 +349,18 @@
         return;
     }
     
-    VcashTxLog* txLog = [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
-    if (!txLog){
-        block?block(NO, @"Tx missed"):nil;
-        return;
+    if (slate.token_type) {
+        VcashTokenTxLog* txLog = [[VcashDataManager shareInstance] getTokenTxBySlateId:slate.uuid];
+        if (!txLog){
+            block?block(NO, @"Tx missed"):nil;
+            return;
+        }
+    } else {
+        VcashTxLog* txLog = [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
+        if (!txLog){
+            block?block(NO, @"Tx missed"):nil;
+            return;
+        }
     }
     
     block?block(YES, slate):nil;
@@ -329,24 +405,43 @@
     dispatch_block_t rollbackBlock = ^{
         [[VcashDataManager shareInstance] rollbackDataTransaction];
         [[VcashWallet shareInstance] reloadOutputInfo];
+        [[VcashWallet shareInstance] reloadTokenOutputInfo];
     };
     
-    slate.createNewOutputsFn?slate.createNewOutputsFn():nil;
-    //save txLog
     NSString* slateStr = [slate modelToJSONString];
-    slate.txLog.parter_id = serverTx.sender_id;
-    slate.txLog.status = TxReceiverd;
-    slate.txLog.signed_slate_msg = slateStr;
-    ret = [[VcashDataManager shareInstance] saveTx:slate.txLog];
-    if (!ret){
-        rollbackBlock();
-        DDLogError(@"VcashDataManager saveAppendTx failed");
-        block?block(NO, @"Db error"):nil;
-        return;
+    if (slate.token_type) {
+        slate.createNewTokenOutputsFn?slate.createNewTokenOutputsFn():nil;
+        //save tokentxLog
+        slate.tokenTxLog.parter_id = serverTx.sender_id;
+        slate.tokenTxLog.status = TxReceiverd;
+        slate.tokenTxLog.signed_slate_msg = slateStr;
+        ret = [[VcashDataManager shareInstance] saveTokenTx:slate.tokenTxLog];
+        if (!ret){
+            rollbackBlock();
+            DDLogError(@"VcashDataManager saveTokenTx failed");
+            block?block(NO, @"Db error"):nil;
+            return;
+        }
+        
+        //save output status
+        [[VcashWallet shareInstance] syncTokenOutputInfo];
+    } else {
+        slate.createNewOutputsFn?slate.createNewOutputsFn():nil;
+        //save txLog
+        slate.txLog.parter_id = serverTx.sender_id;
+        slate.txLog.status = TxReceiverd;
+        slate.txLog.signed_slate_msg = slateStr;
+        ret = [[VcashDataManager shareInstance] saveTx:slate.txLog];
+        if (!ret){
+            rollbackBlock();
+            DDLogError(@"VcashDataManager saveTx failed");
+            block?block(NO, @"Db error"):nil;
+            return;
+        }
+        
+        //save output status
+        [[VcashWallet shareInstance] syncOutputInfo];
     }
-    
-    //save output status
-    [[VcashWallet shareInstance] syncOutputInfo];
     
     if (serverTx){
         serverTx.slate  = slateStr;
@@ -409,14 +504,26 @@
     [[NodeApi shareInstance] postTx:BTCHexFromData(txPayload) WithComplete:^(BOOL yesOrNo, id _Nullable data) {
         if (yesOrNo){
             block?block(YES, nil):nil;
-            VcashTxLog *txLog = [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
-            if (txLog){
-                txLog.confirm_state = LoalConfirmed;
-                txLog.status = TxFinalized;
-                [[VcashDataManager shareInstance] saveTx:txLog];
-            }
-            else{
-                DDLogError(@"impossible things happened!can not find tx:%@", slate.uuid);
+            if (slate.token_type) {
+                VcashTokenTxLog *txLog = [[VcashDataManager shareInstance] getTokenTxBySlateId:slate.uuid];
+                if (txLog){
+                    txLog.confirm_state = LoalConfirmed;
+                    txLog.status = TxFinalized;
+                    [[VcashDataManager shareInstance] saveTokenTx:txLog];
+                }
+                else{
+                    DDLogError(@"impossible things happened!can not find tx:%@", slate.uuid);
+                }
+            } else {
+                VcashTxLog *txLog = [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
+                if (txLog){
+                    txLog.confirm_state = LoalConfirmed;
+                    txLog.status = TxFinalized;
+                    [[VcashDataManager shareInstance] saveTx:txLog];
+                }
+                else{
+                    DDLogError(@"impossible things happened!can not find tx:%@", slate.uuid);
+                }
             }
         }
         else{
@@ -451,12 +558,24 @@
     return [[VcashDataManager shareInstance] getTxData];
 }
 
++(NSArray*)getTokenTransationArr{
+    return [[VcashDataManager shareInstance] getTokenTxData];
+}
+
 +(VcashTxLog*)getTxByTxid:(NSString*)txid{
     return [[VcashDataManager shareInstance] getTxBySlateId:txid];
 }
 
++(VcashTokenTxLog*)getTokenTxByTxid:(NSString*)txid{
+    return [[VcashDataManager shareInstance] getTokenTxBySlateId:txid];
+}
+
 +(Boolean)deleteTxByTxid:(NSString*)txid{
     return  [[VcashDataManager shareInstance] deleteTxBySlateId:txid];
+}
+
++(Boolean)deleteTokenTxByTxid:(NSString*)txid{
+    return  [[VcashDataManager shareInstance] deleteTokenTxBySlateId:txid];
 }
 
 +(NSArray*)getFileReceiveTxArr{
@@ -464,6 +583,18 @@
     NSMutableArray* retArr = [NSMutableArray new];
     for (VcashTxLog* item in txArr){
         if (item.tx_type == TxReceived && !item.parter_id && item.signed_slate_msg){
+            [retArr addObject:item];
+        }
+    }
+    
+    return retArr;
+}
+
++(NSArray*)getFileReceiveTokenTxArr{
+    NSArray* txArr = [self getTokenTransationArr];
+    NSMutableArray* retArr = [NSMutableArray new];
+    for (VcashTokenTxLog* item in txArr){
+        if (item.tx_type == TokenTxReceived && !item.parter_id && item.signed_slate_msg){
             [retArr addObject:item];
         }
     }
@@ -555,6 +686,126 @@
             if (hasChange){
                 [[VcashDataManager shareInstance] saveTxDataArr:txs];
                 [[VcashWallet shareInstance] syncOutputInfo];
+            }
+        }
+        block?block(yesOrNO, nil):nil;
+    }];
+}
+
++(void)updateTokenOutputStatusWithComplete:(RequestCompleteBlock)block{
+    [self updateTokenOutputStatusForToken:[VcashWallet shareInstance].token_outputs_dic.allKeys.firstObject WithComplete:block];
+}
+
++(void)updateTokenOutputStatusForToken:(NSString*)token_type WithComplete:(RequestCompleteBlock)block{
+    if (token_type == nil) {
+        block?block(YES, nil):nil;
+    }
+
+    [self implUpdateTokenOutputStatusForToken:token_type WithComplete:^(BOOL yesOrNo, id data) {
+        if (yesOrNo){
+            NSArray* allToken = [VcashWallet shareInstance].token_outputs_dic.allKeys;
+            NSUInteger index = [allToken indexOfObject:token_type];
+            if (index+1 >= [allToken count]) {
+                block?block(YES, nil):nil;
+                return;
+            }
+            NSString* next_token_type = [allToken objectAtIndex:index+1];
+            [self updateTokenOutputStatusForToken:next_token_type WithComplete:nil];
+        }
+        else {
+            block?block(NO, nil):nil;
+            return;
+        }
+    }];
+
+}
+
++(void)implUpdateTokenOutputStatusForToken:(NSString*)token_type WithComplete:(RequestCompleteBlock)block{
+    NSArray* token_arr = [VcashWallet shareInstance].token_outputs_dic[token_type];
+    NSMutableArray* strArr = [NSMutableArray new];
+    for (VcashTokenOutput* item in token_arr){
+        [strArr addObject:item.commitment];
+    }
+    
+    if (strArr.count == 0){
+        DDLogWarn(@"TokenType:%@ has no token output", token_type);
+        block?block(YES, nil):nil;
+        return;
+    }
+    
+    [[NodeApi shareInstance] getTokenOutputsForToken:token_type WithCommitArr:strArr WithComplete:^(BOOL yesOrNO, id data) {
+        if (yesOrNO){
+            NSArray* apiOutputs = data;
+            NSArray* txs = [self getTokenTransationArr];
+            BOOL hasChange = NO;
+            for (VcashTokenOutput* item in token_arr){
+                NodeRefreshTokenOutput* nodeOutput = nil;
+                for (NodeRefreshTokenOutput* output in apiOutputs){
+                    if ([item.commitment isEqualToString:output.commit]){
+                        nodeOutput = output;
+                    }
+                }
+                
+                if (nodeOutput){
+                    //should not be issue token
+                    if (item.is_token_issue && item.status == Unconfirmed){
+                        
+                    }
+                    else if(!item.is_token_issue && item.status == Unconfirmed) {
+                        VcashTokenTxLog* tx = nil;
+                        for (VcashTokenTxLog* txlog in txs){
+                            if (txlog.tx_id == item.tx_log_id){
+                                tx = txlog;
+                            }
+                        }
+                        if (tx){
+                            tx.confirm_state = NetConfirmed;
+                            tx.confirm_time = [[NSDate date] timeIntervalSince1970];
+                            tx.confirm_height = nodeOutput.height;
+                            tx.status = TxFinalized;
+                        }
+                        item.height = nodeOutput.height;
+                        item.status = Unspent;
+                        
+                        hasChange = YES;
+                    }
+                }
+                else{
+                    if (item.status == Locked || item.status == Unspent){
+                        VcashTokenTxLog* tx = nil;
+                        for (VcashTokenTxLog* txlog in txs){
+                            if (txlog.confirm_state == LoalConfirmed){
+                                for (NSString* commitStr in txlog.token_inputs){
+                                    if ([commitStr isEqualToString:item.commitment]){
+                                        tx = txlog;
+                                    }
+                                }
+                            }
+                            if (tx != nil){
+                                break;
+                            }
+                        }
+                        if (tx){
+                            tx.confirm_state = NetConfirmed;
+                            tx.confirm_time = [[NSDate date] timeIntervalSince1970];
+                            tx.status = TxFinalized;
+                            [[NodeApi shareInstance] getOutputsByCommitArr:tx.outputs WithComplete:^(BOOL yesOrNO, id data) {
+                                if (yesOrNO){
+                                    NSArray* apiOutputs = data;
+                                    NodeRefreshOutput* output = apiOutputs.firstObject;
+                                    tx.confirm_height = output.height;
+                                    [[VcashDataManager shareInstance] saveTokenTx:tx];
+                                }
+                            }];
+                        }
+                        item.status = Spent;
+                        hasChange = YES;
+                    }
+                }
+            }
+            if (hasChange){
+                [[VcashDataManager shareInstance] saveTokenTxDataArr:txs];
+                [[VcashWallet shareInstance] syncTokenOutputInfo];
             }
         }
         block?block(yesOrNO, nil):nil;

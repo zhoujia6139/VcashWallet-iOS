@@ -23,6 +23,7 @@
 
 WCDB_IMPLEMENTATION(VcashContext)
 WCDB_SYNTHESIZE(VcashContext, sec_key)
+WCDB_SYNTHESIZE(VcashContext, token_sec_key)
 WCDB_SYNTHESIZE(VcashContext, sec_nounce)
 WCDB_SYNTHESIZE(VcashContext, slate_id)
 

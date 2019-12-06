@@ -25,7 +25,7 @@
 
 -(NSString*)NodeUrl{
 #ifdef isInTestNet
-    return @"http://47.75.163.56:13513";
+    return @"http://127.0.0.1:13513";
 #else
     return @"https://api-node.vcashwallet.app";
 #endif
@@ -35,7 +35,7 @@
     if (!retArr){
         return;
     }
-    NSString* url = [NSString stringWithFormat:@"%@/v1/txhashset/outputs?start_index=%lld&max=500", [self NodeUrl], startheight];
+    NSString* url = [NSString stringWithFormat:@"%@/v1/txhashset/outputs?start_index=%lld&max=800", [self NodeUrl], startheight];
     
     [[self sessionManager] GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -53,11 +53,42 @@
             double percent = (double)outputs.last_retrieved_index / (double)outputs.highest_index;
             completeblock?completeblock(YES, @(percent)):nil;
         }
-        else if(outputs.highest_index == outputs.last_retrieved_index){
+        else if(outputs.highest_index <= outputs.last_retrieved_index){
             completeblock?completeblock(YES, retArr):nil;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        DDLogError(@"getutxo failed:%@", error);
+        DDLogError(@"getOutputsByPmmrIndex failed:%@", error);
+        completeblock?completeblock(NO, nil):nil;
+    }];
+}
+
+-(void)getTokenOutputsByPmmrIndex:(uint64_t)startheight retArr:(NSMutableArray*)retArr WithComplete:(RequestCompleteBlock)completeblock{
+    if (!retArr){
+        return;
+    }
+    NSString* url = [NSString stringWithFormat:@"%@/v1/txhashset/tokenoutputs?start_index=%lld&max=800", [self NodeUrl], startheight];
+    
+    [[self sessionManager] GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NodeOutputs* outputs = [NodeOutputs modelWithJSON:responseObject];
+        DDLogWarn(@"-----------getTokenOutputsByPmmrIndex:height = %lld, size = %lu", outputs.last_retrieved_index, (unsigned long)outputs.outputs.count);
+        for (NodeOutput* item in outputs.outputs){
+            VcashTokenOutput* vcashOutput = [[VcashWallet shareInstance] identifyUtxoOutput:item];
+            if (vcashOutput){
+                [retArr addObject:vcashOutput];
+            }
+        }
+        if (outputs.highest_index > outputs.last_retrieved_index){
+            [self getTokenOutputsByPmmrIndex:outputs.last_retrieved_index retArr:retArr WithComplete:completeblock];
+            double percent = (double)outputs.last_retrieved_index / (double)outputs.highest_index;
+            completeblock?completeblock(YES, @(percent)):nil;
+        }
+        else if(outputs.highest_index <= outputs.last_retrieved_index){
+            completeblock?completeblock(YES, retArr):nil;
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        DDLogError(@"getTokenOutputsByPmmrIndex failed:%@", error);
         completeblock?completeblock(NO, nil):nil;
     }];
 }
@@ -73,6 +104,24 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSArray* outputs = [NSArray modelArrayWithClass:[NodeRefreshOutput class] json:responseObject];
+        completeblock?completeblock(YES, outputs):nil;
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        DDLogError(@"getOutputsByCommitArr failed:%@", error);
+        completeblock?completeblock(NO, nil):nil;
+    }];
+}
+
+-(void)getTokenOutputsForToken:(NSString*)token_type WithCommitArr:(NSArray<NSString*>*)commitArr WithComplete:(RequestCompleteBlock)completeblock{
+    if (!commitArr || !token_type){
+        return;
+    }
+    NSString* param = [commitArr componentsJoinedByString:@","];
+    NSString* url = [NSString stringWithFormat:@"%@/v1/chain/tokenoutputs/byids?token_type=%@&id=%@", [self NodeUrl], token_type, param];
+    
+    [[self sessionManager] GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSArray* outputs = [NSArray modelArrayWithClass:[NodeRefreshTokenOutput class] json:responseObject];
         completeblock?completeblock(YES, outputs):nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DDLogError(@"getOutputsByCommitArr failed:%@", error);

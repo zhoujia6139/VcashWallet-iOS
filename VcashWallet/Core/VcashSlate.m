@@ -41,10 +41,10 @@
 }
 
 + (NSArray *)modelPropertyBlacklist {
-    return @[@"txLog", @"lockOutputsFn", @"createNewOutputsFn", @"context"];
+    return @[@"txLog", @"tokenTxLog", @"lockOutputsFn", @"lockTokenOutputsFn", @"createNewOutputsFn", @"createNewTokenOutputsFn", @"context"];
 }
 
--(VcashSecretKey*)addTxElement:(NSArray*)outputs change:(uint64_t)change{
+-(VcashSecretKey*)addTxElement:(NSArray*)outputs change:(uint64_t)change isForToken:(BOOL)forToken{
     VcashTransaction* temptx = self.tx;
     TxKernel* txKernel = [TxKernel new];
     NSMutableArray<NSData*>* positiveArr = [NSMutableArray new];
@@ -70,7 +70,12 @@
         [negativeArr addObject:secKey.data];
         
         [lockOutput addObject:item];
-        [self.txLog appendInput:item.commitment];
+        if (forToken) {
+            [self.tokenTxLog appendInput:item.commitment];
+        } else {
+            [self.txLog appendInput:item.commitment];
+        }
+        
     }
     self.lockOutputsFn = ^{
         for (VcashOutput* item in lockOutput){
@@ -80,7 +85,7 @@
     
     //output
     if (change > 0){
-        VcashSecretKey* secKey = [self createTxOutputWithAmount:change];
+        VcashSecretKey* secKey = [self createTxOutputWithAmount:change isForToken:forToken];
         [positiveArr addObject:secKey.data];
     }
     
@@ -93,8 +98,61 @@
     return blind;
 }
 
+-(VcashSecretKey*)addTokenTxElement:(NSArray*)token_outputs change:(uint64_t)change{
+    VcashTransaction* temptx = self.tx;
+    TokenTxKernel* txKernel = [TokenTxKernel new];
+    NSMutableArray<NSData*>* positiveArr = [NSMutableArray new];
+    NSMutableArray<NSData*>* negativeArr = [NSMutableArray new];
+    
+    NSMutableArray* lockOutput = [NSMutableArray new];
+    for (VcashTokenOutput* item in token_outputs){
+        if (item.status != Unspent){
+            continue;
+        }
+        VcashKeychainPath* keypath = [[VcashKeychainPath alloc] initWithPathstr:item.keyPath];
+        NSData*commitment = [[VcashWallet shareInstance].mKeyChain createCommitment:item.value andKeypath:keypath andSwitchType:SwitchCommitmentTypeRegular];
+        TokenInput* input = [TokenInput new];
+        input.token_type = item.token_type;
+        input.commit = commitment;
+        input.features = (item.is_token_issue?OutputFeatureTokenIssue:OutputFeatureToken);
+        
+        [temptx.body.token_inputs addObject:input];
+        VcashSecretKey* secKey = [[VcashWallet shareInstance].mKeyChain deriveKey:item.value andKeypath:keypath andSwitchType:SwitchCommitmentTypeRegular];
+        [negativeArr addObject:secKey.data];
+        
+        [lockOutput addObject:item];
+        [self.tokenTxLog appendTokenInput:item.commitment];
+        
+        txKernel.token_type = item.token_type;
+    }
+    self.lockTokenOutputsFn = ^{
+        for (VcashTokenOutput* item in lockOutput){
+            item.status = Locked;
+        }
+    };
+    
+    //output
+    if (change > 0){
+        VcashSecretKey* secKey = [self createTxTokenOutput:txKernel.token_type withAmount:change];
+        [positiveArr addObject:secKey.data];
+    }
+    
+    //lockheight
+    [txKernel setLock_height:self.lock_height];
+    
+    [temptx.body.token_kernels addObject:txKernel];
+    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+    VcashSecretKey* blind = [secp blindSumWithPositiveArr:positiveArr andNegative:negativeArr];
+    return blind;
+}
+
 -(VcashSecretKey*)addReceiverTxOutput{
-    VcashSecretKey* secKey = [self createTxOutputWithAmount:self.amount];
+    VcashSecretKey* secKey;
+    if (self.token_type){
+        secKey = [self createTxTokenOutput:self.token_type withAmount:self.amount];
+    } else {
+        secKey = [self createTxOutputWithAmount:self.amount isForToken:NO];
+    }
     [self.tx sortTx];
     return secKey;
 }
@@ -120,7 +178,12 @@
     }
     NSData* nonceSum = [secp combinationPubkey:pubNonceArr];
     NSData* keySum = [secp combinationPubkey:pubBlindArr];
-    NSData* msgData = [self createMsgToSign];
+    NSData* msgData;
+    if (self.token_type){
+        msgData = [self createTokenMsgToSign];
+    } else {
+        msgData = [self createMsgToSign];
+    }
     if (!nonceSum || !keySum || !msgData){
         return NO;
     }
@@ -136,7 +199,13 @@
     }
     
     //2, calcluate part sig
-    VcashSignature* sig = [secp calculateSingleSignature:context.sec_key.data secNonce:context.sec_nounce.data nonceSum:nonceSum pubkeySum:keySum andMsgData:msgData];
+    VcashSecretKey* sec_key;
+    if (self.token_type){
+        sec_key = context.token_sec_key;
+    } else {
+        sec_key = context.sec_key;
+    }
+    VcashSignature* sig = [secp calculateSingleSignature:sec_key.data secNonce:context.sec_nounce.data nonceSum:nonceSum pubkeySum:keySum andMsgData:msgData];
     if (!sig){
         return NO;
     }
@@ -168,7 +237,13 @@
     
     //calcluate group signature
     VcashSignature* finalSig = [secp combinationSignature:sigsArr nonceSum:nonceSum];
-    NSData* msgData = [self createMsgToSign];
+    NSData* msgData;
+    if (self.token_type) {
+        msgData = [self createTokenMsgToSign];
+    } else {
+        msgData = [self createMsgToSign];
+    }
+    
     if (finalSig && msgData){
         BOOL yesOrNO = [secp verifySingleSignature:finalSig pubkey:keySum nonceSum:nil pubkeySum:keySum andMsgData:msgData];
         if (yesOrNO){
@@ -181,17 +256,38 @@
 
 -(BOOL)finalizeTx:(VcashSignature*)finalSig{
     //TODO check fee?
-    
-    NSData* final_excess = [self.tx calculateFinalExcess];
-    if ([self.tx setTxExcess:final_excess andTxSig:finalSig]){
-        return YES;
+    if (self.token_type) {
+        //finalize parent tx first
+        VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+        NSData* final_excess = [self.tx calculateFinalExcess];
+        NSData* pubKey = [secp commitToPubkey:final_excess];
+        NSData* msgData = [self createMsgToSign];
+        VcashSignature* sig = [secp calculateSingleSignature:self.context.sec_key.data secNonce:nil nonceSum:nil pubkeySum:pubKey andMsgData:msgData];
+        if (!sig){
+            DDLogError(@"calculate token parent tx signature failed");
+            return NO;
+        }
+        if (![self.tx setTxExcess:final_excess andTxSig:sig]){
+            DDLogError(@"verify token parent tx excess failed");
+            return NO;
+        }
+        
+        NSData* final_token_excess = [self.tx calculateTokenFinalExcess];
+        if ([self.tx setTokenTxExcess:final_token_excess andTxSig:finalSig]){
+            return YES;
+        }
+    } else {
+        NSData* final_excess = [self.tx calculateFinalExcess];
+        if ([self.tx setTxExcess:final_excess andTxSig:finalSig]){
+            return YES;
+        }
     }
     
     return NO;
 }
 
 #pragma private
--(VcashSecretKey*)createTxOutputWithAmount:(uint64_t)amount{
+-(VcashSecretKey*)createTxOutputWithAmount:(uint64_t)amount isForToken:(BOOL)isForToken{
     VcashTransaction* temptx = self.tx;
     VcashKeychainPath* keypath = [[VcashWallet shareInstance] nextChild];
     NSData*commitment = [[VcashWallet shareInstance].mKeyChain createCommitment:amount andKeypath:keypath andSwitchType:SwitchCommitmentTypeRegular];
@@ -215,10 +311,50 @@
         output.lock_height = 0;
         output.is_coinbase = NO;
         output.status = Unconfirmed;
-        output.tx_log_id = strong_self.txLog.tx_id;
-        [strong_self.txLog appendOutput:output.commitment];
+        if (isForToken) {
+            output.tx_log_id = strong_self.tokenTxLog.tx_id;
+            [strong_self.tokenTxLog appendOutput:output.commitment];
+        } else {
+            output.tx_log_id = strong_self.txLog.tx_id;
+            [strong_self.txLog appendOutput:output.commitment];
+        }
         
         [[VcashWallet shareInstance] addNewTxChangeOutput:output];
+    };
+    
+    return secKey;
+}
+
+-(VcashSecretKey*)createTxTokenOutput:(NSString*)tokenType withAmount:(uint64_t)amount{
+    VcashTransaction* temptx = self.tx;
+    VcashKeychainPath* keypath = [[VcashWallet shareInstance] nextChild];
+    NSData*commitment = [[VcashWallet shareInstance].mKeyChain createCommitment:amount andKeypath:keypath andSwitchType:SwitchCommitmentTypeRegular];
+    NSData*proof = [[VcashWallet shareInstance].mKeyChain createRangeProof:amount withKeyPath:keypath];
+    TokenOutput* output = [TokenOutput new];
+    output.token_type = tokenType;
+    output.features = OutputFeatureToken;
+    output.commit = commitment;
+    output.proof = proof;
+    
+    [temptx.body.token_outputs addObject:output];
+    VcashSecretKey* secKey = [[VcashWallet shareInstance].mKeyChain deriveKey:amount andKeypath:keypath andSwitchType:SwitchCommitmentTypeRegular];
+    
+    __weak typeof (self) weak_self = self;
+    self.createNewTokenOutputsFn = ^{
+        __strong typeof (weak_self) strong_self = weak_self;
+        VcashTokenOutput* output = [VcashTokenOutput new];
+        output.token_type = tokenType;
+        output.commitment = BTCHexFromData(commitment);
+        output.keyPath = keypath.pathStr;
+        output.value = amount;
+        output.height = strong_self.height;
+        output.lock_height = 0;
+        output.is_token_issue = NO;
+        output.status = Unconfirmed;
+        output.tx_log_id = strong_self.tokenTxLog.tx_id;
+        [strong_self.tokenTxLog appendTokenOutput:output.commitment];
+        
+        [[VcashWallet shareInstance] addNewTokenTxChangeOutput:output];
     };
     
     return secKey;
@@ -237,7 +373,11 @@
 
 -(void)addParticipantInfo:(VcashContext*)context participantId:(NSUInteger)participant_id andMessage:(NSString*)message{
     VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
-    NSData* pub_key = [secp getPubkeyFormSecretKey:context.sec_key];
+    VcashSecretKey* sec_key = context.sec_key;
+    if (context.token_sec_key) {
+        sec_key = context.token_sec_key;
+    }
+    NSData* pub_key = [secp getPubkeyFormSecretKey:sec_key];
     NSData* pub_nonce = [secp getPubkeyFormSecretKey:context.sec_nounce];
     
     ParticipantData* partiData = [ParticipantData new];
@@ -251,6 +391,11 @@
 
 -(NSData*)createMsgToSign{
     TxKernel* kernel = [self.tx.body.kernels firstObject];
+    return [kernel kernelMsgToSign];
+}
+
+-(NSData*)createTokenMsgToSign{
+    TokenTxKernel* kernel = [self.tx.body.token_kernels firstObject];
     return [kernel kernelMsgToSign];
 }
 
@@ -284,9 +429,9 @@
 
 +(instancetype)createVersionInfo{
     VersionCompatInfo* info = [VersionCompatInfo new];
-    info.version= 2;
-    info.orig_version = 2;
-    info.block_header_version = 1;
+    info.version= 3;
+    info.orig_version = 3;
+    info.block_header_version = 2;
     return info;
 }
 

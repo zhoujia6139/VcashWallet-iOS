@@ -12,6 +12,8 @@
 #import "VcashWalletInfo+WCTTableCoding.h"
 #import "VcashTxLog+WCTTableCoding.h"
 #import "VcashContext+WCTTableCoding.h"
+#import "VcashTokenOutput+WCTTableCoding.h"
+#import "VcashTokenTxLog+WCTTableCoding.h"
 
 @interface VcashDataManager()
 
@@ -54,6 +56,12 @@
     
     NSString *className3 = NSStringFromClass(VcashContext.class);
     [self.database dropTableOfName:className3];
+    
+    NSString *className4 = NSStringFromClass(VcashTokenOutput.class);
+    [self.database dropTableOfName:className4];
+    
+    NSString *className5 = NSStringFromClass(VcashTokenTxLog.class);
+    [self.database dropTableOfName:className5];
     
     [self closeDatabase];
 }
@@ -106,6 +114,39 @@
     for (VcashOutput * item in objects){
         if ([self getActiveTxByTxId:item.tx_log_id]){
             [arr addObject:item];
+        } else if ([self getActiveTokenTxByTxId:item.tx_log_id]){
+            [arr addObject:item];
+        }
+    }
+    return arr;
+}
+
+-(BOOL)saveTokenOutputData:(NSArray*)array{
+    if (array.count == 0){
+        return YES;
+    }
+    
+    NSString *className = NSStringFromClass(VcashTokenOutput.class);
+    NSString *tableName = className;
+    [self.database deleteAllObjectsFromTable:tableName];
+    BOOL ret = [self.database insertOrReplaceObjects:array
+                                                into:tableName];
+    if (!ret)
+    {
+        DDLogError(@"----------db error, saveTokenOutputData fail");
+        return NO;
+    }
+    return YES;
+}
+
+-(NSArray*)getActiveTokenOutputData{
+    NSString *className = NSStringFromClass(VcashTokenOutput.class);
+    NSString *tableName = className;
+    NSArray<VcashTokenOutput *> *objects = [self.database getObjectsOfClass:VcashTokenOutput.class fromTable:tableName where:(VcashTokenOutput.status != Spent)];
+    NSMutableArray* arr = [NSMutableArray new];
+    for (VcashTokenOutput * item in objects){
+        if ([self getActiveTokenTxByTxId:item.tx_log_id]){
+            [arr addObject:item];
         }
     }
     return arr;
@@ -138,7 +179,7 @@
     BOOL ret = [self.database insertOrReplaceObject:txLog into:tableName];
     if (!ret)
     {
-        DDLogError(@"----------db error, saveAppendTx fail");
+        DDLogError(@"----------db error, saveTx fail");
         return NO;
     }
 //    [[NSNotificationCenter defaultCenter] postNotificationName:kTxLogDataChanged object:nil];
@@ -179,6 +220,77 @@
     NSArray<VcashTxLog *> *objects = [self.database getObjectsOfClass:VcashTxLog.class fromTable:tableName orderBy:VcashTxLog.tx_id.order(WCTOrderedAscending)];
     return objects;
 }
+
+
+-(BOOL)saveTokenTxDataArr:(NSArray*)arr{
+    if (arr.count == 0){
+        return YES;
+    }
+    
+    NSString *className = NSStringFromClass(VcashTokenTxLog.class);
+    NSString *tableName = className;
+    [self.database deleteAllObjectsFromTable:tableName];
+    BOOL ret = [self.database insertObjects:arr into:tableName];
+    if (!ret)
+    {
+        DDLogError(@"----------db error, saveTokenTxDataArr fail");
+        return NO;
+    }
+    return YES;
+}
+
+-(BOOL)saveTokenTx:(VcashTokenTxLog*)txLog{
+    if (!txLog){
+        return YES;
+    }
+    
+    NSString *className = NSStringFromClass(VcashTokenTxLog.class);
+    NSString *tableName = className;
+    BOOL ret = [self.database insertOrReplaceObject:txLog into:tableName];
+    if (!ret)
+    {
+        DDLogError(@"----------db error, saveTokenTx fail");
+        return NO;
+    }
+    //    [[NSNotificationCenter defaultCenter] postNotificationName:kTxLogDataChanged object:nil];
+    return YES;
+}
+
+- (BOOL)deleteTokenTxBySlateId:(NSString *)slate_id{
+    NSString *className = NSStringFromClass(VcashTokenTxLog.class);
+    NSString *tableName = className;
+    BOOL ret = [self.database deleteObjectsFromTable:tableName where:VcashTokenTxLog.tx_slate_id == slate_id];
+    if (!ret)
+    {
+        DDLogError(@"----------db error, deleteTokenTxBySlateId fail");
+        return NO;
+    }
+    return YES;
+}
+
+-(VcashTokenTxLog*)getTokenTxBySlateId:(NSString*)slate_id{
+    NSString *className = NSStringFromClass(VcashTokenTxLog.class);
+    NSString *tableName = className;
+    NSArray<VcashTokenTxLog *> *objects = [self.database getObjectsOfClass:VcashTokenTxLog.class fromTable:tableName where:VcashTokenTxLog.tx_slate_id == slate_id];
+    
+    return objects.firstObject;
+}
+
+-(VcashTokenTxLog*)getActiveTokenTxByTxId:(uint32_t)tx_id{
+    NSString *className = NSStringFromClass(VcashTokenTxLog.class);
+    NSString *tableName = className;
+    NSArray<VcashTokenTxLog *> *objects = [self.database getObjectsOfClass:VcashTokenTxLog.class fromTable:tableName where:VcashTokenTxLog.tx_id == tx_id];
+    
+    return objects.firstObject;
+}
+
+-(NSArray*)getTokenTxData{
+    NSString *className = NSStringFromClass(VcashTokenTxLog.class);
+    NSString *tableName = className;
+    NSArray<VcashTokenTxLog *> *objects = [self.database getObjectsOfClass:VcashTokenTxLog.class fromTable:tableName orderBy:VcashTokenTxLog.tx_id.order(WCTOrderedAscending)];
+    return objects;
+}
+
 
 -(BOOL)saveContext:(VcashContext*)context{
     if (!context){
@@ -271,6 +383,24 @@
         if (!isExist)
         {
             BOOL ret = [_database createTableAndIndexesOfName:tableName3 withClass:VcashContext.class];
+            assert(ret);
+        }
+        
+        NSString *className4 = NSStringFromClass(VcashTokenOutput.class);
+        NSString *tableName4 = className4;
+        isExist = [_database isTableExists:tableName4];
+        if (!isExist)
+        {
+            BOOL ret = [_database createTableAndIndexesOfName:tableName4 withClass:VcashTokenOutput.class];
+            assert(ret);
+        }
+        
+        NSString *className5 = NSStringFromClass(VcashTokenTxLog.class);
+        NSString *tableName5 = className5;
+        isExist = [_database isTableExists:tableName5];
+        if (!isExist)
+        {
+            BOOL ret = [_database createTableAndIndexesOfName:tableName5 withClass:VcashTokenTxLog.class];
             assert(ret);
         }
     }

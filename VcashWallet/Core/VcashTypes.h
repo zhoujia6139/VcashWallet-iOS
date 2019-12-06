@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 typedef enum{
     OutputFeaturePlain = 0,
     OutputFeatureCoinbase = 1,
+    OutputFeatureTokenIssue = 98,
+    OutputFeatureToken = 99,
 }OutputFeatures;
 
 typedef enum{
@@ -33,6 +35,12 @@ typedef enum{
     KernelFeatureCoinbase = 1,
     KernelFeatureHeightLocked = 2,
 }KernelFeatures;
+
+typedef enum{
+    KernelFeaturePlainToken = 0,
+    KernelFeatureIssueToken = 1,
+    KernelFeatureHeightLockedToken = 2,
+}TokenKernelFeatures;
 
 @interface TxBaseObject:NSObject
 
@@ -50,9 +58,31 @@ typedef enum{
 
 @end
 
+@interface TokenInput : TxBaseObject
+
+@property (assign, nonatomic)OutputFeatures features;
+
+@property (strong, nonatomic)NSString* token_type;
+
+@property (strong, nonatomic)NSData* commit;
+
+@end
+
 @interface Output : TxBaseObject
 
 @property (assign, nonatomic)OutputFeatures features;
+
+@property (strong, nonatomic)NSData* commit;
+
+@property (strong, nonatomic)NSData* proof;
+
+@end
+
+@interface TokenOutput : TxBaseObject
+
+@property (assign, nonatomic)OutputFeatures features;
+
+@property (strong, nonatomic)NSString* token_type;
 
 @property (strong, nonatomic)NSData* commit;
 
@@ -80,13 +110,39 @@ typedef enum{
 
 @end
 
+@interface TokenTxKernel : TxBaseObject
+
+@property (assign, nonatomic)TokenKernelFeatures features;
+
+@property (strong, nonatomic)NSString* token_type;
+
+@property (assign, nonatomic)uint64_t lock_height;
+
+@property (strong, nonatomic)NSData* excess;
+
+@property (strong, nonatomic)VcashSignature* excess_sig;
+
++(TokenKernelFeatures)featureWithLockHeight:(uint64_t)lock_height;
+
+-(NSData*)kernelMsgToSign;
+
+-(BOOL)verify;
+
+@end
+
 @interface TransactionBody : TxBaseObject
 
 @property (strong, nonatomic)NSMutableArray<Input*>* inputs;
 
+@property (strong, nonatomic)NSMutableArray<TokenInput*>* token_inputs;
+
 @property (strong, nonatomic)NSMutableArray<Output*>* outputs;
 
+@property (strong, nonatomic)NSMutableArray<TokenOutput*>* token_outputs;
+
 @property (strong, nonatomic)NSMutableArray<TxKernel*>* kernels;
+
+@property (strong, nonatomic)NSMutableArray<TokenTxKernel*>* token_kernels;
 
 @end
 
@@ -99,7 +155,11 @@ typedef enum{
 
 -(NSData*)calculateFinalExcess;
 
+-(NSData*)calculateTokenFinalExcess;
+
 -(BOOL)setTxExcess:(NSData*)excess andTxSig:(VcashSignature*)sig;
+
+-(BOOL)setTokenTxExcess:(NSData*)excess andTxSig:(VcashSignature*)sig;
 
 -(void)sortTx;
 

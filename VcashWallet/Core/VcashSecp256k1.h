@@ -43,7 +43,7 @@ enum ContextFlag {
 //signature
 -(BOOL)verifySingleSignature:(VcashSignature*)signature pubkey:(NSData*)pubkey nonceSum:(nullable NSData*)nonce_sum pubkeySum:(NSData*)pubkey_sum andMsgData:(NSData*)msg;
 
--(VcashSignature*)calculateSingleSignature:(NSData*)sec_key secNonce:(NSData*)sec_nonce nonceSum:(NSData*)nonce_sum pubkeySum:(NSData*)pubkey_sum andMsgData:(NSData*)msg;
+-(VcashSignature*)calculateSingleSignature:(NSData*)sec_key secNonce:(nullable NSData*)sec_nonce nonceSum:(nullable NSData*)nonce_sum pubkeySum:(NSData*)pubkey_sum andMsgData:(NSData*)msg;
 
 -(NSData*)combinationPubkey:(NSArray*)arr;
 

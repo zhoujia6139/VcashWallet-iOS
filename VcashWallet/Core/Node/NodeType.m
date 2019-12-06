@@ -27,3 +27,7 @@
 @implementation NodeRefreshOutput
 
 @end
+
+@implementation NodeRefreshTokenOutput
+
+@end

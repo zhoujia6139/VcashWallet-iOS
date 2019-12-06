@@ -11,7 +11,8 @@
 #import "VcashWalletInfo.h"
 #import "VcashTxLog.h"
 #import "VcashContext.h"
-
+#import "VcashTokenOutput.h"
+#import "VcashTokenTxLog.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -32,6 +33,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(NSArray*)getActiveOutputData;
 
+-(BOOL)saveTokenOutputData:(NSArray*)arr;
+
+-(NSArray*)getActiveTokenOutputData;
+
 //transaction
 -(BOOL)saveTxDataArr:(NSArray*)arr;
 
@@ -42,6 +47,16 @@ NS_ASSUME_NONNULL_BEGIN
 -(VcashTxLog*)getTxBySlateId:(NSString*)slate_id;
 
 -(NSArray*)getTxData;
+
+-(BOOL)saveTokenTxDataArr:(NSArray*)arr;
+
+-(BOOL)saveTokenTx:(VcashTokenTxLog*)txLog;
+
+- (BOOL)deleteTokenTxBySlateId:(NSString *)slate_id;
+
+-(VcashTokenTxLog*)getTokenTxBySlateId:(NSString*)slate_id;
+
+-(NSArray*)getTokenTxData;
 
 //context
 -(BOOL)saveContext:(VcashContext*)context;

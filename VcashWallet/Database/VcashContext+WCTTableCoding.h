@@ -13,7 +13,8 @@
 @interface VcashContext(WCTTableCoding) <WCTTableCoding>
 
 WCDB_PROPERTY(sec_key)
-WCDB_PROPERTY(curHeight)
+WCDB_PROPERTY(token_sec_key)
+WCDB_PROPERTY(sec_nounce)
 WCDB_PROPERTY(slate_id)
 
 @end

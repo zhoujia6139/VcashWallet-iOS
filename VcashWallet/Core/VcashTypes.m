@@ -69,6 +69,50 @@
 
 @end
 
+@implementation TokenInput
+
+-(NSData*)computePayloadForHash:(BOOL)yesOrNo{
+    NSMutableData* data = [NSMutableData new];
+    uint8_t feature = self.features;
+    [data appendBytes:&feature length:1];
+    [data appendData:BTCDataFromHex(self.token_type)];
+    [data appendData:self.commit];
+    return data;
+}
+
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    self.commit = BTCDataFromHex(dic[@"commit"]);
+    
+    self.token_type = dic[@"token_type"];
+    
+    NSString* fea = dic[@"features"];
+    if ([fea isEqualToString:@"Token"]){
+        self.features = OutputFeatureToken;
+    }
+    else if ([fea isEqualToString:@"TokenIssue"]){
+        self.features = OutputFeatureTokenIssue;
+    }
+    
+    return YES;
+}
+
+- (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
+    dic[@"commit"] = BTCHexFromData(self.commit);
+    
+    dic[@"token_type"] = self.token_type;
+    
+    if (self.features == OutputFeatureToken){
+        dic[@"features"] = @"Token";
+    }
+    else if (self.features == OutputFeatureTokenIssue){
+        dic[@"features"] = @"TokenIssue";
+    }
+    
+    return YES;
+}
+
+@end
+
 @implementation Output
 
 -(NSData*)computePayloadForHash:(BOOL)yesOrNo{
@@ -118,16 +162,78 @@
 
 @end
 
+@implementation TokenOutput
+
+-(NSData*)computePayloadForHash:(BOOL)yesOrNo{
+    NSMutableData* data = [NSMutableData new];
+    uint8_t feature = self.features;
+    [data appendBytes:&feature length:1];
+    [data appendData:BTCDataFromHex(self.token_type)];
+    [data appendData:self.commit];
+    if (!yesOrNo){
+        uint8_t buf[8];
+        OSWriteBigInt64(buf, 0, self.proof.length);
+        [data appendBytes:buf length:8];
+        [data appendData:self.proof];
+    }
+    
+    return data;
+}
+
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    self.commit = BTCDataFromHex(dic[@"commit"]);
+    
+    self.token_type = dic[@"token_type"];
+    
+    self.proof = BTCDataFromHex(dic[@"proof"]);
+    
+    NSString* fea = dic[@"features"];
+    if ([fea isEqualToString:@"Token"]){
+        self.features = OutputFeatureToken;
+    }
+    else if ([fea isEqualToString:@"TokenIssue"]){
+        self.features = OutputFeatureTokenIssue;
+    }
+    
+    return YES;
+}
+
+- (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
+    dic[@"commit"] = BTCHexFromData(self.commit);
+    
+    dic[@"token_type"] = self.token_type;
+    
+    dic[@"proof"] = BTCHexFromData(self.proof);
+    
+    if (self.features == OutputFeatureToken){
+        dic[@"features"] = @"Token";
+    }
+    else if (self.features == OutputFeatureTokenIssue){
+        dic[@"features"] = @"TokenIssue";
+    }
+    
+    return YES;
+}
+
+@end
+
 @implementation TxKernel
 
 -(NSData*)computePayloadForHash:(BOOL)yesOrNo{
     NSMutableData* data = [NSMutableData new];
     uint8_t feature = self.features;
     [data appendBytes:&feature length:1];
-    uint8_t buf[16];
-    OSWriteBigInt64(buf, 0, self.fee);
-    OSWriteBigInt64(buf, 8, self.lock_height);
-    [data appendBytes:buf length:16];
+    if (self.features == KernelFeaturePlain) {
+        uint8_t buf[8];
+        OSWriteBigInt64(buf, 0, self.fee);
+        [data appendBytes:buf length:8];
+    } else if (self.features == KernelFeatureHeightLocked) {
+        uint8_t buf[16];
+        OSWriteBigInt64(buf, 0, self.fee);
+        OSWriteBigInt64(buf, 8, self.lock_height);
+        [data appendBytes:buf length:16];
+    }
+
     [data appendData:self.excess];
     [data appendData:self.excess_sig.sig_data];
     return data;
@@ -139,17 +245,25 @@
     NSData* compactExessSig = BTCDataFromHex(dic[@"excess_sig"]);
     self.excess_sig = [[VcashSignature alloc] initWithCompactData:compactExessSig];
     
-    NSString* fea = dic[@"features"];
-    if ([fea isEqualToString:@"Plain"]){
+    NSDictionary* fea = dic[@"features"];
+    NSDictionary* plain = [fea valueForKey:@"Plain"];
+    if (plain != nil) {
         self.features = KernelFeaturePlain;
-    }
-    else if ([fea isEqualToString:@"Coinbase"]){
-        self.features = KernelFeatureCoinbase;
-    }
-    else if ([fea isEqualToString:@"HeightLocked"]){
-        self.features = KernelFeatureHeightLocked;
+        self.fee = [[plain valueForKey:@"fee"] longLongValue];
     }
     
+    NSDictionary* coinbase = [fea valueForKey:@"Coinbase"];
+    if (coinbase != nil) {
+        self.features = KernelFeatureCoinbase;
+    }
+    
+    NSDictionary* heightlock = [fea valueForKey:@"HeightLocked"];
+    if (heightlock != nil) {
+        self.features = KernelFeatureHeightLocked;
+        self.fee = [[plain valueForKey:@"fee"] longLongValue];
+        self.lock_height = [[plain valueForKey:@"lock_height"] longLongValue];
+    }
+
     return YES;
 }
 
@@ -159,14 +273,27 @@
     dic[@"excess_sig"] = BTCHexFromData([self.excess_sig getCompactData]);
     
     if (self.features == KernelFeaturePlain){
-        dic[@"features"] = @"Plain";
+        NSMutableDictionary* plain = [NSMutableDictionary new];
+        NSMutableDictionary* fee = [NSMutableDictionary new];
+        fee[@"fee"] = [NSNumber numberWithLongLong:self.fee];
+        plain[@"Plain"] = fee;
+        dic[@"features"] = plain;
     }
     else if (self.features == KernelFeatureCoinbase){
         dic[@"features"] = @"Coinbase";
     }
     else if (self.features == KernelFeatureHeightLocked){
-        dic[@"features"] = @"HeightLocked";
+        NSMutableDictionary* heightlock = [NSMutableDictionary new];
+        NSMutableDictionary* innerDic = [NSMutableDictionary new];
+        innerDic[@"fee"] = [NSNumber numberWithLongLong:self.fee];
+        innerDic[@"lock_height"] = [NSNumber numberWithLongLong:self.lock_height];
+        heightlock[@"HeightLocked"] = innerDic;
+        dic[@"features"] = heightlock;
     }
+    
+    [dic removeObjectForKey:@"fee"];
+    [dic removeObjectForKey:@"lock_height"];
+    
     return YES;
 }
 
@@ -256,14 +383,131 @@
 
 @end
 
+@implementation TokenTxKernel
+
+-(NSData*)computePayloadForHash:(BOOL)yesOrNo{
+    NSMutableData* data = [NSMutableData new];
+    uint8_t feature = self.features;
+    [data appendBytes:&feature length:1];
+    if (feature == KernelFeatureHeightLockedToken) {
+        uint8_t buf[8];
+        OSWriteBigInt64(buf, 8, self.lock_height);
+        [data appendBytes:buf length:8];
+    }
+    [data appendData:BTCDataFromHex(self.token_type)];
+    [data appendData:self.excess];
+    [data appendData:self.excess_sig.sig_data];
+    return data;
+}
+
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    self.excess = BTCDataFromHex(dic[@"excess"]);
+    
+    NSData* compactExessSig = BTCDataFromHex(dic[@"excess_sig"]);
+    self.excess_sig = [[VcashSignature alloc] initWithCompactData:compactExessSig];
+    
+    NSString* fea = dic[@"features"];
+    if ([fea isEqualToString:@"PlainToken"]){
+        self.features = KernelFeaturePlainToken;
+    }
+    else if ([fea isEqualToString:@"IssueToken"]){
+        self.features = KernelFeatureIssueToken;
+    }
+    
+    self.token_type = dic[@"token_type"];
+    
+    return YES;
+}
+
+- (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
+    dic[@"excess"] = BTCHexFromData(self.excess);
+    
+    dic[@"excess_sig"] = BTCHexFromData([self.excess_sig getCompactData]);
+    
+    if (self.features == KernelFeaturePlainToken){
+        dic[@"features"] = @"PlainToken";
+    }
+    else if (self.features == KernelFeatureIssueToken){
+        dic[@"features"] = @"IssueToken";
+    }
+    
+    dic[@"token_type"] = self.token_type;
+    
+    [dic removeObjectForKey:@"lock_height"];
+    
+    return YES;
+}
+
+-(NSData*)excess{
+    if (!_excess){
+        uint8_t buf[PEDERSEN_COMMITMENT_SIZE] = {0};
+        _excess = [[NSData alloc] initWithBytes:buf length:PEDERSEN_COMMITMENT_SIZE];
+    }
+    return _excess;
+}
+
+-(VcashSignature*)excess_sig{
+    if (!_excess_sig){
+        _excess_sig = [VcashSignature zeroSignature];
+    }
+    return _excess_sig;
+}
+
+-(void)setLock_height:(uint64_t)lock_height{
+    _lock_height = lock_height;
+    _features = [TokenTxKernel featureWithLockHeight:lock_height];
+}
+
+-(BOOL)verify{
+    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+    
+    NSData* pubkey = [secp commitToPubkey:self.excess];
+    if (pubkey){
+        if ([secp verifySingleSignature:self.excess_sig pubkey:pubkey nonceSum:nil pubkeySum:pubkey andMsgData:[self kernelMsgToSign]]){
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
+-(NSData*)kernelMsgToSign{
+    NSMutableData* data = [NSMutableData new];
+    uint8_t feature = self.features;
+    [data appendBytes:&feature length:1];
+    [data appendData:BTCDataFromHex(self.token_type)];
+    if (self.features == KernelFeatureHeightLockedToken){
+        uint8_t buf[8];
+        OSWriteBigInt64(buf, 1, self.lock_height);
+        [data appendBytes:buf length:8];
+    }
+    
+    uint8_t ret[32];
+    if( blake2b( ret, data.bytes, nil, 32, data.length, 0 ) < 0)
+    {
+        return nil;
+    }
+    
+    return [[NSData alloc] initWithBytes:ret length:32];
+}
+
++(TokenKernelFeatures)featureWithLockHeight:(uint64_t)lock_height{
+    return lock_height>0?KernelFeatureHeightLockedToken:KernelFeaturePlainToken;
+}
+
+@end
+
 @implementation TransactionBody
 
 -(id)init{
     self = [super init];
     if (self){
         _inputs = [NSMutableArray new];
+        _token_inputs = [NSMutableArray new];
         _outputs = [NSMutableArray new];
+        _token_outputs = [NSMutableArray new];
         _kernels = [NSMutableArray new];
+        _token_kernels = [NSMutableArray new];
     }
     return self;
 }
@@ -273,18 +517,28 @@
              @"inputs" : [Input class],
              @"outputs" : [Output class],
              @"kernels" : [TxKernel class],
+             @"token_inputs" : [TokenInput class],
+             @"token_outputs" : [TokenOutput class],
+             @"token_kernels" : [TokenTxKernel class],
              };
 }
 
 -(NSData*)computePayloadForHash:(BOOL)yesOrNo{
     NSMutableData* data = [NSMutableData new];
-    uint8_t buf[24];
+    uint8_t buf[48];
     OSWriteBigInt64(buf, 0, self.inputs.count);
-    OSWriteBigInt64(buf, 8, self.outputs.count);
-    OSWriteBigInt64(buf, 16, self.kernels.count);
-    [data appendBytes:buf length:24];
+    OSWriteBigInt64(buf, 8, self.token_inputs.count);
+    OSWriteBigInt64(buf, 16, self.outputs.count);
+    OSWriteBigInt64(buf, 24, self.token_outputs.count);
+    OSWriteBigInt64(buf, 32, self.kernels.count);
+    OSWriteBigInt64(buf, 40, self.token_kernels.count);
+    [data appendBytes:buf length:48];
     
     for (Input* item in self.inputs){
+        [data appendData:[item computePayloadForHash:yesOrNo]];
+    }
+    
+    for (TokenInput* item in self.token_inputs){
         [data appendData:[item computePayloadForHash:yesOrNo]];
     }
     
@@ -292,7 +546,15 @@
         [data appendData:[item computePayloadForHash:yesOrNo]];
     }
     
+    for (TokenOutput* item in self.token_outputs){
+        [data appendData:[item computePayloadForHash:yesOrNo]];
+    }
+    
     for (TxKernel* item in self.kernels){
+        [data appendData:[item computePayloadForHash:yesOrNo]];
+    }
+    
+    for (TokenTxKernel* item in self.token_kernels){
         [data appendData:[item computePayloadForHash:yesOrNo]];
     }
     
@@ -359,6 +621,34 @@
     return NO;
 }
 
+-(NSData*)calculateTokenFinalExcess{
+    NSMutableArray* negativeCommits = [NSMutableArray new];
+    NSMutableArray* positiveCommits = [NSMutableArray new];
+    for (TokenInput* input in self.body.token_inputs){
+        [negativeCommits addObject:input.commit];
+    }
+    for (TokenOutput* output in self.body.token_outputs){
+        [positiveCommits addObject:output.commit];
+    }
+    
+    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+    NSData* commit = [secp commitSumWithPositiveArr:positiveCommits andNegative:negativeCommits];
+    return commit;
+}
+
+-(BOOL)setTokenTxExcess:(NSData*)excess andTxSig:(VcashSignature*)sig{
+    if (self.body.token_kernels.count == 1){
+        TokenTxKernel* kernel = [self.body.token_kernels objectAtIndex:0];
+        kernel.excess = excess;
+        kernel.excess_sig = sig;
+        if ([kernel verify]){
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
 -(NSData*)computePayloadForHash:(BOOL)yesOrNo{
     NSMutableData* data = [NSMutableData new];
     [data appendData:self.offset];
@@ -388,8 +678,11 @@
         return NSOrderedSame;
     };
     [self.body.inputs sortUsingComparator:sortBlock];
+    [self.body.token_inputs sortUsingComparator:sortBlock];
     [self.body.outputs sortUsingComparator:sortBlock];
+    [self.body.token_outputs sortUsingComparator:sortBlock];
     [self.body.kernels sortUsingComparator:sortBlock];
+    [self.body.token_kernels sortUsingComparator:sortBlock];
 }
 
 @end

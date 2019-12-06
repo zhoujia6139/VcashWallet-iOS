@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class VcashContext, VersionCompatInfo, ParticipantData, VcashTransaction, VcashTxLog, VcashSignature;
+@class VcashContext, VersionCompatInfo, ParticipantData, VcashTransaction, VcashTxLog, VcashTokenTxLog, VcashSignature;
 
 @interface VcashSlate : NSObject
 
@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(assign, nonatomic)uint16_t num_participants;
 
 @property(assign, nonatomic)uint64_t amount;
+
+@property(strong, nonatomic)NSString* token_type;
 
 @property(assign, nonatomic)uint64_t fee;
 
@@ -35,14 +37,22 @@ NS_ASSUME_NONNULL_BEGIN
 //unselialised
 @property(strong, nonatomic)VcashTxLog* txLog;
 
+@property(strong, nonatomic)VcashTokenTxLog* tokenTxLog;
+
 @property(strong, nonatomic)dispatch_block_t lockOutputsFn;
 
+@property(strong, nonatomic)dispatch_block_t lockTokenOutputsFn;
+
 @property(strong, nonatomic)dispatch_block_t createNewOutputsFn;
+
+@property(strong, nonatomic)dispatch_block_t createNewTokenOutputsFn;
 
 @property(strong, nonatomic)VcashContext* context;
 
 //for sender
--(VcashSecretKey*)addTxElement:(NSArray*)outputs change:(uint64_t)change;
+-(VcashSecretKey*)addTxElement:(NSArray*)outputs change:(uint64_t)change isForToken:(BOOL)isForToken;
+
+-(VcashSecretKey*)addTokenTxElement:(NSArray*)token_outputs change:(uint64_t)change;
 
 //for receiver
 -(VcashSecretKey*)addReceiverTxOutput;

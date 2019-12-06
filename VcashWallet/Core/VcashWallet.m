@@ -28,6 +28,7 @@ static VcashWallet* walletInstance = nil;
     VcashKeychainPath* _curKeyPath;
     uint32_t _curTxLogId;
     NSString* _userId;
+    NSArray* _tokenOutputs;
 }
 
 +(void)createWalletWithKeyChain:(VcashKeyChain*)keychain{
@@ -41,6 +42,7 @@ static VcashWallet* walletInstance = nil;
             walletInstance->_curTxLogId = baseInfo.curTxLogId;
         }
         [walletInstance reloadOutputInfo];
+        [walletInstance reloadTokenOutputInfo];
     }
 }
 
@@ -64,6 +66,9 @@ static VcashWallet* walletInstance = nil;
 -(void)setChainOutputs:(NSArray*)arr{
     self->_outputs = arr;
     NSString* maxKeypath = @"";
+    if (self->_curKeyPath){
+        maxKeypath = [self->_curKeyPath pathStr];
+    }
     for (VcashOutput* item in arr){
         if ([item.keyPath compare:maxKeypath options:NSNumericSearch] == NSOrderedDescending){
             maxKeypath = item.keyPath;
@@ -74,10 +79,34 @@ static VcashWallet* walletInstance = nil;
     [self syncOutputInfo];
 }
 
+-(void)setChainTokenOutputs:(NSArray*)arr{
+    self->_tokenOutputs = arr;
+    NSString* maxKeypath = @"";
+    if (self->_curKeyPath){
+        maxKeypath = [self->_curKeyPath pathStr];
+    }
+    for (VcashTokenOutput* item in arr){
+        if ([item.keyPath compare:maxKeypath options:NSNumericSearch] == NSOrderedDescending){
+            maxKeypath = item.keyPath;
+        }
+    }
+    self->_curKeyPath = [[VcashKeychainPath alloc] initWithPathstr:maxKeypath];
+    [self saveBaseInfo];
+    [self syncTokenOutputInfo];
+    [self tokenOutputToDic];
+}
+
 -(void)addNewTxChangeOutput:(VcashOutput*)output{
     NSMutableArray* arr = [[NSMutableArray alloc] initWithArray:self->_outputs];
     [arr addObject:output];
     self->_outputs = arr;
+}
+
+-(void)addNewTokenTxChangeOutput:(VcashTokenOutput*)output{
+    NSMutableArray* arr = [[NSMutableArray alloc] initWithArray:self->_tokenOutputs];
+    [arr addObject:output];
+    self->_tokenOutputs = arr;
+    [self tokenOutputToDic];
 }
 
 -(void)syncOutputInfo{
@@ -94,8 +123,27 @@ static VcashWallet* walletInstance = nil;
     [[VcashDataManager shareInstance] saveOutputData:self.outputs];
 }
 
+-(void)syncTokenOutputInfo{
+    NSMutableArray* tokenOutputs = [NSMutableArray new];
+    for (VcashTokenOutput* item in self->_tokenOutputs){
+        if (item.status == Spent){
+            DDLogWarn(@"Token Output commit:%@ has been spend, remove from wallet", item.commitment);
+        }
+        else{
+            [tokenOutputs addObject:item];
+        }
+    }
+    self->_tokenOutputs = tokenOutputs;
+    [[VcashDataManager shareInstance] saveTokenOutputData:self->_tokenOutputs];
+}
+
 -(void)reloadOutputInfo{
     walletInstance->_outputs = [[VcashDataManager shareInstance] getActiveOutputData];
+}
+
+-(void)reloadTokenOutputInfo{
+    walletInstance->_tokenOutputs = [[VcashDataManager shareInstance] getActiveTokenOutputData];
+    [self tokenOutputToDic];
 }
 
 -(uint64_t)curChainHeight{
@@ -149,7 +197,7 @@ static VcashWallet* walletInstance = nil;
     return info;
 }
 
--(VcashOutput*)identifyUtxoOutput:(NodeOutput*)nodeOutput{
+-(id)identifyUtxoOutput:(NodeOutput*)nodeOutput{
     NSData* commit = BTCDataFromHex(nodeOutput.commit);
     NSData* proof = BTCDataFromHex(nodeOutput.proof);
     VcashProofInfo* info = [self.mKeyChain rewindProof:commit withProof:proof];
@@ -169,22 +217,39 @@ static VcashWallet* walletInstance = nil;
             DDLogError(@"rewindProof suc, but message data is invalid. commit = %@", nodeOutput.commit);
             return nil;
         }
-        VcashOutput* output = [VcashOutput new];
-        output.commitment = nodeOutput.commit;
-        output.keyPath = keyPath.pathStr;
-        output.mmr_index = nodeOutput.mmr_index;
-        output.value = info.value;
-        output.height = nodeOutput.block_height;
-        output.is_coinbase = [nodeOutput.output_type isEqualToString:@"Coinbase"];
-        if (output.is_coinbase){
-            output.lock_height = nodeOutput.block_height + 144;
-        }
-        else{
-            output.lock_height = nodeOutput.block_height;
-        }
-        output.status = Unspent;
         
-        return output;
+        if (nodeOutput.token_type.length > 0){
+            VcashTokenOutput* output = [VcashTokenOutput new];
+            output.token_type = nodeOutput.token_type;
+            output.commitment = nodeOutput.commit;
+            output.keyPath = keyPath.pathStr;
+            output.mmr_index = nodeOutput.mmr_index;
+            output.value = info.value;
+            output.height = nodeOutput.block_height;
+            output.is_token_issue = [nodeOutput.output_type isEqualToString:@"TokenIsuue"];
+            output.lock_height = nodeOutput.block_height;
+            output.status = Unspent;
+            
+            return output;
+        }
+        else {
+            VcashOutput* output = [VcashOutput new];
+            output.commitment = nodeOutput.commit;
+            output.keyPath = keyPath.pathStr;
+            output.mmr_index = nodeOutput.mmr_index;
+            output.value = info.value;
+            output.height = nodeOutput.block_height;
+            output.is_coinbase = [nodeOutput.output_type isEqualToString:@"Coinbase"];
+            if (output.is_coinbase){
+                output.lock_height = nodeOutput.block_height + 144;
+            }
+            else{
+                output.lock_height = nodeOutput.block_height;
+            }
+            output.status = Unspent;
+            
+            return output;
+        }
     }
 
     return nil;
@@ -204,7 +269,7 @@ static VcashWallet* walletInstance = nil;
     // 1.1First attempt to spend without change
     uint64_t actualFee = fee;
     if (fee == 0){
-        actualFee = [self calcuteFee:spendable.count withOutputCount:1];
+        actualFee = [self calcuteFee:spendable.count withOutputCount:1 withKernelCount:1];
     }
     
     uint64_t amount_with_fee = amount + actualFee;
@@ -217,7 +282,7 @@ static VcashWallet* walletInstance = nil;
     
     // 1.2Second attempt to spend with change
     if (total != amount_with_fee) {
-        actualFee = [self calcuteFee:spendable.count withOutputCount:2];
+        actualFee = [self calcuteFee:spendable.count withOutputCount:2 withKernelCount:1];
     }
     amount_with_fee = amount + actualFee;
     if (total < amount_with_fee){
@@ -232,7 +297,7 @@ static VcashWallet* walletInstance = nil;
     slate.num_participants = 2;
     slate.amount = amount;
     slate.height = self.curChainHeight;
-    slate.lock_height = self.curChainHeight;
+    slate.lock_height = 0;
     slate.fee = actualFee;
     
     VcashTxLog* txLog = [VcashTxLog new];
@@ -246,7 +311,7 @@ static VcashWallet* walletInstance = nil;
     txLog.confirm_state = DefaultState;
     slate.txLog = txLog;
     
-    VcashSecretKey* blind = [slate addTxElement:spendable change:change];
+    VcashSecretKey* blind = [slate addTxElement:spendable change:change isForToken:NO];
     if (!blind){
         DDLogError(@"--------sender addTxElement failed");
         block?block(NO, nil):nil;
@@ -269,18 +334,153 @@ static VcashWallet* walletInstance = nil;
     block?block(YES, slate):nil;
 }
 
--(BOOL)receiveTransaction:(VcashSlate*)slate{
-    //5, fill slate with receiver output
-    VcashTxLog* txLog = [VcashTxLog new];
+-(void)sendTokenTransaction:(NSString*)token_type andAmount:(uint64_t)amount withComplete:(RequestCompleteBlock)block{
+    uint64_t total = 0;
+    NSMutableArray* spendable = [NSMutableArray new];
+    NSArray* tokens = self.token_outputs_dic[token_type];
+    for (VcashTokenOutput* item in tokens){
+        if ([item isSpendable]){
+            [spendable addObject:item];
+            total += item.value;
+        }
+    }
+    
+    if (total < amount) {
+        NSString* errMsg = [NSString stringWithFormat:[LanguageService contentForKey:@"insufficientFundsWaring"], @([WalletWrapper nanoToVcash:amount]),@([WalletWrapper nanoToVcash:total])];
+        block?block(NO, errMsg):nil;
+        return;
+    }
+    uint64_t change = total - amount;
+    
+    uint64_t vcash_total = 0;
+    NSMutableArray* vcash_spendable = [NSMutableArray new];
+    for (VcashOutput* item in self.outputs){
+        if ([item isSpendable]){
+            [vcash_spendable addObject:item];
+            vcash_total += item.value;
+        }
+    }
+    
+    //assume spend all vcash input as fee
+    NSUInteger token_output_count = change > 0? 2: 1;
+    uint64_t fee1 = [self calcuteFee:spendable.count+vcash_spendable.count withOutputCount:1+token_output_count withKernelCount:2];
+    if (vcash_total < fee1) {
+        NSString* errMsg = [NSString stringWithFormat:[LanguageService contentForKey:@"insufficientFundsWaring"], @([WalletWrapper nanoToVcash:fee1]),@([WalletWrapper nanoToVcash:vcash_total])];
+        block?block(NO, errMsg):nil;
+        return;
+    }
+    
+    //assume 1 vcash input and 1 vcash output, spend all token input with 1 token chang output
+    uint64_t fee2 = [self calcuteFee:spendable.count+1 withOutputCount:1+token_output_count withKernelCount:2];
+    [vcash_spendable sortUsingComparator:^NSComparisonResult(VcashOutput*  _Nonnull obj1, VcashOutput*  _Nonnull obj2) {
+        if (obj1.value >= obj2.value) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedAscending;
+        }
+    }];
+    
+    VcashOutput* input = nil;
+    for (VcashOutput* item in vcash_spendable){
+        if (item.value >= fee2){
+            input = item;
+            break;
+        }
+    }
+    
+    uint64_t actualFee = 0;
+    uint64_t vcash_input_total = 0;
+    NSArray* vcash_actual_spend = nil;
+    if (input) {
+        vcash_input_total = input.value;
+        actualFee = fee2;
+        vcash_actual_spend = [NSArray arrayWithObject:input];
+    }else {
+        vcash_input_total = vcash_total;
+        actualFee = fee1;
+        vcash_actual_spend = vcash_spendable;
+    }
+    uint64_t vcash_change = vcash_input_total - actualFee;
+    
+
+    //fill tokentxLog and slate
+    VcashSlate* slate = [VcashSlate new];
+    slate.num_participants = 2;
+    slate.token_type = token_type;
+    slate.amount = amount;
+    slate.height = self.curChainHeight;
+    slate.lock_height = 0;
+    slate.fee = actualFee;
+    
+    VcashTokenTxLog* txLog = [VcashTokenTxLog new];
     txLog.tx_id = [[VcashWallet shareInstance] getNextLogId];
     txLog.tx_slate_id = slate.uuid;
-    txLog.tx_type = TxReceived;
+    txLog.tx_type = TxSent;
     txLog.create_time = [[NSDate date] timeIntervalSince1970];
     txLog.fee = slate.fee;
-    txLog.amount_credited = slate.amount;
-    txLog.amount_debited = 0;
+    txLog.amount_credited = vcash_change;
+    txLog.amount_debited = vcash_input_total;
+    txLog.token_amount_credited = change;
+    txLog.token_amount_debited = total;
     txLog.confirm_state = DefaultState;
-    slate.txLog = txLog;
+    slate.tokenTxLog = txLog;
+    
+    VcashSecretKey* blind = [slate addTxElement:vcash_actual_spend change:vcash_change isForToken:YES];
+    if (!blind){
+        DDLogError(@"--------sender addTxElement failed");
+        block?block(NO, nil):nil;
+        return;
+    }
+    
+    VcashSecretKey* token_blind = [slate addTokenTxElement:spendable change:change];
+    if (!blind){
+        DDLogError(@"--------sender addTokenTxElement failed");
+        block?block(NO, nil):nil;
+        return;
+    }
+    
+    //3 construct sender Context
+    VcashContext* context = [[VcashContext alloc] init];
+    context.sec_key = blind;
+    context.token_sec_key = token_blind;
+    context.slate_id = slate.uuid;
+    slate.context = context;
+    
+    //4 sender fill round 1
+    if (![slate fillRound1:context participantId:0 andMessage:nil]){
+        DDLogError(@"--------sender fillRound1 failed");
+        block?block(NO, nil):nil;
+        return;
+    }
+    
+    block?block(YES, slate):nil;
+}
+
+-(BOOL)receiveTransaction:(VcashSlate*)slate{
+    //5, fill slate with receiver output
+    if (slate.token_type) {
+        VcashTokenTxLog* txLog = [VcashTokenTxLog new];
+        txLog.tx_id = [[VcashWallet shareInstance] getNextLogId];
+        txLog.tx_slate_id = slate.uuid;
+        txLog.tx_type = TokenTxReceived;
+        txLog.create_time = [[NSDate date] timeIntervalSince1970];
+        txLog.token_type = slate.token_type;
+        txLog.token_amount_credited = slate.amount;
+        txLog.amount_debited = 0;
+        txLog.confirm_state = DefaultState;
+        slate.tokenTxLog = txLog;
+    } else {
+        VcashTxLog* txLog = [VcashTxLog new];
+        txLog.tx_id = [[VcashWallet shareInstance] getNextLogId];
+        txLog.tx_slate_id = slate.uuid;
+        txLog.tx_type = TxReceived;
+        txLog.create_time = [[NSDate date] timeIntervalSince1970];
+        txLog.fee = slate.fee;
+        txLog.amount_credited = slate.amount;
+        txLog.amount_debited = 0;
+        txLog.confirm_state = DefaultState;
+        slate.txLog = txLog;
+    }
     
     VcashSecretKey* blind = [slate addReceiverTxOutput];
     if (!blind){
@@ -290,7 +490,11 @@ static VcashWallet* walletInstance = nil;
     
     //6, construct receiver Context
     VcashContext* context = [[VcashContext alloc] init];
-    context.sec_key = blind;
+    if (slate.token_type) {
+        context.token_sec_key = blind;
+    } else {
+        context.sec_key = blind;
+    }
     context.slate_id = slate.uuid;
     slate.context = context;
     
@@ -352,9 +556,22 @@ static VcashWallet* walletInstance = nil;
     return _curTxLogId;
 }
 
+-(void)tokenOutputToDic{
+    NSMutableDictionary* dic = [NSMutableDictionary new];
+    for (VcashTokenOutput* item in self->_tokenOutputs){
+        NSMutableArray* arr = [dic objectForKey:item.token_type];
+        if (arr == nil){
+            arr = [NSMutableArray new];
+            [dic setObject:arr forKey:item.token_type];
+        }
+        [arr addObject:item];
+    }
+    self->_token_outputs_dic = dic;
+}
+
 #pragma private
--(uint64_t)calcuteFee:(NSInteger)inputCount withOutputCount:(NSInteger)outputCount{
-    NSInteger tx_weight = outputCount * 4 + 1 - inputCount;
+-(uint64_t)calcuteFee:(NSInteger)inputCount withOutputCount:(NSInteger)outputCount withKernelCount:(NSInteger)kernelCount{
+    NSInteger tx_weight = outputCount * 4 + kernelCount*1 - inputCount;
     tx_weight = (tx_weight>1?tx_weight:1);
     
     return DEFAULT_BASE_FEE*tx_weight;

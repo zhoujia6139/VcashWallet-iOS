@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define kWalletChainHeightChange @"kWalletChainHeightChange"
 
-@class WalletBalanceInfo,VcashOutput;
+@class WalletBalanceInfo,VcashOutput,VcashTokenOutput;
 
 @interface VcashWallet : NSObject
 
@@ -31,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic, readonly)uint64_t curChainHeight;
 
 @property(strong, nonatomic, readonly)NSArray<VcashOutput*>* outputs;
+
+@property(strong, nonatomic, readonly)NSDictionary<NSString*, NSArray<VcashTokenOutput*>*>* token_outputs_dic;
 
 @property(strong, nonatomic, readonly)NSString* userId;
 
@@ -45,9 +47,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)reloadOutputInfo;
 
--(VcashOutput*)identifyUtxoOutput:(NodeOutput*)nodeOutput;
+//only call after recover
+-(void)setChainTokenOutputs:(NSArray*)arr;
+
+-(void)addNewTokenTxChangeOutput:(VcashTokenOutput*)output;
+
+-(void)syncTokenOutputInfo;
+
+-(void)reloadTokenOutputInfo;
+
+-(id)identifyUtxoOutput:(NodeOutput*)nodeOutput;
 
 -(void)sendTransaction:(uint64_t)amount andFee:(uint64_t)fee withComplete:(RequestCompleteBlock)block;
+
+-(void)sendTokenTransaction:(NSString*)token_type andAmount:(uint64_t)amount withComplete:(RequestCompleteBlock)block;
 
 -(BOOL)receiveTransaction:(VcashSlate*)slate;
 

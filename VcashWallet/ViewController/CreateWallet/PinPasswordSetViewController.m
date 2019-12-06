@@ -226,6 +226,7 @@
             }
             
         }];
+        [WalletWrapper checkWalletTokenUtxoWithComplete:nil];
         return;
     }
     [[UserCenter sharedInstance] writeRecoverStatusWithFailed:NO];

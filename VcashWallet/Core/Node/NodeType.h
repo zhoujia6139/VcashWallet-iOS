@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(strong, nonatomic) NSString* output_type;
 
+@property(strong, nonatomic) NSString* token_type;
+
 @property(strong, nonatomic) NSString* commit;
 
 @property(assign, nonatomic) bool spent;
@@ -58,6 +60,19 @@ NS_ASSUME_NONNULL_BEGIN
 @property(assign, nonatomic) uint64_t height;
 
 @property(strong, nonatomic) NSString* commit;
+
+@property(assign, nonatomic) uint64_t mmr_index;
+
+
+@end
+
+@interface NodeRefreshTokenOutput : NSObject
+
+@property(assign, nonatomic) uint64_t height;
+
+@property(strong, nonatomic) NSString* commit;
+
+@property(strong, nonatomic) NSString* token_type;
 
 @property(assign, nonatomic) uint64_t mmr_index;
 

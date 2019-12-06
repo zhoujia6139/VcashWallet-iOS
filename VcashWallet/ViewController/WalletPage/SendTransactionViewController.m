@@ -202,7 +202,8 @@
     }
     if (self.targetAddressTextView.text && amount > 0)
     {
-        [WalletWrapper createSendTransaction:[WalletWrapper vcashToNano:amount] fee:0 withComplete:^(BOOL yesOrNo, id retData) {
+        //[WalletWrapper createSendTransaction:[WalletWrapper vcashToNano:amount] fee:0 withComplete:^(BOOL yesOrNo, id retData) {
+        [WalletWrapper createSendTokenTransaction:@"6d0f34348416eacc2402c6dc0bc1330460e09c3b748d7c7bd0bb053d4afaa7b1" andAmount:[WalletWrapper vcashToNano:amount] withComplete:^(BOOL yesOrNo, id retData) {
             if (yesOrNo){
                 VcashSlate* slate = (VcashSlate*)retData;
                 TransactionDetailView *txDetailView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([TransactionDetailView class]) owner:nil options:nil] firstObject];
@@ -282,9 +283,9 @@
     [WalletWrapper sendTransaction:slate forUrl:url withComplete:^(BOOL yesOrNo, id _Nullable data) {
         if (yesOrNo) {
             [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:[LanguageService contentForKey:@"sendSuc"]];
-            VcashTxLog *txLog =  [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
-            txLog.confirm_state = LoalConfirmed;
-            [self pushTranscactionDetailVcWith:txLog];
+//            VcashTxLog *txLog =  [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
+//            txLog.confirm_state = LoalConfirmed;
+//            [self pushTranscactionDetailVcWith:txLog];
         }else{
             [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:[LanguageService contentForKey:@"sendFailed"]];
         }

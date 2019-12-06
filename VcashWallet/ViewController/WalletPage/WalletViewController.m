@@ -98,6 +98,7 @@ static NSString *const identifier = @"WalletCell";
         [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
             [self refreshMainView];
         }];
+        [WalletWrapper updateTokenOutputStatusWithComplete:nil];
     }else{
         first = NO;
     }
@@ -189,6 +190,7 @@ static NSString *const identifier = @"WalletCell";
             [strongSelf.tableViewContainer.mj_header endRefreshing];
             [strongSelf refreshMainView];
         }];
+        [WalletWrapper updateTokenOutputStatusWithComplete:nil];
     }];
 }
 

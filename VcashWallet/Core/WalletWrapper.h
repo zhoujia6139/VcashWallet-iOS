@@ -34,8 +34,12 @@
 //check wallet utxo
 +(void)checkWalletUtxoWithComplete:(RequestCompleteBlock)block;
 
++(void)checkWalletTokenUtxoWithComplete:(RequestCompleteBlock)block;
+
 //TODO support multi receiver
 +(void)createSendTransaction:(uint64_t)amount fee:(uint64_t)fee withComplete:(RequestCompleteBlock)block;
+
++(void)createSendTokenTransaction:(NSString*)tokenType andAmount:(uint64_t)amount withComplete:(RequestCompleteBlock)block;
 
 //send Transaction
 +(void)sendTransaction:(VcashSlate*)slate forUser:(NSString*)user withComplete:(RequestCompleteBlock)block;
@@ -70,6 +74,17 @@
 +(NSArray*)getFileReceiveTxArr;
 
 +(void)updateOutputStatusWithComplete:(RequestCompleteBlock)block;
+
+//refresh token Transaction
++(NSArray*)getTokenTransationArr;
+
++(VcashTokenTxLog*)getTokenTxByTxid:(NSString*)txid;
+
++(Boolean)deleteTokenTxByTxid:(NSString*)txid;
+
++(NSArray*)getFileReceiveTokenTxArr;
+
++(void)updateTokenOutputStatusWithComplete:(RequestCompleteBlock)block;
 
 +(double)nanoToVcash:(int64_t)nano;
 
