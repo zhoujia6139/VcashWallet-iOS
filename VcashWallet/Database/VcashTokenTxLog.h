@@ -24,25 +24,9 @@ typedef enum  {
     TokenTxSentCancelled,
 }TokenTxLogEntryType;
 
-@interface VcashTokenTxLog : NSObject
-
-@property(assign, nonatomic)uint32_t tx_id;
-
-@property(strong, nonatomic)NSString* tx_slate_id;
-
-@property(strong, nonatomic)NSString* parter_id;
+@interface VcashTokenTxLog : BaseVcashTxLog
 
 @property(assign, nonatomic)TokenTxLogEntryType tx_type;
-
-@property(assign, nonatomic)uint64_t create_time;
-
-@property(assign, nonatomic)uint64_t confirm_time;
-
-@property(assign, nonatomic)uint64_t confirm_height;
-
-@property(assign, nonatomic)TxLogConfirmType confirm_state;
-
-@property(assign, nonatomic)ServerTxStatus status;
 
 @property(strong, nonatomic)NSString* token_type;
 
@@ -73,10 +57,6 @@ typedef enum  {
 -(void)appendTokenInput:(NSString*)commitment;
 
 -(void)appendTokenOutput:(NSString*)commitment;
-
--(BOOL)isCanBeCanneled;
-
--(void)cancelTxlog;
 
 @end
 

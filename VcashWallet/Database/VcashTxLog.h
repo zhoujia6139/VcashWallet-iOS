@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ServerType.h"
+#import "BaseVcashTxLog.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,34 +25,10 @@ typedef enum  {
     TxSentCancelled,
 }TxLogEntryType;
 
-typedef enum {
-    /// local tx state
-    DefaultState = 0,
-    /// tx has benn post, but not confirm by node
-    LoalConfirmed,
-    /// confirm by node
-    NetConfirmed,
-}TxLogConfirmType;
 
-@interface VcashTxLog : NSObject
-
-@property(assign, nonatomic)uint32_t tx_id;
-
-@property(strong, nonatomic)NSString* tx_slate_id;
-
-@property(strong, nonatomic)NSString* parter_id;
+@interface VcashTxLog : BaseVcashTxLog
 
 @property(assign, nonatomic)TxLogEntryType tx_type;
-
-@property(assign, nonatomic)uint64_t create_time;
-
-@property(assign, nonatomic)uint64_t confirm_time;
-
-@property(assign, nonatomic)uint64_t confirm_height;
-
-@property(assign, nonatomic)TxLogConfirmType confirm_state;
-
-@property(assign, nonatomic)ServerTxStatus status;
 
 @property(assign, nonatomic)uint64_t amount_credited;
 
@@ -68,10 +45,6 @@ typedef enum {
 -(void)appendInput:(NSString*)commitment;
 
 -(void)appendOutput:(NSString*)commitment;
-
--(BOOL)isCanBeCanneled;
-
--(void)cancelTxlog;
 
 @end
 

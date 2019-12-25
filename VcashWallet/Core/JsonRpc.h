@@ -34,8 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(strong, nonatomic)NSDictionary* error;
 
-- (id) initWithParam:(NSString*)param;
-
 @end
 
 NS_ASSUME_NONNULL_END

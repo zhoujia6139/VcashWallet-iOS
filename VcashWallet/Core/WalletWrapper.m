@@ -298,7 +298,7 @@
         }
     } else {
         slate.tokenTxLog.status = TxDefaultStatus;
-        int ret = [[VcashDataManager shareInstance] saveTokenTx:slate.tokenTxLog];
+        int ret = [[VcashDataManager shareInstance] saveTx:slate.tokenTxLog];
         if (!ret){
             block?block(NO, @"Db error:saveTokenTx failed"):nil;
             return;
@@ -327,14 +327,8 @@
         return;
     }
     
-    VcashTxLog* txLog = [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
+    BaseVcashTxLog* txLog = [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
     if (txLog){
-        block?block(NO, @"Duplicate Tx"):nil;
-        return;
-    }
-    
-    VcashTokenTxLog* tokenTxLog = [[VcashDataManager shareInstance] getTokenTxBySlateId:slate.uuid];
-    if (tokenTxLog){
         block?block(NO, @"Duplicate Tx"):nil;
         return;
     }
@@ -349,18 +343,10 @@
         return;
     }
     
-    if (slate.token_type) {
-        VcashTokenTxLog* txLog = [[VcashDataManager shareInstance] getTokenTxBySlateId:slate.uuid];
-        if (!txLog){
-            block?block(NO, @"Tx missed"):nil;
-            return;
-        }
-    } else {
-        VcashTxLog* txLog = [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
-        if (!txLog){
-            block?block(NO, @"Tx missed"):nil;
-            return;
-        }
+    BaseVcashTxLog* txLog = [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
+    if (!txLog){
+        block?block(NO, @"Tx missed"):nil;
+        return;
     }
     
     block?block(YES, slate):nil;
@@ -415,7 +401,7 @@
         slate.tokenTxLog.parter_id = serverTx.sender_id;
         slate.tokenTxLog.status = TxReceiverd;
         slate.tokenTxLog.signed_slate_msg = slateStr;
-        ret = [[VcashDataManager shareInstance] saveTokenTx:slate.tokenTxLog];
+        ret = [[VcashDataManager shareInstance] saveTx:slate.tokenTxLog];
         if (!ret){
             rollbackBlock();
             DDLogError(@"VcashDataManager saveTokenTx failed");
@@ -504,26 +490,14 @@
     [[NodeApi shareInstance] postTx:BTCHexFromData(txPayload) WithComplete:^(BOOL yesOrNo, id _Nullable data) {
         if (yesOrNo){
             block?block(YES, nil):nil;
-            if (slate.token_type) {
-                VcashTokenTxLog *txLog = [[VcashDataManager shareInstance] getTokenTxBySlateId:slate.uuid];
-                if (txLog){
-                    txLog.confirm_state = LoalConfirmed;
-                    txLog.status = TxFinalized;
-                    [[VcashDataManager shareInstance] saveTokenTx:txLog];
-                }
-                else{
-                    DDLogError(@"impossible things happened!can not find tx:%@", slate.uuid);
-                }
-            } else {
-                VcashTxLog *txLog = [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
-                if (txLog){
-                    txLog.confirm_state = LoalConfirmed;
-                    txLog.status = TxFinalized;
-                    [[VcashDataManager shareInstance] saveTx:txLog];
-                }
-                else{
-                    DDLogError(@"impossible things happened!can not find tx:%@", slate.uuid);
-                }
+            BaseVcashTxLog *txLog = [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
+            if (txLog){
+                txLog.confirm_state = LoalConfirmed;
+                txLog.status = TxFinalized;
+                [[VcashDataManager shareInstance] saveTx:txLog];
+            }
+            else{
+                DDLogError(@"impossible things happened!can not find tx:%@", slate.uuid);
             }
         }
         else{
@@ -535,7 +509,7 @@
 }
 
 +(BOOL)cancelTransaction:(NSString*)tx_id{
-    VcashTxLog *txLog =  [self getTxByTxid:tx_id];
+    BaseVcashTxLog *txLog =  [self getTxByTxid:tx_id];
     if ([txLog isCanBeCanneled] || txLog == nil){
         [txLog cancelTxlog];
         [[VcashDataManager shareInstance] saveTx:txLog];
@@ -562,12 +536,8 @@
     return [[VcashDataManager shareInstance] getTokenTxData];
 }
 
-+(VcashTxLog*)getTxByTxid:(NSString*)txid{
++(BaseVcashTxLog*)getTxByTxid:(NSString*)txid{
     return [[VcashDataManager shareInstance] getTxBySlateId:txid];
-}
-
-+(VcashTokenTxLog*)getTokenTxByTxid:(NSString*)txid{
-    return [[VcashDataManager shareInstance] getTokenTxBySlateId:txid];
 }
 
 +(Boolean)deleteTxByTxid:(NSString*)txid{
@@ -699,6 +669,7 @@
 +(void)updateTokenOutputStatusForToken:(NSString*)token_type WithComplete:(RequestCompleteBlock)block{
     if (token_type == nil) {
         block?block(YES, nil):nil;
+        return;
     }
 
     [self implUpdateTokenOutputStatusForToken:token_type WithComplete:^(BOOL yesOrNo, id data) {
@@ -794,7 +765,7 @@
                                     NSArray* apiOutputs = data;
                                     NodeRefreshOutput* output = apiOutputs.firstObject;
                                     tx.confirm_height = output.height;
-                                    [[VcashDataManager shareInstance] saveTokenTx:tx];
+                                    [[VcashDataManager shareInstance] saveTx:tx];
                                 }
                             }];
                         }
@@ -805,6 +776,7 @@
             }
             if (hasChange){
                 [[VcashDataManager shareInstance] saveTokenTxDataArr:txs];
+                [[VcashWallet shareInstance] syncOutputInfo];
                 [[VcashWallet shareInstance] syncTokenOutputInfo];
             }
         }

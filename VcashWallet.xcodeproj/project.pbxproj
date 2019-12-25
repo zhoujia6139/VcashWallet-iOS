@@ -200,6 +200,7 @@
 		A2E5602122A8DBE7002E8E2D /* leftmenu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2E5601F22A8DBE6002E8E2D /* leftmenu@3x.png */; };
 		ED24988F2280298D00D94EBE /* ServerApi.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24988E2280298D00D94EBE /* ServerApi.m */; };
 		ED24989222802B9E00D94EBE /* ServerType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24989122802B9E00D94EBE /* ServerType.m */; };
+		ED2F935523B34AC20047BF72 /* BaseVcashTxLog.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2F935423B34AC20047BF72 /* BaseVcashTxLog.m */; };
 		ED348FFC239126A700EC8378 /* VcashTokenOutput.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED348FF9239126A700EC8378 /* VcashTokenOutput.mm */; };
 		ED349000239126CF00EC8378 /* VcashTokenTxLog.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED348FFE239126CF00EC8378 /* VcashTokenTxLog.mm */; };
 		ED3C7551226EC30A00B42555 /* VcashDataManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7550226EC30A00B42555 /* VcashDataManager.mm */; };
@@ -553,6 +554,8 @@
 		ED24988E2280298D00D94EBE /* ServerApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerApi.m; sourceTree = "<group>"; };
 		ED24989022802B9E00D94EBE /* ServerType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerType.h; sourceTree = "<group>"; };
 		ED24989122802B9E00D94EBE /* ServerType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerType.m; sourceTree = "<group>"; };
+		ED2F935323B34AC20047BF72 /* BaseVcashTxLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseVcashTxLog.h; sourceTree = "<group>"; };
+		ED2F935423B34AC20047BF72 /* BaseVcashTxLog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseVcashTxLog.m; sourceTree = "<group>"; };
 		ED348FF9239126A700EC8378 /* VcashTokenOutput.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VcashTokenOutput.mm; sourceTree = "<group>"; };
 		ED348FFA239126A700EC8378 /* VcashTokenOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VcashTokenOutput.h; sourceTree = "<group>"; };
 		ED348FFB239126A700EC8378 /* VcashTokenOutput+WCTTableCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VcashTokenOutput+WCTTableCoding.h"; sourceTree = "<group>"; };
@@ -1184,6 +1187,8 @@
 				ED3C7561226F112500B42555 /* VcashContext.h */,
 				ED3C7562226F112500B42555 /* VcashContext.mm */,
 				ED41678E22769E78000B5DC8 /* VcashContext+WCTTableCoding.h */,
+				ED2F935323B34AC20047BF72 /* BaseVcashTxLog.h */,
+				ED2F935423B34AC20047BF72 /* BaseVcashTxLog.m */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -1813,6 +1818,7 @@
 				ED44BFB322696CF50042928E /* BTCData+Tests.m in Sources */,
 				A26FEBC8229F7DE0003CCD7C /* ScanViewController.m in Sources */,
 				ED44BFB522696CF50042928E /* BTCErrors.m in Sources */,
+				ED2F935523B34AC20047BF72 /* BaseVcashTxLog.m in Sources */,
 				ED44BFFC226AFE160042928E /* VcashWallet.m in Sources */,
 				A274F1E822D83277004CF0C8 /* AddAddressBookViewController.m in Sources */,
 				ED348FFC239126A700EC8378 /* VcashTokenOutput.mm in Sources */,

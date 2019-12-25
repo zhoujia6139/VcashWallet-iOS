@@ -67,7 +67,7 @@
 //refresh Transaction
 +(NSArray*)getTransationArr;
 
-+(VcashTxLog*)getTxByTxid:(NSString*)txid;
++(BaseVcashTxLog*)getTxByTxid:(NSString*)txid;
 
 +(Boolean)deleteTxByTxid:(NSString*)txid;
 
@@ -77,8 +77,6 @@
 
 //refresh token Transaction
 +(NSArray*)getTokenTransationArr;
-
-+(VcashTokenTxLog*)getTokenTxByTxid:(NSString*)txid;
 
 +(Boolean)deleteTokenTxByTxid:(NSString*)txid;
 

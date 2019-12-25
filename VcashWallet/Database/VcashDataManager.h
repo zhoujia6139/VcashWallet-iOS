@@ -40,21 +40,17 @@ NS_ASSUME_NONNULL_BEGIN
 //transaction
 -(BOOL)saveTxDataArr:(NSArray*)arr;
 
--(BOOL)saveTx:(VcashTxLog*)txLog;
+-(BOOL)saveTx:(BaseVcashTxLog*)txLog;
 
 - (BOOL)deleteTxBySlateId:(NSString *)slate_id;
 
--(VcashTxLog*)getTxBySlateId:(NSString*)slate_id;
+-(BaseVcashTxLog*)getTxBySlateId:(NSString*)slate_id;
 
 -(NSArray*)getTxData;
 
 -(BOOL)saveTokenTxDataArr:(NSArray*)arr;
 
--(BOOL)saveTokenTx:(VcashTokenTxLog*)txLog;
-
 - (BOOL)deleteTokenTxBySlateId:(NSString *)slate_id;
-
--(VcashTokenTxLog*)getTokenTxBySlateId:(NSString*)slate_id;
 
 -(NSArray*)getTokenTxData;
 

@@ -288,7 +288,6 @@
 
 #pragma private
 -(VcashSecretKey*)createTxOutputWithAmount:(uint64_t)amount isForToken:(BOOL)isForToken{
-    VcashTransaction* temptx = self.tx;
     VcashKeychainPath* keypath = [[VcashWallet shareInstance] nextChild];
     NSData*commitment = [[VcashWallet shareInstance].mKeyChain createCommitment:amount andKeypath:keypath andSwitchType:SwitchCommitmentTypeRegular];
     NSData*proof = [[VcashWallet shareInstance].mKeyChain createRangeProof:amount withKeyPath:keypath];
@@ -297,7 +296,7 @@
     output.commit = commitment;
     output.proof = proof;
     
-    [temptx.body.outputs addObject:output];
+    [self.tx.body.outputs addObject:output];
     VcashSecretKey* secKey = [[VcashWallet shareInstance].mKeyChain deriveKey:amount andKeypath:keypath andSwitchType:SwitchCommitmentTypeRegular];
     
     __weak typeof (self) weak_self = self;
@@ -326,7 +325,6 @@
 }
 
 -(VcashSecretKey*)createTxTokenOutput:(NSString*)tokenType withAmount:(uint64_t)amount{
-    VcashTransaction* temptx = self.tx;
     VcashKeychainPath* keypath = [[VcashWallet shareInstance] nextChild];
     NSData*commitment = [[VcashWallet shareInstance].mKeyChain createCommitment:amount andKeypath:keypath andSwitchType:SwitchCommitmentTypeRegular];
     NSData*proof = [[VcashWallet shareInstance].mKeyChain createRangeProof:amount withKeyPath:keypath];
@@ -336,7 +334,7 @@
     output.commit = commitment;
     output.proof = proof;
     
-    [temptx.body.token_outputs addObject:output];
+    [self.tx.body.token_outputs addObject:output];
     VcashSecretKey* secKey = [[VcashWallet shareInstance].mKeyChain deriveKey:amount andKeypath:keypath andSwitchType:SwitchCommitmentTypeRegular];
     
     __weak typeof (self) weak_self = self;

@@ -169,19 +169,32 @@
     return YES;
 }
 
--(BOOL)saveTx:(VcashTxLog*)txLog{
+-(BOOL)saveTx:(BaseVcashTxLog*)txLog{
     if (!txLog){
         return YES;
     }
     
-    NSString *className = NSStringFromClass(VcashTxLog.class);
-    NSString *tableName = className;
-    BOOL ret = [self.database insertOrReplaceObject:txLog into:tableName];
-    if (!ret)
-    {
-        DDLogError(@"----------db error, saveTx fail");
-        return NO;
+    if ([txLog isMemberOfClass:VcashTxLog.class]){
+        NSString *className = NSStringFromClass(VcashTxLog.class);
+        NSString *tableName = className;
+        BOOL ret = [self.database insertOrReplaceObject:(VcashTxLog*)txLog into:tableName];
+        if (!ret)
+        {
+            DDLogError(@"----------db error, saveTx fail");
+            return NO;
+        }
+    } else if ([txLog isMemberOfClass:VcashTokenTxLog.class]) {
+        NSString *className = NSStringFromClass(VcashTokenTxLog.class);
+        NSString *tableName = className;
+        BOOL ret = [self.database insertOrReplaceObject:(VcashTokenTxLog*)txLog into:tableName];
+        if (!ret)
+        {
+            DDLogError(@"----------db error, saveTokenTx fail");
+            return NO;
+        }
     }
+    
+
 //    [[NSNotificationCenter defaultCenter] postNotificationName:kTxLogDataChanged object:nil];
     return YES;
 }
@@ -198,12 +211,19 @@
     return YES;
 }
 
--(VcashTxLog*)getTxBySlateId:(NSString*)slate_id{
+-(BaseVcashTxLog*)getTxBySlateId:(NSString*)slate_id{
     NSString *className = NSStringFromClass(VcashTxLog.class);
     NSString *tableName = className;
     NSArray<VcashTxLog *> *objects = [self.database getObjectsOfClass:VcashTxLog.class fromTable:tableName where:VcashTxLog.tx_slate_id == slate_id];
-
-    return objects.firstObject;
+    if (objects.firstObject) {
+        return objects.firstObject;
+    }
+    
+    className = NSStringFromClass(VcashTokenTxLog.class);
+    tableName = className;
+    NSArray<VcashTokenTxLog *> *tokenObjects = [self.database getObjectsOfClass:VcashTokenTxLog.class fromTable:tableName where:VcashTokenTxLog.tx_slate_id == slate_id];
+    
+    return tokenObjects.firstObject;
 }
 
 -(VcashTxLog*)getActiveTxByTxId:(uint32_t)tx_id{
@@ -239,23 +259,6 @@
     return YES;
 }
 
--(BOOL)saveTokenTx:(VcashTokenTxLog*)txLog{
-    if (!txLog){
-        return YES;
-    }
-    
-    NSString *className = NSStringFromClass(VcashTokenTxLog.class);
-    NSString *tableName = className;
-    BOOL ret = [self.database insertOrReplaceObject:txLog into:tableName];
-    if (!ret)
-    {
-        DDLogError(@"----------db error, saveTokenTx fail");
-        return NO;
-    }
-    //    [[NSNotificationCenter defaultCenter] postNotificationName:kTxLogDataChanged object:nil];
-    return YES;
-}
-
 - (BOOL)deleteTokenTxBySlateId:(NSString *)slate_id{
     NSString *className = NSStringFromClass(VcashTokenTxLog.class);
     NSString *tableName = className;
@@ -266,14 +269,6 @@
         return NO;
     }
     return YES;
-}
-
--(VcashTokenTxLog*)getTokenTxBySlateId:(NSString*)slate_id{
-    NSString *className = NSStringFromClass(VcashTokenTxLog.class);
-    NSString *tableName = className;
-    NSArray<VcashTokenTxLog *> *objects = [self.database getObjectsOfClass:VcashTokenTxLog.class fromTable:tableName where:VcashTokenTxLog.tx_slate_id == slate_id];
-    
-    return objects.firstObject;
 }
 
 -(VcashTokenTxLog*)getActiveTokenTxByTxId:(uint32_t)tx_id{

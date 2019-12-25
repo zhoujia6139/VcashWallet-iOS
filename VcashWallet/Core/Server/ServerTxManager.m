@@ -66,7 +66,7 @@
                 for (ServerTransaction* item in txs){
                     item.slateObj = [VcashSlate modelWithJSON:item.slate];
                     if (item && item.slateObj){
-                        VcashTxLog *txLog = [[VcashDataManager shareInstance] getTxBySlateId:item.slateObj.uuid];
+                        BaseVcashTxLog *txLog = [[VcashDataManager shareInstance] getTxBySlateId:item.slateObj.uuid];
                         
                         //check as receiver
                         if ([item.receiver_id isEqualToString:[VcashWallet shareInstance].userId]){
