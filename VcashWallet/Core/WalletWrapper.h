@@ -11,6 +11,7 @@
 #import "VcashTypes.h"
 #import "VcashDataManager.h"
 #import "VcashWallet.h"
+#import "VcashTokenInfo.h"
 
 @interface WalletWrapper : NSObject
 
@@ -29,6 +30,10 @@
 
 +(WalletBalanceInfo*)getWalletBalanceInfo;
 
++(NSArray*)getBalancedToken;
+
++(WalletBalanceInfo*)getWalletTokenBalanceInfo:(NSString*)tokenType;
+
 +(uint64_t)getCurChainHeight;
 
 //check wallet utxo
@@ -37,9 +42,7 @@
 +(void)checkWalletTokenUtxoWithComplete:(RequestCompleteBlock)block;
 
 //TODO support multi receiver
-+(void)createSendTransaction:(uint64_t)amount fee:(uint64_t)fee withComplete:(RequestCompleteBlock)block;
-
-+(void)createSendTokenTransaction:(NSString*)tokenType andAmount:(uint64_t)amount withComplete:(RequestCompleteBlock)block;
++(void)createSendTransaction:(NSString*)tokenType andAmount:(uint64_t)amount withComplete:(RequestCompleteBlock)block;
 
 //send Transaction
 +(void)sendTransaction:(VcashSlate*)slate forUser:(NSString*)user withComplete:(RequestCompleteBlock)block;
@@ -76,13 +79,25 @@
 +(void)updateOutputStatusWithComplete:(RequestCompleteBlock)block;
 
 //refresh token Transaction
-+(NSArray*)getTokenTransationArr;
++(NSArray*)getTokenTxArr:(NSString*)tokenType;
 
 +(Boolean)deleteTokenTxByTxid:(NSString*)txid;
 
-+(NSArray*)getFileReceiveTokenTxArr;
++(NSArray*)getFileReceiveTokenTxArr:(NSString*)tokenType;
 
 +(void)updateTokenOutputStatusWithComplete:(RequestCompleteBlock)block;
+
++(void)initTokenInfos;
+
++(NSArray*)getAllTokens;
+
++(VcashTokenInfo*)getTokenInfo:(NSString*)tokenId;
+
++(NSArray*)getAddedTokens;
+
++(void)addAddedToken:(NSString*)tokenType;
+
++(void)deleteAddedToken:(NSString*)tokenType;
 
 +(double)nanoToVcash:(int64_t)nano;
 

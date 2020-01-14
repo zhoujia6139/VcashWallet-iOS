@@ -38,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(WalletBalanceInfo*)getWalletBalanceInfo;
 
+-(WalletBalanceInfo*)getWalletTokenBalanceInfo:(NSString*)tokenType;
+
 //only call after recover
 -(void)setChainOutputs:(NSArray*)arr;
 

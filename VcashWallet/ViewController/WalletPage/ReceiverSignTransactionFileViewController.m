@@ -166,9 +166,20 @@
                 break;
             case 1:{
                 title = [LanguageService contentForKey:@"txAmount"];
-                uint64_t amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited);
+                uint64_t amount = 0;
+                NSString* tokenName = nil;
+                if ([self.txLog isKindOfClass:[VcashTxLog class]]) {
+                    VcashTxLog* log = (VcashTxLog* )self.txLog;
+                    tokenName = @"VCash";
+                    amount = llabs((int64_t)log.amount_credited - (int64_t)log.amount_debited);
+                } else if ([self.txLog isKindOfClass:[VcashTokenTxLog class]]) {
+                    VcashTokenTxLog* log = (VcashTokenTxLog* )self.txLog;
+                    amount = llabs((int64_t)log.token_amount_credited - (int64_t)log.token_amount_debited);
+                    VcashTokenInfo* tokenInfo = [WalletWrapper getTokenInfo:log.token_type];
+                    tokenName = tokenInfo.Name;
+                }
                 NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
-                NSAttributedString *unitAttributrStr = [[NSAttributedString alloc] initWithString:@" VCash" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
+                NSAttributedString *unitAttributrStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", tokenName] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
                 NSMutableAttributedString *amountAttributeStr = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:14]}];
                 [amountAttributeStr appendAttributedString:unitAttributrStr];
                 txContent.attributedText = amountAttributeStr;

@@ -10,4 +10,6 @@
 
 @interface SendTransactionViewController : BaseViewController
 
+@property(strong, nonatomic)NSString* tokenType;
+
 @end

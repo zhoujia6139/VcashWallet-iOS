@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) ServerTransaction  *serverTx;
 
-@property (nonatomic, strong) VcashTxLog *txLog;
+@property (nonatomic, strong) BaseVcashTxLog *txLog;
 
 
 

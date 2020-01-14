@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="187" id="KGk-i7-Jjw" customClass="TokenSwitchCell">
+            <rect key="frame" x="0.0" y="0.0" width="471" height="187"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="471" height="186.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_token_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="6s5-yD-FaT">
+                        <rect key="frame" x="15" y="73.5" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="C6z-zz-but"/>
+                            <constraint firstAttribute="width" constant="40" id="VGF-S5-hbm"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Token Full Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yPD-ov-vqE">
+                        <rect key="frame" x="67" y="96.5" width="106.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VToken" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxd-i2-5mu">
+                        <rect key="frame" x="67" y="73.5" width="54" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KV2-Sj-Pix">
+                        <rect key="frame" x="407" y="78" width="51" height="31"/>
+                        <connections>
+                            <action selector="switchValueChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="HTC-xV-zUb"/>
+                        </connections>
+                    </switch>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wxp-Ed-Gqo">
+                        <rect key="frame" x="20" y="185.5" width="431" height="1"/>
+                        <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="C5S-7O-4cQ"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="oxd-i2-5mu" firstAttribute="top" secondItem="6s5-yD-FaT" secondAttribute="top" id="1hl-oa-bzq"/>
+                    <constraint firstItem="yPD-ov-vqE" firstAttribute="bottom" secondItem="6s5-yD-FaT" secondAttribute="bottom" id="4ej-eT-EWn"/>
+                    <constraint firstItem="wxp-Ed-Gqo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="BhG-sU-92b"/>
+                    <constraint firstItem="yPD-ov-vqE" firstAttribute="leading" secondItem="6s5-yD-FaT" secondAttribute="trailing" constant="12" id="CLv-yN-bQd"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="wxp-Ed-Gqo" secondAttribute="trailing" id="Kps-uC-8rh"/>
+                    <constraint firstAttribute="bottom" secondItem="wxp-Ed-Gqo" secondAttribute="bottom" id="N21-zX-aRV"/>
+                    <constraint firstItem="oxd-i2-5mu" firstAttribute="leading" secondItem="6s5-yD-FaT" secondAttribute="trailing" constant="12" id="Pyl-1E-rtQ"/>
+                    <constraint firstItem="6s5-yD-FaT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="UPL-X1-wnW"/>
+                    <constraint firstAttribute="trailing" secondItem="KV2-Sj-Pix" secondAttribute="trailing" constant="15" id="V4c-Fa-Y2O"/>
+                    <constraint firstItem="6s5-yD-FaT" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cNy-e8-k1I"/>
+                    <constraint firstItem="KV2-Sj-Pix" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="k4I-Z8-Buv"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="isAdd" destination="KV2-Sj-Pix" id="sSV-X9-Knr"/>
+                <outlet property="token_full_name" destination="yPD-ov-vqE" id="99V-FR-5Cf"/>
+                <outlet property="token_icon" destination="6s5-yD-FaT" id="Ywa-OG-lq7"/>
+                <outlet property="token_name" destination="oxd-i2-5mu" id="efC-29-Unv"/>
+            </connections>
+            <point key="canvasLocation" x="176.80000000000001" y="112.89355322338831"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="default_token_icon.png" width="45" height="45"/>
+    </resources>
+</document>

@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ReceiverSignTransactionFileViewController : BaseViewController
 
-@property (nonatomic, strong) VcashTxLog *txLog;
+@property (nonatomic, strong) BaseVcashTxLog *txLog;
 
 @property (nonatomic, assign) BOOL showDone;
 

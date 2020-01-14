@@ -38,6 +38,7 @@
 
 @property (weak, nonatomic) IBOutlet VcashButton *sendBtn;
 
+@property (weak, nonatomic) IBOutlet VcashLabel *unit;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTextViewHeight;
 
@@ -50,7 +51,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = [LanguageService contentForKey:@"sendVcash"];
+    
+    if (self.tokenType) {
+        VcashTokenInfo* info = [WalletWrapper getTokenInfo:self.tokenType];
+        self.navigationItem.title = [NSString stringWithFormat:@"Send %@", info.Name];
+        if (info.Name.length <=5) {
+            self.unit.text = info.Name;
+        } else {
+            self.unit.text = nil;
+        }
+    } else {
+        self.navigationItem.title = [LanguageService contentForKey:@"sendVcash"];
+        self.unit.text = @"VCash";
+    }
+    
     ViewRadius(self.promptView, 4.0);
     self.targetAddressTextView.scrollEnabled  = NO;
     self.targetAddressTextView.contentInset = UIEdgeInsetsMake(0, 0, 3, 0);
@@ -67,12 +81,15 @@
     self.sendBtn.backgroundColor = COrangeEnableColor;
     self.sendBtn.userInteractionEnabled = NO;
     ViewRadius(self.sendBtn, 4.0);
-    WalletBalanceInfo* info = [WalletWrapper getWalletBalanceInfo];
+    WalletBalanceInfo* info;
+    if (self.tokenType){
+        info = [WalletWrapper getWalletTokenBalanceInfo:self.tokenType];
+    } else {
+        info = [WalletWrapper getWalletBalanceInfo];
+    }
     NSMutableAttributedString *availableAttribute = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@: ",[LanguageService contentForKey:@"available"]] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}];
     NSAttributedString *spendableAttribute = [[NSAttributedString alloc] initWithString:@([WalletWrapper nanoToVcash:info.spendable]).p09fString attributes:@{NSFontAttributeName:[UIFont robotoRegularWithSize:12]}];
     [availableAttribute appendAttributedString:spendableAttribute];
-    NSAttributedString *unitAttribute = [[NSAttributedString alloc] initWithString:@" V" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}];
-    [availableAttribute appendAttributedString:unitAttribute];
     self.labelAvailable.textColor = COrangeColor;
     self.labelAvailable.attributedText = availableAttribute;
 //    self.labelAvailable.text = [NSString stringWithFormat:@"%@: %@ V",[LanguageService contentForKey:@"available"],@([WalletWrapper nanoToVcash:info.spendable]).p09fString];
@@ -202,8 +219,7 @@
     }
     if (self.targetAddressTextView.text && amount > 0)
     {
-        //[WalletWrapper createSendTransaction:[WalletWrapper vcashToNano:amount] fee:0 withComplete:^(BOOL yesOrNo, id retData) {
-        [WalletWrapper createSendTokenTransaction:@"6d0f34348416eacc2402c6dc0bc1330460e09c3b748d7c7bd0bb053d4afaa7b1" andAmount:[WalletWrapper vcashToNano:amount] withComplete:^(BOOL yesOrNo, id retData) {
+        [WalletWrapper createSendTransaction:self.tokenType andAmount:[WalletWrapper vcashToNano:amount] withComplete:^(BOOL yesOrNo, id retData) {
             if (yesOrNo){
                 VcashSlate* slate = (VcashSlate*)retData;
                 TransactionDetailView *txDetailView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([TransactionDetailView class]) owner:nil options:nil] firstObject];

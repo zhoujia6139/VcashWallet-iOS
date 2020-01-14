@@ -11,6 +11,8 @@
 
 @interface WalletViewController : BaseViewController
 
+@property(strong, nonatomic)NSString* tokenType;
+
 @property(assign, nonatomic)BOOL enterInRecoverMode;
 
 @property(assign, nonatomic)BOOL createNewWallet;

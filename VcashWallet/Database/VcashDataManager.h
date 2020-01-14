@@ -48,11 +48,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(NSArray*)getTxData;
 
--(BOOL)saveTokenTxDataArr:(NSArray*)arr;
+-(BOOL)saveTokenTxDataArr:(NSArray*)arr byReplace:(BOOL)isReplace;
 
 - (BOOL)deleteTokenTxBySlateId:(NSString *)slate_id;
 
--(NSArray*)getTokenTxData;
+-(NSArray*)getTokenTxData:(NSString*)tokenType;
 
 //context
 -(BOOL)saveContext:(VcashContext*)context;

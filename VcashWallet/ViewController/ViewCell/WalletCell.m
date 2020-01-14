@@ -15,12 +15,13 @@
 
 @property (nonatomic, strong) ServerTransaction *serverTx;
 
-@property (nonatomic, strong) VcashTxLog *txLog;
+@property (nonatomic, strong) BaseVcashTxLog *txLog;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelTxId;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewRadiusType;
 
+@property (weak, nonatomic) IBOutlet UILabel *unit;
 
 @property (weak, nonatomic) IBOutlet YYAnimatedImageView *imageViewInputOrOutput;
 
@@ -94,13 +95,43 @@
 
 }
 
--(void)setTxLog:(VcashTxLog *)txLog{
+-(void)setTxLog:(BaseVcashTxLog *)txLog{
     _txLog = txLog;
-    int64_t amount = (int64_t)txLog.amount_credited - (int64_t)txLog.amount_debited;
+    int64_t amount;
+    NSString *txId = self.txLog.tx_slate_id;
+    if ([txLog isKindOfClass:[VcashTxLog class]]) {
+        VcashTxLog* vcLog = (VcashTxLog*)txLog;
+        self.unit.text = @"V";
+        amount = (int64_t)vcLog.amount_credited - (int64_t)vcLog.amount_debited;
+        
+        if (!txId) {
+            txId = (vcLog.tx_type == ConfirmedCoinbaseOrTokenIssue) ? [LanguageService contentForKey:@"coinbase"] : [LanguageService contentForKey:@"unreachable"];
+        }
+    } else {
+        VcashTokenTxLog* tokenLog = (VcashTokenTxLog*)txLog;
+        VcashTokenInfo* tokenInfo = [WalletWrapper getTokenInfo:tokenLog.token_type];
+        if (tokenInfo.Name.length <=5) {
+            self.unit.text = tokenInfo.Name;
+        } else {
+            self.unit.text = nil;
+        }
+        amount = (int64_t)tokenLog.token_amount_credited - (int64_t)tokenLog.token_amount_debited;
+        
+        if (!txId) {
+            txId = (tokenLog.tx_type == ConfirmedCoinbaseOrTokenIssue) ? [LanguageService contentForKey:@"tokenissue"] : [LanguageService contentForKey:@"unreachable"];
+        }
+
+    }
     NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
     NSMutableAttributedString *amountAttribute = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:15]}];
+    
+    self.labelTxId.text = txId;
+    self.labelAmount.attributedText = amountAttribute;
+    //    self.labelAmount.text = [NSString stringWithFormat:@"%@",amountStr];
+    self.labelTime.text = [[NSDate dateWithTimeIntervalSince1970:txLog.create_time] stringWithFormat:@"yyyy-MM-dd"];
+    
     switch (txLog.tx_type) {
-        case ConfirmedCoinbase:
+        case ConfirmedCoinbaseOrTokenIssue:
         case TxReceived:
         case TxReceivedCancelled:
             [self.imageViewInputOrOutput setImage:[UIImage imageNamed:@"receive.png"]];
@@ -114,14 +145,6 @@
             break;
     }
     
-    NSString *txId = self.txLog.tx_slate_id;
-    if (!txId) {
-        txId = (self.txLog.tx_type == ConfirmedCoinbase) ? [LanguageService contentForKey:@"coinbase"] : [LanguageService contentForKey:@"unreachable"];
-    }
-    self.labelTxId.text = txId;
-    self.labelAmount.attributedText = amountAttribute;
-//    self.labelAmount.text = [NSString stringWithFormat:@"%@",amountStr];
-    self.labelTime.text = [[NSDate dateWithTimeIntervalSince1970:txLog.create_time] stringWithFormat:@"yyyy-MM-dd"];
     switch (txLog.confirm_state){
         case DefaultState:
             if(txLog.tx_type == TxSentCancelled || txLog.tx_type == TxReceivedCancelled){
@@ -139,10 +162,10 @@
             }
             break;
         case LoalConfirmed://waiting confirm
-                self.stateLabel.text = [LanguageService contentForKey:@"waitingForConfirming"];
-                self.stateLabel.textColor = [UIColor colorWithHexString:@"#FF3333"];
-                [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
-                [self.imageViewInputOrOutput setImage:(txLog.tx_type == TxSent) ? self.imageSent : self.imageReceive];
+            self.stateLabel.text = [LanguageService contentForKey:@"waitingForConfirming"];
+            self.stateLabel.textColor = [UIColor colorWithHexString:@"#FF3333"];
+            [self.imageViewState setImage:[UIImage imageNamed:@"ongoing.png"]];
+            [self.imageViewInputOrOutput setImage:(txLog.tx_type == TxSent) ? self.imageSent : self.imageReceive];
             self.bgView.backgroundColor = [UIColor colorWithHexString:@"#F6F0E8"];
             break;
         case NetConfirmed:

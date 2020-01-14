@@ -93,7 +93,6 @@ static VcashWallet* walletInstance = nil;
     self->_curKeyPath = [[VcashKeychainPath alloc] initWithPathstr:maxKeypath];
     [self saveBaseInfo];
     [self syncTokenOutputInfo];
-    [self tokenOutputToDic];
 }
 
 -(void)addNewTxChangeOutput:(VcashOutput*)output{
@@ -134,6 +133,7 @@ static VcashWallet* walletInstance = nil;
         }
     }
     self->_tokenOutputs = tokenOutputs;
+    [self tokenOutputToDic];
     [[VcashDataManager shareInstance] saveTokenOutputData:self->_tokenOutputs];
 }
 
@@ -165,6 +165,45 @@ static VcashWallet* walletInstance = nil;
     uint64_t unconfirmed = 0;
     uint64_t spendable = 0;
     for (VcashOutput* output in self.outputs){
+        switch (output.status) {
+            case Unconfirmed:{
+                total += output.value;
+                unconfirmed += output.value;
+                break;
+            }
+            case Unspent:{
+                total += output.value;
+                if ([output isSpendable]){
+                    spendable += output.value;
+                }
+                break;
+            }
+                
+            case Locked:{
+                locked += output.value;
+                break;
+            }
+                
+            default:
+                break;
+        }
+    }
+    
+    WalletBalanceInfo* info = [WalletBalanceInfo new];
+    info.total = total;
+    info.spendable = spendable;
+    info.locked = locked;
+    info.unconfirmed = unconfirmed;
+    return info;
+}
+
+-(WalletBalanceInfo*)getWalletTokenBalanceInfo:(NSString*)tokenType {
+    uint64_t total = 0;
+    uint64_t locked = 0;
+    uint64_t unconfirmed = 0;
+    uint64_t spendable = 0;
+    NSArray* outputArr = [self.token_outputs_dic objectForKey:tokenType];
+    for (VcashTokenOutput* output in outputArr){
         switch (output.status) {
             case Unconfirmed:{
                 total += output.value;
@@ -414,6 +453,7 @@ static VcashWallet* walletInstance = nil;
     
     VcashTokenTxLog* txLog = [VcashTokenTxLog new];
     txLog.tx_id = [[VcashWallet shareInstance] getNextLogId];
+    txLog.token_type = token_type;
     txLog.tx_slate_id = slate.uuid;
     txLog.tx_type = TxSent;
     txLog.create_time = [[NSDate date] timeIntervalSince1970];
@@ -462,7 +502,7 @@ static VcashWallet* walletInstance = nil;
         VcashTokenTxLog* txLog = [VcashTokenTxLog new];
         txLog.tx_id = [[VcashWallet shareInstance] getNextLogId];
         txLog.tx_slate_id = slate.uuid;
-        txLog.tx_type = TokenTxReceived;
+        txLog.tx_type = TxReceived;
         txLog.create_time = [[NSDate date] timeIntervalSince1970];
         txLog.token_type = slate.token_type;
         txLog.token_amount_credited = slate.amount;

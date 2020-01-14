@@ -242,20 +242,27 @@
 }
 
 
--(BOOL)saveTokenTxDataArr:(NSArray*)arr{
+-(BOOL)saveTokenTxDataArr:(NSArray*)arr byReplace:(BOOL)isReplace{
     if (arr.count == 0){
         return YES;
     }
     
     NSString *className = NSStringFromClass(VcashTokenTxLog.class);
     NSString *tableName = className;
-    [self.database deleteAllObjectsFromTable:tableName];
-    BOOL ret = [self.database insertObjects:arr into:tableName];
+    BOOL ret;
+    if (isReplace) {
+        [self.database deleteAllObjectsFromTable:tableName];
+        ret = [self.database insertObjects:arr into:tableName];
+    } else {
+        ret = [self.database insertOrReplaceObjects:arr into:tableName];
+    }
+    
     if (!ret)
     {
         DDLogError(@"----------db error, saveTokenTxDataArr fail");
         return NO;
     }
+
     return YES;
 }
 
@@ -279,11 +286,17 @@
     return objects.firstObject;
 }
 
--(NSArray*)getTokenTxData{
+-(NSArray*)getTokenTxData:(NSString*)tokenType{
     NSString *className = NSStringFromClass(VcashTokenTxLog.class);
     NSString *tableName = className;
-    NSArray<VcashTokenTxLog *> *objects = [self.database getObjectsOfClass:VcashTokenTxLog.class fromTable:tableName orderBy:VcashTokenTxLog.tx_id.order(WCTOrderedAscending)];
-    return objects;
+    if (tokenType) {
+        NSArray<VcashTokenTxLog *> *objects = [self.database getObjectsOfClass:VcashTokenTxLog.class fromTable:tableName where:VcashTokenTxLog.token_type == tokenType orderBy:VcashTokenTxLog.tx_id.order(WCTOrderedAscending)];
+        return objects;
+    } else {
+        NSArray<VcashTokenTxLog *> *objects = [self.database getObjectsOfClass:VcashTokenTxLog.class fromTable:tableName orderBy:VcashTokenTxLog.tx_id.order(WCTOrderedAscending)];
+        return objects;
+    }
+
 }
 
 

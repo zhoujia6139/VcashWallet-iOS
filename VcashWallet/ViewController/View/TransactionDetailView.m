@@ -14,6 +14,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *signTxBtn;
 
+@property (weak, nonatomic) IBOutlet UILabel *labelTokenType;
+
 @property (weak, nonatomic) IBOutlet UILabel *lablelTxID;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelAmount;
@@ -59,16 +61,24 @@
 
 - (void)setSlate:(VcashSlate *)slate{
     _slate = slate;
+    NSString* tokenName;
+    if (slate.token_type) {
+        VcashTokenInfo* tokenInfo = [WalletWrapper getTokenInfo:slate.token_type];
+        tokenName = tokenInfo.Name;
+    } else {
+        tokenName = @"VCash";
+    }
+    self.labelTokenType.text = tokenName;
     NSString *amountStr = @([WalletWrapper nanoToVcash:slate.amount]).p09fString;
     self.lablelTxID.lineBreakMode = NSLineBreakByCharWrapping;
     self.lablelTxID.text = slate.uuid;
     NSMutableAttributedString *amountAttributeStr = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:14]}];
-    NSAttributedString *unitAttributeStr = [[NSAttributedString alloc] initWithString:@" VCash" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
+    NSAttributedString *unitAttributeStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", tokenName] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
     [amountAttributeStr appendAttributedString:unitAttributeStr];
     self.labelAmount.attributedText = amountAttributeStr;
     
     NSMutableAttributedString *feeAttributeStr = [[NSMutableAttributedString alloc] initWithString:@([WalletWrapper nanoToVcash:slate.fee]).p09fString attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:14]}];
-    [feeAttributeStr appendAttributedString:unitAttributeStr];
+    [feeAttributeStr appendAttributedString:[[NSAttributedString alloc] initWithString:@" VCash" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}]];
     self.labelFee.attributedText = feeAttributeStr;
 }
 

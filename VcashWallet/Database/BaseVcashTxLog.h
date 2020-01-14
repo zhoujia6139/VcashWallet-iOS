@@ -19,6 +19,19 @@ typedef enum {
     NetConfirmed,
 }TxLogConfirmType;
 
+typedef enum  {
+    /// A coinbase OR token issue transaction becomes confirmed
+    ConfirmedCoinbaseOrTokenIssue,
+    /// Outputs created when a transaction is received
+    TxReceived,
+    /// Inputs locked + change outputs when a transaction is created
+    TxSent,
+    /// Received transaction that was rolled back by user
+    TxReceivedCancelled,
+    /// Sent transaction that was rolled back by user
+    TxSentCancelled,
+}TxLogEntryType;
+
 @interface BaseVcashTxLog : NSObject
 
 @property(assign, nonatomic)uint32_t tx_id;
@@ -33,9 +46,15 @@ typedef enum {
 
 @property(assign, nonatomic)uint64_t confirm_height;
 
+@property(assign, nonatomic)TxLogEntryType tx_type;
+
 @property(assign, nonatomic)TxLogConfirmType confirm_state;
 
 @property(assign, nonatomic)ServerTxStatus status;
+
+@property(strong, nonatomic)NSString* signed_slate_msg;
+
+@property(assign, nonatomic)uint64_t fee;
 
 -(BOOL)isCanBeCanneled;
 

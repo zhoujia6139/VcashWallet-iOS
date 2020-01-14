@@ -17,6 +17,8 @@
 +(NSArray*) englishWordList;
 @end
 
+static NSDictionary* tokenInfoDic;
+static NSMutableSet* addedToken;
 
 @implementation WalletWrapper
 
@@ -59,6 +61,14 @@
     return [[VcashWallet shareInstance] getWalletBalanceInfo];
 }
 
++(NSArray*)getBalancedToken{
+    return [VcashWallet shareInstance].token_outputs_dic.allKeys;
+}
+
++(WalletBalanceInfo*)getWalletTokenBalanceInfo:(NSString*)tokenType{
+    return [[VcashWallet shareInstance] getWalletTokenBalanceInfo:tokenType];
+}
+
 +(uint64_t)getCurChainHeight{
     return [VcashWallet shareInstance].curChainHeight;
 }
@@ -76,7 +86,7 @@
                     tx.confirm_height = item.height;
                     tx.confirm_state = NetConfirmed;
                     tx.amount_credited = item.value;
-                    tx.tx_type = item.is_coinbase?ConfirmedCoinbase:TxReceived;
+                    tx.tx_type = item.is_coinbase?ConfirmedCoinbaseOrTokenIssue:TxReceived;
                     item.tx_log_id = tx.tx_id;
                     
                     [txArr addObject:tx];
@@ -108,7 +118,7 @@
                     tx.confirm_height = item.height;
                     tx.confirm_state = NetConfirmed;
                     tx.token_amount_credited = item.value;
-                    tx.tx_type = item.is_token_issue?TokenIssue:TokenTxReceived;
+                    tx.tx_type = item.is_token_issue?ConfirmedCoinbaseOrTokenIssue:TxReceived;
                     tx.token_type = item.token_type;
                     
                     item.tx_log_id = tx.tx_id;
@@ -116,7 +126,7 @@
                     [txArr addObject:tx];
                 }
                 [[VcashWallet shareInstance] setChainTokenOutputs:(NSArray*)result];
-                [[VcashDataManager shareInstance] saveTokenTxDataArr:txArr];
+                [[VcashDataManager shareInstance] saveTokenTxDataArr:txArr byReplace:YES];
                 block?block(YES, txArr):nil;
             }
             else{
@@ -129,16 +139,16 @@
     }];
 }
 
-+(void)createSendTransaction:(uint64_t)amount fee:(uint64_t)fee withComplete:(RequestCompleteBlock)block{
-    return [[VcashWallet shareInstance] sendTransaction:amount andFee:fee withComplete:^(BOOL yesOrNO, id data) {
-        block?block(yesOrNO, data):nil;
-    }];
-}
-
-+(void)createSendTokenTransaction:(NSString*)tokenType andAmount:(uint64_t)amount withComplete:(RequestCompleteBlock)block{
-    return [[VcashWallet shareInstance] sendTokenTransaction:tokenType andAmount:amount withComplete:^(BOOL yesOrNO, id data) {
-        block?block(yesOrNO, data):nil;
-    }];
++(void)createSendTransaction:(NSString*)tokenType andAmount:(uint64_t)amount withComplete:(RequestCompleteBlock)block {
+    if (tokenType) {
+        return [[VcashWallet shareInstance] sendTokenTransaction:tokenType andAmount:amount withComplete:^(BOOL yesOrNO, id data) {
+            block?block(yesOrNO, data):nil;
+        }];
+    } else {
+        return [[VcashWallet shareInstance] sendTransaction:amount andFee:0 withComplete:^(BOOL yesOrNO, id data) {
+            block?block(yesOrNO, data):nil;
+        }];
+    }
 }
 
 +(void)sendTransaction:(VcashSlate*)slate forUrl:(NSString*)url withComplete:(RequestCompleteBlock)block{
@@ -514,13 +524,13 @@
         [txLog cancelTxlog];
         [[VcashDataManager shareInstance] saveTx:txLog];
         
-        if (txLog.parter_id){
+        //if (txLog.parter_id){
             [[ServerApi shareInstance] cancelTransaction:tx_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
                 if (!yesOrNo){
                     DDLogError(@"cancel tx to Server failed");
                 }
             }];
-        }
+        //}
         
         return YES;
     }
@@ -532,8 +542,8 @@
     return [[VcashDataManager shareInstance] getTxData];
 }
 
-+(NSArray*)getTokenTransationArr{
-    return [[VcashDataManager shareInstance] getTokenTxData];
++(NSArray*)getTokenTxArr:(NSString*)tokenType{
+    return [[VcashDataManager shareInstance] getTokenTxData:tokenType];
 }
 
 +(BaseVcashTxLog*)getTxByTxid:(NSString*)txid{
@@ -556,15 +566,21 @@
             [retArr addObject:item];
         }
     }
+    NSArray* tokenTxArr = [self getTokenTxArr:nil];
+    for (VcashTokenTxLog* item in tokenTxArr) {
+        if (item.tx_type == TxReceived && !item.parter_id && item.signed_slate_msg){
+            [retArr addObject:item];
+        }
+    }
     
     return retArr;
 }
 
-+(NSArray*)getFileReceiveTokenTxArr{
-    NSArray* txArr = [self getTokenTransationArr];
++(NSArray*)getFileReceiveTokenTxArr:(NSString*)tokenType{
+    NSArray* txArr = [self getTokenTxArr:tokenType];
     NSMutableArray* retArr = [NSMutableArray new];
     for (VcashTokenTxLog* item in txArr){
-        if (item.tx_type == TokenTxReceived && !item.parter_id && item.signed_slate_msg){
+        if (item.tx_type == TxReceived && !item.parter_id && item.signed_slate_msg){
             [retArr addObject:item];
         }
     }
@@ -681,7 +697,7 @@
                 return;
             }
             NSString* next_token_type = [allToken objectAtIndex:index+1];
-            [self updateTokenOutputStatusForToken:next_token_type WithComplete:nil];
+            [self updateTokenOutputStatusForToken:next_token_type WithComplete:block];
         }
         else {
             block?block(NO, nil):nil;
@@ -707,7 +723,7 @@
     [[NodeApi shareInstance] getTokenOutputsForToken:token_type WithCommitArr:strArr WithComplete:^(BOOL yesOrNO, id data) {
         if (yesOrNO){
             NSArray* apiOutputs = data;
-            NSArray* txs = [self getTokenTransationArr];
+            NSArray* txs = [self getTokenTxArr:token_type];
             BOOL hasChange = NO;
             for (VcashTokenOutput* item in token_arr){
                 NodeRefreshTokenOutput* nodeOutput = nil;
@@ -775,13 +791,125 @@
                 }
             }
             if (hasChange){
-                [[VcashDataManager shareInstance] saveTokenTxDataArr:txs];
+                [[VcashDataManager shareInstance] saveTokenTxDataArr:txs byReplace:NO];
                 [[VcashWallet shareInstance] syncOutputInfo];
                 [[VcashWallet shareInstance] syncTokenOutputInfo];
             }
         }
         block?block(yesOrNO, nil):nil;
     }];
+}
+
++(void)initTokenInfos {
+    if (!tokenInfoDic) {
+        [self readTokenInfoFromFile];
+        [self readAddedTokenFromFile];
+        [self updateTokenInfos];
+    }
+}
+
++(void)updateTokenInfos {
+    AFHTTPSessionManager *sessionManager = [AFHTTPSessionManager manager];
+    sessionManager = [AFHTTPSessionManager manager];
+    sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    sessionManager.requestSerializer.timeoutInterval = 20.0f;
+    sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    sessionManager.securityPolicy.allowInvalidCertificates = YES;
+    sessionManager.securityPolicy.validatesDomainName = NO;
+    NSString* url = @"https://raw.githubusercontent.com/jdwldnqi837/VcashTokenInfo/master/VCashTokenInfo.json";
+    
+    [sessionManager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSString*resStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSArray* tokenInfos = [NSArray modelArrayWithClass:[VcashTokenInfo class] json:resStr];
+        NSMutableDictionary* dic = [NSMutableDictionary new];
+        for (VcashTokenInfo* item in tokenInfos) {
+            [dic setObject:item forKey:item.TokenId];
+        }
+        if ([dic count] > 0) {
+            tokenInfoDic = dic;
+        }
+        [self writeTokenInfoToFile];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        DDLogError(@"fetch Tokeninfos failed...");
+    }];
+}
+
++(void)writeTokenInfoToFile{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString *path = [self tokenInfoSavePath];
+        [NSKeyedArchiver archiveRootObject:tokenInfoDic toFile:path];
+    });
+}
+
++(void)readTokenInfoFromFile{
+    tokenInfoDic = [NSKeyedUnarchiver unarchiveObjectWithFile:[self tokenInfoSavePath]];
+}
+
++(NSString *)tokenInfoSavePath{
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"tokeninfo"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    NSError *error = nil;
+    [url setResourceValue: [NSNumber numberWithBool: YES]
+                   forKey: NSURLIsExcludedFromBackupKey error: &error];
+    return path;
+}
+
++(void)writeAddedTokenToFile{
+    NSString *path = [self addedTokenSavePath];
+    NSArray* tmp = [addedToken allObjects];
+    [NSKeyedArchiver archiveRootObject:tmp toFile:path];
+}
+
++(void)readAddedTokenFromFile{
+    NSArray* tmp = [NSKeyedUnarchiver unarchiveObjectWithFile:[self addedTokenSavePath]];
+    addedToken = [NSMutableSet new];
+    [addedToken addObjectsFromArray:tmp];
+}
+
++(NSString *)addedTokenSavePath{
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"addedtoken"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    NSError *error = nil;
+    [url setResourceValue: [NSNumber numberWithBool: YES]
+                   forKey: NSURLIsExcludedFromBackupKey error: &error];
+    return path;
+}
+
++(NSArray*)getAllTokens {
+    return [tokenInfoDic allKeys];
+}
+
++(VcashTokenInfo*)getTokenInfo:(NSString*)tokenId {
+    VcashTokenInfo* info = [tokenInfoDic objectForKey:tokenId];
+    if (!info){
+        info = [VcashTokenInfo new];
+        info.TokenId = tokenId;
+        info.Name = [tokenId substringToIndex:8];
+        info.FullName = @"--";
+    }
+    
+    return info;
+}
+
++(NSArray*)getAddedTokens {
+    return [addedToken allObjects];;
+}
+
++(void)addAddedToken:(NSString*)tokenType {
+    if (![addedToken containsObject:tokenType]) {
+        [addedToken addObject:tokenType];
+        [self writeAddedTokenToFile];
+    }
+
+}
+
++(void)deleteAddedToken:(NSString*)tokenType {
+    if ([addedToken containsObject:tokenType]) {
+        [addedToken removeObject:tokenType];
+        [self writeAddedTokenToFile];
+    }
 }
 
 +(double)nanoToVcash:(int64_t)nano

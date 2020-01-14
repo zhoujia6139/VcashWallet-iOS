@@ -12,6 +12,7 @@
 #import "LockScreenTimeService.h"
 #import <UIView+Toast.h>
 #import <IQKeyboardManager.h>
+#import "WalletWrapper.h"
 
 @interface AppDelegate ()
 
@@ -50,6 +51,7 @@
     }
     
     [[NodeApi shareInstance] getChainHeightWithComplete:nil];
+    [WalletWrapper initTokenInfos];
     
     return YES;
 }

@@ -21,6 +21,7 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintViewStatusWidth;
 
+@property (weak, nonatomic) IBOutlet UILabel *labelTokenType;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelTxid;
 
@@ -119,7 +120,7 @@
 
 - (void)configView{
     self.title = [LanguageService contentForKey:@"txDetailTitle"];
-    for (NSInteger i = 100; i <= 106; i++) {
+    for (NSInteger i = 100; i <= 107; i++) {
         UIView *iv = [self.view viewWithTag:i];
         [AppHelper addLineBottomWithParentView:iv leftMargin:20 rightMargin:20];
     }
@@ -141,18 +142,38 @@
     [self configDataFromVcashTxLog];
     [self modifyBtnConstraint];
     
+    NSString* tokenName;
+    NSString* tokenType;
+    if (self.txLog) {
+        if ([self.txLog isKindOfClass:[VcashTokenTxLog class]]) {
+            VcashTokenTxLog* log = (VcashTokenTxLog*)self.txLog;
+            tokenType = log.token_type;
+        }
+    } else if (self.serverTx) {
+        tokenType = self.serverTx.slateObj.token_type;
+    }
+    if (tokenType) {
+        VcashTokenInfo* tokenInfo = [WalletWrapper getTokenInfo:tokenType];
+        tokenName = tokenInfo.Name;
+    } else {
+        tokenName = @"VCash";
+    }
+
+    
     self.labelTxStatus.text = txStatus;
     self.imageViewTxStatus.image = imageTxStatus;
     if ([tx_id isEqualToString:[LanguageService contentForKey:@"unreachable"]]) {
         self.constraintLabelTxidLeading.active = NO;
     }
+    
+    self.labelTokenType.text = tokenName;
     self.labelTxid.text = tx_id;
 //    self.labelSender.text = sender_id;
 //    self.labelRecipient.text = receiver_id;
 //    self.labelConfirmations.font = [UIFont robotoBoldWithSize:14];
-    self.labelConfirmations.text = [NSString stringWithFormat:@"%d",confirmations];
+    self.labelConfirmations.text = [NSString stringWithFormat:@"%ld",(long)confirmations];
     NSString *amountStr = @([WalletWrapper nanoToVcash:amount]).p09fString;
-     NSAttributedString *unitAttributrStr = [[NSAttributedString alloc] initWithString:@" VCash" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
+     NSAttributedString *unitAttributrStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", tokenName] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
     NSMutableAttributedString *amountAttributeStr = [[NSMutableAttributedString alloc] initWithString:amountStr attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:14]}];
     [amountAttributeStr appendAttributedString:unitAttributrStr];
     
@@ -160,7 +181,7 @@
     
     NSMutableAttributedString *feeAttributeStr = [[NSMutableAttributedString alloc] initWithString:@([WalletWrapper nanoToVcash:fee]).p09fString attributes:@{NSFontAttributeName:[UIFont robotoBoldWithSize:14]}];
    
-    [feeAttributeStr appendAttributedString:unitAttributrStr];
+    [feeAttributeStr appendAttributedString:[[NSAttributedString alloc] initWithString:@" VCash" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}]];
     
     self.labelFee.attributedText = feeAttributeStr;
     self.labelTxTime.text = create_time > 0 ? [[NSDate dateWithTimeIntervalSince1970:create_time] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"] : [[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -351,29 +372,34 @@
     [self configInfoFromTx_type:self.txLog.tx_type];
     fee = self.txLog.fee;
     create_time = self.txLog.create_time;
+    if ([self.txLog isKindOfClass:[VcashTxLog class]]) {
+        VcashTxLog* log = (VcashTxLog*)self.txLog;
+        amount = llabs((int64_t)log.amount_credited - (int64_t)log.amount_debited);
+    } else {
+        VcashTokenTxLog* log = (VcashTokenTxLog*)self.txLog;
+        amount = llabs((int64_t)log.token_amount_credited - (int64_t)log.token_amount_debited);
+    }
 }
 
 - (void)configInfoFromTx_type:(TxLogEntryType)tx_type{
+    
     switch (tx_type) {
-        case ConfirmedCoinbase:{
+        case ConfirmedCoinbaseOrTokenIssue:{
             tx_id = [LanguageService contentForKey:@"coinbase"];
             sender_id = [LanguageService contentForKey:@"coinbase"];
             receiver_id =  [VcashWallet shareInstance].userId;
-            amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited);
         }
             break;
             
         case TxSent:{
             sender_id =  [VcashWallet shareInstance].userId;
             receiver_id = self.txLog.parter_id ? self.txLog.parter_id : [LanguageService contentForKey:@"unreachable"];
-            amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited) - (int64_t)self.txLog.fee;
         }
             break;
             
         case TxReceived:{
             sender_id = self.txLog.parter_id ? self.txLog.parter_id : [LanguageService contentForKey:@"unreachable"];
             receiver_id = [VcashWallet shareInstance].userId;
-            amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited);
             if (!self.txLog.parter_id && self.txLog.signed_slate_msg) {
                 if (self.txLog.confirm_state != NetConfirmed) {
                     self.btnCancelTx.hidden = NO;
@@ -392,7 +418,6 @@
             [self.btnCancelTx setImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
             sender_id =  self.txLog.parter_id ? self.txLog.parter_id : [LanguageService contentForKey:@"unreachable"];
             receiver_id = [VcashWallet shareInstance].userId;
-            amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited);
         }
             break;
             
@@ -405,7 +430,6 @@
             [self.btnCancelTx setImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
             sender_id =  [VcashWallet shareInstance].userId;
             receiver_id = self.txLog.parter_id ? self.txLog.parter_id : [LanguageService contentForKey:@"unreachable"];
-            amount = llabs((int64_t)self.txLog.amount_credited - (int64_t)self.txLog.amount_debited) - (int64_t)self.txLog.fee;
         }
             break;
         default:
@@ -580,12 +604,21 @@
    
 }
 
-- (void)deleteTransactionWith:(VcashTxLog *)txlog{
-    BOOL ret = [[VcashDataManager shareInstance] deleteTxBySlateId:txlog.tx_slate_id];
-    if (!ret) {
-        [MBHudHelper showTextTips:[LanguageService contentForKey:@"deleteFailed"] onView:nil withDuration:1.0];
-        return;
+- (void)deleteTransactionWith:(BaseVcashTxLog *)txlog{
+    if ([txlog isKindOfClass:[VcashTxLog class]]) {
+        BOOL ret = [[VcashDataManager shareInstance] deleteTxBySlateId:txlog.tx_slate_id];
+        if (!ret) {
+            [MBHudHelper showTextTips:[LanguageService contentForKey:@"deleteFailed"] onView:nil withDuration:1.0];
+            return;
+        }
+    } else {
+        BOOL ret = [[VcashDataManager shareInstance] deleteTokenTxBySlateId:txlog.tx_slate_id];
+        if (!ret) {
+            [MBHudHelper showTextTips:[LanguageService contentForKey:@"deleteFailed"] onView:nil withDuration:1.0];
+            return;
+        }
     }
+
     [MBHudHelper showTextTips:[LanguageService contentForKey:@"deleteSuc"] onView:nil withDuration:1.0];
     [self.navigationController popViewControllerAnimated:YES];
 }

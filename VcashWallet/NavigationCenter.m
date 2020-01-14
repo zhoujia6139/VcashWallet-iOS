@@ -8,7 +8,7 @@
 
 #import "NavigationCenter.h"
 #import "WelcomePageViewController.h"
-#import "WalletViewController.h"
+#import "MainViewController.h"
 #import "PinVerifyViewController.h"
 #import "VcashNavigationViewController.h"
 #import "SettingViewController.h"
@@ -19,7 +19,7 @@ static UINavigationController* curNavVC;
 
 @interface NavigationCenter ()
 
-@property (nonatomic, strong) WalletViewController *walletVc;
+@property (nonatomic, strong) MainViewController *walletVc;
 
 @property (nonatomic, strong) SettingViewController *settingVc;
 
@@ -56,7 +56,7 @@ static UINavigationController* curNavVC;
 
 +(void)showWalletPage:(BOOL)isRecover createNewWallet:(BOOL)createNewWallet
 {
-   WalletViewController* welcomeVc = [[WalletViewController alloc] init];
+   MainViewController* welcomeVc = [[MainViewController alloc] init];
     [[NavigationCenter shareInstance] setWalletVc:welcomeVc];
    VcashNavigationViewController* nav = [[VcashNavigationViewController alloc] init];
    welcomeVc.enterInRecoverMode = isRecover;

@@ -15,7 +15,7 @@
 
 - (void)setServerTransaction:(ServerTransaction *)serverTx;
 
-- (void)setTxLog:(VcashTxLog *)txLog;
+- (void)setTxLog:(BaseVcashTxLog *)txLog;
 
 
 @end

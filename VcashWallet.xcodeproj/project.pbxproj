@@ -210,6 +210,21 @@
 		ED3C7563226F112500B42555 /* VcashContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C7562226F112500B42555 /* VcashContext.mm */; };
 		ED3C756A2270744400B42555 /* PublicTool.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C75692270744400B42555 /* PublicTool.m */; };
 		ED3C756D2271611400B42555 /* VcashWalletInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED3C756C2271611400B42555 /* VcashWalletInfo.mm */; };
+		ED4066D023CC55B400BFFD4E /* VcashTokenInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4066CF23CC55B400BFFD4E /* VcashTokenInfo.m */; };
+		ED4066D423CC61DE00BFFD4E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4066D223CC61DE00BFFD4E /* MainViewController.m */; };
+		ED4066D523CC61DE00BFFD4E /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED4066D323CC61DE00BFFD4E /* MainViewController.xib */; };
+		ED4066D823CC660800BFFD4E /* add_token_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED4066D623CC660800BFFD4E /* add_token_icon@2x.png */; };
+		ED4066D923CC660800BFFD4E /* add_token_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED4066D723CC660800BFFD4E /* add_token_icon@3x.png */; };
+		ED4066DD23CC691E00BFFD4E /* TokenInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4066DB23CC691E00BFFD4E /* TokenInfoCell.m */; };
+		ED4066DE23CC691E00BFFD4E /* TokenInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED4066DC23CC691E00BFFD4E /* TokenInfoCell.xib */; };
+		ED4066E123CC69CB00BFFD4E /* default_token_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED4066DF23CC69CA00BFFD4E /* default_token_icon@2x.png */; };
+		ED4066E223CC69CB00BFFD4E /* default_token_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED4066E023CC69CA00BFFD4E /* default_token_icon@3x.png */; };
+		ED4066E523CD700700BFFD4E /* vc_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED4066E323CD700600BFFD4E /* vc_icon@2x.png */; };
+		ED4066E623CD700700BFFD4E /* vc_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED4066E423CD700600BFFD4E /* vc_icon@3x.png */; };
+		ED4066EA23CDC08000BFFD4E /* TokenSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4066E823CDC08000BFFD4E /* TokenSwitchCell.m */; };
+		ED4066EB23CDC08000BFFD4E /* TokenSwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED4066E923CDC08000BFFD4E /* TokenSwitchCell.xib */; };
+		ED4066EF23CDC2DD00BFFD4E /* TokenInfoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4066ED23CDC2DD00BFFD4E /* TokenInfoListViewController.m */; };
+		ED4066F023CDC2DD00BFFD4E /* TokenInfoListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED4066EE23CDC2DD00BFFD4E /* TokenInfoListViewController.xib */; };
 		ED44BF7122696CF50042928E /* BTCBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE322696CF50042928E /* BTCBlock.m */; };
 		ED44BF7222696CF50042928E /* BTCBlockHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE422696CF50042928E /* BTCBlockHeader.m */; };
 		ED44BF7322696CF50042928E /* BTCEncryptedBackup.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44BEE722696CF50042928E /* BTCEncryptedBackup.m */; };
@@ -579,6 +594,26 @@
 		ED3C756B2271611400B42555 /* VcashWalletInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashWalletInfo.h; sourceTree = "<group>"; };
 		ED3C756C2271611400B42555 /* VcashWalletInfo.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VcashWalletInfo.mm; sourceTree = "<group>"; };
 		ED3C756E2271622B00B42555 /* VcashWalletInfo+WCTTableCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VcashWalletInfo+WCTTableCoding.h"; sourceTree = "<group>"; };
+		ED4066CE23CC55B400BFFD4E /* VcashTokenInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashTokenInfo.h; sourceTree = "<group>"; };
+		ED4066CF23CC55B400BFFD4E /* VcashTokenInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashTokenInfo.m; sourceTree = "<group>"; };
+		ED4066D123CC61DE00BFFD4E /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		ED4066D223CC61DE00BFFD4E /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		ED4066D323CC61DE00BFFD4E /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		ED4066D623CC660800BFFD4E /* add_token_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_token_icon@2x.png"; sourceTree = "<group>"; };
+		ED4066D723CC660800BFFD4E /* add_token_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_token_icon@3x.png"; sourceTree = "<group>"; };
+		ED4066DA23CC691E00BFFD4E /* TokenInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TokenInfoCell.h; sourceTree = "<group>"; };
+		ED4066DB23CC691E00BFFD4E /* TokenInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TokenInfoCell.m; sourceTree = "<group>"; };
+		ED4066DC23CC691E00BFFD4E /* TokenInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenInfoCell.xib; sourceTree = "<group>"; };
+		ED4066DF23CC69CA00BFFD4E /* default_token_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_token_icon@2x.png"; sourceTree = "<group>"; };
+		ED4066E023CC69CA00BFFD4E /* default_token_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_token_icon@3x.png"; sourceTree = "<group>"; };
+		ED4066E323CD700600BFFD4E /* vc_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vc_icon@2x.png"; sourceTree = "<group>"; };
+		ED4066E423CD700600BFFD4E /* vc_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vc_icon@3x.png"; sourceTree = "<group>"; };
+		ED4066E723CDC08000BFFD4E /* TokenSwitchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TokenSwitchCell.h; sourceTree = "<group>"; };
+		ED4066E823CDC08000BFFD4E /* TokenSwitchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TokenSwitchCell.m; sourceTree = "<group>"; };
+		ED4066E923CDC08000BFFD4E /* TokenSwitchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenSwitchCell.xib; sourceTree = "<group>"; };
+		ED4066EC23CDC2DD00BFFD4E /* TokenInfoListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TokenInfoListViewController.h; sourceTree = "<group>"; };
+		ED4066ED23CDC2DD00BFFD4E /* TokenInfoListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TokenInfoListViewController.m; sourceTree = "<group>"; };
+		ED4066EE23CDC2DD00BFFD4E /* TokenInfoListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenInfoListViewController.xib; sourceTree = "<group>"; };
 		ED41678E22769E78000B5DC8 /* VcashContext+WCTTableCoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VcashContext+WCTTableCoding.h"; sourceTree = "<group>"; };
 		ED44BEE022696CF50042928E /* BTCMerkleTree+Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BTCMerkleTree+Tests.h"; sourceTree = "<group>"; };
 		ED44BEE122696CF50042928E /* BTCPaymentMethodDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCPaymentMethodDetails.h; sourceTree = "<group>"; };
@@ -822,6 +857,9 @@
 				A26FEB9A229F7DE0003CCD7C /* VcashNavigationViewController.m */,
 				A26FEBB7229F7DE0003CCD7C /* BaseViewController.h */,
 				A26FEB7E229F7DE0003CCD7C /* BaseViewController.m */,
+				ED4066D123CC61DE00BFFD4E /* MainViewController.h */,
+				ED4066D223CC61DE00BFFD4E /* MainViewController.m */,
+				ED4066D323CC61DE00BFFD4E /* MainViewController.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -848,6 +886,12 @@
 				A274F1DF22D82C68004CF0C8 /* AddressBookCell.h */,
 				A274F1E022D82C68004CF0C8 /* AddressBookCell.m */,
 				A274F1E122D82C68004CF0C8 /* AddressBookCell.xib */,
+				ED4066DA23CC691E00BFFD4E /* TokenInfoCell.h */,
+				ED4066DB23CC691E00BFFD4E /* TokenInfoCell.m */,
+				ED4066DC23CC691E00BFFD4E /* TokenInfoCell.xib */,
+				ED4066E723CDC08000BFFD4E /* TokenSwitchCell.h */,
+				ED4066E823CDC08000BFFD4E /* TokenSwitchCell.m */,
+				ED4066E923CDC08000BFFD4E /* TokenSwitchCell.xib */,
 			);
 			path = ViewCell;
 			sourceTree = "<group>";
@@ -940,6 +984,12 @@
 				A274F1C322D31BBC004CF0C8 /* font */,
 				A26FECAF229FEC26003CCD7C /* process_suc_icon@2x.png */,
 				A26FECB1229FEC33003CCD7C /* process_fail_icon@2x.png */,
+				ED4066E323CD700600BFFD4E /* vc_icon@2x.png */,
+				ED4066E423CD700600BFFD4E /* vc_icon@3x.png */,
+				ED4066D623CC660800BFFD4E /* add_token_icon@2x.png */,
+				ED4066D723CC660800BFFD4E /* add_token_icon@3x.png */,
+				ED4066DF23CC69CA00BFFD4E /* default_token_icon@2x.png */,
+				ED4066E023CC69CA00BFFD4E /* default_token_icon@3x.png */,
 				A269C09622E1BD3F00778836 /* touchid@2x.png */,
 				A269C09522E1BD3F00778836 /* touchid@3x.png */,
 				A26EFD6522E559C10015764C /* addblack@2x.png */,
@@ -1083,6 +1133,9 @@
 				A2D1568F22C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.h */,
 				A2D1569022C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.m */,
 				A2D1569122C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib */,
+				ED4066EC23CDC2DD00BFFD4E /* TokenInfoListViewController.h */,
+				ED4066ED23CDC2DD00BFFD4E /* TokenInfoListViewController.m */,
+				ED4066EE23CDC2DD00BFFD4E /* TokenInfoListViewController.xib */,
 			);
 			path = WalletPage;
 			sourceTree = "<group>";
@@ -1506,6 +1559,8 @@
 				ED3C755F226EF68600B42555 /* VcashSlate.m */,
 				EDF13A28239E5D45008AE570 /* JsonRpc.h */,
 				EDF13A29239E5D45008AE570 /* JsonRpc.m */,
+				ED4066CE23CC55B400BFFD4E /* VcashTokenInfo.h */,
+				ED4066CF23CC55B400BFFD4E /* VcashTokenInfo.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -1577,8 +1632,11 @@
 				A272699722AE3C6A00E76E0A /* canceldetail@2x.png in Resources */,
 				A26FEC5A229F805A003CCD7C /* add@3x.png in Resources */,
 				A26FECA3229F8064003CCD7C /* en.json in Resources */,
+				ED4066F023CDC2DD00BFFD4E /* TokenInfoListViewController.xib in Resources */,
 				A26FEC62229F805B003CCD7C /* finish@2x.png in Resources */,
+				ED4066E123CC69CB00BFFD4E /* default_token_icon@2x.png in Resources */,
 				A274F1D822D468D3004CF0C8 /* eyeclose@2x.png in Resources */,
+				ED4066EB23CDC08000BFFD4E /* TokenSwitchCell.xib in Resources */,
 				A25E6E5422BCC2B700D563A4 /* copyorange@2x.png in Resources */,
 				A26FEC76229F805B003CCD7C /* sendchose@2x.png in Resources */,
 				A241824722A7B15C00519F7D /* circle@3x.png in Resources */,
@@ -1613,6 +1671,7 @@
 				A27269A022AF984600E76E0A /* canceled@3x.png in Resources */,
 				A27269AB22B3AB8B00E76E0A /* bg2@3x.png in Resources */,
 				A26FEC9F229F805B003CCD7C /* delete@3x.png in Resources */,
+				ED4066E223CC69CB00BFFD4E /* default_token_icon@3x.png in Resources */,
 				A26FEBBF229F7DE0003CCD7C /* HandleSlateViewController.xib in Resources */,
 				A26FEC87229F805B003CCD7C /* logo@2x.png in Resources */,
 				A26FEBC3229F7DE0003CCD7C /* TransactionDetailViewController.xib in Resources */,
@@ -1621,6 +1680,7 @@
 				A21189BF22B900E500B88179 /* headbg@2x.png in Resources */,
 				A26FEBD7229F7DE0003CCD7C /* CreateMnemonicViewController.xib in Resources */,
 				A26FEC99229F805B003CCD7C /* wallet@2x.png in Resources */,
+				ED4066D923CC660800BFFD4E /* add_token_icon@3x.png in Resources */,
 				A26FEC64229F805B003CCD7C /* receivechose@3x.png in Resources */,
 				A269C09822E1BD4000778836 /* touchidseleted@3x.png in Resources */,
 				A26FEBCC229F7DE0003CCD7C /* WalletCell.xib in Resources */,
@@ -1635,8 +1695,10 @@
 				A274F1E322D82C68004CF0C8 /* AddressBookCell.xib in Resources */,
 				A272699822AE3C6A00E76E0A /* canceldetail@3x.png in Resources */,
 				A26FECB6229FF0EA003CCD7C /* nodata@3x.png in Resources */,
+				ED4066D823CC660800BFFD4E /* add_token_icon@2x.png in Resources */,
 				A25E6E4D22BCBC5C00D563A4 /* close@3x.png in Resources */,
 				A2E5602022A8DBE7002E8E2D /* leftmenu@2x.png in Resources */,
+				ED4066E523CD700700BFFD4E /* vc_icon@2x.png in Resources */,
 				A26FEC56229F805A003CCD7C /* setting_hight@2x.png in Resources */,
 				A26FEBD4229F7DE0003CCD7C /* ChangePasswordViewController.xib in Resources */,
 				A26FEC8A229F805B003CCD7C /* sendchose@3x.png in Resources */,
@@ -1656,6 +1718,7 @@
 				A26FEC8B229F805B003CCD7C /* receive@2x.png in Resources */,
 				A26FEBD3229F7DE0003CCD7C /* SettingViewController.xib in Resources */,
 				A241825222A7C49900519F7D /* seletedindicator@2x.png in Resources */,
+				ED4066D523CC61DE00BFFD4E /* MainViewController.xib in Resources */,
 				A26FEC53229F805A003CCD7C /* back@2x.png in Resources */,
 				A26FEC81229F805B003CCD7C /* ongoing@3x.png in Resources */,
 				A26FEBD1229F7DE0003CCD7C /* PinPasswordSetViewController.xib in Resources */,
@@ -1663,6 +1726,7 @@
 				A274F1DE22D82887004CF0C8 /* AddressBookViewController.xib in Resources */,
 				EDA5149722686DEE0011138F /* Assets.xcassets in Resources */,
 				A26FEC7C229F805B003CCD7C /* adressbook@3x.png in Resources */,
+				ED4066DE23CC691E00BFFD4E /* TokenInfoCell.xib in Resources */,
 				A26FEC98229F805B003CCD7C /* adressbook_hight@2x.png in Resources */,
 				A26FEC9D229F805B003CCD7C /* confirmdetail@2x.png in Resources */,
 				A26FEC9E229F805B003CCD7C /* wallet_hight@2x.png in Resources */,
@@ -1684,6 +1748,7 @@
 				A26FEC61229F805B003CCD7C /* eye@3x.png in Resources */,
 				A26FEC6C229F805B003CCD7C /* copy@2x.png in Resources */,
 				A26FEC55229F805A003CCD7C /* confirmed@2x.png in Resources */,
+				ED4066E623CD700700BFFD4E /* vc_icon@3x.png in Resources */,
 				A26FEC92229F805B003CCD7C /* vcash@3x.png in Resources */,
 				A26FEC5C229F805B003CCD7C /* setting_hight@3x.png in Resources */,
 				A26FEC72229F805B003CCD7C /* finish@3x.png in Resources */,
@@ -1776,10 +1841,12 @@
 				ED44BF8C22696CF50042928E /* BTCSecretSharing.m in Sources */,
 				ED44BF9822696CF50042928E /* BTC256.m in Sources */,
 				A26FEBEA229F7DE0003CCD7C /* PinPasswordSetViewController.m in Sources */,
+				ED4066EA23CDC08000BFFD4E /* TokenSwitchCell.m in Sources */,
 				A241822E22A6367C00519F7D /* RefreshStateHeader.m in Sources */,
 				ED44BF7F22696CF50042928E /* BTCBigNumber+Tests.m in Sources */,
 				ED44BFB222696CF50042928E /* BTCKey.m in Sources */,
 				ED44BF7522696CF50042928E /* BTCTransactionBuilder.m in Sources */,
+				ED4066D423CC61DE00BFFD4E /* MainViewController.m in Sources */,
 				A27269AF22B3B22F00E76E0A /* ProgressView.m in Sources */,
 				ED44BFAC22696CF50042928E /* BTCPaymentProtocol.m in Sources */,
 				ED44BFCC226979DA0042928E /* NSNumber+Utils.m in Sources */,
@@ -1794,6 +1861,7 @@
 				ED44BF7D22696CF50042928E /* NSData+BTCData.m in Sources */,
 				ED44BFF9226AC8320042928E /* VcashKeychainPath.m in Sources */,
 				ED44BFF02269C87E0042928E /* VcashKeyChain.m in Sources */,
+				ED4066D023CC55B400BFFD4E /* VcashTokenInfo.m in Sources */,
 				ED44BF9422696CF50042928E /* BTCBitcoinURL.m in Sources */,
 				ED44BFE122697CBA0042928E /* WalletWrapper.m in Sources */,
 				ED44BF8022696CF50042928E /* BTCTransaction+Tests.m in Sources */,
@@ -1802,6 +1870,7 @@
 				ED44BF8522696CF50042928E /* BTCScriptMachine.m in Sources */,
 				ED44BF9B22696CF50042928E /* BTCOutpoint.m in Sources */,
 				ED24988F2280298D00D94EBE /* ServerApi.m in Sources */,
+				ED4066EF23CDC2DD00BFFD4E /* TokenInfoListViewController.m in Sources */,
 				ED44BF9522696CF50042928E /* NS+BTCBase58.m in Sources */,
 				A25E6E5022BCBE1700D563A4 /* ReceiverSignTransactionFileViewController.m in Sources */,
 				A26FEBD9229F7DE0003CCD7C /* PhraseWordShowViewCreator.m in Sources */,
@@ -1847,6 +1916,7 @@
 				ED3C756D2271611400B42555 /* VcashWalletInfo.mm in Sources */,
 				A26FEBE6229F7DE0003CCD7C /* PinVerifyViewController.m in Sources */,
 				ED44BFAD22696CF50042928E /* BTCBase58.m in Sources */,
+				ED4066DD23CC691E00BFFD4E /* TokenInfoCell.m in Sources */,
 				ED44BF7122696CF50042928E /* BTCBlock.m in Sources */,
 				A26FEBC4229F7DE0003CCD7C /* TransactionDetailViewController.m in Sources */,
 				A26FEBCE229F7DE0003CCD7C /* RecoverMnemonicViewController.m in Sources */,

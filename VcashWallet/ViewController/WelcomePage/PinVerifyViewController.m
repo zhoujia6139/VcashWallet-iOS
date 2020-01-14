@@ -143,7 +143,7 @@
         if (success) {
             [weakSelf dismissViewControllerAnimated:NO completion:^{
                 UIViewController *currentVc = [[AppHelper shareInstance] visibleViewController];
-                if ([currentVc isKindOfClass:NSClassFromString(@"WalletViewController")] ||[currentVc isKindOfClass:NSClassFromString(@"SettingViewController")] || [currentVc isKindOfClass:NSClassFromString(@"AddressBookViewController")]) {
+                if ([currentVc isKindOfClass:NSClassFromString(@"MainViewController")] ||[currentVc isKindOfClass:NSClassFromString(@"SettingViewController")] || [currentVc isKindOfClass:NSClassFromString(@"AddressBookViewController")]) {
                     [[LeftMenuManager shareInstance] addGestures];
                 }
             }];

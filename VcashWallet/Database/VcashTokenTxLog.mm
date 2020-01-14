@@ -84,9 +84,18 @@ WCDB_PRIMARY(VcashTokenTxLog, tx_id)
 
 -(void)cancelTxlog{
     NSArray* walletOutputs = [VcashWallet shareInstance].outputs;
+    NSArray* walletTokenOutputs = [[VcashWallet shareInstance].token_outputs_dic objectForKey:self.token_type];
     if (self.tx_type == TxSent){
         for (NSString* commitment in self.inputs){
             for (VcashOutput* item in walletOutputs){
+                if ([commitment isEqualToString:item.commitment]){
+                    item.status = Unspent;
+                }
+            }
+        }
+        
+        for (NSString* commitment in self.token_inputs){
+            for (VcashTokenOutput* item in walletTokenOutputs){
                 if ([commitment isEqualToString:item.commitment]){
                     item.status = Unspent;
                 }
@@ -101,9 +110,18 @@ WCDB_PRIMARY(VcashTokenTxLog, tx_id)
             }
         }
     }
-    [[VcashWallet shareInstance] syncOutputInfo];
+    for (NSString* commitment in self.token_outputs){
+        for (VcashTokenOutput* item in walletTokenOutputs){
+            if ([commitment isEqualToString:item.commitment]){
+                item.status = Spent;
+            }
+        }
+    }
     
-    self.tx_type = (self.tx_type == TokenTxSent?TokenTxSentCancelled:TokenTxReceivedCancelled);
+    [[VcashWallet shareInstance] syncOutputInfo];
+    [[VcashWallet shareInstance] syncTokenOutputInfo];
+    
+    self.tx_type = (self.tx_type == TxSent?TxSentCancelled:TxReceivedCancelled);
     self.status = TxCanceled;
     
     return;

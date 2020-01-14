@@ -9,11 +9,9 @@
 #import "WalletViewController.h"
 #import "WalletWrapper.h"
 #import "SendTransactionViewController.h"
-//#import "ReceiveTransactionViewController.h"
 #import "WalletCell.h"
 #import "VcashTxLog.h"
 #import "TransactionDetailViewController.h"
-//#import "SettingViewController.h"
 #import "HandleSlateViewController.h"
 #import "ServerTxManager.h"
 #import "LeftMenuView.h"
@@ -34,6 +32,14 @@ static NSString *const identifier = @"WalletCell";
 #define txComplete @"txComplete"
 
 @interface WalletViewController ()<UITableViewDataSource,UITableViewDelegate,LeftMenuViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UIImageView *tokenIcon;
+
+@property (weak, nonatomic) IBOutlet UILabel *tokenName;
+
+@property (weak, nonatomic) IBOutlet UILabel *tokenFullName;
+
+@property (weak, nonatomic) IBOutlet UIImageView *headerBg;
 
 @property (strong, nonatomic) IBOutlet UIView *viewHeader;
 
@@ -82,45 +88,25 @@ static NSString *const identifier = @"WalletCell";
     [super viewDidLoad];
     first = YES;
     [self initSubviews];
-    if (!self.enterInRecoverMode){
-        [self.tableViewContainer.mj_header beginRefreshing];
-    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kWalletChainHeightChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMainView) name:kServerTxChange object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(serverTxStartWork) name:UIApplicationDidBecomeActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(serverTxStopWork) name:UIApplicationWillEnterForegroundNotification object:nil];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     if (!first) {
-        [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
-            [self refreshMainView];
-        }];
-        [WalletWrapper updateTokenOutputStatusWithComplete:nil];
+        [self refreshOutputStatus];
     }else{
         first = NO;
     }
    
 }
 
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    [self serverTxStartWork];
-    if (self.createNewWallet || self.enterInRecoverMode) {
-        [MBHudHelper startWorkProcessWithTextTips:@""];
-        [MBHudHelper endWorkProcessWithSuc:YES andTextTips:[LanguageService contentForKey:@"usableWallet"]];
-        self.createNewWallet = NO;
-        self.enterInRecoverMode = NO;
-    }
-  
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[ServerTxManager shareInstance] hiddenMsgNotificationView];
-    [self serverTxStopWork];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
@@ -175,9 +161,7 @@ static NSString *const identifier = @"WalletCell";
     [self.sendVcashBtn setBackgroundImage:[UIImage imageWithColor:COrangeColor] forState:UIControlStateNormal];
     [self.sendVcashBtn setBackgroundImage:[UIImage imageWithColor:COrangeHighlightedColor] forState:UIControlStateHighlighted];
     [self refreshMainView];
-
 }
-
 
 -(void)refreshWalletStatus{
     __weak typeof(self) weakSelf = self;
@@ -186,27 +170,52 @@ static NSString *const identifier = @"WalletCell";
         if (!yesOrNo) {
             [strongSelf.view makeToast:[LanguageService contentForKey:@"networkRequestFailed"]];
         }
-        [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
-            [strongSelf.tableViewContainer.mj_header endRefreshing];
-            [strongSelf refreshMainView];
-        }];
-        [WalletWrapper updateTokenOutputStatusWithComplete:nil];
+        [strongSelf refreshOutputStatus];
     }];
 }
 
-- (void)serverTxStartWork{
-    if ([WalletWrapper getWalletUserId]) {
-        [[ServerTxManager shareInstance] startWork];
+-(void)refreshOutputStatus{
+    if ([self.tokenType isEqualToString:@"VCash"]) {
+        [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
+            [self.tableViewContainer.mj_header endRefreshing];
+            [self refreshMainView];
+        }];
     }
-}
-
-- (void)serverTxStopWork{
-    [[ServerTxManager shareInstance] stopWork];
+    else {
+        [WalletWrapper updateTokenOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
+            [self.tableViewContainer.mj_header endRefreshing];
+            [self refreshMainView];
+        }];
+    }
 }
 
 -(void)refreshMainView{
     self.userIdView.text = [WalletWrapper getWalletUserId];
-    WalletBalanceInfo* info = [WalletWrapper getWalletBalanceInfo];
+    WalletBalanceInfo* info;
+    NSArray *arrTransaction;
+    if (!self.tokenType) {
+        self.tokenIcon.image = [UIImage imageNamed:@"vc_icon.png"];
+        self.headerBg.image = [UIImage imageNamed:@"vc_icon.png"];
+        self.tokenName.text = @"VCash";
+        self.tokenFullName.text = @"";
+        
+        info = [WalletWrapper getWalletBalanceInfo];
+        arrTransaction = [WalletWrapper getTransationArr];
+    } else {
+        VcashTokenInfo* tokenInfo = [WalletWrapper getTokenInfo:self.tokenType];
+        NSURL *url = [NSURL URLWithString: tokenInfo.IconData];
+        NSData *data = [NSData dataWithContentsOfURL: url];
+        UIImage *decodedImage = [UIImage imageWithData:data];
+        if (decodedImage) {
+            self.tokenIcon.image = decodedImage;
+            self.headerBg.image = decodedImage;
+        }
+        self.tokenName.text = tokenInfo.Name;
+        self.tokenFullName.text = tokenInfo.FullName;
+        
+        info = [WalletWrapper getWalletTokenBalanceInfo:self.tokenType];
+        arrTransaction = [WalletWrapper getTokenTxArr:self.tokenType];
+    }
     NSString *balance = @([WalletWrapper nanoToVcash:info.total]).p09fString;
     NSString *confirm = @([WalletWrapper nanoToVcash:info.spendable]).p09fString;
     NSString *unconfirm =  @([WalletWrapper nanoToVcash:info.unconfirmed]).p09fString;
@@ -221,21 +230,20 @@ static NSString *const identifier = @"WalletCell";
     
     self.chainHeight.text = [NSString stringWithFormat:@"Height:%@", @([WalletWrapper getCurChainHeight])];
     
-    NSArray *arrTransaction = [WalletWrapper getTransationArr];
     NSArray *arrSortTxs = [NSArray array];
     if (arrTransaction) {
         NSMutableArray *mutableArrTransaction = [NSMutableArray arrayWithArray:arrTransaction];
         NSInteger count = arrTransaction.count;
         NSMutableArray *deleteTransaction = [NSMutableArray array];
         for (NSInteger i = 0; i < count; i++) {
-            VcashTxLog *tx_log = arrTransaction[i];
+            BaseVcashTxLog *tx_log = arrTransaction[i];
             ServerTransaction *serverTx = [[ServerTxManager shareInstance] getServerTxByTx_id:tx_log.tx_slate_id];
             if (serverTx) {
                 [deleteTransaction addObject:tx_log];
             }
         }
         [mutableArrTransaction removeObjectsInArray:deleteTransaction];
-        arrSortTxs = [mutableArrTransaction sortedArrayUsingComparator:^NSComparisonResult(VcashTxLog *obj1, VcashTxLog *obj2) {
+        arrSortTxs = [mutableArrTransaction sortedArrayUsingComparator:^NSComparisonResult(BaseVcashTxLog *obj1, BaseVcashTxLog *obj2) {
             return [@(obj2.create_time) compare:@(obj1.create_time)];
         }];
     }
@@ -247,14 +255,23 @@ static NSString *const identifier = @"WalletCell";
         [self.arrOngoing addObjectsFromArray:arrServerTransactins];
     }
     for (NSInteger i = 0; i < arrSortTxs.count; i++) {
-        VcashTxLog *txLog = arrSortTxs[i];
-        if (txLog.confirm_state == NetConfirmed || txLog.tx_type == TxSentCancelled || txLog.tx_type == TxReceivedCancelled) {
-            [self.arrComplete addObject:txLog];
-        }else{
-            [self.arrOngoing addObject:txLog];
+        BaseVcashTxLog *txLog = arrSortTxs[i];
+        if ([txLog isKindOfClass:[VcashTxLog class]]) {
+            VcashTxLog* vcLog = (VcashTxLog*)txLog;
+            if (txLog.confirm_state == NetConfirmed || vcLog.tx_type == TxSentCancelled || vcLog.tx_type == TxReceivedCancelled) {
+                [self.arrComplete addObject:txLog];
+            }else{
+                [self.arrOngoing addObject:txLog];
+            }
+        } else {
+            VcashTokenTxLog* tokenLog = (VcashTokenTxLog*)txLog;
+            if (txLog.confirm_state == NetConfirmed || tokenLog.tx_type == TxSentCancelled || tokenLog.tx_type == TxReceivedCancelled) {
+                [self.arrComplete addObject:txLog];
+            }else{
+                [self.arrOngoing addObject:txLog];
+            }
         }
     }
-    
   
     [self.arrSections removeAllObjects];
     if (self.arrOngoing.count > 0) {
@@ -449,11 +466,13 @@ static NSString *const identifier = @"WalletCell";
 }
 
 - (IBAction)clickedOpenLeftMenuView:(id)sender {
-    [[[LeftMenuManager shareInstance] leftMenuView] showAnimation];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)clickSend:(id)sender {
-    [self.navigationController pushViewController:[SendTransactionViewController new]  animated:YES];
+    SendTransactionViewController* vc = [SendTransactionViewController new];
+    vc.tokenType = self.tokenType;
+    [self.navigationController pushViewController:vc  animated:YES];
 }
 
 - (IBAction)clickReceive:(id)sender {

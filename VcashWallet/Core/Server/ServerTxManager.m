@@ -154,7 +154,8 @@
 }
 
 -(void)handleServerTx{
-    if (![[[AppHelper shareInstance] visibleViewController] isKindOfClass:NSClassFromString(@"WalletViewController")]) {
+    if (![[[AppHelper shareInstance] visibleViewController] isKindOfClass:NSClassFromString(@"WalletViewController")] &&
+        ![[[AppHelper shareInstance] visibleViewController] isKindOfClass:NSClassFromString(@"MainViewController")]) {
         return;
     }
     NSMutableArray *txArr = [NSMutableArray array];

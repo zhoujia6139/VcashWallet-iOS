@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -28,6 +28,7 @@
                 <outlet property="labelFee" destination="qkH-au-M1w" id="wcd-3X-eCk"/>
                 <outlet property="labelRecipient" destination="SDo-Oy-MPa" id="XU4-Qg-FzP"/>
                 <outlet property="labelSender" destination="OtP-76-ta1" id="8Wh-cG-lrY"/>
+                <outlet property="labelTokenType" destination="YjV-Sm-961" id="QlR-qm-7ds"/>
                 <outlet property="labelTxStatus" destination="tGG-L4-qj4" id="G1C-YC-mXB"/>
                 <outlet property="labelTxTime" destination="2iZ-Fo-3jZ" id="pht-ty-8Cg"/>
                 <outlet property="labelTxid" destination="YfX-Z1-equ" id="3fi-ju-EWa"/>
@@ -72,8 +73,37 @@
                                 <constraint firstItem="tGG-L4-qj4" firstAttribute="leading" secondItem="2wy-ea-ttV" secondAttribute="trailing" constant="10" id="lMm-8d-gk1"/>
                             </constraints>
                         </view>
-                        <view tag="100" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gkQ-A0-7BR">
+                        <view tag="107" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QSk-wX-Dx8">
                             <rect key="frame" x="0.0" y="74.5" width="375" height="47"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Token" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJX-Fd-RVc" customClass="VcashLabel">
+                                    <rect key="frame" x="20" y="15" width="38.5" height="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localText" value="txtype"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YjV-Sm-961">
+                                    <rect key="frame" x="120" y="15" width="235" height="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="YjV-Sm-961" firstAttribute="leading" secondItem="QSk-wX-Dx8" secondAttribute="leading" constant="120" id="L6h-Pd-PhH"/>
+                                <constraint firstAttribute="trailing" secondItem="YjV-Sm-961" secondAttribute="trailing" constant="20" id="MBa-GH-TqP"/>
+                                <constraint firstItem="iJX-Fd-RVc" firstAttribute="leading" secondItem="QSk-wX-Dx8" secondAttribute="leading" constant="20" id="bVz-Eh-OIK"/>
+                                <constraint firstItem="iJX-Fd-RVc" firstAttribute="centerY" secondItem="QSk-wX-Dx8" secondAttribute="centerY" id="d8h-is-MHH"/>
+                                <constraint firstItem="YjV-Sm-961" firstAttribute="top" secondItem="QSk-wX-Dx8" secondAttribute="top" constant="15" id="fnP-73-lng"/>
+                                <constraint firstAttribute="bottom" secondItem="YjV-Sm-961" secondAttribute="bottom" constant="15" id="p6Q-jW-Y5r"/>
+                            </constraints>
+                        </view>
+                        <view tag="100" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gkQ-A0-7BR">
+                            <rect key="frame" x="0.0" y="121.5" width="375" height="47"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TXID" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C7Y-N2-Iqw" customClass="VcashLabel">
                                     <rect key="frame" x="20" y="15" width="32" height="17"/>
@@ -102,7 +132,7 @@
                             </constraints>
                         </view>
                         <view tag="101" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qg3-JW-k0i">
-                            <rect key="frame" x="0.0" y="121.5" width="375" height="47"/>
+                            <rect key="frame" x="0.0" y="168.5" width="375" height="47"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sender" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4do-4s-YcH" customClass="VcashLabel">
                                     <rect key="frame" x="20" y="15" width="46.5" height="17"/>
@@ -132,7 +162,7 @@
                             </constraints>
                         </view>
                         <view tag="102" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="etB-Xb-nV0">
-                            <rect key="frame" x="0.0" y="168.5" width="375" height="47"/>
+                            <rect key="frame" x="0.0" y="215.5" width="375" height="47"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recipient" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EbB-Mq-9i8" customClass="VcashLabel">
                                     <rect key="frame" x="20" y="15" width="60.5" height="17"/>
@@ -162,7 +192,7 @@
                             </constraints>
                         </view>
                         <view tag="103" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8sb-so-UKq">
-                            <rect key="frame" x="0.0" y="215.5" width="375" height="47"/>
+                            <rect key="frame" x="0.0" y="262.5" width="375" height="47"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TX amount" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7N-up-NyS" customClass="VcashLabel">
                                     <rect key="frame" x="20" y="15" width="71" height="17"/>
@@ -190,7 +220,7 @@
                             </constraints>
                         </view>
                         <view tag="104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iOo-BM-xoN">
-                            <rect key="frame" x="0.0" y="262.5" width="375" height="47"/>
+                            <rect key="frame" x="0.0" y="309.5" width="375" height="47"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TX fee" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tip-Vr-N3Q" customClass="VcashLabel">
                                     <rect key="frame" x="20" y="15" width="42.5" height="17"/>
@@ -218,7 +248,7 @@
                             </constraints>
                         </view>
                         <view tag="105" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dU1-tT-Dlh">
-                            <rect key="frame" x="0.0" y="309.5" width="375" height="47"/>
+                            <rect key="frame" x="0.0" y="356.5" width="375" height="47"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TX time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iMZ-lC-qBo" customClass="VcashLabel">
                                     <rect key="frame" x="20" y="15" width="50" height="17"/>
@@ -246,7 +276,7 @@
                             </constraints>
                         </view>
                         <view tag="106" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EZy-8r-dcB">
-                            <rect key="frame" x="0.0" y="356.5" width="375" height="47"/>
+                            <rect key="frame" x="0.0" y="403.5" width="375" height="47"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirmations" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwG-bX-NIK" customClass="VcashLabel">
                                     <rect key="frame" x="20" y="15" width="91" height="17"/>
@@ -274,7 +304,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1vh-fA-ef4">
-                            <rect key="frame" x="0.0" y="413.5" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="460.5" width="375" height="44"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signed transaction file" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rmU-x2-rLY" customClass="VcashLabel">
                                     <rect key="frame" x="20" y="11.5" width="171" height="21"/>
@@ -308,7 +338,7 @@
                             </constraints>
                         </view>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ETc-EL-9dj">
-                            <rect key="frame" x="25" y="457.5" width="325" height="200"/>
+                            <rect key="frame" x="25" y="504.5" width="325" height="200"/>
                             <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="200" id="SwH-na-6u1"/>
@@ -321,14 +351,16 @@
                     <constraints>
                         <constraint firstItem="gkQ-A0-7BR" firstAttribute="leading" secondItem="fvj-aZ-hDz" secondAttribute="leading" id="0WQ-9Q-0ji"/>
                         <constraint firstAttribute="trailing" secondItem="8sb-so-UKq" secondAttribute="trailing" id="3Ef-Js-ba0"/>
+                        <constraint firstAttribute="trailing" secondItem="QSk-wX-Dx8" secondAttribute="trailing" id="83m-W7-0CN"/>
                         <constraint firstAttribute="trailing" secondItem="GrY-Zo-j3K" secondAttribute="trailing" id="8Kv-an-GKd"/>
+                        <constraint firstItem="gkQ-A0-7BR" firstAttribute="top" secondItem="QSk-wX-Dx8" secondAttribute="bottom" id="9SU-VV-TCQ"/>
                         <constraint firstAttribute="trailing" secondItem="iOo-BM-xoN" secondAttribute="trailing" id="AAG-NQ-xwc"/>
                         <constraint firstAttribute="trailing" secondItem="dU1-tT-Dlh" secondAttribute="trailing" id="Ard-4o-ANw"/>
                         <constraint firstItem="etB-Xb-nV0" firstAttribute="top" secondItem="qg3-JW-k0i" secondAttribute="bottom" id="BGo-ub-W99"/>
                         <constraint firstItem="EZy-8r-dcB" firstAttribute="leading" secondItem="fvj-aZ-hDz" secondAttribute="leading" id="EWe-Hr-Kr9"/>
                         <constraint firstItem="GrY-Zo-j3K" firstAttribute="leading" secondItem="fvj-aZ-hDz" secondAttribute="leading" id="Eoq-vb-Vht"/>
+                        <constraint firstItem="QSk-wX-Dx8" firstAttribute="leading" secondItem="fvj-aZ-hDz" secondAttribute="leading" id="FPZ-hZ-79k"/>
                         <constraint firstAttribute="trailing" secondItem="ETc-EL-9dj" secondAttribute="trailing" constant="25" id="GKC-Se-Ktt"/>
-                        <constraint firstItem="gkQ-A0-7BR" firstAttribute="top" secondItem="GrY-Zo-j3K" secondAttribute="bottom" constant="5" id="I3f-hm-QJD"/>
                         <constraint firstItem="1vh-fA-ef4" firstAttribute="leading" secondItem="fvj-aZ-hDz" secondAttribute="leading" id="JaD-RM-eOp"/>
                         <constraint firstItem="etB-Xb-nV0" firstAttribute="leading" secondItem="fvj-aZ-hDz" secondAttribute="leading" id="Jrf-um-SYw"/>
                         <constraint firstItem="ETc-EL-9dj" firstAttribute="top" secondItem="1vh-fA-ef4" secondAttribute="bottom" id="KfO-ZU-Zbu"/>
@@ -337,6 +369,7 @@
                         <constraint firstAttribute="bottom" secondItem="dU1-tT-Dlh" secondAttribute="bottom" constant="30" id="UY6-4o-SlX"/>
                         <constraint firstItem="dU1-tT-Dlh" firstAttribute="leading" secondItem="fvj-aZ-hDz" secondAttribute="leading" id="Ujj-qb-Wlt"/>
                         <constraint firstItem="8sb-so-UKq" firstAttribute="top" secondItem="etB-Xb-nV0" secondAttribute="bottom" id="UzW-wl-NR3"/>
+                        <constraint firstItem="QSk-wX-Dx8" firstAttribute="top" secondItem="GrY-Zo-j3K" secondAttribute="bottom" constant="5" id="WWv-L0-2IU"/>
                         <constraint firstAttribute="trailing" secondItem="etB-Xb-nV0" secondAttribute="trailing" id="XaW-Lg-ePX"/>
                         <constraint firstItem="qg3-JW-k0i" firstAttribute="leading" secondItem="fvj-aZ-hDz" secondAttribute="leading" id="aHb-8n-MWJ"/>
                         <constraint firstItem="GrY-Zo-j3K" firstAttribute="top" secondItem="fvj-aZ-hDz" secondAttribute="top" id="aMb-lr-ay4"/>
