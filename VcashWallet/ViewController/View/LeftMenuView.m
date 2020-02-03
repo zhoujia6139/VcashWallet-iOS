@@ -154,6 +154,7 @@ static NSString * const identifier = @"LeftMenuCell";
 }
 
 - (void)showAnimation{
+     self.isShow  = YES;
     UIWindow *wd= [[[UIApplication sharedApplication] delegate] window];
     [wd bringSubviewToFront:self.viewAlpha];
     [wd bringSubviewToFront:self];
@@ -171,6 +172,7 @@ static NSString * const identifier = @"LeftMenuCell";
 }
 
 - (void)hiddenAnimation{
+    self.isShow  = NO;
     UIWindow *wd= [[[UIApplication sharedApplication] delegate] window];
     [wd bringSubviewToFront:self.viewAlpha];
     [wd bringSubviewToFront:self];
