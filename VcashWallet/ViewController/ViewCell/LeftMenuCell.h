@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseTableViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class LeftMenuModel;
 
-@interface LeftMenuCell : UITableViewCell
+@interface LeftMenuCell : BaseTableViewCell
 
 @property (nonatomic, strong) LeftMenuModel *model;
 
