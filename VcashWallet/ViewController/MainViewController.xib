@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,38 +19,8 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eve-d8-w65">
-                    <rect key="frame" x="0.0" y="20" width="375" height="30"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNK-L4-720">
-                            <rect key="frame" x="12" y="0.0" width="30" height="30"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="30" id="4WB-wj-hbN"/>
-                                <constraint firstAttribute="height" constant="30" id="TnM-31-OSp"/>
-                            </constraints>
-                            <state key="normal" image="walletleftimage.png"/>
-                            <connections>
-                                <action selector="clickedOpenLeftMenuView:" destination="-1" eventType="touchUpInside" id="6Nd-rR-HV7"/>
-                            </connections>
-                        </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VCash Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u6M-2Y-O9n">
-                            <rect key="frame" x="136.5" y="4.5" width="102" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstItem="gNK-L4-720" firstAttribute="top" secondItem="eve-d8-w65" secondAttribute="top" id="6oY-DU-ycj"/>
-                        <constraint firstItem="u6M-2Y-O9n" firstAttribute="centerX" secondItem="eve-d8-w65" secondAttribute="centerX" id="Qyl-L9-N7m"/>
-                        <constraint firstItem="gNK-L4-720" firstAttribute="leading" secondItem="eve-d8-w65" secondAttribute="leading" constant="12" id="hFa-qv-ZaS"/>
-                        <constraint firstItem="u6M-2Y-O9n" firstAttribute="centerY" secondItem="eve-d8-w65" secondAttribute="centerY" id="jf6-Zp-r0p"/>
-                        <constraint firstAttribute="height" constant="30" id="raK-Us-Wxs"/>
-                    </constraints>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cJi-QY-oJI">
-                    <rect key="frame" x="0.0" y="50" width="375" height="60"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRY-Xd-VlQ">
                             <rect key="frame" x="15" y="18" width="64" height="24"/>
@@ -118,7 +86,7 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jJI-8v-tnE">
-                    <rect key="frame" x="0.0" y="110" width="375" height="557"/>
+                    <rect key="frame" x="0.0" y="60" width="375" height="607"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
             </subviews>
@@ -126,20 +94,17 @@
             <constraints>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="cJi-QY-oJI" secondAttribute="trailing" id="1sO-Dr-tpm"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="jJI-8v-tnE" secondAttribute="trailing" id="8nf-2q-z7o"/>
+                <constraint firstItem="cJi-QY-oJI" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="Lxr-ec-7FM"/>
                 <constraint firstItem="jJI-8v-tnE" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="MFG-Yn-xZC"/>
-                <constraint firstItem="eve-d8-w65" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="djT-05-r8s"/>
-                <constraint firstItem="cJi-QY-oJI" firstAttribute="top" secondItem="eve-d8-w65" secondAttribute="bottom" id="h2a-f0-r9Z"/>
                 <constraint firstItem="cJi-QY-oJI" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="oEW-zu-g5D"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="eve-d8-w65" secondAttribute="trailing" id="prh-Ld-PUD"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="jJI-8v-tnE" secondAttribute="bottom" id="sVE-yb-lc5"/>
-                <constraint firstItem="eve-d8-w65" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="sc5-kN-3yM"/>
                 <constraint firstItem="jJI-8v-tnE" firstAttribute="top" secondItem="cJi-QY-oJI" secondAttribute="bottom" id="yOW-9k-K5L"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="140" y="120"/>
         </view>
     </objects>
     <resources>
         <image name="add_token_icon.png" width="20" height="20"/>
-        <image name="walletleftimage.png" width="30" height="30"/>
     </resources>
 </document>

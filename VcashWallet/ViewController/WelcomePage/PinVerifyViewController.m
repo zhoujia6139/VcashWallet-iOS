@@ -49,7 +49,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.textFieldPassword setValue:[UIColor colorWithHexString:@"#666666"] forKeyPath:@"_placeholderLabel.textColor"];
+//    [self.textFieldPassword setValue:[UIColor colorWithHexString:@"#666666"] forKeyPath:@"_placeholderLabel.textColor"];
+    NSAttributedString *attributePlaceHolder = [[NSAttributedString alloc] initWithString:[LanguageService contentForKey:@"passwordTitle"] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#666666"]}];
+    
+    self.textFieldPassword.attributedPlaceholder = attributePlaceHolder;
     self.textFieldPassword.tintColor = COrangeColor;
     UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 40)];
     self.textFieldPassword.rightView = rightView;

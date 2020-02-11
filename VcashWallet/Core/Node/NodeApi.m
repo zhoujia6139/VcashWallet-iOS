@@ -25,7 +25,8 @@
 
 -(NSString*)NodeUrl{
 #ifdef isInTestNet
-    return @"http://127.0.0.1:13513";
+//    return @"http://127.0.0.1:13513";
+    return @"http://47.75.163.56:13513";
 #else
     return @"https://api-node.vcashwallet.app";
 #endif

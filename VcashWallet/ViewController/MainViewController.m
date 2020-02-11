@@ -51,6 +51,8 @@ static NSString *const identifier = @"TokenInfoCell";
         }
     }
     
+    self.title = @"VCash Wallet";
+    self.isShowLeftMeue = YES;
     [[[LeftMenuManager shareInstance] leftMenuView] addInView];
     
     self.tableView.dataSource = self;
@@ -65,7 +67,6 @@ static NSString *const identifier = @"TokenInfoCell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
     [self serverTxStartWork];
     if (!self.enterInRecoverMode){
         [self refreshWalletStatus:NO];
@@ -75,7 +76,6 @@ static NSString *const identifier = @"TokenInfoCell";
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
     [self serverTxStopWork];
 }
 
@@ -88,7 +88,6 @@ static NSString *const identifier = @"TokenInfoCell";
         self.createNewWallet = NO;
         self.enterInRecoverMode = NO;
     }
-    
 }
 
 -(void)dealloc{
@@ -150,10 +149,6 @@ static NSString *const identifier = @"TokenInfoCell";
 
 - (void)serverTxStopWork{
     [[ServerTxManager shareInstance] stopWork];
-}
-
-- (IBAction)clickedOpenLeftMenuView:(id)sender {
-    [[[LeftMenuManager shareInstance] leftMenuView] showAnimation];
 }
 
 - (IBAction)clickTokenList:(id)sender {

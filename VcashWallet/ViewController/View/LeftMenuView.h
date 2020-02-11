@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id <LeftMenuViewDelegate> delegate;
 
+@property (nonatomic, assign) BOOL isShow;
+
 - (void)refreshData;
 
 - (void)addInView;

@@ -193,6 +193,7 @@
 		A2B3A11722A0D8EF000F7495 /* ServerTransactionBlackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B3A11622A0D8EF000F7495 /* ServerTransactionBlackManager.m */; };
 		A2D1569222C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D1569022C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.m */; };
 		A2D1569322C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2D1569122C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib */; };
+		A2DB3A1323E7FB6E006E5271 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DB3A1223E7FB6E006E5271 /* BaseTableViewCell.m */; };
 		A2E0164422CF01B10086FFA2 /* WalletPageSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A2E0164322CF01B10086FFA2 /* WalletPageSectionView.m */; };
 		A2E0164622CF12370086FFA2 /* sendgif.gif in Resources */ = {isa = PBXBuildFile; fileRef = A2E0164522CF12370086FFA2 /* sendgif.gif */; };
 		A2E0164E22CF4F310086FFA2 /* receivegif.gif in Resources */ = {isa = PBXBuildFile; fileRef = A2E0164D22CF4F310086FFA2 /* receivegif.gif */; };
@@ -559,6 +560,8 @@
 		A2D1568F22C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransactionFileSignedRecordViewController.h; sourceTree = "<group>"; };
 		A2D1569022C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransactionFileSignedRecordViewController.m; sourceTree = "<group>"; };
 		A2D1569122C9E7C100BD05B0 /* TransactionFileSignedRecordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionFileSignedRecordViewController.xib; sourceTree = "<group>"; };
+		A2DB3A1123E7FB6E006E5271 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
+		A2DB3A1223E7FB6E006E5271 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
 		A2E0164222CF01B10086FFA2 /* WalletPageSectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletPageSectionView.h; sourceTree = "<group>"; };
 		A2E0164322CF01B10086FFA2 /* WalletPageSectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletPageSectionView.m; sourceTree = "<group>"; };
 		A2E0164522CF12370086FFA2 /* sendgif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sendgif.gif; sourceTree = "<group>"; };
@@ -892,6 +895,8 @@
 				ED4066E723CDC08000BFFD4E /* TokenSwitchCell.h */,
 				ED4066E823CDC08000BFFD4E /* TokenSwitchCell.m */,
 				ED4066E923CDC08000BFFD4E /* TokenSwitchCell.xib */,
+				A2DB3A1123E7FB6E006E5271 /* BaseTableViewCell.h */,
+				A2DB3A1223E7FB6E006E5271 /* BaseTableViewCell.m */,
 			);
 			path = ViewCell;
 			sourceTree = "<group>";
@@ -1902,6 +1907,7 @@
 				ED44BF9E22696CF50042928E /* BTCEncryptedBackup+Tests.m in Sources */,
 				EDA5149222686DEC0011138F /* ViewController.m in Sources */,
 				A26FEBBE229F7DE0003CCD7C /* ConfirmSeedphraseViewController.m in Sources */,
+				A2DB3A1323E7FB6E006E5271 /* BaseTableViewCell.m in Sources */,
 				ED44BF7822696CF50042928E /* BTCAssetID.m in Sources */,
 				A26FEBCD229F7DE0003CCD7C /* LeftMenuCell.m in Sources */,
 				ED44BF8E22696CF50042928E /* BTCFancyEncryptedMessage.m in Sources */,

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseTableViewCell.h"
 
 @class VcashTxLog,ServerTransaction;
 
-@interface WalletCell : UITableViewCell
+@interface WalletCell : BaseTableViewCell
 
 
 - (void)setServerTransaction:(ServerTransaction *)serverTx;

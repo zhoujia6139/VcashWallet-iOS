@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseTableViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TokenInfoCell : UITableViewCell
+@interface TokenInfoCell : BaseTableViewCell
 
 @property(strong, nonatomic)NSString* tokenType;
 
