@@ -164,7 +164,7 @@
         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K8U-Op-xPE">
             <rect key="frame" x="0.0" y="0.0" width="375" height="201"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_token_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="6kF-8D-3JP">
+                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_token_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="6kF-8D-3JP">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="201"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fEM-9y-XJr">

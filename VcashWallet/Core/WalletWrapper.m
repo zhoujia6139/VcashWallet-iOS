@@ -576,18 +576,6 @@ static NSMutableSet* addedToken;
     return retArr;
 }
 
-+(NSArray*)getFileReceiveTokenTxArr:(NSString*)tokenType{
-    NSArray* txArr = [self getTokenTxArr:tokenType];
-    NSMutableArray* retArr = [NSMutableArray new];
-    for (VcashTokenTxLog* item in txArr){
-        if (item.tx_type == TxReceived && !item.parter_id && item.signed_slate_msg){
-            [retArr addObject:item];
-        }
-    }
-    
-    return retArr;
-}
-
 +(void)updateOutputStatusWithComplete:(RequestCompleteBlock)block{
     NSMutableArray* strArr = [NSMutableArray new];
     for (VcashOutput* item in [VcashWallet shareInstance].outputs){
@@ -816,7 +804,7 @@ static NSMutableSet* addedToken;
     sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
     sessionManager.securityPolicy.allowInvalidCertificates = YES;
     sessionManager.securityPolicy.validatesDomainName = NO;
-    NSString* url = @"https://raw.githubusercontent.com/jdwldnqi837/VcashTokenInfo/master/VCashTokenInfo.json";
+    NSString* url = @"https://s.vcashwallet.app/token_static/VCashTokenInfo.json";
     
     [sessionManager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -883,7 +871,7 @@ static NSMutableSet* addedToken;
 
 +(VcashTokenInfo*)getTokenInfo:(NSString*)tokenId {
     VcashTokenInfo* info = [tokenInfoDic objectForKey:tokenId];
-    if (!info){
+    if (!info && tokenId.length == 64){
         info = [VcashTokenInfo new];
         info.TokenId = tokenId;
         info.Name = [tokenId substringToIndex:8];

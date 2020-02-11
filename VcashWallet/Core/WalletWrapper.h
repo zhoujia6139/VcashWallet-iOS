@@ -83,8 +83,6 @@
 
 +(Boolean)deleteTokenTxByTxid:(NSString*)txid;
 
-+(NSArray*)getFileReceiveTokenTxArr:(NSString*)tokenType;
-
 +(void)updateTokenOutputStatusWithComplete:(RequestCompleteBlock)block;
 
 +(void)initTokenInfos;

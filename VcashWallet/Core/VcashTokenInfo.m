@@ -16,7 +16,7 @@
     [aCoder encodeObject:self.FullName forKey:@"FullName"];
     [aCoder encodeObject:self.BriefInfo forKey:@"BriefInfo"];
     [aCoder encodeObject:self.DetailInfoUrl forKey:@"DetailInfoUrl"];
-    [aCoder encodeObject:self.IconData forKey:@"IconData"];
+    [aCoder encodeObject:self.IconName forKey:@"IconName"];
 }
 
 -(instancetype)initWithCoder:(NSCoder *)aDecoder {
@@ -26,7 +26,7 @@
         self.FullName = [aDecoder decodeObjectForKey:@"FullName"];
         self.BriefInfo = [aDecoder decodeObjectForKey:@"BriefInfo"];
         self.DetailInfoUrl = [aDecoder decodeObjectForKey:@"DetailInfoUrl"];
-        self.IconData = [aDecoder decodeObjectForKey:@"IconData"];
+        self.IconName = [aDecoder decodeObjectForKey:@"IconName"];
     }
     
     return self;

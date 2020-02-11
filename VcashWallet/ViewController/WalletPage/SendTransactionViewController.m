@@ -234,6 +234,7 @@
                     }else{
                         [strongSelf sendTransactionWithUseId:strongSelf.targetAddressTextView.text slate:slate];
                     }
+                    [strongSelf.navigationController popViewControllerAnimated:YES];
                 };
                 [txDetailView show];
             }

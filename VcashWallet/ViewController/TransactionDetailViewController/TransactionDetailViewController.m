@@ -385,8 +385,14 @@
     
     switch (tx_type) {
         case ConfirmedCoinbaseOrTokenIssue:{
-            tx_id = [LanguageService contentForKey:@"coinbase"];
-            sender_id = [LanguageService contentForKey:@"coinbase"];
+            if ([self.txLog isKindOfClass:[VcashTxLog class]]) {
+                tx_id = [LanguageService contentForKey:@"coinbase"];
+                sender_id = [LanguageService contentForKey:@"coinbase"];
+            } else if ([self.txLog isKindOfClass:[VcashTokenTxLog class]]) {
+                tx_id = [LanguageService contentForKey:@"tokenissue"];
+                sender_id = [LanguageService contentForKey:@"tokenissue"];
+            }
+
             receiver_id =  [VcashWallet shareInstance].userId;
         }
             break;

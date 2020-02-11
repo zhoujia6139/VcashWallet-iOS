@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic)NSString* DetailInfoUrl;
 
-@property (strong, nonatomic)NSString* IconData;
+@property (strong, nonatomic)NSString* IconName;
 
 @end
 

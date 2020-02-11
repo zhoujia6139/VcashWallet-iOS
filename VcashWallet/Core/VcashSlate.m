@@ -44,6 +44,15 @@
     return @[@"txLog", @"tokenTxLog", @"lockOutputsFn", @"lockTokenOutputsFn", @"createNewOutputsFn", @"createNewTokenOutputsFn", @"context"];
 }
 
+- (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
+    dic[@"amount"] = [NSString stringWithFormat:@"%llu", self.amount];
+    dic[@"fee"] = [NSString stringWithFormat:@"%llu", self.fee];
+    dic[@"height"] = [NSString stringWithFormat:@"%llu", self.height];
+    dic[@"lock_height"] = [NSString stringWithFormat:@"%llu", self.lock_height];
+    
+    return YES;
+}
+
 -(VcashSecretKey*)addTxElement:(NSArray*)outputs change:(uint64_t)change isForToken:(BOOL)forToken{
     VcashTransaction* temptx = self.tx;
     TxKernel* txKernel = [TxKernel new];
@@ -508,6 +517,8 @@
     if (!self.message){
         dic[@"message"] = [NSNull null];
     }
+    
+    dic[@"id"] = [NSString stringWithFormat:@"%hu", self.pId];
     
     return YES;
 }

@@ -30,12 +30,8 @@
     _tokenType = tokenType;
     VcashTokenInfo* info = [WalletWrapper getTokenInfo:tokenType];
     if (info) {
-        NSURL *url = [NSURL URLWithString: info.IconData];
-        NSData *data = [NSData dataWithContentsOfURL: url];
-        UIImage *decodedImage = [UIImage imageWithData:data];
-        if (decodedImage) {
-            self.token_icon.image = decodedImage;
-        }
+        NSString* iconUrl = [NSString stringWithFormat:@"%@%@", TokenIconUrlPrefix, info.IconName];
+        [self.token_icon setImageWithURL:[NSURL URLWithString:iconUrl] placeholder:[UIImage imageNamed:@"default_token_icon.png"]];
         self.token_name.text = info.Name;
         self.token_full_name.text = info.FullName;
     } else {

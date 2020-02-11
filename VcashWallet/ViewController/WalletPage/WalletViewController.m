@@ -175,14 +175,14 @@ static NSString *const identifier = @"WalletCell";
 }
 
 -(void)refreshOutputStatus{
-    if ([self.tokenType isEqualToString:@"VCash"]) {
-        [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
+    if (self.tokenType) {
+        [WalletWrapper updateTokenOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
             [self.tableViewContainer.mj_header endRefreshing];
             [self refreshMainView];
         }];
     }
     else {
-        [WalletWrapper updateTokenOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
+        [WalletWrapper updateOutputStatusWithComplete:^(BOOL yesOrNo, id data) {
             [self.tableViewContainer.mj_header endRefreshing];
             [self refreshMainView];
         }];
@@ -203,13 +203,13 @@ static NSString *const identifier = @"WalletCell";
         arrTransaction = [WalletWrapper getTransationArr];
     } else {
         VcashTokenInfo* tokenInfo = [WalletWrapper getTokenInfo:self.tokenType];
-        NSURL *url = [NSURL URLWithString: tokenInfo.IconData];
-        NSData *data = [NSData dataWithContentsOfURL: url];
-        UIImage *decodedImage = [UIImage imageWithData:data];
-        if (decodedImage) {
-            self.tokenIcon.image = decodedImage;
-            self.headerBg.image = decodedImage;
-        }
+//        NSURL *url = [NSURL URLWithString: tokenInfo.IconData];
+//        NSData *data = [NSData dataWithContentsOfURL: url];
+//        UIImage *decodedImage = [UIImage imageWithData:data];
+//        if (decodedImage) {
+//            self.tokenIcon.image = decodedImage;
+//            self.headerBg.image = decodedImage;
+//        }
         self.tokenName.text = tokenInfo.Name;
         self.tokenFullName.text = tokenInfo.FullName;
         
