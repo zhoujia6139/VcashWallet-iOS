@@ -18,6 +18,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *seeDetailBtn;
 
+@property (nonatomic, strong)CALayer *shadowLayer;
 
 @end
 
@@ -33,7 +34,20 @@
 */
 - (void)awakeFromNib{
    [super awakeFromNib];
+    _shadowLayer = [CALayer layer];
+    _shadowLayer.backgroundColor = [UIColor whiteColor].CGColor;
+    _shadowLayer.cornerRadius = 6.0;
+    _shadowLayer.shadowColor = [UIColor blackColor].CGColor;
+    _shadowLayer.shadowOffset = CGSizeZero;
+    _shadowLayer.shadowRadius = 2;
+    _shadowLayer.shadowOpacity = 0.30;
+    [self.layer insertSublayer:_shadowLayer atIndex:0];
     self.messageLabel.preferredMaxLayoutWidth = ScreenWidth - 40 - 24;
+}
+
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    self.shadowLayer.frame = self.bounds;
 }
 
 - (void)setServerTx:(ServerTransaction *)serverTx{
@@ -74,7 +88,7 @@
     UIWindow *wd = [UIApplication sharedApplication].keyWindow;
     [wd addSubview:self];
     [self layoutIfNeeded];
-    ViewRadius(self, 4.0);
+//    ViewRadius(self, 4.0);
     ViewRadius(self.seeDetailBtn, 4.0);
     CGFloat height = [self selfHeight];
     [self mas_makeConstraints:^(MASConstraintMaker *make) {

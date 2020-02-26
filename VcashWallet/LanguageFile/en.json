@@ -31,7 +31,7 @@
     "enterOrScan":"Input recipient's ID or http address",
     "enterAmount":"Input amount",
     "unit":"VCash",
-    "receiveVcash":"Receive VCash",
+    "receiveVcash":"Receive Coins",
     "walletid":"Your wallet ID",
     "scanQR":"Or scan the QR code",
     "copySuc":"Copied",

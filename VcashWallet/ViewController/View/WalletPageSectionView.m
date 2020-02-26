@@ -27,16 +27,18 @@
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor  = [UIColor colorWithHexString:@"#F8F8F8"];
+        UIView *bgView = [UIView new];
+        bgView.backgroundColor = [UIColor colorWithHexString:@"#F6F6F6"];
+        self.backgroundView  = bgView;
         self.labelTitle = [[UILabel alloc] init];
         self.labelTitle.font = [UIFont systemFontOfSize:12];
-        self.labelTitle.textColor = [UIColor colorWithHexString:@"#AEAEAE"];
+        self.labelTitle.textColor = [UIColor colorWithHexString:@"#999999"];
         [self addSubview:self.labelTitle];
         [self.labelTitle mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.offset(15);
             make.centerY.equalTo(self);
         }];
-        [AppHelper addLineWithParentView:self];
+//        [AppHelper addLineWithParentView:self];
     }
     return self;
 }

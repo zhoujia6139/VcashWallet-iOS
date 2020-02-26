@@ -78,6 +78,8 @@ static NSString *const identifier = @"WalletCell";
 
 @property (nonatomic, strong) NSMutableArray *arrComplete;
 
+@property (weak, nonatomic) IBOutlet UIView *viewNavi;
+
 @end
 
 @implementation WalletViewController{
@@ -116,6 +118,7 @@ static NSString *const identifier = @"WalletCell";
 }
 
 - (void)initSubviews{
+    [AppHelper addLineWithParentView:self.viewNavi];
     if (@available(iOS 11.0, *)) {
         self.tableViewContainer.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     } else {
@@ -280,8 +283,10 @@ static NSString *const identifier = @"WalletCell";
     if (self.arrComplete.count > 0) {
         [self.arrSections addObject:txComplete];
     }
-   
     self.tableViewContainer.tableFooterView = ((self.arrOngoing.count   +  self.arrComplete.count) > 0 )? nil : self.footView;
+    if (self.arrSections.count == 0) {
+        [self.arrSections addObject:txComplete];
+    }
     [self.tableViewContainer reloadData];
 }
 

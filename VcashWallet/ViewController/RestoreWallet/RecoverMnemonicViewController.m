@@ -48,7 +48,7 @@
     self.constraintPromptViewWidth.constant = ScreenWidth - 24;
     ViewRadius(self.recoverBtn, 4.0);
     self.btnCopy.hidden = !self.recoveryPhrase;
-    self.recoverBtn.userInteractionEnabled = YES;
+    self.recoverBtn.userInteractionEnabled = NO;
     [self.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
     self.creator = [PhraseWordShowViewCreator new];
     __weak typeof(self) weakSelf = self;
@@ -56,7 +56,7 @@
     [self.creator creatPhraseViewWithParentView:self.phraseView isCanEdit:!self.recoveryPhrase mnemonicArr:mnemonicArr withCallBack:^(CGFloat height, NSInteger wordsCount){
         __strong typeof(weakSelf) strongSlef = weakSelf;
         if (wordsCount != 24) {
-            strongSlef.recoverBtn.userInteractionEnabled = YES;
+            strongSlef.recoverBtn.userInteractionEnabled = NO;
             [strongSlef.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
         }else{
             strongSlef.recoverBtn.userInteractionEnabled = YES;
@@ -162,7 +162,7 @@
                     __weak typeof(self) weakSelf = self;
                     __strong typeof(weakSelf) strongSlef = weakSelf;
                     if (wordsCount != 24) {
-                        strongSlef.recoverBtn.userInteractionEnabled = YES;
+                        strongSlef.recoverBtn.userInteractionEnabled = NO;
                         [strongSlef.recoverBtn setBackgroundImage:[UIImage imageWithColor:COrangeEnableColor] forState:UIControlStateNormal];
                     }else{
                         strongSlef.recoverBtn.userInteractionEnabled = YES;
@@ -211,9 +211,9 @@
     if (wordsArr.count == 0)
     {
 //        //NSString* mnemonicStr = @"glue tilt pair insane enroll scissors galaxy know fringe joke mother zebra";
-        NSString* mnemonicStr = @"layer floor valley flag dawn dress sponsor whale illegal session juice beef scout mammal snake cage river lemon easily away title else layer limit";
+//        NSString* mnemonicStr = @"layer floor valley flag dawn dress sponsor whale illegal session juice beef scout mammal snake cage river lemon easily away title else layer limit";
 //        NSString* mnemonicStr = @"evidence boy green adult kidney biology hollow expire jewel give elegant engine farm photo tomato sustain rigid emerge afford sibling color assume gesture material";
-        wordsArr = [mnemonicStr componentsSeparatedByString:@" "];
+//        wordsArr = [mnemonicStr componentsSeparatedByString:@" "];
     }
     
     if (wordsArr.count != 24)
