@@ -47,7 +47,7 @@
     }
     
     if (balance) {
-        self.amount.text = [NSString stringWithFormat:@"%@", @([WalletWrapper nanoToVcash:balance.total])];
+        self.amount.text = [NSString stringWithFormat:@"%@", @([WalletWrapper nanoToVcash:balance.total]).p09fString];
     }
 }
 
