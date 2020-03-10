@@ -17,9 +17,9 @@ typedef void (^RequestCompleteBlock) (BOOL, _Nullable id);
 
 + (instancetype)shareInstance;
 
--(void)getOutputsByPmmrIndex:(uint64_t)startheight retArr:(NSMutableArray*)retArr WithComplete:(RequestCompleteBlock)block;
+-(void)getOutputsByPmmrIndex:(uint64_t)startIndex WithComplete:(RequestCompleteBlock)completeblock;
 
--(void)getTokenOutputsByPmmrIndex:(uint64_t)startheight retArr:(NSMutableArray*)retArr WithComplete:(RequestCompleteBlock)completeblock;
+-(void)getTokenOutputsByPmmrIndex:(uint64_t)startIndex WithComplete:(RequestCompleteBlock)completeblock;
 
 -(void)getOutputsByCommitArr:(NSArray<NSString*>*)commitArr WithComplete:(RequestCompleteBlock)completeblock;
 

@@ -37,9 +37,9 @@
 +(uint64_t)getCurChainHeight;
 
 //check wallet utxo
-+(void)checkWalletUtxoWithComplete:(RequestCompleteBlock)block;
++(void)checkWalletUtxoFromIndex:(uint64_t)startIndex WithComplete:(RequestCompleteBlock)block;
 
-+(void)checkWalletTokenUtxoWithComplete:(RequestCompleteBlock)block;
++(void)checkWalletTokenUtxoFromIndex:(uint64_t)startIndex WithComplete:(RequestCompleteBlock)block;
 
 //TODO support multi receiver
 +(void)createSendTransaction:(NSString*)tokenType andAmount:(uint64_t)amount withComplete:(RequestCompleteBlock)block;

@@ -209,29 +209,71 @@
         [self.progressView show];
         [[UserCenter sharedInstance] writeRecoverStatusWithFailed:YES];
         [UIApplication sharedApplication].idleTimerDisabled = YES;
-        [WalletWrapper checkWalletUtxoWithComplete:^(BOOL yesOrNo, id ret) {
-            if (yesOrNo && [ret isKindOfClass:[NSArray class]]) {
-                self.progressView.progress = 1;
-                 [[UserCenter sharedInstance] writeRecoverStatusWithFailed:NO];
-                 [NavigationCenter showWalletPage:self.isRecover createNewWallet:NO];
-                 [[LockScreenTimeService shareInstance] addObserver];
-                [UIApplication sharedApplication].idleTimerDisabled = NO;
-            }else if(yesOrNo && [ret isKindOfClass:[NSNumber class]]){
-                self.progressView.progress = [ret floatValue];
-            }else{
-                [UIApplication sharedApplication].idleTimerDisabled = NO;
-                [MBHudHelper showTextTips:[LanguageService contentForKey:@"recoveryFailure"] onView:nil withDuration:1.5];
-                [self.progressView removeFromSuperview];
-                self.progressView = nil;
-            }
-            
-        }];
-        [WalletWrapper checkWalletTokenUtxoWithComplete:nil];
+        [self startCheckWallteUtxoFromIndex:0];
+        
         return;
     }
     [[UserCenter sharedInstance] writeRecoverStatusWithFailed:NO];
     [NavigationCenter showWalletPage:self.isRecover createNewWallet:YES];
     [[LockScreenTimeService shareInstance] addObserver];
+}
+
+-(void)startCheckWallteUtxoFromIndex:(uint64_t)startIndex {
+    [WalletWrapper checkWalletUtxoFromIndex:startIndex WithComplete:^(BOOL yesOrNo, id ret) {
+        if (yesOrNo && [ret isKindOfClass:[NSArray class]]) {
+//            self.progressView.progress = 1;
+//             [[UserCenter sharedInstance] writeRecoverStatusWithFailed:NO];
+//             [NavigationCenter showWalletPage:self.isRecover createNewWallet:NO];
+//             [[LockScreenTimeService shareInstance] addObserver];
+//            [UIApplication sharedApplication].idleTimerDisabled = NO;
+            [self startCheckWallteTokenUtxoFromIndex:0];
+        }else if(yesOrNo && [ret isKindOfClass:[NSNumber class]]){
+            self.progressView.progress = [ret floatValue];
+        }else{
+            NSNumber* last_index = (NSNumber*)ret;
+            uint64_t lastIndex = [last_index unsignedLongValue];
+            UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:nil message:@"restore failed! retry?" preferredStyle:UIAlertControllerStyleAlert];
+            [alertVc addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [UIApplication sharedApplication].idleTimerDisabled = NO;
+                [MBHudHelper showTextTips:[LanguageService contentForKey:@"recoveryFailure"] onView:nil withDuration:1.5];
+                [self.progressView removeFromSuperview];
+                self.progressView = nil;
+            }]];
+            [alertVc addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self startCheckWallteUtxoFromIndex:lastIndex];
+            }]];
+            [self.navigationController presentViewController:alertVc animated:YES completion:nil];
+        }
+    }];
+}
+
+-(void)startCheckWallteTokenUtxoFromIndex:(uint64_t)startIndex {
+    [WalletWrapper checkWalletTokenUtxoFromIndex:startIndex WithComplete:^(BOOL yesOrNo, id ret) {
+        if (yesOrNo && [ret isKindOfClass:[NSArray class]]) {
+            self.progressView.progress = 1;
+             [[UserCenter sharedInstance] writeRecoverStatusWithFailed:NO];
+             [NavigationCenter showWalletPage:self.isRecover createNewWallet:NO];
+             [[LockScreenTimeService shareInstance] addObserver];
+            [UIApplication sharedApplication].idleTimerDisabled = NO;
+            
+        }else if(yesOrNo && [ret isKindOfClass:[NSNumber class]]){
+            //self.progressView.progress = [ret floatValue];
+        }else{
+            NSNumber* last_index = (NSNumber*)ret;
+            uint64_t lastIndex = [last_index unsignedLongValue];
+            UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:nil message:@"token restore failed! retry?" preferredStyle:UIAlertControllerStyleAlert];
+            [alertVc addAction:[UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [UIApplication sharedApplication].idleTimerDisabled = NO;
+                [MBHudHelper showTextTips:[LanguageService contentForKey:@"recoveryFailure"] onView:nil withDuration:1.5];
+                [self.progressView removeFromSuperview];
+                self.progressView = nil;
+            }]];
+            [alertVc addAction:[UIAlertAction actionWithTitle:@"YES" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self startCheckWallteTokenUtxoFromIndex:lastIndex];
+            }]];
+            [self.navigationController presentViewController:alertVc animated:YES completion:nil];
+        }
+    }];
 }
 
 

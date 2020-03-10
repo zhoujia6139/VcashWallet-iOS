@@ -73,9 +73,8 @@ static NSMutableSet* addedToken;
     return [VcashWallet shareInstance].curChainHeight;
 }
 
-+(void)checkWalletUtxoWithComplete:(RequestCompleteBlock)block{
-    NSMutableArray* arr = [NSMutableArray new];
-    [[NodeApi shareInstance] getOutputsByPmmrIndex:0 retArr:arr WithComplete:^(BOOL yesOrNo, id result) {
++(void)checkWalletUtxoFromIndex:(uint64_t)startIndex WithComplete:(RequestCompleteBlock)block{
+    [[NodeApi shareInstance] getOutputsByPmmrIndex:startIndex WithComplete:^(BOOL yesOrNo, id result) {
         if (yesOrNo){
             if ([result isKindOfClass:[NSArray class]]){
                 NSMutableArray* txArr = [NSMutableArray new];
@@ -105,9 +104,8 @@ static NSMutableSet* addedToken;
     }];
 }
 
-+(void)checkWalletTokenUtxoWithComplete:(RequestCompleteBlock)block{
-    NSMutableArray* arr = [NSMutableArray new];
-    [[NodeApi shareInstance] getTokenOutputsByPmmrIndex:0 retArr:arr WithComplete:^(BOOL yesOrNo, id result) {
++(void)checkWalletTokenUtxoFromIndex:(uint64_t)startIndex WithComplete:(RequestCompleteBlock)block{
+    [[NodeApi shareInstance] getTokenOutputsByPmmrIndex:startIndex WithComplete:^(BOOL yesOrNo, id result) {
         if (yesOrNo){
             if ([result isKindOfClass:[NSArray class]]){
                 NSMutableArray* txArr = [NSMutableArray new];

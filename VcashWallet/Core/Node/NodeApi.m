@@ -32,11 +32,15 @@
 #endif
 }
 
--(void)getOutputsByPmmrIndex:(uint64_t)startheight retArr:(NSMutableArray*)retArr WithComplete:(RequestCompleteBlock)completeblock{
+-(void)getOutputsByPmmrIndex:(uint64_t)startIndex WithComplete:(RequestCompleteBlock)completeblock{
+    static NSMutableArray* retArr;
     if (!retArr){
-        return;
+        retArr = [NSMutableArray new];
+    } else if (startIndex == 0){
+        [retArr removeAllObjects];
     }
-    NSString* url = [NSString stringWithFormat:@"%@/v1/txhashset/outputs?start_index=%lld&max=800", [self NodeUrl], startheight];
+    NSString* url = [NSString stringWithFormat:@"%@/v1/txhashset/outputs?start_index=%lld&max=800", [self NodeUrl], startIndex];
+    DDLogWarn(@"start request:%@", url);
     
     [[self sessionManager] GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -50,24 +54,29 @@
             }
         }
         if (outputs.highest_index > outputs.last_retrieved_index){
-            [self getOutputsByPmmrIndex:outputs.last_retrieved_index retArr:retArr WithComplete:completeblock];
+            [self getOutputsByPmmrIndex:outputs.last_retrieved_index WithComplete:completeblock];
             double percent = (double)outputs.last_retrieved_index / (double)outputs.highest_index;
             completeblock?completeblock(YES, @(percent)):nil;
         }
         else if(outputs.highest_index <= outputs.last_retrieved_index){
             completeblock?completeblock(YES, retArr):nil;
+            retArr = nil;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        DDLogError(@"getOutputsByPmmrIndex failed:%@", error);
-        completeblock?completeblock(NO, nil):nil;
+        DDLogError(@"getOutputsByPmmrIndex failed, index=%@", @(startIndex));
+        completeblock?completeblock(NO, @(startIndex)):nil;
     }];
 }
 
--(void)getTokenOutputsByPmmrIndex:(uint64_t)startheight retArr:(NSMutableArray*)retArr WithComplete:(RequestCompleteBlock)completeblock{
+-(void)getTokenOutputsByPmmrIndex:(uint64_t)startIndex WithComplete:(RequestCompleteBlock)completeblock{
+    static NSMutableArray* retArr;
     if (!retArr){
-        return;
+        retArr = [NSMutableArray new];
+    } else if (startIndex == 0){
+        [retArr removeAllObjects];
     }
-    NSString* url = [NSString stringWithFormat:@"%@/v1/txhashset/tokenoutputs?start_index=%lld&max=800", [self NodeUrl], startheight];
+    NSString* url = [NSString stringWithFormat:@"%@/v1/txhashset/tokenoutputs?start_index=%lld&max=800", [self NodeUrl], startIndex];
+    DDLogWarn(@"start request:%@", url);
     
     [[self sessionManager] GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -81,7 +90,7 @@
             }
         }
         if (outputs.highest_index > outputs.last_retrieved_index){
-            [self getTokenOutputsByPmmrIndex:outputs.last_retrieved_index retArr:retArr WithComplete:completeblock];
+            [self getTokenOutputsByPmmrIndex:outputs.last_retrieved_index WithComplete:completeblock];
             double percent = (double)outputs.last_retrieved_index / (double)outputs.highest_index;
             completeblock?completeblock(YES, @(percent)):nil;
         }
@@ -89,8 +98,8 @@
             completeblock?completeblock(YES, retArr):nil;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        DDLogError(@"getTokenOutputsByPmmrIndex failed:%@", error);
-        completeblock?completeblock(NO, nil):nil;
+        DDLogError(@"getTokenOutputsByPmmrIndex failed, index=%@", @(startIndex));
+        completeblock?completeblock(NO, @(startIndex)):nil;
     }];
 }
 
