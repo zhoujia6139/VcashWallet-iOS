@@ -50,6 +50,13 @@
     dic[@"height"] = [NSString stringWithFormat:@"%llu", self.height];
     dic[@"lock_height"] = [NSString stringWithFormat:@"%llu", self.lock_height];
     
+    if (!self.token_type) {
+        dic[@"token_type"] = [NSNull null];
+    }
+    if (!self.ttl_cutoff_height) {
+        dic[@"ttl_cutoff_height"] = [NSNull null];
+    }
+    
     return YES;
 }
 
@@ -436,8 +443,8 @@
 
 +(instancetype)createVersionInfo{
     VersionCompatInfo* info = [VersionCompatInfo new];
-    info.version= 3;
-    info.orig_version = 3;
+    info.version= 4;
+    info.orig_version = 4;
     info.block_header_version = 2;
     return info;
 }
@@ -519,6 +526,18 @@
     }
     
     dic[@"id"] = [NSString stringWithFormat:@"%hu", self.pId];
+    
+    return YES;
+}
+
+@end
+
+@implementation PaymentInfo
+
+- (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
+    if (!self.receiver_signature){
+        dic[@"receiver_signature"] = [NSNull null];
+    }
     
     return YES;
 }

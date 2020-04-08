@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class VcashContext, VersionCompatInfo, ParticipantData, VcashTransaction, VcashTxLog, VcashTokenTxLog, VcashSignature;
+@class VcashContext, VersionCompatInfo, PaymentInfo, ParticipantData, VcashTransaction, VcashTxLog, VcashTokenTxLog, VcashSignature;
 
 @interface VcashSlate : NSObject
 
@@ -33,6 +33,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(strong, nonatomic)VcashTransaction* tx;
 
 @property(strong, nonatomic)NSMutableArray<ParticipantData*>* participant_data;
+
+@property(strong, nonatomic)PaymentInfo* payment_proof;
+
+@property(strong, nonatomic)NSNumber* ttl_cutoff_height;
 
 //unselialised
 @property(strong, nonatomic)VcashTxLog* txLog;
@@ -96,6 +100,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property(strong, nonatomic)NSString* message;
 
 @property(strong, nonatomic)VcashSignature* message_sig;
+
+@end
+
+@interface PaymentInfo : NSObject
+
+@property(strong, nonatomic)NSString* sender_address;
+
+@property(strong, nonatomic)NSString* receiver_address;
+
+@property(strong, nonatomic)NSString* receiver_signature;
 
 @end
 

@@ -245,24 +245,17 @@
     NSData* compactExessSig = BTCDataFromHex(dic[@"excess_sig"]);
     self.excess_sig = [[VcashSignature alloc] initWithCompactData:compactExessSig];
     
-    NSDictionary* fea = dic[@"features"];
-    NSDictionary* plain = [fea valueForKey:@"Plain"];
-    if (plain != nil) {
+    NSString* feature = dic[@"features"];
+    if ([feature isEqualToString:@"Plain"]) {
         self.features = KernelFeaturePlain;
-        self.fee = [[plain valueForKey:@"fee"] longLongValue];
-    }
-    
-    NSDictionary* coinbase = [fea valueForKey:@"Coinbase"];
-    if (coinbase != nil) {
+    } else if ([feature isEqualToString:@"Coinbase"]) {
         self.features = KernelFeatureCoinbase;
+    } else if ([feature isEqualToString:@"HeightLocked"]) {
+        self.features = KernelFeatureHeightLocked;
     }
     
-    NSDictionary* heightlock = [fea valueForKey:@"HeightLocked"];
-    if (heightlock != nil) {
-        self.features = KernelFeatureHeightLocked;
-        self.fee = [[plain valueForKey:@"fee"] longLongValue];
-        self.lock_height = [[plain valueForKey:@"lock_height"] longLongValue];
-    }
+    self.fee = [[dic valueForKey:@"fee"] longLongValue];
+    self.lock_height = [[dic valueForKey:@"lock_height"] longLongValue];
 
     return YES;
 }
@@ -273,26 +266,17 @@
     dic[@"excess_sig"] = BTCHexFromData([self.excess_sig getCompactData]);
     
     if (self.features == KernelFeaturePlain){
-        NSMutableDictionary* plain = [NSMutableDictionary new];
-        NSMutableDictionary* fee = [NSMutableDictionary new];
-        fee[@"fee"] = [NSNumber numberWithLongLong:self.fee];
-        plain[@"Plain"] = fee;
-        dic[@"features"] = plain;
+        dic[@"features"] = @"Plain";
     }
     else if (self.features == KernelFeatureCoinbase){
         dic[@"features"] = @"Coinbase";
     }
     else if (self.features == KernelFeatureHeightLocked){
-        NSMutableDictionary* heightlock = [NSMutableDictionary new];
-        NSMutableDictionary* innerDic = [NSMutableDictionary new];
-        innerDic[@"fee"] = [NSNumber numberWithLongLong:self.fee];
-        innerDic[@"lock_height"] = [NSNumber numberWithLongLong:self.lock_height];
-        heightlock[@"HeightLocked"] = innerDic;
-        dic[@"features"] = heightlock;
+        dic[@"features"] = @"HeightLocked";
     }
     
-    [dic removeObjectForKey:@"fee"];
-    [dic removeObjectForKey:@"lock_height"];
+    dic[@"fee"] = [NSNumber numberWithLongLong:self.fee];
+    dic[@"lock_height"] = [NSNumber numberWithLongLong:self.lock_height];
     
     return YES;
 }
@@ -432,8 +416,6 @@
     }
     
     dic[@"token_type"] = self.token_type;
-    
-    [dic removeObjectForKey:@"lock_height"];
     
     return YES;
 }

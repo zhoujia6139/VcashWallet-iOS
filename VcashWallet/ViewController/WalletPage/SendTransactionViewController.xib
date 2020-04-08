@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,6 +15,7 @@
                 <outlet property="labelAvailable" destination="0az-fJ-g2H" id="pjW-ue-cfu"/>
                 <outlet property="labelPlaceHolder" destination="bPv-1N-TGU" id="tYV-bQ-1IE"/>
                 <outlet property="promptView" destination="ca8-xS-xgW" id="tkP-2M-0Fa"/>
+                <outlet property="receiverAddress" destination="jDQ-2P-iyj" id="hyT-Bb-V14"/>
                 <outlet property="sendBtn" destination="LH6-sa-gCG" id="DpX-ug-jR6"/>
                 <outlet property="targetAddressTextView" destination="DzF-iA-TgO" id="pfc-Sq-f8t"/>
                 <outlet property="unit" destination="AVb-N6-bqL" id="EA0-EA-M5F"/>
@@ -31,7 +30,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ca8-xS-xgW">
-                    <rect key="frame" x="12" y="32" width="351" height="104"/>
+                    <rect key="frame" x="12" y="12" width="351" height="104"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A64-2G-eB1" customClass="VcashLabel">
                             <rect key="frame" x="20" y="16" width="311" height="72"/>
@@ -56,7 +55,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zrg-pV-E6b">
-                    <rect key="frame" x="0.0" y="162" width="375" height="64.5"/>
+                    <rect key="frame" x="0.0" y="142" width="375" height="64.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send to" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g9O-nh-01K" customClass="VcashLabel">
                             <rect key="frame" x="26" y="0.0" width="199" height="21.5"/>
@@ -135,13 +134,13 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Both recipient's ID and &quot;http&quot; methods are supported." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APr-Mf-sCF">
-                    <rect key="frame" x="26" y="232.5" width="323" height="14.5"/>
+                    <rect key="frame" x="26" y="212.5" width="323" height="14.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" red="0.12156862745098039" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dmR-Lj-w93">
-                    <rect key="frame" x="0.0" y="276.5" width="375" height="64.5"/>
+                    <rect key="frame" x="0.0" y="256.5" width="375" height="64.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfI-HJ-msy" customClass="VcashLabel">
                             <rect key="frame" x="26" y="0.0" width="63.5" height="21.5"/>
@@ -164,7 +163,6 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="yZC-89-Zu9"/>
                             </constraints>
-                            <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                             <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             <userDefinedRuntimeAttributes>
@@ -229,12 +227,21 @@
                         <action selector="clickSend:" destination="-1" eventType="touchUpInside" id="Nvg-G0-hxt"/>
                     </connections>
                 </button>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jDQ-2P-iyj">
+                    <rect key="frame" x="20" y="351" width="335" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="jMS-c2-5Ol"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="LH6-sa-gCG" secondAttribute="bottom" constant="40" id="7uo-km-Hvh"/>
                 <constraint firstItem="dmR-Lj-w93" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Da2-FL-wjA"/>
                 <constraint firstItem="ca8-xS-xgW" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="12" id="SWA-AR-IgT"/>
+                <constraint firstItem="jDQ-2P-iyj" firstAttribute="top" secondItem="dmR-Lj-w93" secondAttribute="bottom" constant="30" id="W4H-zP-uOK"/>
                 <constraint firstItem="zrg-pV-E6b" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Wzc-8g-QJS"/>
                 <constraint firstItem="dmR-Lj-w93" firstAttribute="top" secondItem="zrg-pV-E6b" secondAttribute="bottom" constant="50" id="XJ1-Rz-H2K"/>
                 <constraint firstItem="APr-Mf-sCF" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="26" id="ZxZ-CL-A01"/>
@@ -244,7 +251,9 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="ca8-xS-xgW" secondAttribute="trailing" constant="12" id="jol-Ev-eQe"/>
                 <constraint firstItem="ca8-xS-xgW" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="12" id="kj8-wj-gXT"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="dmR-Lj-w93" secondAttribute="trailing" id="oJL-DM-tya"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="jDQ-2P-iyj" secondAttribute="trailing" constant="20" id="qMV-jT-YOd"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="LH6-sa-gCG" secondAttribute="trailing" constant="28" id="qwr-U2-HGa"/>
+                <constraint firstItem="jDQ-2P-iyj" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="uug-AP-AVL"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="zrg-pV-E6b" secondAttribute="trailing" id="v8n-Dv-kgh"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="APr-Mf-sCF" secondAttribute="trailing" constant="26" id="vBu-zL-x9s"/>
             </constraints>

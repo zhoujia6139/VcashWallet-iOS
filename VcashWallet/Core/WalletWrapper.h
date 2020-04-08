@@ -24,6 +24,14 @@
 //clear wallet
 +(void)clearWallet;
 
+// payment proof
++(NSString*)getPaymentProofAddress;
+
++(NSString*)getPubkeyFromProofAddress:(NSString*)proofAddress;
+
++(NSString*)createPaymentProofSignature:(NSString*)token_type amount:(int64_t)amount excess:(NSString*)excess andSenderPubkey:(NSString*)senderPubkey;
+
++(Boolean)verifyPaymentProof:(NSString*)token_type amount:(int64_t)amount excess:(NSString*)excess senderPubkey:(NSString*)senderPubkey receiverPubkey:(NSString*)receiverPubkey andSignature:(NSString*)signature;
 
 //base info
 +(NSString*)getWalletUserId;
@@ -42,7 +50,7 @@
 +(void)checkWalletTokenUtxoFromIndex:(uint64_t)startIndex WithComplete:(RequestCompleteBlock)block;
 
 //TODO support multi receiver
-+(void)createSendTransaction:(NSString*)tokenType andAmount:(uint64_t)amount withComplete:(RequestCompleteBlock)block;
++(void)createSendTransaction:(NSString*)tokenType andAmount:(uint64_t)amount andProofAddress:(NSString*)proofAddress withComplete:(RequestCompleteBlock)block;
 
 //send Transaction
 +(void)sendTransaction:(VcashSlate*)slate forUser:(NSString*)user withComplete:(RequestCompleteBlock)block;

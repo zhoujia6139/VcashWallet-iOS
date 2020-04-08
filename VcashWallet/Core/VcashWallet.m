@@ -11,6 +11,7 @@
 #import "NodeApi.h"
 #import "VcashDataManager.h"
 #import "VcashTxLog.h"
+#include "blake2.h"
 
 #define DEFAULT_BASE_FEE 1000000
 
@@ -61,6 +62,19 @@ static VcashWallet* walletInstance = nil;
 -(NSData*)getSignerKey{
     BTCKey* key = [self.mKeyChain deriveBTCKeyWithKeypath:[[VcashKeychainPath alloc] initWithDepth:4 d0:0 d1:0 d2:0 d3:0]];
     return key.privateKey;
+}
+
+-(NSData*)getPaymentProofKey{
+
+    VcashKeychainPath* keyPath = [[VcashKeychainPath alloc] initWithDepth:3 d0:0 d1:1 d2:0 d3:0 ];
+    VcashSecretKey* sec_key = [self.mKeyChain deriveKey:0 andKeypath:keyPath andSwitchType:SwitchCommitmentTypeNone];
+    uint8_t ret[SECRET_KEY_SIZE];
+    if( blake2b( ret, sec_key.data.bytes, nil, SECRET_KEY_SIZE, sec_key.data.length, 0 ) < 0)
+    {
+        return nil;
+    }
+    NSData* keydata = [NSData dataWithBytes:ret length:SECRET_KEY_SIZE];
+    return keydata;
 }
 
 -(void)setChainOutputs:(NSArray*)arr{

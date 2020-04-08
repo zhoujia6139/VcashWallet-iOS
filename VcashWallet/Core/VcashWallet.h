@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(strong, nonatomic, readonly)NSString* userId;
 
+-(NSData*)getPaymentProofKey;
+
 -(WalletBalanceInfo*)getWalletBalanceInfo;
 
 -(WalletBalanceInfo*)getWalletTokenBalanceInfo:(NSString*)tokenType;

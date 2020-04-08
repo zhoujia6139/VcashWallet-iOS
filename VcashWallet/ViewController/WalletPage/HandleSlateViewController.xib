@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,6 +12,7 @@
             <connections>
                 <outlet property="btnCopy" destination="xAf-Is-pSA" id="0Zj-fm-X6l"/>
                 <outlet property="btnReceiveTxFile" destination="781-2n-cdr" id="gHK-9L-717"/>
+                <outlet property="proofAddrView" destination="1A7-V3-MVP" id="qCs-FJ-foa"/>
                 <outlet property="scanQR" destination="VgT-wY-oBE" id="eoY-uA-Ueo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="walletIdLabel" destination="nHq-75-RR0" id="gQL-xi-7NX"/>
@@ -25,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your wallet ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="56y-IY-YZA" customClass="VcashLabel">
-                    <rect key="frame" x="10" y="93" width="355" height="27"/>
+                    <rect key="frame" x="10" y="73" width="355" height="27"/>
                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -34,34 +33,34 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xAf-Is-pSA">
-                    <rect key="frame" x="20" y="144" width="335" height="44"/>
+                    <rect key="frame" x="20" y="124" width="335" height="44"/>
                     <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="clickedBtnCopyWalletId:" destination="-1" eventType="touchUpInside" id="eh9-z6-Sn2"/>
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHq-75-RR0">
-                    <rect key="frame" x="36" y="157" width="272" height="18"/>
+                    <rect key="frame" x="36" y="137" width="272" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="copywalletid.png" translatesAutoresizingMaskIntoConstraints="NO" id="lIz-pV-sFu">
-                    <rect key="frame" x="324" y="156" width="20" height="20"/>
+                    <rect key="frame" x="324" y="136" width="20" height="20"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="20" id="CRT-fZ-B54"/>
                         <constraint firstAttribute="height" constant="20" id="FNW-zh-vLv"/>
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VgT-wY-oBE">
-                    <rect key="frame" x="102.5" y="250" width="170" height="170"/>
+                    <rect key="frame" x="102.5" y="230" width="170" height="170"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="170" id="4Hl-Fd-Bak"/>
                         <constraint firstAttribute="height" constant="170" id="rrZ-fy-eYu"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or scan the QR code" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9a-BT-iif" customClass="VcashLabel">
-                    <rect key="frame" x="10" y="218" width="355" height="17"/>
+                    <rect key="frame" x="10" y="198" width="355" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="1" green="0.58431372550000005" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -70,7 +69,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="781-2n-cdr" customClass="VcashButton">
-                    <rect key="frame" x="10" y="480" width="355" height="30"/>
+                    <rect key="frame" x="10" y="460" width="355" height="30"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" title="Receive from transaction file">
                         <color key="titleColor" red="0.20000000000000001" green="0.59999999999999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -82,6 +81,17 @@
                         <action selector="clickedBtnReceiveTransactionFile:" destination="-1" eventType="touchUpInside" id="H2Q-ax-sMP"/>
                     </connections>
                 </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1A7-V3-MVP">
+                    <rect key="frame" x="20" y="510" width="335" height="50"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="0P6-98-eBn"/>
+                    </constraints>
+                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                    <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -98,11 +108,14 @@
                 <constraint firstItem="56y-IY-YZA" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="10" id="LuU-Fs-b2n"/>
                 <constraint firstItem="L9a-BT-iif" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="10" id="SQD-5F-Mrh"/>
                 <constraint firstItem="VgT-wY-oBE" firstAttribute="top" secondItem="L9a-BT-iif" secondAttribute="bottom" constant="15" id="UI8-Kx-EEV"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="1A7-V3-MVP" secondAttribute="trailing" constant="20" id="UIN-JJ-xlj"/>
+                <constraint firstItem="1A7-V3-MVP" firstAttribute="top" secondItem="781-2n-cdr" secondAttribute="bottom" constant="20" id="VjI-vO-DXc"/>
                 <constraint firstItem="xAf-Is-pSA" firstAttribute="top" secondItem="56y-IY-YZA" secondAttribute="bottom" constant="24" id="a1u-K8-Flg"/>
                 <constraint firstItem="L9a-BT-iif" firstAttribute="top" secondItem="xAf-Is-pSA" secondAttribute="bottom" constant="30" id="cb2-gi-pzr"/>
                 <constraint firstItem="nHq-75-RR0" firstAttribute="top" secondItem="xAf-Is-pSA" secondAttribute="top" constant="13" id="dDm-4p-1ji"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="56y-IY-YZA" secondAttribute="trailing" constant="10" id="fNH-ou-knn"/>
                 <constraint firstItem="xAf-Is-pSA" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="nRt-f6-GdY"/>
+                <constraint firstItem="1A7-V3-MVP" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="pNf-6H-j9X"/>
                 <constraint firstItem="781-2n-cdr" firstAttribute="top" secondItem="VgT-wY-oBE" secondAttribute="bottom" constant="60" id="r7f-Ya-E8k"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="L9a-BT-iif" secondAttribute="trailing" constant="10" id="v1O-uK-FJM"/>
             </constraints>

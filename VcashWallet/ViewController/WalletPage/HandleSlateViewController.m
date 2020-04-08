@@ -23,6 +23,8 @@
 
 @property (weak, nonatomic) IBOutlet VcashButton *btnReceiveTxFile;
 
+@property (weak, nonatomic) IBOutlet UITextView *proofAddrView;
+
 @end
 
 @implementation HandleSlateViewController{
@@ -42,6 +44,8 @@
     UIImage *imageQRCode = [self adjustQRImageSize:ciImage QRSize:170];
     self.scanQR.image = imageQRCode;
     [self.btnReceiveTxFile setTitle:[NSString stringWithFormat:@"%@ >>",[LanguageService contentForKey:@"receiveTransactionFile"]] forState:UIControlStateNormal];
+    
+    self.proofAddrView.text = [WalletWrapper getPaymentProofAddress];
 }
 
 - (CIImage*)createQRCodeWithUrlString:(NSString*)url{

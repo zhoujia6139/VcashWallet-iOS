@@ -44,6 +44,7 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintContentViewWidth;
 
+@property (weak, nonatomic) IBOutlet UITextField *receiverAddress;
 
 @end
 
@@ -219,7 +220,7 @@
     }
     if (self.targetAddressTextView.text && amount > 0)
     {
-        [WalletWrapper createSendTransaction:self.tokenType andAmount:[WalletWrapper vcashToNano:amount] withComplete:^(BOOL yesOrNo, id retData) {
+        [WalletWrapper createSendTransaction:self.tokenType andAmount:[WalletWrapper vcashToNano:amount] andProofAddress:self.receiverAddress.text withComplete:^(BOOL yesOrNo, id retData) {
             if (yesOrNo){
                 VcashSlate* slate = (VcashSlate*)retData;
                 TransactionDetailView *txDetailView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([TransactionDetailView class]) owner:nil options:nil] firstObject];

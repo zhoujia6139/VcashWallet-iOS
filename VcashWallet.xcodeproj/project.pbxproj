@@ -311,6 +311,7 @@
 		ED44C00C226D9FF50042928E /* NodeType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C00B226D9FF50042928E /* NodeType.m */; };
 		ED44C00F226DAFB30042928E /* VcashTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C00E226DAFB30042928E /* VcashTypes.m */; };
 		ED6F77A222BB273B00C322D9 /* uuid4.c in Sources */ = {isa = PBXBuildFile; fileRef = ED6F77A022BB273B00C322D9 /* uuid4.c */; };
+		EDA356E9243C60C80013E4C6 /* libpaymentproof.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDA356E8243C60C80013E4C6 /* libpaymentproof.a */; };
 		EDA5148F22686DEC0011138F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA5148E22686DEC0011138F /* AppDelegate.m */; };
 		EDA5149222686DEC0011138F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA5149122686DEC0011138F /* ViewController.m */; };
 		EDA5149522686DEC0011138F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDA5149322686DEC0011138F /* Main.storyboard */; };
@@ -797,6 +798,8 @@
 		ED44C00E226DAFB30042928E /* VcashTypes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashTypes.m; sourceTree = "<group>"; };
 		ED6F77A022BB273B00C322D9 /* uuid4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uuid4.c; sourceTree = "<group>"; };
 		ED6F77A122BB273B00C322D9 /* uuid4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uuid4.h; sourceTree = "<group>"; };
+		EDA356E7243C60980013E4C6 /* payment-proof-lib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "payment-proof-lib.h"; sourceTree = "<group>"; };
+		EDA356E8243C60C80013E4C6 /* libpaymentproof.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpaymentproof.a; sourceTree = "<group>"; };
 		EDA5148A22686DEC0011138F /* VcashWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VcashWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDA5148D22686DEC0011138F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EDA5148E22686DEC0011138F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -829,6 +832,7 @@
 				EDA514B1226886150011138F /* libb2.a in Frameworks */,
 				EDA514A52268711A0011138F /* libsecp256k1.a in Frameworks */,
 				111D98D7603A8F1579E12602 /* libPods-VcashWallet.a in Frameworks */,
+				EDA356E9243C60C80013E4C6 /* libpaymentproof.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1508,6 +1512,7 @@
 		EDA514A322686E310011138F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EDA356E8243C60C80013E4C6 /* libpaymentproof.a */,
 				38B93DB289A56D999A4C8C7C /* libPods-VcashWallet.a */,
 				EDA514A42268711A0011138F /* libsecp256k1.a */,
 				EDA514B0226886150011138F /* libb2.a */,
@@ -1518,6 +1523,7 @@
 		EDA514A6226871510011138F /* include */ = {
 			isa = PBXGroup;
 			children = (
+				EDA356E7243C60980013E4C6 /* payment-proof-lib.h */,
 				EDA514B22268863F0011138F /* blake2.h */,
 				EDA514A7226871510011138F /* secp256k1 */,
 			);
