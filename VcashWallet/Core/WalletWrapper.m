@@ -63,6 +63,7 @@ static NSMutableSet* addedToken;
     NSString* sec_str = BTCHexFromData(sec_key);
     const char* address_str = address([sec_str UTF8String]);
     NSString* address_ret = [NSString stringWithUTF8String:address_str];
+    c_str_free(address_str);
     return address_ret;
 }
 
@@ -73,7 +74,7 @@ static NSMutableSet* addedToken;
     const char* proofAddressStr = [proofAddress UTF8String];
     const char* pubkeyAddStr = base32_address_to_pubkey_address(proofAddressStr);
     NSString* pubkeyAddress = [NSString stringWithUTF8String:pubkeyAddStr];
-    
+    c_str_free(pubkeyAddStr);
     return pubkeyAddress;
 }
 
@@ -95,7 +96,7 @@ static NSMutableSet* addedToken;
     NSString* sec_str = BTCHexFromData(sec_key);
     const char* signatureStr = create_payment_proof_signature([msg UTF8String], [sec_str UTF8String]);
     NSString* signature = [NSString stringWithUTF8String:signatureStr];
-    
+    c_str_free(signatureStr);
     return signature;
 }
 
@@ -488,7 +489,7 @@ static NSMutableSet* addedToken;
             slate.payment_proof.sender_address.length != 64) {
             rollbackBlock();
             DDLogError(@"Tx payment proof address is invalid!");
-            block?block(NO, nil):nil;
+            block?block(NO, @"Tx payment proof address is invalid!"):nil;
             return;
         }
         
@@ -497,7 +498,7 @@ static NSMutableSet* addedToken;
         if (![slate.payment_proof.receiver_address isEqualToString:selfAddress]) {
             rollbackBlock();
             DDLogError(@"Tx is not for me");
-            block?block(NO, nil):nil;
+            block?block(NO, @"Tx is not for me"):nil;
             return;
         }
         
@@ -511,7 +512,7 @@ static NSMutableSet* addedToken;
         if (!signature) {
             rollbackBlock();
             DDLogError(@"Create Tx payment proof failed");
-            block?block(NO, nil):nil;
+            block?block(NO, @"Create Tx payment proof failed"):nil;
             return;
         }
         Boolean isValid = [self verifyPaymentProof:slate.token_type amount:slate.amount excess:BTCHexFromData(excess) senderPubkey:slate.payment_proof.sender_address receiverPubkey:selfAddress andSignature:signature];
@@ -612,13 +613,13 @@ static NSMutableSet* addedToken;
     if (origSlate.payment_proof) {
         if (!slate.payment_proof) {
             DDLogError(@"--------Expected Payment Proof for this Transaction is not present");
-            block?block(NO, @""):nil;
+            block?block(NO, @"Expected Payment Proof for this Transaction is not present"):nil;
             return;
         }
         if (![origSlate.payment_proof.receiver_address isEqualToString:slate.payment_proof.receiver_address] ||
             ![origSlate.payment_proof.sender_address isEqualToString:slate.payment_proof.sender_address]){
             DDLogError(@"--------Payment Proof address does not match original Payment Proof address");
-            block?block(NO, @""):nil;
+            block?block(NO, @"Payment Proof address does not match original Payment Proof address"):nil;
             return;
         }
         NSData* excess = nil;
@@ -630,7 +631,7 @@ static NSMutableSet* addedToken;
         Boolean isValid = [self verifyPaymentProof:slate.token_type amount:slate.amount excess:BTCHexFromData(excess) senderPubkey:slate.payment_proof.sender_address receiverPubkey:slate.payment_proof.receiver_address andSignature:slate.payment_proof.receiver_signature];
         if (!isValid) {
             DDLogError(@"--------Recipient did not provide requested proof signature");
-            block?block(NO, @""):nil;
+            block?block(NO, @"Recipient did not provide requested proof signature"):nil;
             return;
         }
     }

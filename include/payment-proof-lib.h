@@ -15,5 +15,7 @@ const char* create_payment_proof_signature(const char* msg, const char* private_
 
 bool verify_payment_proof(const char* msg, const char* pub_key, const char* signature);
 
+void c_str_free(const char* c_raw_strr);
+
 
 #endif //PAYMENT_PROOF_LIB_PAYMENT_PROOF_LIB_H
