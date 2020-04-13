@@ -322,7 +322,7 @@ static VcashWallet* walletInstance = nil;
     // 1.1First attempt to spend without change
     uint64_t actualFee = fee;
     if (fee == 0){
-        actualFee = [self calcuteFee:spendable.count withOutputCount:1 withKernelCount:1];
+        actualFee = [self calcuteFee:spendable.count withOutputCount:1 withKernelCount:1 withTokenInputCount:0 withTokenOutputCount:0 withTokenKernelCount:0];
     }
     
     uint64_t amount_with_fee = amount + actualFee;
@@ -335,7 +335,7 @@ static VcashWallet* walletInstance = nil;
     
     // 1.2Second attempt to spend with change
     if (total != amount_with_fee) {
-        actualFee = [self calcuteFee:spendable.count withOutputCount:2 withKernelCount:1];
+        actualFee = [self calcuteFee:spendable.count withOutputCount:2 withKernelCount:1 withTokenInputCount:0 withTokenOutputCount:0 withTokenKernelCount:0];
     }
     amount_with_fee = amount + actualFee;
     if (total < amount_with_fee){
@@ -416,7 +416,7 @@ static VcashWallet* walletInstance = nil;
     
     //assume spend all vcash input as fee
     NSUInteger token_output_count = change > 0? 2: 1;
-    uint64_t fee1 = [self calcuteFee:spendable.count+vcash_spendable.count withOutputCount:1+token_output_count withKernelCount:2];
+    uint64_t fee1 = [self calcuteFee:vcash_spendable.count withOutputCount:1 withKernelCount:1 withTokenInputCount:spendable.count withTokenOutputCount:token_output_count withTokenKernelCount:1];
     if (vcash_total < fee1) {
         NSString* errMsg = [NSString stringWithFormat:[LanguageService contentForKey:@"insufficientFundsWaring"], @([WalletWrapper nanoToVcash:fee1]),@([WalletWrapper nanoToVcash:vcash_total])];
         block?block(NO, errMsg):nil;
@@ -424,7 +424,7 @@ static VcashWallet* walletInstance = nil;
     }
     
     //assume 1 vcash input and 1 vcash output, spend all token input with 1 token chang output
-    uint64_t fee2 = [self calcuteFee:spendable.count+1 withOutputCount:1+token_output_count withKernelCount:2];
+    uint64_t fee2 = [self calcuteFee:1 withOutputCount:1 withKernelCount:1 withTokenInputCount:spendable.count withTokenOutputCount:token_output_count withTokenKernelCount:1];
     [vcash_spendable sortUsingComparator:^NSComparisonResult(VcashOutput*  _Nonnull obj1, VcashOutput*  _Nonnull obj2) {
         if (obj1.value >= obj2.value) {
             return NSOrderedDescending;
@@ -624,11 +624,21 @@ static VcashWallet* walletInstance = nil;
 }
 
 #pragma private
--(uint64_t)calcuteFee:(NSInteger)inputCount withOutputCount:(NSInteger)outputCount withKernelCount:(NSInteger)kernelCount{
+-(uint64_t)calcuteFee:(NSInteger)inputCount withOutputCount:(NSInteger)outputCount withKernelCount:(NSInteger)kernelCount withTokenInputCount:(NSInteger)tokenInputCount withTokenOutputCount:(NSInteger)tokenOutputCount withTokenKernelCount:(NSInteger)tokenKernelCount{
     NSInteger tx_weight = outputCount * 4 + kernelCount*1 - inputCount;
-    tx_weight = (tx_weight>1?tx_weight:1);
+    if (tx_weight < 0) {
+        tx_weight = 0;
+    }
     
-    return DEFAULT_BASE_FEE*tx_weight;
+    NSInteger token_tx_weight = tokenOutputCount * 4 + tokenKernelCount*1 - tokenInputCount;
+    if (token_tx_weight < 0) {
+        token_tx_weight = 0;
+    }
+    
+    NSInteger total_weight = tx_weight + token_tx_weight;
+    total_weight = (total_weight>1?total_weight:1);
+    
+    return DEFAULT_BASE_FEE*total_weight;
 }
 
 -(void)saveBaseInfo{
