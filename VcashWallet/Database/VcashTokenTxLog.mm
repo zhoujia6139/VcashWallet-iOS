@@ -72,16 +72,6 @@ WCDB_PRIMARY(VcashTokenTxLog, tx_id)
     [arr addObject:commitment];
 }
 
--(BOOL)isCanBeCanneled{
-    if (self.tx_type == TxSent && self.confirm_state == DefaultState){
-        return YES;
-    }else if (self.tx_type == TxReceived && !self.parter_id && self.signed_slate_msg && self.confirm_state != NetConfirmed){
-        return YES;
-    }
-    
-    return NO;
-}
-
 -(void)cancelTxlog{
     NSArray* walletOutputs = [VcashWallet shareInstance].outputs;
     NSArray* walletTokenOutputs = [[VcashWallet shareInstance].token_outputs_dic objectForKey:self.token_type];

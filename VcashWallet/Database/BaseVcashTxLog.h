@@ -58,6 +58,8 @@ typedef enum  {
 
 -(BOOL)isCanBeCanneled;
 
+-(BOOL)isCanBeAutoCanneled;
+
 -(void)cancelTxlog;
 
 @end

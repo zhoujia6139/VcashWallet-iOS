@@ -167,6 +167,7 @@ static NSString *const identifier = @"WalletCell";
 }
 
 -(void)refreshWalletStatus{
+    [WalletWrapper updateTxStatus];
     __weak typeof(self) weakSelf = self;
     [[ServerTxManager shareInstance] fetchTxStatus:YES WithComplete:^(BOOL yesOrNo, id _Nullable result) {
         __strong typeof(weakSelf) strongSelf = weakSelf;

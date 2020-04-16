@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)deleteTokenTxBySlateId:(NSString *)slate_id;
 
--(NSArray*)getTokenTxData:(NSString*)tokenType;
+-(NSArray*)getTokenTxData:(nullable NSString*)tokenType;
 
 //context
 -(BOOL)saveContext:(VcashContext*)context;

@@ -76,6 +76,8 @@
 +(BOOL)cancelTransaction:(NSString*)tx_id;
 
 //refresh Transaction
++(void)updateTxStatus;
+
 +(NSArray*)getTransationArr;
 
 +(BaseVcashTxLog*)getTxByTxid:(NSString*)txid;

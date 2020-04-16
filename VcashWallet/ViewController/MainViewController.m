@@ -113,6 +113,7 @@ static NSString *const identifier = @"TokenInfoCell";
 
 -(void)refreshWalletStatus:(BOOL)force{
     if (force || [[NSDate date] timeIntervalSince1970] - lastFetch  >= 60){
+        [WalletWrapper updateTxStatus];
         __weak typeof(self) weakSelf = self;
         [[ServerTxManager shareInstance] fetchTxStatus:YES WithComplete:^(BOOL yesOrNo, id _Nullable result) {
             __strong typeof(weakSelf) strongSelf = weakSelf;

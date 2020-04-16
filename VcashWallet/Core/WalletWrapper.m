@@ -732,6 +732,32 @@ static NSMutableSet* addedToken;
     return retArr;
 }
 
++(void)updateTxStatus {
+    NSArray* txArr = [[VcashDataManager shareInstance] getTxData];
+    for (VcashTxLog* tx in txArr) {
+        [WalletWrapper checkSingleTxStatus:tx];
+    }
+    NSArray* tokenTxArr = [[VcashDataManager shareInstance] getTokenTxData:nil];
+    for (VcashTokenTxLog* tx in tokenTxArr) {
+        [WalletWrapper checkSingleTxStatus:tx];
+    }
+}
+
++(void)checkSingleTxStatus:(BaseVcashTxLog*)tx {
+    if (![tx isCanBeAutoCanneled]){
+        return;
+    }
+    if (tx.signed_slate_msg) {
+        VcashSlate* slate = [VcashSlate modelWithJSON:tx.signed_slate_msg];
+        if (slate &&
+            slate.ttl_cutoff_height &&
+            slate.ttl_cutoff_height.unsignedLongLongValue <= [VcashWallet shareInstance].curChainHeight) {
+            [tx cancelTxlog];
+            [[VcashDataManager shareInstance] saveTx:tx];
+        }
+    }
+}
+
 +(void)updateOutputStatusWithComplete:(RequestCompleteBlock)block{
     NSMutableArray* strArr = [NSMutableArray new];
     for (VcashOutput* item in [VcashWallet shareInstance].outputs){
