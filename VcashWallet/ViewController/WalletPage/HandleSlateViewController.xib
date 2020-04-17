@@ -12,7 +12,6 @@
             <connections>
                 <outlet property="btnCopy" destination="xAf-Is-pSA" id="0Zj-fm-X6l"/>
                 <outlet property="btnReceiveTxFile" destination="781-2n-cdr" id="gHK-9L-717"/>
-                <outlet property="proofAddrView" destination="1A7-V3-MVP" id="qCs-FJ-foa"/>
                 <outlet property="scanQR" destination="VgT-wY-oBE" id="eoY-uA-Ueo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="walletIdLabel" destination="nHq-75-RR0" id="gQL-xi-7NX"/>
@@ -81,17 +80,6 @@
                         <action selector="clickedBtnReceiveTransactionFile:" destination="-1" eventType="touchUpInside" id="H2Q-ax-sMP"/>
                     </connections>
                 </button>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1A7-V3-MVP">
-                    <rect key="frame" x="20" y="510" width="335" height="50"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="0P6-98-eBn"/>
-                    </constraints>
-                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                    <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                </textView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -108,14 +96,11 @@
                 <constraint firstItem="56y-IY-YZA" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="10" id="LuU-Fs-b2n"/>
                 <constraint firstItem="L9a-BT-iif" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="10" id="SQD-5F-Mrh"/>
                 <constraint firstItem="VgT-wY-oBE" firstAttribute="top" secondItem="L9a-BT-iif" secondAttribute="bottom" constant="15" id="UI8-Kx-EEV"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="1A7-V3-MVP" secondAttribute="trailing" constant="20" id="UIN-JJ-xlj"/>
-                <constraint firstItem="1A7-V3-MVP" firstAttribute="top" secondItem="781-2n-cdr" secondAttribute="bottom" constant="20" id="VjI-vO-DXc"/>
                 <constraint firstItem="xAf-Is-pSA" firstAttribute="top" secondItem="56y-IY-YZA" secondAttribute="bottom" constant="24" id="a1u-K8-Flg"/>
                 <constraint firstItem="L9a-BT-iif" firstAttribute="top" secondItem="xAf-Is-pSA" secondAttribute="bottom" constant="30" id="cb2-gi-pzr"/>
                 <constraint firstItem="nHq-75-RR0" firstAttribute="top" secondItem="xAf-Is-pSA" secondAttribute="top" constant="13" id="dDm-4p-1ji"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="56y-IY-YZA" secondAttribute="trailing" constant="10" id="fNH-ou-knn"/>
                 <constraint firstItem="xAf-Is-pSA" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="nRt-f6-GdY"/>
-                <constraint firstItem="1A7-V3-MVP" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="pNf-6H-j9X"/>
                 <constraint firstItem="781-2n-cdr" firstAttribute="top" secondItem="VgT-wY-oBE" secondAttribute="bottom" constant="60" id="r7f-Ya-E8k"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="L9a-BT-iif" secondAttribute="trailing" constant="10" id="v1O-uK-FJM"/>
             </constraints>

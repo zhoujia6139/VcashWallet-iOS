@@ -25,7 +25,6 @@
 +(void)clearWallet;
 
 // payment proof
-+(NSString*)getPaymentProofAddress;
 
 +(NSString*)getPubkeyFromProofAddress:(NSString*)proofAddress;
 

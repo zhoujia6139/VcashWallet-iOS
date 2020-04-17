@@ -15,7 +15,6 @@
                 <outlet property="labelAvailable" destination="0az-fJ-g2H" id="pjW-ue-cfu"/>
                 <outlet property="labelPlaceHolder" destination="bPv-1N-TGU" id="tYV-bQ-1IE"/>
                 <outlet property="promptView" destination="ca8-xS-xgW" id="tkP-2M-0Fa"/>
-                <outlet property="receiverAddress" destination="jDQ-2P-iyj" id="hyT-Bb-V14"/>
                 <outlet property="sendBtn" destination="LH6-sa-gCG" id="DpX-ug-jR6"/>
                 <outlet property="targetAddressTextView" destination="DzF-iA-TgO" id="pfc-Sq-f8t"/>
                 <outlet property="unit" destination="AVb-N6-bqL" id="EA0-EA-M5F"/>
@@ -227,21 +226,12 @@
                         <action selector="clickSend:" destination="-1" eventType="touchUpInside" id="Nvg-G0-hxt"/>
                     </connections>
                 </button>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jDQ-2P-iyj">
-                    <rect key="frame" x="20" y="351" width="335" height="50"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="jMS-c2-5Ol"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="LH6-sa-gCG" secondAttribute="bottom" constant="40" id="7uo-km-Hvh"/>
                 <constraint firstItem="dmR-Lj-w93" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Da2-FL-wjA"/>
                 <constraint firstItem="ca8-xS-xgW" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="12" id="SWA-AR-IgT"/>
-                <constraint firstItem="jDQ-2P-iyj" firstAttribute="top" secondItem="dmR-Lj-w93" secondAttribute="bottom" constant="30" id="W4H-zP-uOK"/>
                 <constraint firstItem="zrg-pV-E6b" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Wzc-8g-QJS"/>
                 <constraint firstItem="dmR-Lj-w93" firstAttribute="top" secondItem="zrg-pV-E6b" secondAttribute="bottom" constant="50" id="XJ1-Rz-H2K"/>
                 <constraint firstItem="APr-Mf-sCF" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="26" id="ZxZ-CL-A01"/>
@@ -251,9 +241,7 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="ca8-xS-xgW" secondAttribute="trailing" constant="12" id="jol-Ev-eQe"/>
                 <constraint firstItem="ca8-xS-xgW" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="12" id="kj8-wj-gXT"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="dmR-Lj-w93" secondAttribute="trailing" id="oJL-DM-tya"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="jDQ-2P-iyj" secondAttribute="trailing" constant="20" id="qMV-jT-YOd"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="LH6-sa-gCG" secondAttribute="trailing" constant="28" id="qwr-U2-HGa"/>
-                <constraint firstItem="jDQ-2P-iyj" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="uug-AP-AVL"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="zrg-pV-E6b" secondAttribute="trailing" id="v8n-Dv-kgh"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="APr-Mf-sCF" secondAttribute="trailing" constant="26" id="vBu-zL-x9s"/>
             </constraints>

@@ -44,8 +44,6 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintContentViewWidth;
 
-@property (weak, nonatomic) IBOutlet UITextField *receiverAddress;
-
 @end
 
 @implementation SendTransactionViewController
@@ -201,7 +199,7 @@
     }
     
     if (![self isUrlAddress:self.targetAddressTextView.text]) {
-        if (self.targetAddressTextView.text.length != 66) {
+        if (self.targetAddressTextView.text.length != 56) {
             [self.view makeToast:[LanguageService contentForKey:@"addressFormatIncorrect"]];
             return;
         }
@@ -220,7 +218,7 @@
     }
     if (self.targetAddressTextView.text && amount > 0)
     {
-        [WalletWrapper createSendTransaction:self.tokenType andAmount:[WalletWrapper vcashToNano:amount] andProofAddress:self.receiverAddress.text withComplete:^(BOOL yesOrNo, id retData) {
+        [WalletWrapper createSendTransaction:self.tokenType andAmount:[WalletWrapper vcashToNano:amount] andProofAddress:self.targetAddressTextView.text withComplete:^(BOOL yesOrNo, id retData) {
             if (yesOrNo){
                 VcashSlate* slate = (VcashSlate*)retData;
                 TransactionDetailView *txDetailView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([TransactionDetailView class]) owner:nil options:nil] firstObject];

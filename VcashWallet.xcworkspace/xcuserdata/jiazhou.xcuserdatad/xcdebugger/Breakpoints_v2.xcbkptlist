@@ -117,8 +117,8 @@
             timestampString = "603099200.2725821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "667"
-            endingLineNumber = "667"
+            startingLineNumber = "656"
+            endingLineNumber = "656"
             landmarkName = "+finalizeTransaction:withComplete:"
             landmarkType = "7">
          </BreakpointContent>
@@ -126,66 +126,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C8116524-D841-4398-8132-333F80E0E0C6"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VcashWallet/ViewController/TransactionDetailViewController/TransactionDetailViewController.m"
-            timestampString = "603099200.272637"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "565"
-            endingLineNumber = "565"
-            landmarkName = "-clickedBtnCancelTx:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C52F9E94-99E9-4CE5-A35A-B6988D7AFF83"
+            uuid = "DF342D81-F379-46C0-B1B3-64EBE9011FB0"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VcashWallet/Database/VcashDataManager.mm"
-            timestampString = "600847825.773967"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
-            landmarkName = "-deleteTokenTxBySlateId:"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
+            landmarkName = "-getTokenTxData:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "54E20F5B-B850-43A3-B435-3BF3381268B2"
+            uuid = "953B0745-B689-4478-A194-5F6DAEF38567"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VcashWallet/Core/WalletWrapper.m"
+            filePath = "VcashWallet/ViewController/WalletPage/WalletViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "605"
-            endingLineNumber = "605"
-            landmarkName = "+finalizeTransaction:withComplete:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8C44CBDE-ED5A-490A-BC69-B3D2CF89098B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VcashWallet/Core/WalletWrapper.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "750"
-            endingLineNumber = "750"
-            landmarkName = "+checkSingleTxStatus:"
+            startingLineNumber = "255"
+            endingLineNumber = "255"
+            landmarkName = "-refreshMainView"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

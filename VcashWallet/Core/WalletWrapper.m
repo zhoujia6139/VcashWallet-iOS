@@ -58,15 +58,6 @@ static NSMutableSet* addedToken;
     return [VcashWallet shareInstance].userId;
 }
 
-+(NSString*)getPaymentProofAddress {
-    NSData* sec_key = [[VcashWallet shareInstance] getPaymentProofKey];
-    NSString* sec_str = BTCHexFromData(sec_key);
-    const char* address_str = address([sec_str UTF8String]);
-    NSString* address_ret = [NSString stringWithUTF8String:address_str];
-    c_str_free(address_str);
-    return address_ret;
-}
-
 +(NSString*)getPubkeyFromProofAddress:(NSString*)proofAddress {
     if (proofAddress.length != 56) {
         return nil;
@@ -196,8 +187,7 @@ static NSMutableSet* addedToken;
         }
         
         info = [PaymentInfo new];
-        NSString* senderAddr = [self getPaymentProofAddress];
-        info.sender_address = [self getPubkeyFromProofAddress:senderAddr];
+        info.sender_address = [self getPubkeyFromProofAddress:[VcashWallet shareInstance].userId];
         info.receiver_address = receiverAddr;
     }
     
@@ -493,8 +483,7 @@ static NSMutableSet* addedToken;
             return;
         }
         
-        NSString* selfAddress = [self getPaymentProofAddress];
-        selfAddress = [self getPubkeyFromProofAddress:selfAddress];
+        NSString* selfAddress = [self getPubkeyFromProofAddress:[VcashWallet shareInstance].userId];
         if (![slate.payment_proof.receiver_address isEqualToString:selfAddress]) {
             rollbackBlock();
             DDLogError(@"Tx is not for me");

@@ -117,10 +117,10 @@
                         
                         //if goes here item.status would be TxDefaultStatus or TxReceiverd
                         item.isSend = (item.status == TxReceiverd);
-                        if (![item isValidTxSignature]){
-                            DDLogError(@"receive a invalid tx:%@", [item modelToJSONString]);
-                            continue;
-                        }
+//                        if (![item isValidTxSignature]){
+//                            DDLogError(@"receive a invalid tx:%@", [item modelToJSONString]);
+//                            continue;
+//                        }
                         
                         //process special case here
                         //if tx confirmed by net, finalize directly

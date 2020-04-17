@@ -48,8 +48,10 @@
 -(NSData*)msgToSign{
     NSString* textId = [self.tx_id stringByReplacingOccurrencesOfString:@"-" withString:@""];
     NSData* tx = BTCDataFromHex(textId);
-    NSData* sender = BTCDataFromHex(self.sender_id);
-    NSData* receiver = BTCDataFromHex(self.receiver_id);
+    NSString* senderPubkey = [WalletWrapper getPubkeyFromProofAddress:self.sender_id];
+    NSData* sender = BTCDataFromHex(senderPubkey);
+    NSString* receiverPubkey = [WalletWrapper getPubkeyFromProofAddress:self.receiver_id];
+    NSData* receiver = BTCDataFromHex(receiverPubkey);
     NSMutableData* data = [[NSMutableData alloc] initWithData:tx];
     [data appendData:sender];
     [data appendData:receiver];

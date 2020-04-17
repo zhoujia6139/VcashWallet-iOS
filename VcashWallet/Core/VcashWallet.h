@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(uint32_t)getNextLogId;
 
--(NSData*)getSignerKey;
+-(NSString*)getSignerKey;
 
 @end
 

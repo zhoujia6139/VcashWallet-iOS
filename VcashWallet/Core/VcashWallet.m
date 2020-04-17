@@ -12,6 +12,7 @@
 #import "VcashDataManager.h"
 #import "VcashTxLog.h"
 #include "blake2.h"
+#import "payment-proof-lib.h"
 
 #define DEFAULT_BASE_FEE 1000000
 
@@ -53,15 +54,21 @@ static VcashWallet* walletInstance = nil;
 
 -(NSString*)userId{
     if (!_userId){
-        BTCKey* key = [self.mKeyChain deriveBTCKeyWithKeypath:[[VcashKeychainPath alloc] initWithDepth:4 d0:0 d1:0 d2:0 d3:0]];
-        _userId = BTCHexFromData(key.publicKey);
+        NSData* sec_key = [[VcashWallet shareInstance] getPaymentProofKey];
+        NSString* sec_str = BTCHexFromData(sec_key);
+        const char* address_str = address([sec_str UTF8String]);
+        NSString* address_ret = [NSString stringWithUTF8String:address_str];
+        c_str_free(address_str);
+        return address_ret;
     }
     return _userId;
 }
 
--(NSData*)getSignerKey{
-    BTCKey* key = [self.mKeyChain deriveBTCKeyWithKeypath:[[VcashKeychainPath alloc] initWithDepth:4 d0:0 d1:0 d2:0 d3:0]];
-    return key.privateKey;
+-(NSString*)getSignerKey{
+//    BTCKey* key = [self.mKeyChain deriveBTCKeyWithKeypath:[[VcashKeychainPath alloc] initWithDepth:4 d0:0 d1:0 d2:0 d3:0]];
+//    return key.privateKey;
+    NSData* data = [self getPaymentProofKey];
+    return BTCHexFromData(data);
 }
 
 -(NSData*)getPaymentProofKey{
