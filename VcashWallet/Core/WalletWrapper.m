@@ -409,19 +409,24 @@ static NSMutableSet* addedToken;
 }
 
 +(void)isValidSlateConentForFinalize:(NSString*)slateStr withComplete:(RequestCompleteBlock)block{
-    VcashSlate* slate = [VcashSlate modelWithJSON:slateStr];
-    if (!slate || ![slate isValidForFinalize]){
+    @try {
+        VcashSlate* slate = [VcashSlate modelWithJSON:slateStr];
+        if (!slate || ![slate isValidForFinalize]){
+            block?block(NO, @"Wrong Data Format"):nil;
+            return;
+        }
+        
+        BaseVcashTxLog* txLog = [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
+        if (!txLog){
+            block?block(NO, @"Tx missed"):nil;
+            return;
+        }
+        
+        block?block(YES, slate):nil;
+    }
+    @catch (NSException *exception) {
         block?block(NO, @"Wrong Data Format"):nil;
-        return;
     }
-    
-    BaseVcashTxLog* txLog = [[VcashDataManager shareInstance] getTxBySlateId:slate.uuid];
-    if (!txLog){
-        block?block(NO, @"Tx missed"):nil;
-        return;
-    }
-    
-    block?block(YES, slate):nil;
 }
 
 +(void)receiveTransactionBySlate:(VcashSlate*)slate withComplete:(RequestCompleteBlock)block{
@@ -737,12 +742,17 @@ static NSMutableSet* addedToken;
         return;
     }
     if (tx.signed_slate_msg) {
-        VcashSlate* slate = [VcashSlate modelWithJSON:tx.signed_slate_msg];
-        if (slate &&
-            slate.ttl_cutoff_height &&
-            slate.ttl_cutoff_height.unsignedLongLongValue <= [VcashWallet shareInstance].curChainHeight) {
-            [tx cancelTxlog];
-            [[VcashDataManager shareInstance] saveTx:tx];
+        @try {
+            VcashSlate* slate = [VcashSlate modelWithJSON:tx.signed_slate_msg];
+            if (slate &&
+                slate.ttl_cutoff_height &&
+                slate.ttl_cutoff_height.unsignedLongLongValue <= [VcashWallet shareInstance].curChainHeight) {
+                [tx cancelTxlog];
+                [[VcashDataManager shareInstance] saveTx:tx];
+            }
+        }
+        @catch (NSException *exception) {
+            
         }
     }
 }

@@ -183,7 +183,13 @@
     NSString* secKeyStr = [[VcashWallet shareInstance] getSignerKey];
     const char* signatureStr = create_payment_proof_signature([msgHashedStr UTF8String], [secKeyStr UTF8String]);
     NSString* signature = [NSString stringWithUTF8String:signatureStr];
+    const char* pubkeyStr = base32_address_to_pubkey_address([[VcashWallet shareInstance].userId UTF8String]);
+    bool isValid = verify_payment_proof([msgHashedStr UTF8String], pubkeyStr, signatureStr);
+    if (!isValid) {
+        DDLogError(@"---Signature is invalid!");
+    }
     c_str_free(signatureStr);
+    c_str_free(pubkeyStr);
     
     return signature;
 }
