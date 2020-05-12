@@ -12,6 +12,7 @@
 #import "ServerTxManager.h"
 #import "AddAddressBookViewController.h"
 #import "AddressBookManager.h"
+#import "PaymentProofViewController.h"
 
 @interface TransactionDetailViewController ()<AddAddressBookViewControllerDelegate>
 
@@ -641,6 +642,21 @@
     else{
         [MBHudHelper showTextTips:[LanguageService contentForKey:@"txCancelFailed"] onView:nil withDuration:1];
     }
+}
+
+- (IBAction)exportProof:(id)sender {
+    VcashSlate* slate = [VcashSlate modelWithJSON:self.txLog.signed_slate_msg];
+    if (slate && slate.payment_proof) {
+        NSString* proof = [WalletWrapper exportPaymentProof:slate];
+        if (proof) {
+            PaymentProofViewController* vc = [PaymentProofViewController new];
+            vc.proof = proof;
+            [self.navigationController pushViewController:vc animated:YES];
+            return;
+        }
+    }
+    
+    [MBHudHelper showTextTips:@"发币证明不存在" onView:nil withDuration:1.0];
 }
 
 /*

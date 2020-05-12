@@ -15,6 +15,7 @@
 #import "WalletViewController.h"
 #import "ServerTxManager.h"
 #import "TokenInfoListViewController.h"
+#import "VerifyPaymentProofViewController.h"
 
 static NSString *const identifier = @"TokenInfoCell";
 
@@ -187,6 +188,11 @@ static NSString *const identifier = @"TokenInfoCell";
         }
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+
+- (IBAction)clickVerifyProof:(id)sender {
+    VerifyPaymentProofViewController*vc = [VerifyPaymentProofViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 /*
