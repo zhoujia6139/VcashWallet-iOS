@@ -81,20 +81,98 @@ static NSMutableSet* addedToken;
     return msg;
 }
 
-+(NSString*)createPaymentProofSignature:(NSString*)token_type amount:(int64_t)amount excess:(NSString*)excess andSenderPubkey:(NSString*)senderPubkey {
++(NSString*)createPaymentProofSignature:(NSString*)token_type amount:(int64_t)amount excess:(NSString*)excess andSenderPubkey:(NSString*)senderPubkey andSecretKey:(NSString*)secKey{
     NSString* msg = [self getPaymentProofMessage:token_type amount:amount excess:excess andSenderPubkey:senderPubkey];
-    NSData* sec_key = [[VcashWallet shareInstance] getPaymentProofKey];
-    NSString* sec_str = BTCHexFromData(sec_key);
-    const char* signatureStr = create_payment_proof_signature([msg UTF8String], [sec_str UTF8String]);
+    const char* signatureStr = create_payment_proof_signature([msg UTF8String], [secKey UTF8String]);
     NSString* signature = [NSString stringWithUTF8String:signatureStr];
     c_str_free(signatureStr);
     return signature;
 }
 
-+(Boolean)verifyPaymentProof:(NSString*)token_type amount:(int64_t)amount excess:(NSString*)excess senderPubkey:(NSString*)senderPubkey receiverPubkey:(NSString*)receiverPubkey andSignature:(NSString*)signature {
++(Boolean)verifyPaymentProof:(NSString*)token_type amount:(int64_t)amount excess:(NSString*)excess senderPubkey:(NSString*)senderPubkey verifyPubkey:(NSString*)verifyPubkey andSignature:(NSString*)signature {
     NSString* msg = [self getPaymentProofMessage:token_type amount:amount excess:excess andSenderPubkey:senderPubkey];
-    bool yesOrNo = verify_payment_proof([msg UTF8String], [receiverPubkey UTF8String], [signature UTF8String]);
+    bool yesOrNo = verify_payment_proof([msg UTF8String], [verifyPubkey UTF8String], [signature UTF8String]);
     return yesOrNo;
+}
+
++(NSString*)exportPaymentProof:(VcashSlate*)slate {
+    if (slate.payment_proof) {
+        ExportPaymentInfo* proof = [ExportPaymentInfo new];
+        proof.token_type = slate.token_type;
+        proof.amount = [[NSNumber numberWithUnsignedLongLong:slate.amount] stringValue];
+        NSData* excessData;
+        if (slate.token_type) {
+            excessData = [slate.tx calculateTokenFinalExcess];
+        } else {
+            excessData = [slate.tx calculateFinalExcess];
+        }
+        proof.excess = BTCHexFromData(excessData);
+        
+        const char*  recipient_addr = pubkey_address_to_base32_address([slate.payment_proof.receiver_address UTF8String]);
+        proof.recipient_address = [NSString stringWithUTF8String:recipient_addr];
+        c_str_free(recipient_addr);
+        
+        proof.recipient_sig = slate.payment_proof.receiver_signature;
+        proof.sender_address = [VcashWallet shareInstance].userId;
+        NSData* sec_key = [[VcashWallet shareInstance] getPaymentProofKey];
+        NSString* sec_str = BTCHexFromData(sec_key);
+        NSString* signature = [self createPaymentProofSignature:slate.token_type amount:slate.amount excess:proof.excess andSenderPubkey:slate.payment_proof.sender_address andSecretKey:sec_str];
+        if (signature) {
+            Boolean isValid = [self verifyPaymentProof:slate.token_type amount:slate.amount excess:proof.excess senderPubkey:slate.payment_proof.sender_address verifyPubkey:slate.payment_proof.sender_address andSignature:signature];
+            if (isValid) {
+                proof.sender_sig = signature;
+                return [proof modelToJSONString];
+            }
+        }
+    }
+    
+    return nil;
+}
+
++(NSString*)verifyPaymentProof:(NSString*)proofStr {
+    ExportPaymentInfo* proof = [ExportPaymentInfo modelWithJSON:proofStr];
+    if (proof) {
+        NSString* senderAddr;
+        if (proof.sender_address.length == 64) {
+            senderAddr = proof.sender_address;
+        } else if (proof.sender_address.length == 56) {
+            senderAddr = [self getPubkeyFromProofAddress:proof.sender_address];
+        } else {
+            return @"Sender address format is invalid.";
+        }
+        
+        NSString* receiverAddr;
+        if (proof.recipient_address.length == 64) {
+            receiverAddr = proof.recipient_address;
+        } else if (proof.recipient_address.length == 56) {
+            receiverAddr = [self getPubkeyFromProofAddress:proof.recipient_address];
+        } else {
+            return @"Recipient address format is invalid.";
+        }
+        
+        if (proof.sender_sig.length != 128) {
+            return @"Sender signature format is invalid.";
+        }
+        
+        if (proof.recipient_sig.length != 128) {
+            return @"Recipient_sig signature format is invalid.";
+        }
+        
+        Boolean isSenderSigValid = [self verifyPaymentProof:proof.token_type amount:[proof.amount unsignedLongLongValue] excess:proof.excess senderPubkey:senderAddr verifyPubkey:senderAddr andSignature:proof.sender_sig];
+        if (!isSenderSigValid) {
+            return @"Invalid recipient signature";
+        }
+        Boolean isReceiverSigValid = [self verifyPaymentProof:proof.token_type amount:[proof.amount unsignedLongLongValue] excess:proof.excess senderPubkey:senderAddr verifyPubkey:receiverAddr andSignature:proof.recipient_sig];
+        if (!isReceiverSigValid) {
+            return @"Invalid sender signature";
+        }
+        
+        if (isSenderSigValid && isReceiverSigValid) {
+            return @"Signature is valid";
+        }
+    }
+    
+    return @"Proof format is invalid.";
 }
 
 +(WalletBalanceInfo*)getWalletBalanceInfo{
@@ -502,14 +580,16 @@ static NSMutableSet* addedToken;
         } else {
             excess = [slate.tx calculateFinalExcess];
         }
-        NSString* signature = [self createPaymentProofSignature:slate.token_type amount:slate.amount excess:BTCHexFromData(excess) andSenderPubkey:slate.payment_proof.sender_address];
+        NSData* sec_key = [[VcashWallet shareInstance] getPaymentProofKey];
+        NSString* sec_str = BTCHexFromData(sec_key);
+        NSString* signature = [self createPaymentProofSignature:slate.token_type amount:slate.amount excess:BTCHexFromData(excess) andSenderPubkey:slate.payment_proof.sender_address andSecretKey:sec_str];
         if (!signature) {
             rollbackBlock();
             DDLogError(@"Create Tx payment proof failed");
             block?block(NO, @"Create Tx payment proof failed"):nil;
             return;
         }
-        Boolean isValid = [self verifyPaymentProof:slate.token_type amount:slate.amount excess:BTCHexFromData(excess) senderPubkey:slate.payment_proof.sender_address receiverPubkey:selfAddress andSignature:signature];
+        Boolean isValid = [self verifyPaymentProof:slate.token_type amount:slate.amount excess:BTCHexFromData(excess) senderPubkey:slate.payment_proof.sender_address verifyPubkey:selfAddress andSignature:signature];
         if (!isValid) {
             rollbackBlock();
             DDLogError(@"Create Tx payment proof signature failed");
@@ -622,7 +702,7 @@ static NSMutableSet* addedToken;
         } else {
             excess = [slate.tx calculateFinalExcess];
         }
-        Boolean isValid = [self verifyPaymentProof:slate.token_type amount:slate.amount excess:BTCHexFromData(excess) senderPubkey:slate.payment_proof.sender_address receiverPubkey:slate.payment_proof.receiver_address andSignature:slate.payment_proof.receiver_signature];
+        Boolean isValid = [self verifyPaymentProof:slate.token_type amount:slate.amount excess:BTCHexFromData(excess) senderPubkey:slate.payment_proof.sender_address verifyPubkey:slate.payment_proof.receiver_address andSignature:slate.payment_proof.receiver_signature];
         if (!isValid) {
             DDLogError(@"--------Recipient did not provide requested proof signature");
             block?block(NO, @"Recipient did not provide requested proof signature"):nil;
@@ -773,7 +853,8 @@ static NSMutableSet* addedToken;
             NSArray* apiOutputs = data;
             NSArray* txs = [self getTransationArr];
             BOOL hasChange = NO;
-            for (VcashOutput* item in [VcashWallet shareInstance].outputs){
+            NSArray* walletOutputs = [VcashWallet shareInstance].outputs;
+            for (VcashOutput* item in walletOutputs){
                 NodeRefreshOutput* nodeOutput = nil;
                 for (NodeRefreshOutput* output in apiOutputs){
                     if ([item.commitment isEqualToString:output.commit]){

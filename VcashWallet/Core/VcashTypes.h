@@ -194,6 +194,23 @@ typedef enum{
 
 @end
 
+@interface ExportPaymentInfo : NSObject
+
+@property(strong, nonatomic)NSString* token_type;
+
+@property(strong, nonatomic)NSString* amount;
+
+@property(strong, nonatomic)NSString* excess;
+
+@property(strong, nonatomic)NSString* recipient_address;
+
+@property(strong, nonatomic)NSString* recipient_sig;
+
+@property(strong, nonatomic)NSString* sender_address;
+
+@property(strong, nonatomic)NSString* sender_sig;
+
+@end
 
 
 NS_ASSUME_NONNULL_END

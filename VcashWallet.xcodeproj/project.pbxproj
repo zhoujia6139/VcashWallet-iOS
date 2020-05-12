@@ -311,6 +311,10 @@
 		ED44C00C226D9FF50042928E /* NodeType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C00B226D9FF50042928E /* NodeType.m */; };
 		ED44C00F226DAFB30042928E /* VcashTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C00E226DAFB30042928E /* VcashTypes.m */; };
 		ED6F77A222BB273B00C322D9 /* uuid4.c in Sources */ = {isa = PBXBuildFile; fileRef = ED6F77A022BB273B00C322D9 /* uuid4.c */; };
+		ED75B554246A4F6200C41508 /* PaymentProofViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED75B552246A4F6200C41508 /* PaymentProofViewController.m */; };
+		ED75B555246A4F6200C41508 /* PaymentProofViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED75B553246A4F6200C41508 /* PaymentProofViewController.xib */; };
+		ED75B559246A539F00C41508 /* VerifyPaymentProofViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED75B557246A539F00C41508 /* VerifyPaymentProofViewController.m */; };
+		ED75B55A246A539F00C41508 /* VerifyPaymentProofViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED75B558246A539F00C41508 /* VerifyPaymentProofViewController.xib */; };
 		EDA356E9243C60C80013E4C6 /* libpaymentproof.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDA356E8243C60C80013E4C6 /* libpaymentproof.a */; };
 		EDA5148F22686DEC0011138F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA5148E22686DEC0011138F /* AppDelegate.m */; };
 		EDA5149222686DEC0011138F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA5149122686DEC0011138F /* ViewController.m */; };
@@ -798,6 +802,12 @@
 		ED44C00E226DAFB30042928E /* VcashTypes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashTypes.m; sourceTree = "<group>"; };
 		ED6F77A022BB273B00C322D9 /* uuid4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uuid4.c; sourceTree = "<group>"; };
 		ED6F77A122BB273B00C322D9 /* uuid4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uuid4.h; sourceTree = "<group>"; };
+		ED75B551246A4F6200C41508 /* PaymentProofViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentProofViewController.h; sourceTree = "<group>"; };
+		ED75B552246A4F6200C41508 /* PaymentProofViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentProofViewController.m; sourceTree = "<group>"; };
+		ED75B553246A4F6200C41508 /* PaymentProofViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentProofViewController.xib; sourceTree = "<group>"; };
+		ED75B556246A539F00C41508 /* VerifyPaymentProofViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerifyPaymentProofViewController.h; sourceTree = "<group>"; };
+		ED75B557246A539F00C41508 /* VerifyPaymentProofViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerifyPaymentProofViewController.m; sourceTree = "<group>"; };
+		ED75B558246A539F00C41508 /* VerifyPaymentProofViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VerifyPaymentProofViewController.xib; sourceTree = "<group>"; };
 		EDA356E7243C60980013E4C6 /* payment-proof-lib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "payment-proof-lib.h"; sourceTree = "<group>"; };
 		EDA356E8243C60C80013E4C6 /* libpaymentproof.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpaymentproof.a; sourceTree = "<group>"; };
 		EDA5148A22686DEC0011138F /* VcashWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VcashWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1145,6 +1155,12 @@
 				ED4066EC23CDC2DD00BFFD4E /* TokenInfoListViewController.h */,
 				ED4066ED23CDC2DD00BFFD4E /* TokenInfoListViewController.m */,
 				ED4066EE23CDC2DD00BFFD4E /* TokenInfoListViewController.xib */,
+				ED75B551246A4F6200C41508 /* PaymentProofViewController.h */,
+				ED75B552246A4F6200C41508 /* PaymentProofViewController.m */,
+				ED75B553246A4F6200C41508 /* PaymentProofViewController.xib */,
+				ED75B556246A539F00C41508 /* VerifyPaymentProofViewController.h */,
+				ED75B557246A539F00C41508 /* VerifyPaymentProofViewController.m */,
+				ED75B558246A539F00C41508 /* VerifyPaymentProofViewController.xib */,
 			);
 			path = WalletPage;
 			sourceTree = "<group>";
@@ -1691,8 +1707,10 @@
 				A21189BF22B900E500B88179 /* headbg@2x.png in Resources */,
 				A26FEBD7229F7DE0003CCD7C /* CreateMnemonicViewController.xib in Resources */,
 				A26FEC99229F805B003CCD7C /* wallet@2x.png in Resources */,
+				ED75B55A246A539F00C41508 /* VerifyPaymentProofViewController.xib in Resources */,
 				ED4066D923CC660800BFFD4E /* add_token_icon@3x.png in Resources */,
 				A26FEC64229F805B003CCD7C /* receivechose@3x.png in Resources */,
+				ED75B555246A4F6200C41508 /* PaymentProofViewController.xib in Resources */,
 				A269C09822E1BD4000778836 /* touchidseleted@3x.png in Resources */,
 				A26FEBCC229F7DE0003CCD7C /* WalletCell.xib in Resources */,
 				A231645922B7470C00E690D1 /* cancel@2x.png in Resources */,
@@ -1886,6 +1904,7 @@
 				A25E6E5022BCBE1700D563A4 /* ReceiverSignTransactionFileViewController.m in Sources */,
 				A26FEBD9229F7DE0003CCD7C /* PhraseWordShowViewCreator.m in Sources */,
 				A26FEBE1229F7DE0003CCD7C /* SendTransactionConfirmView.m in Sources */,
+				ED75B559246A539F00C41508 /* VerifyPaymentProofViewController.m in Sources */,
 				ED44BF7422696CF50042928E /* BTCKeychain.m in Sources */,
 				A26FEBDD229F7DE0003CCD7C /* MessageNotificationView.m in Sources */,
 				A26FEBC5229F7DE0003CCD7C /* BaseViewController.m in Sources */,
@@ -1909,6 +1928,7 @@
 				A26FEBCF229F7DE0003CCD7C /* HandleSlateViewController.m in Sources */,
 				ED44BFAA22696CF50042928E /* BTCCurrencyConverter.m in Sources */,
 				ED44BF9A22696CF50042928E /* BTCProtocolBuffers.m in Sources */,
+				ED75B554246A4F6200C41508 /* PaymentProofViewController.m in Sources */,
 				ED44BFA822696CF50042928E /* BTCScript.m in Sources */,
 				ED44BF9E22696CF50042928E /* BTCEncryptedBackup+Tests.m in Sources */,
 				EDA5149222686DEC0011138F /* ViewController.m in Sources */,

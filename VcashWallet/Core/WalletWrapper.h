@@ -28,9 +28,13 @@
 
 +(NSString*)getPubkeyFromProofAddress:(NSString*)proofAddress;
 
-+(NSString*)createPaymentProofSignature:(NSString*)token_type amount:(int64_t)amount excess:(NSString*)excess andSenderPubkey:(NSString*)senderPubkey;
++(NSString*)createPaymentProofSignature:(NSString*)token_type amount:(int64_t)amount excess:(NSString*)excess andSenderPubkey:(NSString*)senderPubkey andSecretKey:(NSString*)secKey;
 
-+(Boolean)verifyPaymentProof:(NSString*)token_type amount:(int64_t)amount excess:(NSString*)excess senderPubkey:(NSString*)senderPubkey receiverPubkey:(NSString*)receiverPubkey andSignature:(NSString*)signature;
++(Boolean)verifyPaymentProof:(NSString*)token_type amount:(int64_t)amount excess:(NSString*)excess senderPubkey:(NSString*)senderPubkey verifyPubkey:(NSString*)receiverPubkey andSignature:(NSString*)signature;
+
++(NSString*)exportPaymentProof:(VcashSlate*)slate;
+
++(NSString*)verifyPaymentProof:(NSString*)proof;
 
 //base info
 +(NSString*)getWalletUserId;

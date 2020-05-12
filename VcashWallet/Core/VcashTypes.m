@@ -713,3 +713,15 @@
 @end
 
 
+@implementation ExportPaymentInfo
+
+- (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
+    if (!self.token_type) {
+        dic[@"token_type"] = [NSNull null];
+    }
+    
+    return YES;
+}
+
+@end
+
