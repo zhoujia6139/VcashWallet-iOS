@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(strong, nonatomic)NSArray* params;
 
-- (id) initWithParam:(NSString*)param;
+- (id) initWithMethod:(NSString*)method andParamArr:(NSArray*)paramArr;
 
 @end
 

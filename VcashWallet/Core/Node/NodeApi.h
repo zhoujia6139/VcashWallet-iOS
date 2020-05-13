@@ -25,6 +25,10 @@ typedef void (^RequestCompleteBlock) (BOOL, _Nullable id);
 
 -(void)getTokenOutputsForToken:(NSString*)token_type WithCommitArr:(NSArray<NSString*>*)commitArr WithComplete:(RequestCompleteBlock)completeblock;
 
+-(void)getKernel:(NSString*)excess WithComplete:(RequestCompleteBlock)completeblock;
+
+-(void)getTokenKernel:(NSString*)tokenExcess WithComplete:(RequestCompleteBlock)completeblock;
+
 -(uint64_t)getChainHeightWithComplete:(RequestCompleteBlock _Nullable)completeblock;
 
 -(void)postTx:(NSString*)txHex WithComplete:(RequestCompleteBlock)completeblock;

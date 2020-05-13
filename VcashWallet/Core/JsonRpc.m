@@ -10,12 +10,12 @@
 
 @implementation JsonRpc
 
-- (id) initWithParam:(NSString*)param {
+- (id) initWithMethod:(NSString*)method andParamArr:(NSArray*)paramArr {
     if (self = [super init]) {
         _jsonrpc = @"2.0";
-        _method = @"receive_tx";
+        _method = method;
         _num_id = 1;
-        _params = [NSArray arrayWithObjects:param, [NSNull null], [NSNull null], nil];
+        _params = paramArr;
     }
     
     return self;

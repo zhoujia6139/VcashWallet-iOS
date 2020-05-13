@@ -129,7 +129,7 @@ static NSMutableSet* addedToken;
     return nil;
 }
 
-+(NSString*)verifyPaymentProof:(NSString*)proofStr {
++(void)verifyPaymentProof:(NSString*)proofStr WithComplete:(RequestCompleteBlock)block;{
     ExportPaymentInfo* proof = [ExportPaymentInfo modelWithJSON:proofStr];
     if (proof) {
         NSString* senderAddr;
@@ -138,7 +138,8 @@ static NSMutableSet* addedToken;
         } else if (proof.sender_address.length == 56) {
             senderAddr = [self getPubkeyFromProofAddress:proof.sender_address];
         } else {
-            return @"Sender address format is invalid.";
+            block?block(NO, @"Sender address format is invalid."):nil;
+            return;
         }
         
         NSString* receiverAddr;
@@ -147,32 +148,55 @@ static NSMutableSet* addedToken;
         } else if (proof.recipient_address.length == 56) {
             receiverAddr = [self getPubkeyFromProofAddress:proof.recipient_address];
         } else {
-            return @"Recipient address format is invalid.";
+            block?block(NO, @"Recipient address format is invalid."):nil;
+            return;
         }
         
         if (proof.sender_sig.length != 128) {
-            return @"Sender signature format is invalid.";
+            block?block(NO, @"Sender signature format is invalid."):nil;
+            return;
         }
         
         if (proof.recipient_sig.length != 128) {
-            return @"Recipient_sig signature format is invalid.";
+            block?block(NO, @"Recipient signature format is invalid."):nil;
+            return;
         }
         
         Boolean isSenderSigValid = [self verifyPaymentProof:proof.token_type amount:[proof.amount unsignedLongLongValue] excess:proof.excess senderPubkey:senderAddr verifyPubkey:senderAddr andSignature:proof.sender_sig];
         if (!isSenderSigValid) {
-            return @"Invalid recipient signature";
+            block?block(NO, @"Invalid recipient signature"):nil;
+            return;
         }
         Boolean isReceiverSigValid = [self verifyPaymentProof:proof.token_type amount:[proof.amount unsignedLongLongValue] excess:proof.excess senderPubkey:senderAddr verifyPubkey:receiverAddr andSignature:proof.recipient_sig];
         if (!isReceiverSigValid) {
-            return @"Invalid sender signature";
+            block?block(NO, @"Invalid sender signature"):nil;
+            return;
         }
         
         if (isSenderSigValid && isReceiverSigValid) {
-            return @"Signature is valid";
+            if (proof.token_type) {
+                [[NodeApi shareInstance] getTokenKernel:proof.excess WithComplete:^(BOOL yesOrNo, id data) {
+                    if (yesOrNo) {
+                        block?block(YES, @"Signature is valid"):nil;
+                    } else {
+                        block?block(NO, @"Transaction not found on chain"):nil;
+                    }
+                }];
+            } else {
+                [[NodeApi shareInstance] getKernel:proof.excess WithComplete:^(BOOL yesOrNo, id data) {
+                    if (yesOrNo) {
+                        block?block(YES, @"Signature is valid"):nil;
+                    } else {
+                        block?block(NO, @"Transaction not found on chain"):nil;
+                    }
+                }];
+            }
+            
+            return;
         }
     }
-    
-    return @"Proof format is invalid.";
+    block?block(NO, @"Proof format is invalid."):nil;
+    return;
 }
 
 +(WalletBalanceInfo*)getWalletBalanceInfo{
@@ -315,7 +339,7 @@ static NSMutableSet* addedToken;
             }
             NSString* postUrl = [NSString stringWithFormat:@"%@/v2/foreign", url];
             NSString* slate_str = [slate modelToJSONObject];
-            JsonRpc* rpc = [[JsonRpc alloc] initWithParam:slate_str];
+            JsonRpc* rpc = [[JsonRpc alloc] initWithMethod:@"receive_tx" andParamArr:[NSArray arrayWithObjects:slate_str, [NSNull null], [NSNull null], nil]];
             NSString* param = [rpc modelToJSONObject];
             [sessionManager POST:postUrl parameters:param progress:^(NSProgress * _Nonnull uploadProgress) {
                 
@@ -727,6 +751,8 @@ static NSMutableSet* addedToken;
     [slate.tx sortTx];
     NSData* txPayload = [slate.tx computePayloadForHash:NO];
     [[NodeApi shareInstance] postTx:BTCHexFromData(txPayload) WithComplete:^(BOOL yesOrNo, id _Nullable data) {
+//    NSString* txStr = [slate.tx modelToJSONObject];
+//    [[NodeApi shareInstance] postTx:txStr WithComplete:^(BOOL yesOrNo, id _Nullable data) {
         if (yesOrNo){
             block?block(YES, nil):nil;
             

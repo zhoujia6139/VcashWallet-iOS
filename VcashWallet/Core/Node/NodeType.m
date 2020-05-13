@@ -7,6 +7,7 @@
 //
 
 #import "NodeType.h"
+#import "VcashTypes.h"
 
 @implementation NodeOutput
 
@@ -29,5 +30,13 @@
 @end
 
 @implementation NodeRefreshTokenOutput
+
+@end
+
+@implementation LocatedTxKernel
+
+@end
+
+@implementation LocatedTokenTxKernel
 
 @end

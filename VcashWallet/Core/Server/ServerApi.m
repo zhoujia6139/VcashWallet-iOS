@@ -26,8 +26,8 @@
 
 -(NSString*)ServerUrl{
 #ifdef isInTestNet
-    return @"http://127.0.0.1:13500";
-    //return @"https://api.vcashwallet.app";
+    //return @"http://127.0.0.1:13500";
+    return @"https://api.vcashwallet.app";
 #else
     return @"https://api.vcashwallet.app";
 #endif

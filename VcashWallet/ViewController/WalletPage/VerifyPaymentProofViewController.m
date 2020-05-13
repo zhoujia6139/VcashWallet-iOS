@@ -22,10 +22,9 @@
 }
 - (IBAction)clickVerify:(id)sender {
     if (self.textView.text) {
-        NSString* ret = [WalletWrapper verifyPaymentProof:self.textView.text];
-        if (ret.length > 0) {
-            [MBHudHelper showTextTips:ret onView:nil withDuration:1.0];
-        }
+        [WalletWrapper verifyPaymentProof:self.textView.text WithComplete:^(BOOL yesOrNo, id _Nullable data) {
+            [MBHudHelper showTextTips:data onView:nil withDuration:1.0];
+        }];
     }
 }
 

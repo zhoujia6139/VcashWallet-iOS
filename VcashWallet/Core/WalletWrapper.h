@@ -34,7 +34,7 @@
 
 +(NSString*)exportPaymentProof:(VcashSlate*)slate;
 
-+(NSString*)verifyPaymentProof:(NSString*)proof;
++(void)verifyPaymentProof:(NSString*)proof WithComplete:(RequestCompleteBlock)block;
 
 //base info
 +(NSString*)getWalletUserId;

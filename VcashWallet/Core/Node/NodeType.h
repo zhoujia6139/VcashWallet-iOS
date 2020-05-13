@@ -79,4 +79,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@class TxKernel, TokenTxKernel;
+
+@interface LocatedTxKernel : NSObject
+
+@property(assign, nonatomic) uint64_t height;
+
+@property(assign, nonatomic) uint64_t mmr_index;
+
+@property(strong, nonatomic) TxKernel* tx_kernel;
+
+@end
+
+@interface LocatedTokenTxKernel : NSObject
+
+@property(assign, nonatomic) uint64_t height;
+
+@property(assign, nonatomic) uint64_t mmr_index;
+
+@property(strong, nonatomic) TokenTxKernel* tx_kernel;
+
+@end
+
 NS_ASSUME_NONNULL_END
