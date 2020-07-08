@@ -164,36 +164,34 @@ static NSMutableSet* addedToken;
         
         Boolean isSenderSigValid = [self verifyPaymentProof:proof.token_type amount:[proof.amount unsignedLongLongValue] excess:proof.excess senderPubkey:senderAddr verifyPubkey:senderAddr andSignature:proof.sender_sig];
         if (!isSenderSigValid) {
-            block?block(NO, @"Invalid recipient signature"):nil;
+            block?block(NO, @"Invalid sender signature"):nil;
             return;
         }
         Boolean isReceiverSigValid = [self verifyPaymentProof:proof.token_type amount:[proof.amount unsignedLongLongValue] excess:proof.excess senderPubkey:senderAddr verifyPubkey:receiverAddr andSignature:proof.recipient_sig];
         if (!isReceiverSigValid) {
-            block?block(NO, @"Invalid sender signature"):nil;
+            block?block(NO, @"Invalid recipient signature"):nil;
             return;
         }
         
-        if (isSenderSigValid && isReceiverSigValid) {
-            if (proof.token_type) {
-                [[NodeApi shareInstance] getTokenKernel:proof.excess WithComplete:^(BOOL yesOrNo, id data) {
-                    if (yesOrNo) {
-                        block?block(YES, @"Signature is valid"):nil;
-                    } else {
-                        block?block(NO, @"Transaction not found on chain"):nil;
-                    }
-                }];
-            } else {
-                [[NodeApi shareInstance] getKernel:proof.excess WithComplete:^(BOOL yesOrNo, id data) {
-                    if (yesOrNo) {
-                        block?block(YES, @"Signature is valid"):nil;
-                    } else {
-                        block?block(NO, @"Transaction not found on chain"):nil;
-                    }
-                }];
-            }
-            
-            return;
+        if (proof.token_type) {
+            [[NodeApi shareInstance] getTokenKernel:proof.excess WithComplete:^(BOOL yesOrNo, id data) {
+                if (yesOrNo) {
+                    block?block(YES, @"Signature is valid"):nil;
+                } else {
+                    block?block(NO, @"Transaction not found on chain"):nil;
+                }
+            }];
+        } else {
+            [[NodeApi shareInstance] getKernel:proof.excess WithComplete:^(BOOL yesOrNo, id data) {
+                if (yesOrNo) {
+                    block?block(YES, @"Signature is valid"):nil;
+                } else {
+                    block?block(NO, @"Transaction not found on chain"):nil;
+                }
+            }];
         }
+        
+        return;
     }
     block?block(NO, @"Proof format is invalid."):nil;
     return;
