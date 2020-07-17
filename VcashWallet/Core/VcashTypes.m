@@ -296,11 +296,6 @@
     return _excess_sig;
 }
 
--(void)setLock_height:(uint64_t)lock_height{
-    _lock_height = lock_height;
-    _features = [TxKernel featureWithLockHeight:lock_height];
-}
-
 -(BOOL)verify{
     VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
     
@@ -603,20 +598,20 @@
     return NO;
 }
 
--(NSData*)calculateTokenFinalExcess{
-    NSMutableArray* negativeCommits = [NSMutableArray new];
-    NSMutableArray* positiveCommits = [NSMutableArray new];
-    for (TokenInput* input in self.body.token_inputs){
-        [negativeCommits addObject:input.commit];
-    }
-    for (TokenOutput* output in self.body.token_outputs){
-        [positiveCommits addObject:output.commit];
-    }
-    
-    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
-    NSData* commit = [secp commitSumWithPositiveArr:positiveCommits andNegative:negativeCommits];
-    return commit;
-}
+//-(NSData*)calculateTokenFinalExcess{
+//    NSMutableArray* negativeCommits = [NSMutableArray new];
+//    NSMutableArray* positiveCommits = [NSMutableArray new];
+//    for (TokenInput* input in self.body.token_inputs){
+//        [negativeCommits addObject:input.commit];
+//    }
+//    for (TokenOutput* output in self.body.token_outputs){
+//        [positiveCommits addObject:output.commit];
+//    }
+//    
+//    VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
+//    NSData* commit = [secp commitSumWithPositiveArr:positiveCommits andNegative:negativeCommits];
+//    return commit;
+//}
 
 -(BOOL)setTokenTxExcess:(NSData*)excess andTxSig:(VcashSignature*)sig{
     if (self.body.token_kernels.count == 1){

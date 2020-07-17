@@ -76,6 +76,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(NSString*)getSignerKey;
 
+-(VcashOutput*)findOutputByCommit:(NSString*)commit;
+
+-(VcashTokenOutput*)findTokenOutputByCommit:(NSString*)commit;
+
 @end
 
 

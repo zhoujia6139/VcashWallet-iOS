@@ -199,7 +199,7 @@
     }
     
     if (![self isUrlAddress:self.targetAddressTextView.text]) {
-        if (self.targetAddressTextView.text.length != 56) {
+        if (![WalletWrapper isValidSlatePackAddress:self.targetAddressTextView.text]) {
             [self.view makeToast:[LanguageService contentForKey:@"addressFormatIncorrect"]];
             return;
         }

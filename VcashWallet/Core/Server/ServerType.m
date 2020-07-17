@@ -8,6 +8,7 @@
 
 #import "ServerType.h"
 #import "VcashSlate.h"
+#import "WalletWrapper.h"
 
 @implementation ServerTransaction
 
@@ -15,13 +16,9 @@
     self = [super init];
     if (self){
         _tx_id = slate.uuid;
-        _slate = [slate modelToJSONString];
+        _slate = [WalletWrapper encryptSlateForParter:slate];
     }
     return self;
-}
-
-+ (NSArray *)modelPropertyBlacklist {
-    return @[@"slateObj", @"isSend"];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder{
@@ -32,17 +29,19 @@
     return [self modelEncodeWithCoder:aCoder];
 }
 
--(Boolean)isValidTxSignature{
-    if (self.status == TxDefaultStatus){
-        return YES;
-    }
-    else if (self.status == TxReceiverd){
-        VcashSecp256k1* secp = [VcashWallet shareInstance].mKeyChain.secp;
-        NSData* pubkeyData = BTCDataFromHex(self.receiver_id);
-        return [secp ecdsaVerify:[self txDataToSign] sigData:BTCDataFromHex(self.tx_sig) pubkey:pubkeyData];
-    }
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+
+    self.sender_id = [WalletWrapper getProofAddressFromPublicKey:dic[@"sender_id"]];
+    self.receiver_id = [WalletWrapper getProofAddressFromPublicKey:dic[@"receiver_id"]];
     
-    return NO;
+    return YES;
+}
+
+- (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
+    dic[@"sender_id"] = [WalletWrapper getPubkeyFromProofAddress:self.sender_id];
+    dic[@"receiver_id"] = [WalletWrapper getPubkeyFromProofAddress:self.receiver_id];
+    
+    return YES;
 }
 
 -(NSData*)msgToSign{
@@ -55,19 +54,6 @@
     NSMutableData* data = [[NSMutableData alloc] initWithData:tx];
     [data appendData:sender];
     [data appendData:receiver];
-    return data;
-}
-
--(NSData*)txDataToSign{
-    NSString* textId = [self.tx_id stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    NSData* tx = BTCDataFromHex(textId);
-    NSData* sender = BTCDataFromHex(self.sender_id);
-    NSData* receiver = BTCDataFromHex(self.receiver_id);
-    NSData* txData = [self.slateObj.tx computePayloadForHash:YES];
-    NSMutableData* data = [[NSMutableData alloc] initWithData:tx];
-    [data appendData:sender];
-    [data appendData:receiver];
-    [data appendData:txData];
     return data;
 }
 

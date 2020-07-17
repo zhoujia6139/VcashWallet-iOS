@@ -58,15 +58,37 @@ static NSMutableSet* addedToken;
     return [VcashWallet shareInstance].userId;
 }
 
++(BOOL)isValidSlatePackAddress:(NSString*)address {
+    NSString* pubkey = [WalletWrapper getPubkeyFromProofAddress:address];
+    return pubkey.length > 0;
+}
+
 +(NSString*)getPubkeyFromProofAddress:(NSString*)proofAddress {
-    if (proofAddress.length != 56) {
+    if (proofAddress.length != 65 && proofAddress.length != 64) {
         return nil;
     }
     const char* proofAddressStr = [proofAddress UTF8String];
-    const char* pubkeyAddStr = base32_address_to_pubkey_address(proofAddressStr);
+    const char* pubkeyAddStr = slate_address_to_pubkey_address(proofAddressStr);
     NSString* pubkeyAddress = [NSString stringWithUTF8String:pubkeyAddStr];
     c_str_free(pubkeyAddStr);
     return pubkeyAddress;
+}
+
++(NSString*)getProofAddressFromPublicKey:(NSString*)publicKey {
+    if (publicKey.length != 64) {
+        return nil;
+    }
+    
+    bool isTestNet = false;
+    #ifdef isInTestNet
+        isTestNet = true;
+    #endif
+    
+    const char* publicKeyStr = [publicKey UTF8String];
+    const char* proofAddressStr = pubkey_address_to_slate_address(publicKeyStr, isTestNet);
+    NSString* proofAddress = [NSString stringWithUTF8String:proofAddressStr];
+    c_str_free(proofAddressStr);
+    return proofAddress;
 }
 
 +(NSString*)getPaymentProofMessage:(NSString*)token_type amount:(int64_t)amount excess:(NSString*)excess andSenderPubkey:(NSString*)senderPubkey {
@@ -100,18 +122,10 @@ static NSMutableSet* addedToken;
         ExportPaymentInfo* proof = [ExportPaymentInfo new];
         proof.token_type = slate.token_type;
         proof.amount = [[NSNumber numberWithUnsignedLongLong:slate.amount] stringValue];
-        NSData* excessData;
-        if (slate.token_type) {
-            excessData = [slate.tx calculateTokenFinalExcess];
-        } else {
-            excessData = [slate.tx calculateFinalExcess];
-        }
+        NSData* excessData = [slate calculateExcess];
+
         proof.excess = BTCHexFromData(excessData);
-        
-        const char*  recipient_addr = pubkey_address_to_base32_address([slate.payment_proof.receiver_address UTF8String]);
-        proof.recipient_address = [NSString stringWithUTF8String:recipient_addr];
-        c_str_free(recipient_addr);
-        
+        proof.recipient_address = [WalletWrapper getProofAddressFromPublicKey:slate.payment_proof.receiver_address];
         proof.recipient_sig = slate.payment_proof.receiver_signature;
         proof.sender_address = [VcashWallet shareInstance].userId;
         NSData* sec_key = [[VcashWallet shareInstance] getPaymentProofKey];
@@ -197,6 +211,51 @@ static NSMutableSet* addedToken;
     return;
 }
 
++(VcashSlate*)parseSlateFromEncrypedSlatePackStr:(NSString*)slateStr {
+    NSData* key = [[VcashWallet shareInstance] getPaymentProofKey];
+    const char*  slate_bin_str = slate_from_slatepack_message(slateStr.UTF8String, BTCHexFromData(key).UTF8String);
+    NSString* slateBin = [NSString stringWithUTF8String:slate_bin_str];
+    c_str_free(slate_bin_str);
+    
+    VcashSlate* slate = [self slateFromHex:slateBin];
+    
+    const char*  sender_addr_str = sender_address_from_slatepack_message(slateStr.UTF8String, BTCHexFromData(key).UTF8String);
+    NSString* slateAddress = [NSString stringWithUTF8String:sender_addr_str];
+    c_str_free(sender_addr_str);
+    
+    slate.partnerAddress = slateAddress;
+    
+    VcashContext* context = [[VcashDataManager shareInstance] getContextBySlateId:slate.uuid];
+    if (context){
+        slate.amount = context.amount;
+        slate.fee = context.fee;
+    }
+    
+    return slate;
+}
+
++(VcashSlate*)slateFromHex:(NSString*)slateStr {
+    VcashSlate* slate = [VcashSlate parseSlateFromData:BTCDataFromHex(slateStr)];
+    
+    return slate;
+}
+
++(NSString*)hexForSlate:(VcashSlate*)slate {
+    NSData* slate_bin = [slate selializeAsData];
+    NSString* slateBinStr = BTCHexFromData(slate_bin);
+    
+    return slateBinStr;
+}
+
++(NSString*)encryptSlateForParter:(VcashSlate*)slate {
+    NSString* slateBinStr = [self hexForSlate:slate];
+    const char*  slate_bin_str = create_slatepack_message(slateBinStr.UTF8String, slate.partnerAddress.UTF8String, [VcashWallet shareInstance].userId.UTF8String);
+    NSString* slateBin = [NSString stringWithUTF8String:slate_bin_str];
+    c_str_free(slate_bin_str);
+    
+    return slateBin;
+}
+
 +(WalletBalanceInfo*)getWalletBalanceInfo{
     return [[VcashWallet shareInstance] getWalletBalanceInfo];
 }
@@ -279,13 +338,8 @@ static NSMutableSet* addedToken;
 
 +(void)createSendTransaction:(NSString*)tokenType andAmount:(uint64_t)amount andProofAddress:(NSString*)proofAddress withComplete:(RequestCompleteBlock)block {
     PaymentInfo* info;
-    if (proofAddress){
+    if ([WalletWrapper isValidSlatePackAddress:proofAddress]){
         NSString* receiverAddr = [self getPubkeyFromProofAddress:proofAddress];
-        if (receiverAddr.length != 64) {
-            block?block(NO, @"Payment proof address is not valid!"):nil;
-            return;
-        }
-        
         info = [PaymentInfo new];
         info.sender_address = [self getPubkeyFromProofAddress:[VcashWallet shareInstance].userId];
         info.receiver_address = receiverAddr;
@@ -295,6 +349,7 @@ static NSMutableSet* addedToken;
         return [[VcashWallet shareInstance] sendTokenTransaction:tokenType andAmount:amount withComplete:^(BOOL yesOrNO, id data) {
             if (yesOrNO) {
                 VcashSlate* slate = (VcashSlate*)data;
+                slate.partnerAddress = proofAddress;
                 slate.payment_proof = info;
             }
             block?block(yesOrNO, data):nil;
@@ -303,6 +358,7 @@ static NSMutableSet* addedToken;
         return [[VcashWallet shareInstance] sendTransaction:amount andFee:0 withComplete:^(BOOL yesOrNO, id data) {
             if (yesOrNO) {
                 VcashSlate* slate = (VcashSlate*)data;
+                slate.partnerAddress = proofAddress;
                 slate.payment_proof = info;
             }
             block?block(yesOrNO, data):nil;
@@ -440,7 +496,7 @@ static NSMutableSet* addedToken;
         if (yesOrNO){
             DDLogWarn(@"sendTransaction by file suc");
             [[VcashDataManager shareInstance] commitDatabaseTransaction];
-            NSString* str = [slate modelToJSONString];
+            NSString* str = [WalletWrapper encryptSlateForParter:slate];
             block?block(YES, str):nil;
         }
         else{
@@ -458,7 +514,7 @@ static NSMutableSet* addedToken;
     slate.createNewTokenOutputsFn?slate.createNewTokenOutputsFn():nil;
     
     //save txLog
-    NSString* slate_str = [slate modelToJSONString];
+    NSString* slate_str = [WalletWrapper hexForSlate:slate];
     if (slate.txLog) {
         slate.txLog.status = TxDefaultStatus;
         slate.txLog.signed_slate_msg = slate_str;
@@ -493,7 +549,7 @@ static NSMutableSet* addedToken;
 }
 
 +(void)isValidSlateConentForReceive:(NSString*)slateStr withComplete:(RequestCompleteBlock)block{
-    VcashSlate* slate = [VcashSlate modelWithJSON:slateStr];
+    VcashSlate* slate = [WalletWrapper parseSlateFromEncrypedSlatePackStr:slateStr];
     if (!slate || ![slate isValidForReceive]){
         block?block(NO, @"Wrong Data Format"):nil;
         return;
@@ -552,7 +608,7 @@ static NSMutableSet* addedToken;
         slate = serverTx.slateObj;
     }
     
-    if (slate.ttl_cutoff_height && [slate.ttl_cutoff_height unsignedLongValue] <= [VcashWallet shareInstance].curChainHeight ) {
+    if (slate.ttl_cutoff_height > 0 && slate.ttl_cutoff_height <= [VcashWallet shareInstance].curChainHeight ) {
         DDLogError(@"Transaction Expired!");
         block?block(NO, @"Transaction Expired!"):nil;
         return;
@@ -596,12 +652,7 @@ static NSMutableSet* addedToken;
             return;
         }
         
-        NSData* excess = nil;
-        if (slate.token_type) {
-            excess = [slate.tx calculateTokenFinalExcess];
-        } else {
-            excess = [slate.tx calculateFinalExcess];
-        }
+        NSData* excess = [slate calculateExcess];
         NSData* sec_key = [[VcashWallet shareInstance] getPaymentProofKey];
         NSString* sec_str = BTCHexFromData(sec_key);
         NSString* signature = [self createPaymentProofSignature:slate.token_type amount:slate.amount excess:BTCHexFromData(excess) andSenderPubkey:slate.payment_proof.sender_address andSecretKey:sec_str];
@@ -621,7 +672,14 @@ static NSMutableSet* addedToken;
         slate.payment_proof.receiver_signature = signature;
     }
     
-    NSString* slateStr = [slate modelToJSONString];
+    // Can remove amount and fee now
+    // as well as sender's sig data
+    slate.amount = 0;
+    slate.fee = 0;
+    [slate removeOtherSigdata];
+    slate.state = Standard2;
+    
+    NSString* slateStr = [WalletWrapper encryptSlateForParter:slate];
     if (slate.token_type) {
         slate.createNewTokenOutputsFn?slate.createNewTokenOutputsFn():nil;
         //save tokentxLog
@@ -683,7 +741,7 @@ static NSMutableSet* addedToken;
 +(void)finalizeServerTx:(ServerTransaction*)tx withComplete:(RequestCompleteBlock)block{
     [self finalizeTransaction:tx.slateObj withComplete:^(BOOL yesOrNo, id _Nullable data) {
         if (yesOrNo){
-            //tx.slate  = [tx.slateObj modelToJSONString];
+            tx.slate  = [WalletWrapper encryptSlateForParter:tx.slateObj];
             tx.status = TxFinalized;
             [[ServerApi shareInstance] filanizeTransaction:tx.tx_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
                 if (!yesOrNo){
@@ -705,33 +763,6 @@ static NSMutableSet* addedToken;
         block?block(NO, @""):nil;
         return;
     }
-    VcashSlate* origSlate = [VcashSlate modelWithJSON:txLog.signed_slate_msg];
-    if (origSlate.payment_proof) {
-        if (!slate.payment_proof) {
-            DDLogError(@"--------Expected Payment Proof for this Transaction is not present");
-            block?block(NO, @"Expected Payment Proof for this Transaction is not present"):nil;
-            return;
-        }
-        if (![origSlate.payment_proof.receiver_address isEqualToString:slate.payment_proof.receiver_address] ||
-            ![origSlate.payment_proof.sender_address isEqualToString:slate.payment_proof.sender_address]){
-            DDLogError(@"--------Payment Proof address does not match original Payment Proof address");
-            block?block(NO, @"Payment Proof address does not match original Payment Proof address"):nil;
-            return;
-        }
-        NSData* excess = nil;
-        if (slate.token_type) {
-            excess = [slate.tx calculateTokenFinalExcess];
-        } else {
-            excess = [slate.tx calculateFinalExcess];
-        }
-        Boolean isValid = [self verifyPaymentProof:slate.token_type amount:slate.amount excess:BTCHexFromData(excess) senderPubkey:slate.payment_proof.sender_address verifyPubkey:slate.payment_proof.receiver_address andSignature:slate.payment_proof.receiver_signature];
-        if (!isValid) {
-            DDLogError(@"--------Recipient did not provide requested proof signature");
-            block?block(NO, @"Recipient did not provide requested proof signature"):nil;
-            return;
-        }
-    }
-    
     
     VcashContext* context = [[VcashDataManager shareInstance] getContextBySlateId:slate.uuid];
     if (!context){
@@ -746,6 +777,29 @@ static NSMutableSet* addedToken;
         return;
     }
     
+    //check payment proof
+    VcashSlate* origSlate = [WalletWrapper slateFromHex:txLog.signed_slate_msg];
+    if (origSlate.payment_proof) {
+        if (!slate.payment_proof) {
+            DDLogError(@"--------Expected Payment Proof for this Transaction is not present");
+            block?block(NO, @"Expected Payment Proof for this Transaction is not present"):nil;
+            return;
+        }
+        if (![origSlate.payment_proof.receiver_address isEqualToString:slate.payment_proof.receiver_address] ||
+            ![origSlate.payment_proof.sender_address isEqualToString:slate.payment_proof.sender_address]){
+            DDLogError(@"--------Payment Proof address does not match original Payment Proof address");
+            block?block(NO, @"Payment Proof address does not match original Payment Proof address"):nil;
+            return;
+        }
+        NSData* excess = [slate calculateExcess];
+        Boolean isValid = [self verifyPaymentProof:slate.token_type amount:slate.amount excess:BTCHexFromData(excess) senderPubkey:slate.payment_proof.sender_address verifyPubkey:slate.payment_proof.receiver_address andSignature:slate.payment_proof.receiver_signature];
+        if (!isValid) {
+            DDLogError(@"--------Recipient did not provide requested proof signature");
+            block?block(NO, @"Recipient did not provide requested proof signature"):nil;
+            return;
+        }
+    }
+    
     [slate.tx sortTx];
     NSData* txPayload = [slate.tx computePayloadForHash:NO];
     [[NodeApi shareInstance] postTx:BTCHexFromData(txPayload) WithComplete:^(BOOL yesOrNo, id _Nullable data) {
@@ -757,7 +811,7 @@ static NSMutableSet* addedToken;
             if (txLog){
                 txLog.confirm_state = LoalConfirmed;
                 txLog.status = TxFinalized;
-                txLog.signed_slate_msg = [slate modelToJSONString];
+                txLog.signed_slate_msg = [self hexForSlate:slate];
                 [[VcashDataManager shareInstance] saveTx:txLog];
             }
             else{
@@ -849,8 +903,8 @@ static NSMutableSet* addedToken;
         @try {
             VcashSlate* slate = [VcashSlate modelWithJSON:tx.signed_slate_msg];
             if (slate &&
-                slate.ttl_cutoff_height &&
-                slate.ttl_cutoff_height.unsignedLongLongValue <= [VcashWallet shareInstance].curChainHeight) {
+                slate.ttl_cutoff_height > 0 &&
+                slate.ttl_cutoff_height <= [VcashWallet shareInstance].curChainHeight ) {
                 [tx cancelTxlog];
                 [[VcashDataManager shareInstance] saveTx:tx];
             }

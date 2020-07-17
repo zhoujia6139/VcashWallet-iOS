@@ -34,6 +34,7 @@ typedef enum{
     KernelFeaturePlain = 0,
     KernelFeatureCoinbase = 1,
     KernelFeatureHeightLocked = 2,
+    KernelFeatureNoRecentDuplicate = 3,
 }KernelFeatures;
 
 typedef enum{
@@ -155,7 +156,7 @@ typedef enum{
 
 -(NSData*)calculateFinalExcess;
 
--(NSData*)calculateTokenFinalExcess;
+//-(NSData*)calculateTokenFinalExcess;
 
 -(BOOL)setTxExcess:(NSData*)excess andTxSig:(VcashSignature*)sig;
 

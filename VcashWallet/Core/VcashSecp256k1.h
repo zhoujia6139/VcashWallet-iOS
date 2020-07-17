@@ -30,11 +30,13 @@ enum ContextFlag {
 
 -(NSData*)commitment:(uint64_t)value withKey:(VcashSecretKey*)key;
 
--(VcashSecretKey*)blindSumWithPositiveArr:(NSArray<NSData*>*)positive andNegative:(NSArray<NSData*>*)negative;
+-(VcashSecretKey*)blindSumWithPositiveArr:(nullable NSArray<NSData*>*)positive andNegative:(nullable NSArray<NSData*>*)negative;
 
 -(NSData*)commitSumWithPositiveArr:(NSArray<NSData*>*)positive andNegative:(NSArray<NSData*>*)negative;
 
 -(NSData*)commitToPubkey:(NSData*)commitment;
+
+-(NSData*)pubkeyToCommit:(NSData*)pubkey;
 
 -(NSData*)getCompressedPubkey:(NSData*)pubkey;
 

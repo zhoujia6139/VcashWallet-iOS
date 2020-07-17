@@ -144,6 +144,19 @@
     return nil;
 }
 
+-(NSData*)pubkeyToCommit:(NSData*)pubkey{
+    secp256k1_pedersen_commitment innerCommit;
+    if (pubkey){
+        int ret = secp256k1_pubkey_to_pedersen_commitment(_context,
+                                                          &innerCommit,
+                                                         (secp256k1_pubkey*)pubkey.bytes);
+        if (ret == 1){
+            return [self serCommit:&innerCommit];
+        }
+    }
+    return nil;
+}
+
 -(NSData*)getCompressedPubkey:(NSData*)pubkey{
     if (pubkey.length == 64){
         uint8_t compressKey[33];

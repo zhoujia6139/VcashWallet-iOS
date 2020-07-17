@@ -310,7 +310,6 @@
 		ED44C009226D9D8D0042928E /* NodeApi.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C008226D9D8D0042928E /* NodeApi.m */; };
 		ED44C00C226D9FF50042928E /* NodeType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C00B226D9FF50042928E /* NodeType.m */; };
 		ED44C00F226DAFB30042928E /* VcashTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = ED44C00E226DAFB30042928E /* VcashTypes.m */; };
-		ED6F77A222BB273B00C322D9 /* uuid4.c in Sources */ = {isa = PBXBuildFile; fileRef = ED6F77A022BB273B00C322D9 /* uuid4.c */; };
 		ED75B554246A4F6200C41508 /* PaymentProofViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED75B552246A4F6200C41508 /* PaymentProofViewController.m */; };
 		ED75B555246A4F6200C41508 /* PaymentProofViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED75B553246A4F6200C41508 /* PaymentProofViewController.xib */; };
 		ED75B559246A539F00C41508 /* VerifyPaymentProofViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED75B557246A539F00C41508 /* VerifyPaymentProofViewController.m */; };
@@ -800,8 +799,6 @@
 		ED44C00B226D9FF50042928E /* NodeType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeType.m; sourceTree = "<group>"; };
 		ED44C00D226DAFB30042928E /* VcashTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VcashTypes.h; sourceTree = "<group>"; };
 		ED44C00E226DAFB30042928E /* VcashTypes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VcashTypes.m; sourceTree = "<group>"; };
-		ED6F77A022BB273B00C322D9 /* uuid4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uuid4.c; sourceTree = "<group>"; };
-		ED6F77A122BB273B00C322D9 /* uuid4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uuid4.h; sourceTree = "<group>"; };
 		ED75B551246A4F6200C41508 /* PaymentProofViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentProofViewController.h; sourceTree = "<group>"; };
 		ED75B552246A4F6200C41508 /* PaymentProofViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentProofViewController.m; sourceTree = "<group>"; };
 		ED75B553246A4F6200C41508 /* PaymentProofViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentProofViewController.xib; sourceTree = "<group>"; };
@@ -1457,15 +1454,6 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		ED6F779F22BB272200C322D9 /* uuid */ = {
-			isa = PBXGroup;
-			children = (
-				ED6F77A022BB273B00C322D9 /* uuid4.c */,
-				ED6F77A122BB273B00C322D9 /* uuid4.h */,
-			);
-			path = uuid;
-			sourceTree = "<group>";
-		};
 		EDA5148122686DEC0011138F = {
 			isa = PBXGroup;
 			children = (
@@ -1564,7 +1552,6 @@
 		EDA514B4226891050011138F /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				ED6F779F22BB272200C322D9 /* uuid */,
 				ED24988C2280297100D94EBE /* Server */,
 				ED3C75672270603B00B42555 /* Node */,
 				ED44BEDF22696CF50042928E /* CoreBitcoin */,
@@ -2018,7 +2005,6 @@
 				ED44BF7B22696CF50042928E /* BTCQRCode.m in Sources */,
 				ED44BF8F22696CF50042928E /* BTCCurvePoint+Tests.m in Sources */,
 				A26FEBF8229F7E39003CCD7C /* VcashLabel.m in Sources */,
-				ED6F77A222BB273B00C322D9 /* uuid4.c in Sources */,
 				ED44BF8322696CF50042928E /* BTCBlockchainInfo.m in Sources */,
 				A2B3A11722A0D8EF000F7495 /* ServerTransactionBlackManager.m in Sources */,
 				A26FEBC9229F7DE0003CCD7C /* WelcomePageViewController.m in Sources */,

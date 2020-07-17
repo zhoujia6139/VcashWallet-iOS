@@ -221,18 +221,18 @@
             lastFetch = 0;
         }];
         
-        [[self sessionManager] GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NodeChainInfo* info = [NodeChainInfo modelWithJSON:responseObject];
-            curHeight = info.height;
-            completeblock?completeblock(YES, info):nil;
-            lastFetch = [[NSDate date] timeIntervalSince1970];
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            DDLogError(@"getChainHeight failed:%@", error);
-            completeblock?completeblock(NO, nil):nil;
-            lastFetch = 0;
-        }];
+//        [[self sessionManager] GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+//            
+//        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//            NodeChainInfo* info = [NodeChainInfo modelWithJSON:responseObject];
+//            curHeight = info.height;
+//            completeblock?completeblock(YES, info):nil;
+//            lastFetch = [[NSDate date] timeIntervalSince1970];
+//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//            DDLogError(@"getChainHeight failed:%@", error);
+//            completeblock?completeblock(NO, nil):nil;
+//            lastFetch = 0;
+//        }];
     }
 
     return curHeight;

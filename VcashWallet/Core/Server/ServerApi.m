@@ -26,15 +26,16 @@
 
 -(NSString*)ServerUrl{
 #ifdef isInTestNet
-    //return @"http://127.0.0.1:13500";
-    return @"https://api.vcashwallet.app";
+    return @"http://127.0.0.1:13500";
+    //return @"https://api.vcashwallet.app";
 #else
     return @"https://api.vcashwallet.app";
 #endif
 }
 
 -(void)checkStatusForUser:(NSString*)userId WithComplete:(RequestCompleteBlock)block{
-    NSString* url = [NSString stringWithFormat:@"%@/statecheck/%@",[self ServerUrl], userId];
+    const char* pubkeyStr = slate_address_to_pubkey_address([userId UTF8String]);
+    NSString* url = [NSString stringWithFormat:@"%@/statecheck/%s",[self ServerUrl], pubkeyStr];
     
     [[self sessionManager] GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -183,7 +184,7 @@
     NSString* secKeyStr = [[VcashWallet shareInstance] getSignerKey];
     const char* signatureStr = create_payment_proof_signature([msgHashedStr UTF8String], [secKeyStr UTF8String]);
     NSString* signature = [NSString stringWithUTF8String:signatureStr];
-    const char* pubkeyStr = base32_address_to_pubkey_address([[VcashWallet shareInstance].userId UTF8String]);
+    const char* pubkeyStr = slate_address_to_pubkey_address([[VcashWallet shareInstance].userId UTF8String]);
     bool isValid = verify_payment_proof([msgHashedStr UTF8String], pubkeyStr, signatureStr);
     if (!isValid) {
         DDLogError(@"---Signature is invalid!");

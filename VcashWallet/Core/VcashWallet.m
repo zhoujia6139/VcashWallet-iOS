@@ -53,10 +53,14 @@ static VcashWallet* walletInstance = nil;
 }
 
 -(NSString*)userId{
+    bool isTestNet = false;
+#ifdef isInTestNet
+    isTestNet = true;
+#endif
     if (!_userId){
         NSData* sec_key = [[VcashWallet shareInstance] getPaymentProofKey];
         NSString* sec_str = BTCHexFromData(sec_key);
-        const char* address_str = address([sec_str UTF8String]);
+        const char* address_str = slate_address([sec_str UTF8String], isTestNet);
         NSString* address_ret = [NSString stringWithUTF8String:address_str];
         c_str_free(address_str);
         return address_ret;
@@ -165,6 +169,26 @@ static VcashWallet* walletInstance = nil;
 -(void)reloadTokenOutputInfo{
     walletInstance->_tokenOutputs = [[VcashDataManager shareInstance] getActiveTokenOutputData];
     [self tokenOutputToDic];
+}
+
+-(VcashOutput*)findOutputByCommit:(NSString*)commit{
+    for (VcashOutput* output in self.outputs) {
+        if ([output.commitment isEqualToString:commit]) {
+            return output;
+        }
+    }
+    
+    return nil;
+}
+
+-(VcashTokenOutput*)findTokenOutputByCommit:(NSString*)commit{
+    for (VcashTokenOutput* output in self->_tokenOutputs) {
+        if ([output.commitment isEqualToString:commit]) {
+            return output;
+        }
+    }
+    
+    return nil;
 }
 
 -(uint64_t)curChainHeight{
@@ -356,9 +380,8 @@ static VcashWallet* walletInstance = nil;
     VcashSlate* slate = [VcashSlate new];
     slate.num_participants = 2;
     slate.amount = amount;
-    slate.height = self.curChainHeight;
-    slate.lock_height = 0;
     slate.fee = actualFee;
+    slate.kernel_features = 0;
     
     VcashTxLog* txLog = [VcashTxLog new];
     txLog.tx_id = [[VcashWallet shareInstance] getNextLogId];
@@ -371,7 +394,8 @@ static VcashWallet* walletInstance = nil;
     txLog.confirm_state = DefaultState;
     slate.txLog = txLog;
     
-    VcashSecretKey* blind = [slate addTxElement:spendable change:change isForToken:NO];
+    VcashCommitId* changeOutputid = [VcashCommitId new];
+    VcashSecretKey* blind = [slate addTxElement:spendable change:change changeCommitId:changeOutputid isForToken:NO];
     if (!blind){
         DDLogError(@"--------sender addTxElement failed");
         block?block(NO, nil):nil;
@@ -382,14 +406,29 @@ static VcashWallet* walletInstance = nil;
     VcashContext* context = [[VcashContext alloc] init];
     context.sec_key = blind;
     context.slate_id = slate.uuid;
+    context.amount = amount;
+    context.fee = slate.fee;
+    
+    //add input for Context
+    for (VcashOutput* item in spendable){
+        VcashCommitId* outputid = [VcashCommitId new];
+        outputid.keyPath = item.keyPath;
+        outputid.mmr_index = @(item.mmr_index);
+        outputid.value = item.value;
+        [context.input_ids addObject:outputid];
+    }
+    [context.output_ids addObject:changeOutputid];
+    
     slate.context = context;
     
     //4 sender fill round 1
-    if (![slate fillRound1:context participantId:0 andMessage:nil]){
+    if (![slate fillRound1:context]){
         DDLogError(@"--------sender fillRound1 failed");
         block?block(NO, nil):nil;
         return;
     }
+    
+    slate.tx = nil;
 
     block?block(YES, slate):nil;
 }
@@ -468,9 +507,9 @@ static VcashWallet* walletInstance = nil;
     slate.num_participants = 2;
     slate.token_type = token_type;
     slate.amount = amount;
-    slate.height = self.curChainHeight;
-    slate.lock_height = 0;
     slate.fee = actualFee;
+    slate.kernel_features = 0;
+    slate.token_kernel_features = 0;
     
     VcashTokenTxLog* txLog = [VcashTokenTxLog new];
     txLog.tx_id = [[VcashWallet shareInstance] getNextLogId];
@@ -486,14 +525,16 @@ static VcashWallet* walletInstance = nil;
     txLog.confirm_state = DefaultState;
     slate.tokenTxLog = txLog;
     
-    VcashSecretKey* blind = [slate addTxElement:vcash_actual_spend change:vcash_change isForToken:YES];
+    VcashCommitId* changeOutputid = [VcashCommitId new];
+    VcashSecretKey* blind = [slate addTxElement:vcash_actual_spend change:vcash_change changeCommitId:changeOutputid isForToken:YES];
     if (!blind){
         DDLogError(@"--------sender addTxElement failed");
         block?block(NO, nil):nil;
         return;
     }
     
-    VcashSecretKey* token_blind = [slate addTokenTxElement:spendable change:change];
+    VcashCommitId* tokenChangeOutputid = [VcashCommitId new];
+    VcashSecretKey* token_blind = [slate addTokenTxElement:spendable change:change changeCommitId:tokenChangeOutputid];
     if (!blind){
         DDLogError(@"--------sender addTokenTxElement failed");
         block?block(NO, nil):nil;
@@ -505,14 +546,39 @@ static VcashWallet* walletInstance = nil;
     context.sec_key = blind;
     context.token_sec_key = token_blind;
     context.slate_id = slate.uuid;
+    context.amount = amount;
+    context.fee = slate.fee;
+    
+    //add input for Context
+    for (VcashOutput* item in vcash_actual_spend){
+        VcashCommitId* outputid = [VcashCommitId new];
+        outputid.keyPath = item.keyPath;
+        outputid.mmr_index = @(item.mmr_index);
+        outputid.value = item.value;
+        [context.input_ids addObject:outputid];
+    }
+    [context.output_ids addObject:changeOutputid];
+    
+    //add token input for Context
+    for (VcashTokenOutput* item in spendable){
+        VcashCommitId* outputid = [VcashCommitId new];
+        outputid.keyPath = item.keyPath;
+        outputid.mmr_index = @(item.mmr_index);
+        outputid.value = item.value;
+        [context.token_input_ids addObject:outputid];
+    }
+    [context.token_output_ids addObject:tokenChangeOutputid];
+    
     slate.context = context;
     
     //4 sender fill round 1
-    if (![slate fillRound1:context participantId:0 andMessage:nil]){
+    if (![slate fillRound1:context]){
         DDLogError(@"--------sender fillRound1 failed");
         block?block(NO, nil):nil;
         return;
     }
+    
+    slate.tx = nil;
     
     block?block(YES, slate):nil;
 }
@@ -543,7 +609,8 @@ static VcashWallet* walletInstance = nil;
         slate.txLog = txLog;
     }
     
-    VcashSecretKey* blind = [slate addReceiverTxOutput];
+    VcashCommitId* commitId = [VcashCommitId new];
+    VcashSecretKey* blind = [slate addReceiverTxOutputWithChangeCommitId:commitId];
     if (!blind){
         DDLogError(@"--------receiver addReceiverTxOutput failed");
         return NO;
@@ -557,16 +624,24 @@ static VcashWallet* walletInstance = nil;
         context.sec_key = blind;
     }
     context.slate_id = slate.uuid;
+    context.amount = slate.amount;
+    context.fee = slate.fee;
+    if (slate.token_type) {
+        [context.token_output_ids addObject:commitId];
+    } else {
+        [context.output_ids addObject:commitId];
+    }
+    
     slate.context = context;
     
     //7, receiver fill round 1
-    if (![slate fillRound1:context participantId:1 andMessage:nil]){
+    if (![slate fillRound1:context]){
         DDLogError(@"--------receiver fillRound1 failed");
         return NO;
     }
     
     //8, receiver fill round 2
-    if (![slate fillRound2:context participantId:1]){
+    if (![slate fillRound2:context]){
         DDLogError(@"--------receiver fillRound2 failed");
         return NO;
     }
@@ -577,8 +652,15 @@ static VcashWallet* walletInstance = nil;
 -(BOOL)finalizeTransaction:(VcashSlate*)slate{
     VcashContext* context = slate.context;
     
+    //compute offset
+    [slate subInputFromOffset:context];
+    
+    //construct tx
+    [slate repopulateTx:context];
+    
+    
     //9, sender fill round 2
-    if (![slate fillRound2:context participantId:0])
+    if (![slate fillRound2:context])
     {
         DDLogError(@"--------sender fillRound2 failed");
         return NO;

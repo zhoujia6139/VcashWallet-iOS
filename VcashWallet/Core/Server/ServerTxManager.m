@@ -64,9 +64,9 @@
                 [self.dicTx removeAllObjects];
                 lastFetch = [[NSDate date] timeIntervalSince1970];
                 for (ServerTransaction* item in txs){
-                    item.slateObj = [VcashSlate modelWithJSON:item.slate];
-                    if (item && item.slateObj){
-                        BaseVcashTxLog *txLog = [[VcashDataManager shareInstance] getTxBySlateId:item.slateObj.uuid];
+                    item.slateObj = [WalletWrapper parseSlateFromEncrypedSlatePackStr:item.slate];
+                    if (item && item.tx_id){
+                        BaseVcashTxLog *txLog = [[VcashDataManager shareInstance] getTxBySlateId:item.tx_id];
                         
                         //check as receiver
                         if ([item.receiver_id isEqualToString:[VcashWallet shareInstance].userId]){

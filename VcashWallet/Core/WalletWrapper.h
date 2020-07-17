@@ -26,7 +26,11 @@
 
 // payment proof
 
++(BOOL)isValidSlatePackAddress:(NSString*)address;
+
 +(NSString*)getPubkeyFromProofAddress:(NSString*)proofAddress;
+
++(NSString*)getProofAddressFromPublicKey:(NSString*)publicKey;
 
 +(NSString*)createPaymentProofSignature:(NSString*)token_type amount:(int64_t)amount excess:(NSString*)excess andSenderPubkey:(NSString*)senderPubkey andSecretKey:(NSString*)secKey;
 
@@ -35,6 +39,11 @@
 +(NSString*)exportPaymentProof:(VcashSlate*)slate;
 
 +(void)verifyPaymentProof:(NSString*)proof WithComplete:(RequestCompleteBlock)block;
+
+//slate pack
++(VcashSlate*)parseSlateFromEncrypedSlatePackStr:(NSString*)slateStr;
+
++(NSString*)encryptSlateForParter:(VcashSlate*)slate;
 
 //base info
 +(NSString*)getWalletUserId;

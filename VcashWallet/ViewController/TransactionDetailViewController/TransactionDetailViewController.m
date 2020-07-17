@@ -538,7 +538,7 @@
     
     if (isSend){
         [WalletWrapper finalizeServerTx:self.serverTx withComplete:^(BOOL yesOrNo, id _Nullable data){
-            NSString *tip = yesOrNo ? [LanguageService contentForKey:@"successfulBroadcast"] : [LanguageService contentForKey:@"broadcastFailure"];
+            NSString *tip = yesOrNo ? [LanguageService contentForKey:@"successfulBroadcast"] : data;
             [MBHudHelper endWorkProcessWithSuc:yesOrNo andTextTips:tip];
             if (yesOrNo) {
                 [[ServerTxManager shareInstance] removeServerTxByTx_id:self.serverTx.tx_id];

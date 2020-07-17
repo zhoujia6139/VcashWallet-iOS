@@ -46,11 +46,7 @@ typedef enum{
 
 -(id)initWithSlate:(VcashSlate*)slate;
 
--(Boolean)isValidTxSignature;
-
 -(NSData*)msgToSign;
-
--(NSData*)txDataToSign;
 
 
 @end
