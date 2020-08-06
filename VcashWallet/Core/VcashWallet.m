@@ -382,6 +382,7 @@ static VcashWallet* walletInstance = nil;
     slate.amount = amount;
     slate.fee = actualFee;
     slate.kernel_features = 0;
+    slate.state = Standard1;
     
     VcashTxLog* txLog = [VcashTxLog new];
     txLog.tx_id = [[VcashWallet shareInstance] getNextLogId];
@@ -417,7 +418,9 @@ static VcashWallet* walletInstance = nil;
         outputid.value = item.value;
         [context.input_ids addObject:outputid];
     }
-    [context.output_ids addObject:changeOutputid];
+    if (change > 0) {
+        [context.output_ids addObject:changeOutputid];
+    }
     
     slate.context = context;
     
@@ -510,6 +513,7 @@ static VcashWallet* walletInstance = nil;
     slate.fee = actualFee;
     slate.kernel_features = 0;
     slate.token_kernel_features = 0;
+    slate.state = Standard1;
     
     VcashTokenTxLog* txLog = [VcashTokenTxLog new];
     txLog.tx_id = [[VcashWallet shareInstance] getNextLogId];
@@ -557,7 +561,9 @@ static VcashWallet* walletInstance = nil;
         outputid.value = item.value;
         [context.input_ids addObject:outputid];
     }
-    [context.output_ids addObject:changeOutputid];
+    if (vcash_change > 0) {
+        [context.output_ids addObject:changeOutputid];
+    }
     
     //add token input for Context
     for (VcashTokenOutput* item in spendable){
@@ -567,7 +573,9 @@ static VcashWallet* walletInstance = nil;
         outputid.value = item.value;
         [context.token_input_ids addObject:outputid];
     }
-    [context.token_output_ids addObject:tokenChangeOutputid];
+    if (change > 0) {
+        [context.token_output_ids addObject:tokenChangeOutputid];
+    }
     
     slate.context = context;
     

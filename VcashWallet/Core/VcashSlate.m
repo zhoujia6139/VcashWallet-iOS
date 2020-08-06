@@ -582,7 +582,7 @@
         ret_dic[@"ttl"] = @(self.ttl_cutoff_height);
     }
     
-    if (self.participant_data.count) {
+    if (self.participant_data.count > 0) {
         NSMutableArray* arr = [NSMutableArray new];
         for (ParticipantData* data in self.participant_data) {
             NSMutableDictionary* dic = [NSMutableDictionary new];

@@ -61,8 +61,6 @@ typedef enum {
 
 @property(strong, nonatomic)KernelFeaturesArgs* token_kernel_features_args;
 
-@property(strong, nonatomic)NSString* partnerAddress;
-
 
 //json unselialised
 @property(strong, nonatomic, nullable)VcashTransaction* tx;
@@ -80,6 +78,8 @@ typedef enum {
 @property(strong, nonatomic)dispatch_block_t createNewTokenOutputsFn;
 
 @property(strong, nonatomic)VcashContext* context;
+
+@property(strong, nonatomic)NSString* partnerAddress;
 
 +(VcashSlate*)parseSlateFromData:(NSData*)binData;
 

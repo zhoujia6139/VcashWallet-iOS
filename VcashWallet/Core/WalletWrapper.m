@@ -60,7 +60,7 @@ static NSMutableSet* addedToken;
 
 +(BOOL)isValidSlatePackAddress:(NSString*)address {
     NSString* pubkey = [WalletWrapper getPubkeyFromProofAddress:address];
-    return pubkey.length > 0;
+    return pubkey.length == 64;
 }
 
 +(NSString*)getPubkeyFromProofAddress:(NSString*)proofAddress {
@@ -741,7 +741,7 @@ static NSMutableSet* addedToken;
 +(void)finalizeServerTx:(ServerTransaction*)tx withComplete:(RequestCompleteBlock)block{
     [self finalizeTransaction:tx.slateObj withComplete:^(BOOL yesOrNo, id _Nullable data) {
         if (yesOrNo){
-            tx.slate  = [WalletWrapper encryptSlateForParter:tx.slateObj];
+            //tx.slate  = [WalletWrapper encryptSlateForParter:tx.slateObj];
             tx.status = TxFinalized;
             [[ServerApi shareInstance] filanizeTransaction:tx.tx_id WithComplete:^(BOOL yesOrNo, id _Nullable data) {
                 if (!yesOrNo){
