@@ -33,7 +33,7 @@
 #import "LanguageManager.h"
 #import "UIFont+Roboto.h"
 
-#define isInTestNet 1
+//#define isInTestNet 1
 
 #define TokenIconUrlPrefix @"https://s.vcashwallet.app/token_static/icon/"
 

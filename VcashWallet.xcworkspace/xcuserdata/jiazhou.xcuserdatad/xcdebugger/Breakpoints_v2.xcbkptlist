@@ -109,22 +109,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B4132DE8-59B2-4677-90AA-F15D60784DEE"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VcashWallet/Core/WalletWrapper.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "606"
-            endingLineNumber = "606"
-            landmarkName = "+receiveTx:withComplete:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "BB0FB539-DC5A-444F-A924-EF245DF2099E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -135,22 +119,6 @@
             startingLineNumber = "643"
             endingLineNumber = "643"
             landmarkName = "+receiveTx:withComplete:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "451F3FCB-5105-4BBF-BAE9-F7DEDCE6EC70"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VcashWallet/Core/VcashTypes.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "531"
-            endingLineNumber = "531"
-            landmarkName = "-computePayloadForHash:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -182,8 +150,104 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "762"
             endingLineNumber = "762"
-            landmarkName = "-finalizeTx:"
+            landmarkName = "-modelCustomTransformFromDictionary:"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "14801F39-F958-4063-9207-6191C5E6A9F3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VcashWallet/Core/VcashSlate.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1018"
+            endingLineNumber = "1018"
+            landmarkName = "-fillRound2:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "14801F39-F958-4063-9207-6191C5E6A9F3 - 3bacc1fd70ab8901"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[VcashSlate fillRound2:]"
+                  moduleName = "VcashWallet"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jiazhou/Downloads/VcashWallet/VcashWallet/Core/VcashSlate.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1018"
+                  endingLineNumber = "1018"
+                  offsetFromSymbolStart = "1852">
+               </Location>
+               <Location
+                  uuid = "14801F39-F958-4063-9207-6191C5E6A9F3 - 3bacc1fd70ab8901"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[VcashSlate fillRound2:]"
+                  moduleName = "VcashWallet"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jiazhou/Downloads/VcashWallet/VcashWallet/Core/VcashSlate.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1018"
+                  endingLineNumber = "1018"
+                  offsetFromSymbolStart = "1884">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "110F05B6-7A7E-493F-A378-C99D60334FF7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VcashWallet/Core/WalletWrapper.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "398"
+            endingLineNumber = "398"
+            landmarkName = "+sendTransaction:forUrl:withComplete:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "110F05B6-7A7E-493F-A378-C99D60334FF7 - 4d72f436d3689529"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__53+[WalletWrapper sendTransaction:forUrl:withComplete:]_block_invoke_2"
+                  moduleName = "VcashWallet"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jiazhou/Downloads/VcashWallet/VcashWallet/Core/WalletWrapper.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "398"
+                  endingLineNumber = "398"
+                  offsetFromSymbolStart = "1036">
+               </Location>
+               <Location
+                  uuid = "110F05B6-7A7E-493F-A378-C99D60334FF7 - 4d72f436d3689628"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__53+[WalletWrapper sendTransaction:forUrl:withComplete:]_block_invoke_3"
+                  moduleName = "VcashWallet"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jiazhou/Downloads/VcashWallet/VcashWallet/Core/WalletWrapper.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "400"
+                  endingLineNumber = "400"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

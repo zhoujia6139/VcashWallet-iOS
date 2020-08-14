@@ -16,6 +16,12 @@ WCDB_PROPERTY(sec_key)
 WCDB_PROPERTY(token_sec_key)
 WCDB_PROPERTY(sec_nounce)
 WCDB_PROPERTY(slate_id)
+WCDB_PROPERTY(amount)
+WCDB_PROPERTY(fee)
+WCDB_PROPERTY(output_ids)
+WCDB_PROPERTY(input_ids)
+WCDB_PROPERTY(token_output_ids)
+WCDB_PROPERTY(token_input_ids)
 
 @end
 
